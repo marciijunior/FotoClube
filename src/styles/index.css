@@ -1,0 +1,38 @@
+/* src/styles/index.css */
+
+/* --- ADICIONE ESTE BLOCO NO TOPO --- */
+:root {
+  --font-body: 'Poppins', sans-serif;
+  --font-heading: 'Bebas Neue', sans-serif;
+}
+/* ------------------------------------ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body); /* <-- Aplica a fonte Poppins como padrão */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f4f4f9;
+  color: #333;
+  overflow-x: hidden; 
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  letter-spacing: 1.5px; /* Um bom ajuste para Bebas Neue */
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
