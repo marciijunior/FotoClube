@@ -1,4 +1,4 @@
-/* src/components/Header.css */
+/* src/components/layout/Header.css */
 .header {
   position: absolute;
   top: 0;
@@ -7,14 +7,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 60px 200px 60px 200px;
+  padding: 50px 200px 0px 200px;
   z-index: 100;
-  color: white;
+  color: var(--color-light);
 }
 
 .logo img {
-  color: white;
-  text-decoration: none;
   height: 5rem;
 }
 
@@ -25,9 +23,9 @@
 }
 
 .nav-link {
-  color: white;
+  color: var(--color-light);
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 400;
   position: relative;
 }
 
@@ -42,7 +40,7 @@
   left: 0;
   width: 0;
   height: 2px;
-  background-color: white;
+  background-color: var(--color-light);
   transition: width 0.3s;
 }
 
@@ -51,18 +49,34 @@
 }
 
 .nav-link-highlight {
-  background-color: white;
-  color: black;
+  background-color: var(--color-accent); /* Usa a cor de destaque */
+  color: var(--color-light); /* Texto claro */
   padding: 10px 20px;
-  border-radius: 20px;
-  font-weight: bold;
+  font-weight: 400;
   text-decoration: none;
   transition:
     background-color 0.3s,
     color 0.3s;
+  position: relative;
 }
 
 .nav-link-highlight:hover {
-  background-color: #f0f0f0;
+  background-color: var(--color-light);
+  color: var(--color-accent);
   text-decoration: none;
+}
+
+.nav-link-highlight::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-light);
+  transition: width 0.3s ease-in-out;
+}
+
+.nav-link-highlight:hover::after {
+  width: 100%;
 }

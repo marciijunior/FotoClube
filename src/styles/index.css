@@ -1,11 +1,15 @@
 /* src/styles/index.css */
 
-/* --- ADICIONE ESTE BLOCO NO TOPO --- */
 :root {
-  --font-body: 'Poppins', sans-serif;
-  --font-heading: 'Bebas Neue', sans-serif;
+  /* Sua paleta de cores */
+  --color-primary: #003b56; /* Azul escuro */
+  --color-accent: #ff5c00; /* Laranja */
+  --color-light: #f5f2f0; /* Branco/Creme */
+  --color-dark: #000000; /* Cor de texto escuro */
+  --corlor-white: rgb(255, 255, 255);
+  --font-body: "Poppins", sans-serif;
+  --font-heading: "Bebas Neue", sans-serif;
 }
-/* ------------------------------------ */
 
 *,
 *::before,
@@ -15,21 +19,27 @@
 
 body {
   margin: 0;
-  font-family: var(--font-body); /* <-- Aplica a fonte Poppins como padrão */
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f4f4f9;
-  color: #333;
-  overflow-x: hidden; 
+  background-color: var(--color-light); /* Fundo padrão do site */
+  color: var(--color-dark);
+  overflow-x: hidden;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
-  letter-spacing: 1.5px; /* Um bom ajuste para Bebas Neue */
+  letter-spacing: 1.5px;
+  color: var(--color-primary); /* Títulos usam a cor primária */
 }
 
 a {
-  color: #007bff;
+  color: var(--color-accent); /* Links usam a cor de destaque */
   text-decoration: none;
 }
 

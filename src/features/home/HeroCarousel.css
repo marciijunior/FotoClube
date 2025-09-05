@@ -1,4 +1,4 @@
-/* src/components/HeroCarousel.css */
+/* src/features/home/HeroCarousel.css */
 .carousel-container {
   width: 100%;
   height: 100%;
@@ -21,29 +21,30 @@
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
-  color: white;
+  justify-content: flex-start;
+  padding: 0 10%;
+  color: var(--color-light);
 }
 
 .slide::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.3);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.589), rgba(0, 0, 0, 0.226));
 }
 
 .slide-content {
   position: relative;
   z-index: 2;
   text-align: left;
-  max-width: 1200px;
-  padding: 0 5%;
   transform: translateY(20px);
   opacity: 0;
-  transition: transform 0.8s 0.5s ease-out, opacity 0.8s 0.5s ease-out;
+  transition:
+    transform 0.8s 0.5s ease-out,
+    opacity 0.8s 0.5s ease-out;
 }
 
 .slide.active .slide-content {
@@ -51,37 +52,38 @@
   opacity: 1;
 }
 
+/* Seus estilos de texto e botões (mantidos) */
 .location {
+  font-family: var(--font-body);
   font-size: 1rem;
   font-weight: 500;
   letter-spacing: 2px;
   margin-bottom: 8px;
   text-transform: uppercase;
 }
-
 .title {
+  font-family: var(--font-heading);
   font-size: 6rem;
-  font-weight: 800;
+  font-weight: 500;
   margin: 0;
   line-height: 1;
+  color: var(--color-light);
 }
-
 .author {
+  font-family: var(--font-body);
   font-size: 1.1rem;
   margin-top: 16px;
 }
-
 .actions {
   margin-top: 30px;
   display: flex;
   align-items: center;
   gap: 20px;
 }
-
-.bookmark-button, .read-more-button {
+.bookmark-button {
   background: none;
-  border: 1px solid white;
-  color: white;
+  border: 1px solid var(--color-light);
+  color: var(--color-light);
   padding: 12px;
   cursor: pointer;
   border-radius: 50%;
@@ -89,50 +91,84 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.3s, color 0.3s;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
 }
-
 .read-more-button {
-  border-radius: 4px;
+  background-color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  color: var(--color-light);
+  margin-left: 1rem;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
   padding: 12px 24px;
 }
 
-.bookmark-button:hover, .read-more-button:hover {
-  background-color: white;
-  color: black;
+.bookmark-button:hover,
+.read-more-button:hover {
+  background-color: var(--color-light);
+  color: var(--color-primary);
+  border-color: var(--color-light);
 }
 
 .controls-overlay {
   position: absolute;
-  bottom: 50px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
-  max-width: 1200px;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  color: white;
+  flex-direction: column;
+  background: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 0),
+    rgba(0, 0, 0, 0.397)
+  );
+  padding-top: 20px;
   z-index: 10;
 }
 
-.thumbnails {
+.slide-thumbnails {
   display: flex;
+  align-items: center; 
   gap: 15px;
+  width: 100%;
+  overflow-x: auto;
+  padding: 0 50%;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.slide-thumbnails::-webkit-scrollbar {
+  display: none;
 }
 
 .thumbnail {
-  width: 150px;
-  height: 100px;
+  height: 120px;
+  aspect-ratio: 16 / 9;
   cursor: pointer;
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
+  border: 1px solid transparent;
+  transition:
+    border-color 0.3s,
+    opacity 0.3s;
   overflow: hidden;
   position: relative;
+  opacity: 0.5;
+  flex-shrink: 0;
 }
 
-.thumbnail:hover, .active-thumbnail {
-  border-color: white;
+.thumbnail:hover,
+.active-thumbnail {
+  border-color: var(--color-light);
+  opacity: 1;
 }
 
 .thumbnail img {
@@ -141,26 +177,41 @@
   object-fit: cover;
 }
 
+.navigation-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  color: var(--color-light);
+  padding: 20px 70px;
+}
+
+.counter {
+  font-size: 4rem;
+  font-weight: 400;
+  font-family: var(--font-heading);
+}
+
 .navigation {
   display: flex;
   gap: 10px;
 }
 
 .arrow {
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid white;
-  color: white;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-light);
+  color: var(--color-light);
   width: 50px;
   height: 50px;
   border-radius: 50%;
   cursor: pointer;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: background-color 0.3s;
 }
 
-.counter {
-  font-size: 4rem;
-  font-weight: 600;
+.arrow:hover {
+  background-color: var(--color-accent);
 }
