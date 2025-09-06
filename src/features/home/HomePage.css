@@ -1,6 +1,13 @@
 /* src/features/home/HomePage.css */
+
 .home-container {
   width: 100%;
-  height: 100vh; /* Correto: 100% da altura da janela do navegador */
-  overflow: hidden;
+}
+
+/* MUDANÇA: Esta regra seleciona o primeiro filho direto
+  do .home-container (que é o .carousel-container) 
+  e dá-lhe uma altura de 100% da tela.
+*/
+.home-container > .carousel-container {
+  height: 100vh;
 }
