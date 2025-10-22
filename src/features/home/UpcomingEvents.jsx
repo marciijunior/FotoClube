@@ -17,12 +17,15 @@ function UpcomingEvents() {
 
   return (
     <section className="upcoming-events-section">
-      <abaPasta className="aba-pasta"></abaPasta>
+      {/* <abaPasta className="aba-pasta"></abaPasta> REMOVIDO - o CSS vai tratar disso */}
       <div className="polaroid-container">
+        {/* 1. MUDANÇA: Título ADICIONADO AQUI DENTRO */}
+        <h2 className="section-title">Próximos Eventos</h2>
+
         {featuredEvent && (
+          // O carrossel agora vem DEPOIS do título
           <div className="featured-event-carousel">
             <header className="events-header">
-              <button className="filter-button">Próximos Evento</button>
             </header>
             <div
               className="featured-slide"
@@ -56,9 +59,10 @@ function UpcomingEvents() {
           {otherEvents.map((event) => (
             <div key={event.id} className="event-card">
               <img
-                src={event.image}
+                src={event.image || `https://picsum.photos/250/180?random=${event.id}`}
                 alt={event.title}
                 className="event-image"
+                onError={(e) => { e.target.onerror = null; e.target.src=`https://picsum.photos/250/180?random=${event.id}`; }}
               />
               <div className="event-content-wrapper">
                 <div className="event-details">
@@ -99,7 +103,6 @@ function UpcomingEvents() {
           ))}
         </div>
 
-        {/* === ADIÇÃO: NAVEGAÇÃO PARA A LISTA DE EVENTOS === */}
         <div className="events-list-nav">
           <button className="arrow">
             <FaChevronLeft />
@@ -108,7 +111,6 @@ function UpcomingEvents() {
             <span className="dot active"></span>
             <span className="dot"></span>
             <span className="dot"></span>
-            {/* Adicione mais .dot conforme necessário para o número de "páginas" de eventos */}
           </div>
           <button className="arrow">
             <FaChevronRight />
