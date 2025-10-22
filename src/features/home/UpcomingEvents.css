@@ -20,6 +20,23 @@
   padding: 40px;
   border-radius: 4px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+
+  /* ADIÇÃO 1: Permite o posicionamento do retângulo */
+  position: relative;
+  /* ADIÇÃO 2: Cria espaço para o retângulo */
+  margin-top: 60px;
+}
+
+/* ADIÇÃO 3: O novo retângulo decorativo */
+.polaroid-container::before {
+  content: "";
+  position: absolute;
+  width: 50%;
+  height: 30%;
+  background-color: #ffffff;
+  border-radius: 5px;
+  top: -30px; /* Posiciona o retângulo acima do container */
+  left: 0%;
 }
 
 /* Carrossel em Destaque */
@@ -52,7 +69,7 @@
 
 .filter-button:hover {
   /* Também adicionamos !important aqui para garantir o efeito hover */
-  background-color: var(--color-accent) !important;
+  background-color: var(--color-primary) !important;
 }
 
 .featured-slide {
@@ -149,12 +166,10 @@
   border-radius: 8px;
   overflow: hidden;
   color: var(--color-light);
-  padding: 20px;
   gap: 20px;
 }
 .event-image {
   width: 180px;
-  height: 150px;
   object-fit: cover;
   flex-shrink: 0;
   border-radius: 4px;
@@ -204,8 +219,6 @@
   justify-content: space-between;
   align-items: center;
   margin-top: auto;
-  padding-top: 15px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 .interest-prompt {
   text-align: left;
