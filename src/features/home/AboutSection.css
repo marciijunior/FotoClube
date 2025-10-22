@@ -1,0 +1,127 @@
+/* src/features/home/AboutSection.css */
+
+.about-section {
+  padding: 80px 20px;
+  background-color: var(--color-light); /* Fundo claro da secção */
+  overflow: hidden; /* Necessário para a animação de max-height */
+}
+
+.about-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-start; /* MUDANÇA: Alinha no topo para quando o texto expandir */
+  gap: 60px;
+}
+
+.about-content {
+  flex: 1;
+}
+
+.about-title {
+  font-family: var(--font-heading); /* Bebas Neue */
+  font-size: 2.5rem;
+  color: var(--color-primary); /* Azul escuro */
+  margin-bottom: 20px;
+  position: relative;
+  padding-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+.about-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background-color: var(--color-accent); /* Laranja */
+  border-radius: 2px;
+}
+
+.about-text {
+  font-family: var(--font-body); /* Poppins */
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--color-dark); /* Cor de texto padrão */
+  margin-bottom: 30px;
+  opacity: 0.8;
+}
+
+.about-button {
+  background-color: var(--color-primary); /* Fundo azul escuro */
+  color: var(--color-light); /* Texto claro */
+  border: none;
+  border-radius: 25px; /* Bem arredondado */
+  padding: 12px 30px;
+  font-family: var(--font-body); /* Poppins */
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 20px; /* Adiciona espaço antes do conteúdo extra */
+}
+
+.about-button:hover {
+  background-color: var(--color-accent); /* Laranja no hover */
+  color: var(--color-light);
+}
+
+.about-image-container {
+  flex-basis: 40%;
+  flex-shrink: 0;
+}
+
+.about-image {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  display: block;
+}
+
+/* === ADIÇÃO: Estilos para Expansão === */
+
+.about-extra-content {
+  /* Animação */
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.6s ease-in-out, opacity 0.4s 0.2s ease-in-out, margin-top 0.6s ease-in-out;
+  margin-top: 0; /* Começa sem margem */
+}
+
+/* Estado expandido */
+.about-section.expanded .about-extra-content {
+  max-height: 1000px; /* Altura máxima (ajuste se necessário) */
+  opacity: 1;
+  margin-top: 30px; /* Adiciona espaço quando expandido */
+}
+
+.about-extra-content h5 {
+  font-family: var(--font-heading); /* Bebas Neue */
+  font-size: 1.3rem;
+  color: var(--color-primary);
+  margin: 0 0 10px 0;
+  letter-spacing: 1px;
+}
+
+.about-extra-content p {
+  font-family: var(--font-body); /* Poppins */
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--color-dark);
+  opacity: 0.8;
+  margin-bottom: 15px;
+}
+
+/* Muda a cor do botão quando expandido */
+.about-section.expanded .about-button {
+  background-color: var(--color-accent); /* Laranja */
+  color: var(--color-light);
+}
+
+.about-section.expanded .about-button:hover {
+  background-color: #e65100; /* Laranja mais escuro no hover */
+}

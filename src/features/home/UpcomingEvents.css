@@ -1,18 +1,17 @@
 /* src/features/home/UpcomingEvents.css */
 
+/* ... (Todo o seu CSS do .upcoming-events-section até .dot.active permanece O MESMO) ... */
 .upcoming-events-section {
   background-color: #f4f4f4;
   padding: 80px 20px;
   width: 100%;
 }
-
 .aba-pasta {
   content: "";
   width: 50px;
   height: 10px;
   background-color: var(--color-accent);
 }
-
 .polaroid-container {
   max-width: 1000px;
   margin: 0 auto;
@@ -20,14 +19,9 @@
   padding: 40px;
   border-radius: 4px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-
-  /* ADIÇÃO 1: Permite o posicionamento do retângulo */
   position: relative;
-  /* ADIÇÃO 2: Cria espaço para o retângulo */
   margin-top: 60px;
 }
-
-/* ADIÇÃO 3: O novo retângulo decorativo */
 .polaroid-container::before {
   content: "";
   position: absolute;
@@ -35,43 +29,34 @@
   height: 30%;
   background-color: #ffffff;
   border-radius: 5px;
-  top: -30px; /* Posiciona o retângulo acima do container */
+  top: -30px;
   left: 0%;
 }
-
-/* Carrossel em Destaque */
 .featured-event-carousel {
-  position: relative; /* Essencial para o posicionamento do botão */
+  position: relative;
   margin-bottom: 40px;
 }
-
 .events-header {
   position: absolute;
   top: 20px;
   left: 20px;
-  z-index: 3; /* MUDANÇA: Camada mais alta para o cabeçalho */
+  z-index: 3;
   margin-bottom: 0;
 }
-
 .filter-button {
-  /* MUDANÇA: Usando 'background-color' e '!important' para garantir a sobreposição */
   background-color: var(--color-accent) !important;
   border: 2px solid var(--color-primary);
   color: var(--color-light) !important;
   border-radius: 50px;
-  padding: 8px 14px;
   cursor: pointer;
-  font-family: var(--font-body);
+  font-family: var(--font-body); /* */
   font-size: 0.9rem;
   font-weight: 400 !important;
   transition: all 0.3s;
 }
-
 .filter-button:hover {
-  /* Também adicionamos !important aqui para garantir o efeito hover */
   background-color: var(--color-primary) !important;
 }
-
 .featured-slide {
   height: 350px;
   background-size: cover;
@@ -83,8 +68,6 @@
   color: var(--color-light);
   position: relative;
 }
-
-/* MUDANÇA: Definimos a camada da sombra da imagem */
 .featured-slide::before {
   content: "";
   position: absolute;
@@ -94,13 +77,11 @@
   bottom: 0;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
   border-radius: 8px;
-  z-index: 1; /* Camada mais baixa */
+  z-index: 1;
 }
-
-/* MUDANÇA: Definimos a camada do conteúdo da imagem */
 .featured-content {
   position: relative;
-  z-index: 2; /* Camada intermédia */
+  z-index: 2;
   max-width: 60%;
 }
 .featured-content h3 {
@@ -118,7 +99,6 @@
   align-items: center;
   gap: 8px;
 }
-
 .featured-nav {
   position: absolute;
   bottom: 30px;
@@ -126,7 +106,7 @@
   display: flex;
   align-items: center;
   gap: 15px;
-  z-index: 3; /* Também precisa de estar na camada de cima */
+  z-index: 3;
 }
 .featured-nav .arrow {
   background: rgba(0, 0, 0, 0.3);
@@ -154,105 +134,215 @@
   background: var(--color-accent);
 }
 
+/* === INÍCIO DAS MUDANÇAS (ESTILO DA IMAGEM DE REFERÊNCIA) === */
+
 /* Lista de Eventos */
 .events-list {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px; /* Menos espaço entre os cartões */
 }
+
+/* O .event-card é agora o container da LINHA */
 .event-card {
   display: flex;
-  background-color: var(--color-primary);
-  border-radius: 8px;
-  overflow: hidden;
-  color: var(--color-light);
-  gap: 20px;
+  background-color: transparent; /* Fundo transparente */
+  border-radius: 0;
+  overflow: visible;
+  color: var(--color-primary); /* Cor do texto padrão (vai ser sobrescrito) */
+  padding: 0;
+  gap: 0; /* Sem gap, a imagem cola no cartão azul */
 }
 .event-image {
-  width: 180px;
+  width: 250px; /* Largura da imagem da esquerda */
   object-fit: cover;
   flex-shrink: 0;
-  border-radius: 4px;
+  border-radius: 6px 0 0 6px; /* Arredonda só o canto esquerdo */
 }
+
+/* Nova div que contém o bloco azul */
+.event-content-wrapper {
+  display: flex;
+  flex-grow: 1;
+  background-color: var(--color-primary); /* Fundo azul escuro */
+  color: var(--color-light); /* Texto claro */
+  border-radius: 0 6px 6px 0; /* Arredonda só o canto direito */
+}
+
 .event-details {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  padding: 0;
 }
+
+/* Estilo da Pílula (como na imagem) */
 .event-meta {
+  background-color: var(--color-white); /* Fundo branco */
+  color: var(--color-primary); /* Texto escuro */
+  border-radius: 20px; /* Bem arredondado */
+  padding: 3px 12px;
+  display: inline-flex; /* Para ajustar ao conteúdo */
+  align-self: flex-start; /* Alinha no início */
+  gap: 15px; /* Espaço entre data e hora */
+  margin-bottom: 20px; /* Mais espaço para o título */
+}
+.pill-date,
+.pill-time {
   display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
+  align-items: center; /* Alinha ícone e texto verticalmente */
+  gap: 6px;
+  padding-top: 2px;
+  font-family: var(--font-body); /* Poppins */
+  font-size: 0.9rem;
+  font-weight: 400;
 }
+
+/* === ALTERAÇÃO: Adiciona a cor laranja aos ÍCONES === */
+.pill-date svg,
+.pill-time svg {
+  padding-bottom: 3px;
+  color: var(--color-accent); /* Cor laranja */
+  flex-shrink: 0; /* Impede o ícone de ser espremido */
+}
+
 .pill {
-  font-size: 0.8rem;
-  padding: 4px 10px;
-  border-radius: 12px;
-  border: 1px solid;
-}
-.date-pill {
-  border-color: rgba(255, 255, 255, 0.5);
-}
-.time-pill {
-  border-color: var(--color-accent);
-}
+  display: none;
+} /* Esta regra está correta, remove a antiga */
+
 .event-details h4 {
-  font-size: 1.3rem;
+  font-family: var(--font-heading); /* Bebas Neue */
+  font-size: 1.6rem;
   color: var(--color-light);
-  margin: 0 0 8px 0;
-  font-weight: 600;
+  margin: 0;
+  font-weight: 400; /* Bebas Neue já é "bold" */
 }
 .event-description {
-  font-size: 0.85rem;
+  font-family: var(--font-body); /* Poppins */
+  font-size: 0.9rem;
   opacity: 0.7;
-  margin: 0 0 15px 0;
+  margin: 0;
+  line-height: 1.5;
 }
 .event-location {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   opacity: 0.9;
   display: flex;
   align-items: center;
   gap: 8px;
+  margin-top: auto; /* Empurra para o fundo */
 }
+
+/* Coluna de Ações (Direita) */
 .event-actions {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: space-evenly; /* Espaça verticalmente */
   align-items: center;
-  margin-top: auto;
+  flex-shrink: 0;
+  width: 150px;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
 }
 .interest-prompt {
-  text-align: left;
+  text-align: center;
+  width: 100%;
 }
 .interest-prompt span {
+  text-align: center;
+  font-family: var(--font-body); /* Poppins */
   font-size: 0.8rem;
   display: block;
-  margin-bottom: 5px;
-  opacity: 0.7;
+  margin-bottom: 8px;
+  opacity: 0.8;
 }
 .learn-more-button {
-  background: var(--color-light);
-  color: var(--color-primary);
+  background: var(--color-light); /* Fundo claro */
+  color: var(--color-primary); /* Texto escuro */
   border: none;
-  border-radius: 4px;
-  padding: 8px 12px;
+  border-radius: 20px !important; /* Mantém o seu !important */
   cursor: pointer;
-  font-weight: bold;
-  font-size: 0.9rem;
+  font-family: var(--font-body); /* Poppins */
+  font-weight: 400 !important; /* Mantém o seu font-weight */
+  font-size: 0.7rem; /* Mantém o seu font-size */
+  width: 100%;
+  transition: all 0.3s ease;
 }
+.learn-more-button:hover {
+  background-color: var(--color-accent);
+  color: var(--color-light);
+}
+
+/* Botões Sociais (como na imagem) */
 .social-buttons {
   display: flex;
-  gap: 15px;
+  gap: 20px;
   align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 .social-buttons button {
   background: none;
   border: none;
   color: var(--color-light);
   cursor: pointer;
-  font-size: 1rem;
   opacity: 0.8;
-  transition: opacity 0.3s;
+  transition:
+    opacity 0.3s,
+    color 0.3s;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body); /* Poppins */
+  font-size: 0.9rem; /* Tamanho do número */
+  font-weight: 400; /* Mantém o seu font-weight */
+  gap: 4px; /* Espaço entre o ícone e o número */
+}
+.social-buttons button svg {
+  font-size: 1.1rem; /* Tamanho do ícone */
+  padding-bottom: 2px;
 }
 .social-buttons button:hover {
   opacity: 1;
+  color: var(--color-accent); /* Na imagem, o hover não muda de cor */
+}
+
+/* === ADIÇÃO: ESTILOS PARA A NOVA NAVEGAÇÃO DA LISTA DE EVENTOS === */
+.events-list-nav {
+  display: flex;
+  justify-content: center; /* Centraliza as setas e os pontos */
+  align-items: center;
+  border: 2px var(--color-accent);
+  gap: 15px;
+  margin-top: 20px; /* Espaço do topo */
+}
+
+.events-list-nav .arrow {
+  background: transparent; /* Fundo azul como o card */
+  border: 2px var(--color-primary);
+  color: var(--color-primary);
+  width: 35px; /* Um pouco menores que as do carrossel principal */
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem; /* Tamanho da seta */
+  transition: background-color 0.3s ease;
+}
+
+/* Reutiliza os estilos de .dots e .dot do carrossel principal */
+.events-list-nav .dots {
+  display: flex;
+  gap: 8px;
+}
+.events-list-nav .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2); /* Cor mais discreta para os pontos */
+}
+.events-list-nav .dot.active {
+  background: var(--color-accent); /* Laranja para o ponto ativo */
 }
