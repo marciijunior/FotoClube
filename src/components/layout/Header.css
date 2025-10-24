@@ -7,7 +7,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 50px 200px 0px 200px;
+  padding: 50px 10% 0px 10%;
   z-index: 100;
   color: var(--color-light);
 }

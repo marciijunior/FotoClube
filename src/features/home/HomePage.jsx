@@ -2,7 +2,8 @@
 import HeroCarousel from './HeroCarousel';
 import UpcomingEvents from './UpcomingEvents';
 import AboutSection from './AboutSection';
-import RecentActivities from './RecentActivities'; // 1. Importe aqui
+import RecentActivities from './RecentActivities'; 
+import JoinUsSection from './JoinUsSection'; // 1. Importe a nova seção
 import "./HomePage.css";
 
 function HomePage() {
@@ -11,7 +12,8 @@ function HomePage() {
       <HeroCarousel />
       <UpcomingEvents />
       <AboutSection />
-      <RecentActivities /> {/* 2. Adicione aqui */}
+      <RecentActivities />
+      <JoinUsSection /> {/* 2. Adicione a nova seção aqui */}
     </div>
   );
 }

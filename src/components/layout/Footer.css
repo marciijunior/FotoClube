@@ -1,0 +1,192 @@
+/* src/components/layout/Footer.css (MODO CLARO) */
+
+.footer-container {
+  /* MUDANÇA: Fundo claro e texto escuro */
+  background-color: var(--color-light);
+  color: var(--color-dark);
+  padding: 80px 20px 0 20px;
+  margin-top: 60px;
+  width: 100%;
+  border-top: 1px solid #ddd; /* Adiciona separador do conteúdo */
+}
+
+.footer-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.footer-logo {
+  height: 4.5rem;
+}
+
+.footer-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+}
+
+.footer-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (min-width: 640px) {
+  .footer-column {
+    align-items: flex-start;
+  }
+}
+
+.footer-title {
+  font-family: var(--font-heading); /* Bebas Neue */
+  font-size: 1.5rem;
+  /* MUDANÇA: Cor do título escura */
+  color: var(--color-primary);
+  letter-spacing: 1px;
+  margin: 0 0 20px 0;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--color-accent); /* Linha laranja (mantém) */
+  align-self: flex-start;
+}
+
+@media (max-width: 639px) {
+  .footer-title {
+    align-self: center;
+  }
+}
+
+/* Coluna 1: Contatos */
+.footer-contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.footer-contact-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.footer-contact-list li svg {
+  color: var(--color-accent); /* Laranja (mantém) */
+  font-size: 1rem;
+  flex-shrink: 0;
+  width: 20px;
+  text-align: center;
+}
+
+/* Coluna 2: Parceiros */
+.footer-partners-text {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  opacity: 0.8;
+  margin-bottom: 20px;
+}
+
+.footer-partners-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  width: 100%;
+  max-width: 300px;
+}
+
+.footer-partners-grid img {
+  width: 100%;
+  max-width: 120px;
+  background-color: white;
+  padding: 10px;
+  border-radius: 4px;
+  /* MUDANÇA: Opacidade maior e borda leve */
+  opacity: 0.9;
+  border: 1px solid #eee;
+  transition: opacity 0.3s ease;
+  aspect-ratio: 3 / 2;
+  object-fit: contain;
+  margin: 0 auto;
+}
+
+.footer-partners-grid img:hover {
+  opacity: 1;
+}
+
+/* Coluna 3: Mapa */
+.footer-map-wrapper {
+  width: 100%;
+  height: 250px;
+  border-radius: 4px;
+  overflow: hidden;
+  /* MUDANÇA: Borda escura */
+  border: 2px solid var(--color-primary);
+}
+
+.footer-map-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  /* MUDANÇA: Filtro 'dark mode' removido */
+  filter: none;
+}
+
+/* Barra Social (Separa o conteúdo de cima) */
+.footer-social-bar {
+  padding: 40px 20px;
+  margin-top: 60px;
+  /* MUDANÇA: Borda escura */
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+}
+
+.footer-social-bar .social-title {
+  margin: 0;
+  padding: 0;
+  border: none;
+  align-self: center;
+  border-bottom: 2px solid var(--color-accent); /* Linha laranja (mantém) */
+}
+
+.footer-social-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  max-width: 800px;
+}
+
+.footer-social-links a {
+  /* MUDANÇA: Ícones escuros */
+  color: var(--color-primary);
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.footer-social-links a:hover {
+  color: var(--color-accent); /* Laranja (mantém) */
+  transform: translateY(-3px);
+}
+
+/* Copyright (Por último) */
+.footer-copyright {
+  text-align: center;
+  padding: 25px;
+  margin-top: 0;
+  /* MUDANÇA: Borda escura */
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  font-size: 0.85rem;
+  opacity: 0.7;
+}

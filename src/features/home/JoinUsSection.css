@@ -1,0 +1,79 @@
+/* src/features/home/JoinUsSection.css */
+
+.join-us-section-parallax-light-card {
+  position: relative;
+  padding: 120px 20px;
+
+  /* A MÁGICA DO PARALLAX */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.join-us-container-light-card {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+
+  /* Centralizando o card */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.join-us-card-light-card {
+  /* Fundo claro */
+  background-color: var(--color-light); 
+  
+  padding: 50px;
+  border-radius: 4px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+  max-width: 550px; 
+  width: 100%; /* Garante que funcione bem em telas menores */
+
+  /* Texto centralizado */
+  text-align: center;
+}
+
+.join-us-title-light-card {
+  font-family: var(--font-heading);
+  font-size: 2.8rem;
+  /* Cor do título escura */
+  color: var(--color-primary); 
+  margin-bottom: 20px;
+}
+
+.join-us-text-light-card {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  /* Cor do texto escura */
+  color: var(--color-dark);
+  opacity: 0.9;
+}
+
+.join-us-button-light-card {
+  display: inline-block;
+  /* Botão Laranja (destaque) */
+  background-color: var(--color-accent); 
+  color: var(--color-light);
+  padding: 15px 35px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  letter-spacing: 1.5px;
+  transition: all 0.3s ease;
+  border: 2px solid var(--color-accent);
+}
+
+.join-us-button-light-card:hover {
+  /* Hover para Azul */
+  background-color: var(--color-primary);
+  color: var(--color-light);
+  border-color: var(--color-primary);
+  transform: translateY(-3px);
+}

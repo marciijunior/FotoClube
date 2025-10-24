@@ -1,11 +1,16 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { FaChevronLeft, FaChevronRight, FaRegBookmark } from 'react-icons/fa';
+// Certifique-se que o caminho para slidesData está correto
 import { slidesData } from '../../data/slidesData';
 import './HeroCarousel.css';
 
+// --- Constante para o número de miniaturas visíveis ---
+const NUM_VISIBLE_THUMBNAILS = 5; // Pode ajustar, mas a lógica agora alinha à esquerda
+
 function HeroCarousel() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const thumbnailsContainerRef = useRef(null);
+  const [currentIndex, setCurrentIndex] = useState(0); // Índice nos DADOS ORIGINAIS
+  const [visibleThumbnails, setVisibleThumbnails] = useState([]);
+  const slidesWrapperRef = useRef(null);
 
   const goToNext = useCallback(() => {
     const isLastSlide = currentIndex === slidesData.length - 1;
@@ -23,27 +28,41 @@ function HeroCarousel() {
     setCurrentIndex(slideIndex);
   };
 
+  // Efeito para o autoplay
   useEffect(() => {
-    const timer = setInterval(() => goToNext(), 20000);
+    const timer = setInterval(() => goToNext(), 8000);
     return () => clearInterval(timer);
   }, [currentIndex, goToNext]);
 
+  // --- EFEITO PARA CALCULAR A ORDEM VISUAL (ATIVA NA ESQUERDA) ---
   useEffect(() => {
-    if (thumbnailsContainerRef.current) {
-      const container = thumbnailsContainerRef.current;
-      const activeThumbnail = container.children[currentIndex];
-      if (activeThumbnail) {
-        const containerCenter = container.offsetWidth / 2;
-        const thumbnailCenter = activeThumbnail.offsetLeft + activeThumbnail.offsetWidth / 2;
-        const scrollLeft = thumbnailCenter - containerCenter;
-        container.scrollTo({ left: scrollLeft, behavior: 'smooth' });
-      }
+    // REMOVIDO: centerIndexVisual não é mais necessário para o cálculo principal
+    const newVisibleOrder = [];
+
+    for (let i = 0; i < NUM_VISIBLE_THUMBNAILS; i++) {
+      // Calcula o índice nos dados originais correspondente a esta posição visual
+      // Agora, a posição 0 (i=0) corresponde ao currentIndex
+      const dataIndex = (currentIndex + i + slidesData.length) % slidesData.length;
+      newVisibleOrder.push({
+        ...slidesData[dataIndex],
+        originalIndex: dataIndex
+      });
+    }
+    setVisibleThumbnails(newVisibleOrder);
+
+  }, [currentIndex]); // Recalcula sempre que o slide ativo (currentIndex) mudar
+
+  // Efeito para mover o slide principal (sem alteração)
+   useEffect(() => {
+    if (slidesWrapperRef.current) {
+      slidesWrapperRef.current.style.transform = `translateX(-${currentIndex * 100}%)`;
     }
   }, [currentIndex]);
 
+
   return (
     <div className="carousel-container">
-      <div className="slides-wrapper" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
+      <div className="slides-wrapper" ref={slidesWrapperRef}>
         {slidesData.map((slide, index) => (
           <div
             key={index}
@@ -63,20 +82,21 @@ function HeroCarousel() {
         ))}
       </div>
       <div className="controls-overlay">
-        <div className="slide-thumbnails" ref={thumbnailsContainerRef}>
-          {slidesData.map((thumbSlide, slideIndex) => (
+        <div className="slide-thumbnails">
+          {visibleThumbnails.map((thumbData, displayIndex) => (
             <div
-              key={slideIndex}
-              className={`thumbnail ${slideIndex === currentIndex ? 'active-thumbnail' : ''}`}
-              onClick={() => goToSlide(slideIndex)}
+              key={thumbData.originalIndex}
+              // MUDANÇA: A miniatura ativa é agora a primeira (índice 0) do array visível
+              className={`thumbnail ${displayIndex === 0 ? 'active-thumbnail' : ''}`}
+              onClick={() => goToSlide(thumbData.originalIndex)}
             >
-              <img src={thumbSlide.image} alt={thumbSlide.title} />
+              <img src={thumbData.image} alt={`Thumbnail ${thumbData.title}`} />
             </div>
           ))}
         </div>
         <div className="navigation-controls">
           <div className="counter">
-            0{currentIndex + 1}
+            {(currentIndex + 1).toString().padStart(2, '0')}
           </div>
           <div className="navigation">
             <button onClick={goToPrevious} className="arrow"><FaChevronLeft /></button>
