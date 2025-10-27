@@ -10,6 +10,11 @@
   display: flex;
   height: 100%;
   transition: transform 1.2s cubic-bezier(0.45, 0.05, 0.55, 0.95);
+
+  /* --- OTIMIZAÇÃO DE PERFORMANCE ADICIONADA --- */
+  /* Otimização da GPU */
+  will-change: transform;
+  /* --- FIM DA OTIMIZAÇÃO --- */
 }
 
 .slide {
@@ -22,33 +27,45 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 0 10%;
+  padding-block: 0;
+  padding-inline: 10%; /* Mesmo padding do header */
   color: var(--color-light);
 }
 
 .slide::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.445), rgba(0, 0, 0, 0.603));
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.445),
+    rgba(0, 0, 0, 0.603)
+  );
 }
 
+/* Sua lógica de animação de conteúdo (mantida) */
 .slide-content {
   position: relative;
   z-index: 2;
   text-align: left;
   transform: translateY(20px);
   opacity: 0;
-  transition: transform 0.8s 0.5s ease-out, opacity 0.8s 0.5s ease-out;
+  transition:
+    transform 0.8s 0.5s ease-out,
+    opacity 0.8s 0.5s ease-out;
+  max-width: 100%; /* Removido container-max-width para usar largura total dentro do padding de 10% */
+  margin: 0; /* Remove margens para alinhar com o padding do slide */
+  padding: 0;
 }
 
 .slide.active .slide-content {
   transform: translateY(0);
   opacity: 1;
 }
+/* Fim da sua lógica de animação */
 
 .location {
   font-family: var(--font-body);
@@ -92,7 +109,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.3s, color 0.3s;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
 }
 
 .read-more-button {
@@ -107,12 +126,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.3s, color 0.3s;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
   padding: 12px 24px;
-
 }
 
-.bookmark-button:hover, .read-more-button:hover {
+.bookmark-button:hover,
+.read-more-button:hover {
   background-color: var(--color-light);
   color: var(--color-primary);
   border-color: var(--color-light);
@@ -135,6 +156,7 @@
   gap: 15px;
   width: 100%;
   overflow-x: auto;
+  /* Seu estilo original de centralização (mantido) */
   padding: 0 50%;
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -149,7 +171,9 @@
   aspect-ratio: 16 / 9;
   cursor: pointer;
   border: 2px solid transparent;
-  transition: border-color 0.3s, opacity 0.3s;
+  transition:
+    border-color 0.3s,
+    opacity 0.3s;
   overflow: hidden;
   position: relative;
   opacity: 0.2;
@@ -157,7 +181,8 @@
   flex-shrink: 0;
 }
 
-.thumbnail:hover, .active-thumbnail {
+.thumbnail:hover,
+.active-thumbnail {
   opacity: 1;
 }
 

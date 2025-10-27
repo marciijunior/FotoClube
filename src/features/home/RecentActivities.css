@@ -11,6 +11,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+  padding-inline: var(--container-gutter);
 }
 
 .activities-title {

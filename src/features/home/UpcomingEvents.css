@@ -2,10 +2,20 @@
 
 /* ... (Todo o seu CSS do .upcoming-events-section até .dot.active permanece O MESMO) ... */
 .upcoming-events-section {
+  display: flex;
+  justify-content: center;
   background-color: #f4f4f4;
-  padding: 80px 20px;
+  padding: 80px 0px;
   width: 100%;
 }
+
+/* Container principal com mesmo padrão do RecentActivities */
+.upcoming-events-container {
+  margin: 0 auto;
+  padding-inline: var(--container-gutter);
+  width: 100%;
+}
+
 .aba-pasta {
   content: "";
   width: 50px;
@@ -13,14 +23,11 @@
   background-color: var(--color-accent);
 }
 .polaroid-container {
-  max-width: 1160px !important;
-  margin: 0 auto;
+  max-width: 1200px;
   background-color: #ffffff;
-  padding: 40px; /* Padding externo da moldura */
   border-radius: 4px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
   position: relative;
-  margin-top: 60px;
 }
 .polaroid-container::before {
   content: "";
@@ -30,7 +37,7 @@
   background-color: var(--color-accent); /* Cor laranja */
   border-radius: 4px 4px 0 0; /* Cantos arredondados só em cima */
   top: -10px; /* Posição "colada" no topo */
-  left: 40px; /* Alinhada com o padding */
+  left: var(--container-gutter);
 }
 .section-title {
   font-family: var(--font-heading); /* Bebas Neue */
@@ -39,7 +46,7 @@
   margin: 0; /* Remove margem padrão */
   margin-bottom: 30px; /* Espaço abaixo do título */
   position: relative;
-  padding-bottom: 10px;
+  padding: 40px 0 10px 0;
   letter-spacing: 1px;
 }
 
@@ -85,7 +92,8 @@
   border-radius: 8px;
   display: flex;
   align-items: flex-end;
-  padding: 30px;
+  padding-block: 30px; /* vertical */
+  padding-inline: var(--container-gutter); /* horizontal padronizado */
   color: var(--color-light);
   position: relative;
 }
@@ -195,6 +203,7 @@
   flex-direction: column;
   flex-grow: 1; /* Ocupa o espaço restante */
   padding-right: 25px; /* PADRÃO: Espaço antes da coluna de ações */
+  padding-inline-end: var(--space-md);
 }
 
 /* Pílula branca de Data/Hora */
@@ -269,6 +278,7 @@
   flex-shrink: 0;
   width: 150px;
   padding-left: 25px; /* PADRÃO: Padding antes da coluna */
+  padding-inline-start: var(--space-md);
   border-left: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -344,7 +354,7 @@
   justify-content: center;
   align-items: center;
   gap: 15px;
-  margin-top: 20px;
+  padding: 20px 0;
 }
 /* ... (estilos da navegação .arrow, .dots, .dot continuam iguais) ... */
 .events-list-nav .arrow {

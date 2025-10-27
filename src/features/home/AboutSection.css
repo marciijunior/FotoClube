@@ -1,21 +1,25 @@
 /* src/features/home/AboutSection.css */
 
+
 .about-section {
-  padding: 80px 20px;
-  background-color: #f4f4f4; /* Fundo cinza claro da secção */
-  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  background-color: #f4f4f4;
+  padding: 80px 0;
+  width: 100%;
 }
 
-/* Container Polaroid */
+/* Container principal com mesmo padrão do RecentActivities */
 .polaroid-container {
-  max-width: 1000px;
-  margin: 0 auto;
-  background-color: #ffffff; /* Fundo branco do container */
-  padding: 40px;
+  background-color: #ffffff;
   border-radius: 4px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
   position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
   margin-top: 60px; /* Espaço para a aba */
+  padding-inline: var(--container-gutter);
 }
 
 /* Aba laranja */
@@ -35,6 +39,8 @@
   display: flex;
   align-items: flex-start; /* Alinha no topo */
   gap: 40px; /* Espaço original entre texto e imagem mantido */
+  width: 100%;
+  padding: 30px;
 }
 
 /* Conteúdo da esquerda (texto) */
@@ -50,7 +56,7 @@
   margin: 0; /* Remove margem padrão */
   margin-bottom: 30px; /* Espaço abaixo padronizado */
   position: relative; /* Necessário para o ::after */
-  padding-bottom: 10px; /* Espaço para a linha */
+  padding: 0px 0 10px 0; /* Espaço para a linha */
   letter-spacing: 1px; /* Espaçamento de letra padronizado */
 }
 

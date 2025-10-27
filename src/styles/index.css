@@ -9,6 +9,20 @@
   --color-white: rgb(255, 255, 255);
   --font-body: "Poppins", sans-serif;
   --font-heading: "Bebas Neue", sans-serif;
+
+  --container-max-width: 1200px;
+  --container-gutter: 24px; /* espaçamento horizontal padrão */
+  --space-xs: 6px;
+  --space-sm: 12px;
+  --space-md: 24px;
+  --space-lg: 40px;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --container-gutter: 16px;
+    --space-md: 16px;
+  }
 }
 
 *,
@@ -46,3 +60,18 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
+/* Uso de container com padding-inline lógico */
+.container {
+  max-width: var(--container-max-width);
+  margin-inline: auto;          /* centraliza usando propriedades lógicas */
+  padding-inline: var(--container-gutter);
+  width: 100%;
+}
+
+/* Utilitários rápidos */
+.px-sm { padding-inline: var(--space-sm); }
+.px-md { padding-inline: var(--space-md); }
+.gap-sm { gap: var(--space-sm); }
+.gap-md { gap: var(--space-md); }
+
