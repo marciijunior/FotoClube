@@ -40,12 +40,13 @@
   align-items: flex-start; /* Alinha no topo */
   gap: 40px; /* Espaço original entre texto e imagem mantido */
   width: 100%;
-  padding: 30px;
+  padding: 30px 0;
 }
 
 /* Conteúdo da esquerda (texto) */
 .about-content {
-  flex: 1; /* Ocupa o espaço disponível */
+  display: flex;
+  flex-direction: column;
 }
 
 /* === AJUSTE: Título da Secção PADRONIZADO === */
@@ -79,8 +80,9 @@
   font-size: 1rem;
   line-height: 1.7;
   color: var(--color-dark); /* Cor de texto padrão */
-  margin-bottom: 30px;
   opacity: 0.8;
+  margin: 0 0 30px 0;
+  padding: 0;
 }
 
 .about-button {
@@ -96,7 +98,7 @@
   letter-spacing: 1px;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-bottom: 20px;
+  margin: 30px 0;
 }
 
 .about-button:hover {
