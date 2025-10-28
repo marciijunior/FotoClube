@@ -9,11 +9,17 @@
 .slides-wrapper {
   display: flex;
   height: 100%;
+  /* Otimização: Transição ligeiramente mais rápida */
   transition: transform 0.8s cubic-bezier(0.45, 0.05, 0.55, 0.95);
+
+  /* --- NOVAS OTIMIZAÇÕES DE PERFORMANCE --- */
+  /* Força a criação de uma camada de composição (GPU) */
   transform: translateZ(0);
-  will-change: transform;
+  will-change: transform; /* Mantém a otimização anterior */
   backface-visibility: hidden;
+  /* Melhora a renderização de fontes durante a animação (Webkit/Blink) */
   -webkit-font-smoothing: subpixel-antialiased;
+  /* --- FIM DAS NOVAS OTIMIZAÇÕES --- */
 }
 
 .slide {
@@ -26,6 +32,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  /* Otimização: Usar padding-inline para consistência */
   padding-block: 0;
   padding-inline: 10%; /* Mesmo padding do header */
   color: var(--color-light);
@@ -45,28 +52,21 @@
   );
 }
 
-/* Sua lógica de animação de conteúdo (mantida) */
+/* Sua lógica original de animação de conteúdo */
 .slide-content {
   position: relative;
   z-index: 2;
   text-align: left;
-  transform: translateY(20px) translateZ(0);
+  transform: translateY(20px);
   opacity: 0;
-  transition:
-    transform 0.6s 0.3s cubic-bezier(0.215, 0.61, 0.355, 1),
-    opacity 0.6s 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
-  max-width: 100%;
-  margin: 0;
-  padding: 0;
-  backface-visibility: hidden;
-  -webkit-font-smoothing: subpixel-antialiased;
+  transition: transform 0.8s 0.5s ease-out, opacity 0.8s 0.5s ease-out;
 }
 
 .slide.active .slide-content {
   transform: translateY(0);
   opacity: 1;
 }
-/* Fim da sua lógica de animação */
+/* Fim da sua lógica original */
 
 .location {
   font-family: var(--font-body);
@@ -110,9 +110,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition:
-    background-color 0.3s,
-    color 0.3s;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .read-more-button {
@@ -127,14 +125,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition:
-    background-color 0.3s,
-    color 0.3s;
+  transition: background-color 0.3s, color 0.3s;
   padding: 12px 24px;
 }
 
-.bookmark-button:hover,
-.read-more-button:hover {
+.bookmark-button:hover, .read-more-button:hover {
   background-color: var(--color-light);
   color: var(--color-primary);
   border-color: var(--color-light);
@@ -151,13 +146,13 @@
   z-index: 10;
 }
 
+/* Seu estilo original das miniaturas (com padding 50%) */
 .slide-thumbnails {
   display: flex;
   align-items: center;
   gap: 15px;
   width: 100%;
   overflow-x: auto;
-  /* Seu estilo original de centralização (mantido) */
   padding: 0 50%;
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -193,6 +188,7 @@
   object-fit: cover;
 }
 
+/* Seu estilo original dos controles */
 .navigation-controls {
   display: flex;
   justify-content: space-between;

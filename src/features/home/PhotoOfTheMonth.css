@@ -1,0 +1,180 @@
+/* src/features/home/PhotoOfTheMonth.css (VARIAÇÃO 6: ACORDEÃO VERTICAL - DUAS COLUNAS + RANK) */
+
+.photo-month-section-accordion {
+  padding: 80px 0;
+  background-color: var(--color-light); /* Fundo creme/branco */
+  width: 100%;
+}
+
+.photo-month-container-accordion {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-inline: var(--container-gutter);
+}
+
+.photo-month-title-accordion {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  color: var(--color-primary);
+  margin-bottom: 40px;
+  position: relative;
+  padding-bottom: 10px;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.photo-month-title-accordion::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background-color: var(--color-accent);
+  border-radius: 2px;
+}
+
+.photo-accordion-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.accordion-item {
+  background-color: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+  break-inside: avoid;
+}
+
+.accordion-item:hover {
+   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+}
+
+.accordion-header {
+  display: flex;
+  align-items: center;
+  /* Padding ligeiramente ajustado */
+  padding: 15px;
+  cursor: pointer;
+  background-color: #fff;
+  position: relative;
+  z-index: 2;
+  border-bottom: 1px solid #eee;
+}
+.accordion-item.expanded .accordion-header {
+   border-bottom-color: transparent;
+}
+
+/* --- NOVO: Estilo para o número da classificação --- */
+.accordion-rank {
+  font-family: var(--font-heading); /* Bebas Neue */
+  font-size: 1.5rem; /* Tamanho grande */
+  color: var(--color-accent); /* Laranja */
+  font-weight: 600;
+  margin-right: 15px; /* Espaço antes da miniatura */
+  line-height: 1;
+  flex-shrink: 0;
+  width: 30px; /* Largura fixa para alinhar */
+  text-align: center;
+}
+/* --- FIM DO NOVO ESTILO --- */
+
+
+.accordion-thumbnail {
+  width: 60px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 3px;
+  /* Espaçamento agora é entre rank e thumbnail */
+  /* margin-right: 15px; */
+  flex-shrink: 0;
+}
+
+.accordion-title {
+  font-family: var(--font-body); /* Poppins */
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin: 0;
+  flex-grow: 1;
+  /* Espaço entre miniatura e título */
+  margin-left: 15px;
+  padding-right: 15px; /* Espaço antes do ícone */
+}
+
+.accordion-icon {
+  font-size: 1rem;
+  color: var(--color-accent);
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+/* Conteúdo que expande (mantido) */
+.accordion-content {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out, opacity 0.3s 0.2s ease-in-out, padding 0.5s ease-in-out;
+  padding: 0 20px;
+  background-color: #f9f9f9;
+}
+
+.accordion-item.expanded .accordion-content {
+  max-height: 800px;
+  opacity: 1;
+  padding: 20px;
+}
+
+.accordion-full-image {
+  display: block;
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+.accordion-info {
+  font-family: var(--font-body);
+  color: var(--color-dark);
+}
+
+.accordion-photographer {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 5px 0;
+}
+
+.accordion-location {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin: 0;
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 768px) {
+  .photo-accordion-list {
+    grid-template-columns: 1fr; /* Uma coluna */
+  }
+  .photo-month-container-accordion {
+     max-width: 600px;
+  }
+  .accordion-title {
+     font-size: 1rem;
+  }
+  .accordion-full-image {
+     max-height: 350px;
+  }
+  .accordion-rank {
+      font-size: 1.3rem; /* Rank ligeiramente menor */
+      margin-right: 10px;
+  }
+  .accordion-header {
+      padding: 12px; /* Menor padding no mobile */
+  }
+}

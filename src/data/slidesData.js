@@ -1,14 +1,14 @@
 // src/data/slidesData.js
 
-import imagemCarrossel1 from '../assets/imagemCarrossel1.webp';
-import imagemCarrossel2 from '../assets/imagemCarrossel2.webp';
-import imagemCarrossel3 from '../assets/imagemCarrossel3.webp';
-import imagemCarrossel4 from '../assets/imagemCarrossel4.webp';
-import imagemCarrossel5 from '../assets/imagemCarrossel5.webp';
-import imagemCarrossel6 from '../assets/imagemCarrossel6.webp';
-import imagemCarrossel7 from '../assets/imagemCarrossel7.webp';
-import imagemCarrossel8 from '../assets/imagemCarrossel8.webp';
-import imagemCarrossel9 from '../assets/imagemCarrossel9.webp';
+import imagemCarrossel1 from '../assets/imagemCarrossel1.png';
+import imagemCarrossel2 from '../assets/imagemCarrossel2.png';
+import imagemCarrossel3 from '../assets/imagemCarrossel3.png';
+import imagemCarrossel4 from '../assets/imagemCarrossel4.png';
+import imagemCarrossel5 from '../assets/imagemCarrossel5.png';
+import imagemCarrossel6 from '../assets/imagemCarrossel6.png';
+import imagemCarrossel7 from '../assets/imagemCarrossel7.png';
+import imagemCarrossel8 from '../assets/imagemCarrossel8.png';
+import imagemCarrossel9 from '../assets/imagemCarrossel9.png';
 
 export const slidesData = [
   {
