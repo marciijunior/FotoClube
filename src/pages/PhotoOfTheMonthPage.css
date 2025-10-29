@@ -1,16 +1,12 @@
-/* src/pages/PhotoOfTheMonthPage.css (DARK MODE) */
+/* src/pages/PhotoOfTheMonthPage.css (DARK MODE - VARIAÇÃO B: CARROSSEL) */
 
 /* --- Container Principal --- */
 .potm-dark-container {
-  /* Fundo escuro */
   background-color: #121212;
   color: var(--color-light);
-  
-  /* Compensa o Header absoluto */
   padding-top: 180px; /* Ajuste este valor! */
-  
   width: 100%;
-  overflow-x: hidden; /* Evita scroll horizontal */
+  overflow-x: hidden;
   padding-bottom: 80px;
 }
 
@@ -23,7 +19,7 @@
   position: relative;
   padding-bottom: 10px;
   letter-spacing: 1px;
-  max-width: 1200px;
+  max-width: 1200px; /* Ajustado para consistência */
   margin-inline: auto;
   padding-inline: var(--container-gutter);
 }
@@ -38,17 +34,21 @@
   border-radius: 2px;
 }
 
-/* --- 1. Secção Hero (Dark) --- */
+/* --- 1. Secção Hero (Dark) - Mantida --- */
 .potm-dark-hero {
   display: grid;
   grid-template-columns: 1fr 1.5fr; /* Texto | Imagem */
   gap: 40px;
+  align-items: center;
   max-width: 1200px;
   margin: 0 auto 80px auto;
   padding-inline: var(--container-gutter);
 }
 
 .potm-dark-hero-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   animation: fadeIn 1s ease-out;
 }
 
@@ -71,6 +71,7 @@
   color: var(--color-light);
   margin: 0;
   line-height: 1;
+  text-align: left;
 }
 
 .hero-author {
@@ -79,6 +80,7 @@
   font-style: italic;
   color: #aaa;
   margin: 15px 0 25px 0;
+  text-align: left;
 }
 
 .hero-description {
@@ -87,25 +89,7 @@
   color: #ccc;
   margin-bottom: 30px;
   max-width: 500px;
-}
-
-.hero-cta-button {
-  background-color: var(--color-accent);
-  color: var(--color-light);
-  padding: 12px 25px;
-  border-radius: 4px;
-  text-decoration: none;
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 1rem;
-  transition: background-color 0.3s, transform 0.3s;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-}
-.hero-cta-button:hover {
-  background-color: #ff7b33;
-  transform: translateY(-2px);
+  text-align: left;
 }
 
 .potm-dark-hero-image-wrapper {
@@ -122,25 +106,24 @@
   object-fit: cover;
 }
 
-/* --- 2. Secção Filmstrip --- */
+/* --- 2. Secção Filmstrip - Mantida --- */
 .potm-filmstrip-section {
   padding-bottom: 80px;
 }
 
 .filmstrip-track-wrapper {
   overflow-x: auto;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none;  /* IE */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 .filmstrip-track-wrapper::-webkit-scrollbar {
-  display: none; /* Chrome/Safari */
+  display: none;
 }
 
 .filmstrip-track {
   display: flex;
   gap: 20px;
   width: max-content;
-  /* Padding para que os cards não colem nas bordas da tela */
   padding-inline: var(--container-gutter);
 }
 
@@ -193,101 +176,94 @@
   margin: 0;
 }
 
-/* --- 3. Secção Arquivo --- */
-.potm-archive-section {
+/* --- 3. Secção Arquivo (Carrossel - VARIAÇÃO B) --- */
+.potm-archive-carousel-section {
   padding-bottom: 80px;
-  background-color: #1f1f1f; /* Ligeiramente mais claro */
+  background-color: #1f1f1f; /* Fundo ligeiramente mais claro */
   padding-block: 60px;
 }
 
-.archive-container {
-  max-width: 1200px;
+.archive-carousel-container {
+  max-width: 1000px; /* Container mais estreito para o carrossel */
   margin-inline: auto;
-  padding-inline: var(--container-gutter);
-  display: grid;
-  grid-template-columns: 300px 1fr; /* Menu | Display */
-  gap: 40px;
+  /* Removido padding-inline para as setas ficarem nas bordas */
+  position: relative; /* Para posicionar as setas */
+  background-color: #121212; /* Fundo interno mais escuro */
+  border-radius: 4px;
+  overflow: hidden; /* Garante que nada saia */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
-.archive-label {
-  font-family: var(--font-body);
-  font-weight: 600;
-  color: #aaa;
-  font-size: 0.9rem;
-  margin-bottom: 10px;
+.archive-carousel-slides-wrapper {
+  overflow: hidden; /* Esconde os slides fora da view */
+}
+
+.archive-carousel-slides-track {
+  display: flex;
+  transition: transform 0.5s cubic-bezier(0.45, 0.05, 0.55, 0.95); /* Animação suave */
+}
+
+.archive-carousel-slide {
+  flex: 0 0 100%; /* Cada slide ocupa 100% */
+  width: 100%;
+  min-width: 100%;
+  display: grid;
+  grid-template-columns: 1fr; /* Coluna única por padrão */
+  align-items: center; /* Centraliza verticalmente no mobile */
+}
+
+@media (min-width: 768px) {
+  .archive-carousel-slide {
+    grid-template-columns: 1.2fr 1fr; /* Imagem | Texto */
+    gap: 30px;
+  }
+}
+
+.archive-carousel-image {
+  width: 100%;
+  height: 100%;
+  max-height: 500px; /* Limita altura máxima */
+  object-fit: cover; /* Cobre o espaço */
   display: block;
 }
 
-.archive-select-wrapper {
-  position: relative;
-}
-.archive-select-wrapper::after {
-  content: '▼';
-  position: absolute;
-  top: 50%;
-  right: 15px;
-  transform: translateY(-50%);
-  color: var(--color-accent);
-  pointer-events: none;
+@media (min-width: 768px) {
+  .archive-carousel-image {
+     max-height: none; /* Remove limitação em telas maiores */
+     object-fit: cover; /* Garante que cubra a área da grid */
+  }
 }
 
-.archive-menu select {
-  width: 100%;
-  padding: 12px 50px 12px 15px;
-  background-color: #333;
-  color: var(--color-light);
-  border: 1px solid #555;
-  border-radius: 4px;
-  font-family: var(--font-body);
-  font-size: 1rem;
-  appearance: none;
-  -webkit-appearance: none;
-  cursor: pointer;
-}
-
-.archive-display {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 30px;
-  background-color: #121212;
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.archive-display-image {
-  width: 100%;
-  height: 100%;
-  min-height: 300px;
-  object-fit: cover;
-}
-
-.archive-display-info {
+.archive-carousel-info {
   padding: 30px;
+  text-align: left; /* Garante alinhamento */
 }
 
-.archive-month {
+.archive-carousel-month {
   font-family: var(--font-body);
   font-size: 0.8rem;
   font-weight: 600;
   color: var(--color-accent);
   text-transform: uppercase;
+  display: block;
 }
 
-.archive-title {
+.archive-carousel-title {
   font-family: var(--font-heading);
-  font-size: 2rem;
+  font-size: 2.5rem;
   color: var(--color-light);
   margin: 5px 0 10px 0;
+  line-height: 1.1;
 }
 
-.archive-author {
+.archive-carousel-author {
   font-size: 1.1rem;
   font-style: italic;
   color: #aaa;
   margin: 0 0 20px 0;
 }
 
-.archive-notes {
+.archive-carousel-notes {
   font-size: 0.9rem;
   line-height: 1.6;
   color: #ccc;
@@ -295,11 +271,76 @@
   border-left: 2px solid var(--color-accent);
   padding-left: 15px;
 }
-.archive-notes strong {
+.archive-carousel-notes strong {
   font-style: normal;
 }
 
-/* --- 4. Secção Regras --- */
+/* Setas de Navegação */
+.archive-carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.4);
+  color: var(--color-light);
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: background-color 0.3s ease;
+  font-size: 1.2rem;
+}
+.archive-carousel-arrow:hover {
+  background-color: var(--color-accent);
+}
+.archive-carousel-arrow.prev {
+  left: 15px;
+}
+.archive-carousel-arrow.next {
+  right: 15px;
+}
+
+/* Indicadores (Dots) */
+.archive-carousel-dots {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.archive-carousel-dot {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+.archive-carousel-dot.active {
+  color: var(--color-accent);
+}
+.archive-carousel-dot:hover {
+   color: rgba(255, 255, 255, 0.7);
+}
+
+/* Remove estilos de arquivo anteriores se existirem */
+.potm-archive-section, .potm-archive-grid-section {
+  display: none;
+}
+.archive-modal-backdrop { /* Remove o modal da Variação A */
+  display: none;
+}
+
+
+/* --- 4. Secção Regras - Mantida --- */
 .potm-dark-rules {
   max-width: 1200px;
   margin-inline: auto;
@@ -341,7 +382,7 @@
   color: #ff7b33;
 }
 
-/* --- Animações --- */
+/* --- Animações (Mantidas) --- */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
@@ -350,24 +391,42 @@
   from { opacity: 0; transform: translateX(50px); }
   to { opacity: 1; transform: translateX(0); }
 }
+/* A animação slideInUp pode ser removida se o modal não for usado */
+/*
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(30px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+*/
 
-
-/* --- Responsividade --- */
+/* --- Responsividade (Mantida e ajustada) --- */
 @media (max-width: 900px) {
   .potm-dark-hero {
-    grid-template-columns: 1fr; /* Coluna única */
+    grid-template-columns: 1fr;
     text-align: center;
+  }
+  .potm-dark-hero-text {
+     align-items: center;
+  }
+   .hero-photo-title, .hero-author, .hero-description {
+     text-align: center;
   }
   .potm-dark-hero-image-wrapper {
     margin-top: 40px;
-    order: -1; /* Imagem vem primeiro */
+    order: -1;
   }
   .hero-description {
     margin-inline: auto;
   }
-  .archive-container {
-    grid-template-columns: 1fr;
+  /* Carrossel já funciona bem, mas ajustamos texto */
+  .archive-carousel-info {
+    text-align: center; /* Centraliza texto no mobile */
+    padding: 20px;
   }
+   .archive-carousel-notes {
+     border-left: none;
+     padding-left: 0;
+   }
   .rules-grid {
     grid-template-columns: 1fr;
   }
@@ -378,13 +437,14 @@
 }
 
 @media (max-width: 700px) {
-  .archive-display {
-    grid-template-columns: 1fr;
-  }
+  /* Carrossel já é 1 coluna por padrão */
   .hero-photo-title {
     font-size: 3rem;
   }
   .potm-dark-container {
      padding-top: 140px; /* Header menor no mobile */
   }
+   .archive-carousel-title {
+      font-size: 2rem;
+   }
 }
