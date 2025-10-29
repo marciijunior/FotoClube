@@ -1,79 +1,143 @@
 // src/pages/PhotoOfTheMonthPage.jsx
-import React, { useState } from 'react';
-import { slidesData } from '../data/slidesData'; // Ajuste o caminho se necessário
-import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
-import './PhotoOfTheMonthPage.css'; // Importa o CSS renomeado
+import React, { useState, useMemo } from 'react';
+import { Link } from 'react-router-dom';
+// Nota: FaChevronRight ainda é usado na secção de regras, por isso o import é mantido.
+import { FaTrophy, FaChevronRight, FaChevronLeft } from 'react-icons/fa'; 
+import { slidesData } from '../data/slidesData';
+import { pastWinnersData } from '../data/pastWinnersData';
+import './PhotoOfTheMonthPage.css';
 
-// MUDANÇA: Nome da função e exportação
 function PhotoOfTheMonthPage() {
-  const winners = slidesData.slice(0, 9);
-  const [expandedId, setExpandedId] = useState(winners.length > 0 ? winners[0].id : null);
-  const placeholderImage = "/src/assets/images/placeholder-winner.png"; // Verifique este caminho
+  const mainWinner = slidesData[0];
+  const runnersUp = slidesData.slice(1, 9);
+  
+  const [selectedArchiveId, setSelectedArchiveId] = useState(pastWinnersData[0].id);
 
-  const handleToggleExpand = (id) => {
-    setExpandedId(currentExpandedId => currentExpandedId === id ? null : id);
-  };
+  const selectedArchiveWinner = useMemo(() => {
+    return pastWinnersData.find(w => w.id === selectedArchiveId);
+  }, [selectedArchiveId]);
+
+  const placeholderImage = "/src/assets/images/placeholder-winner.png";
 
   return (
-    // MUDANÇA: Classe principal da página
-    <div className="photo-month-page-container">
-      {/* MUDANÇA: Classe do título */}
-      <h1 className="photo-month-page-title">🏆 Vencedores: Foto do Mês 🏆</h1>
+    <div className="potm-dark-container">
+      
+      {/* --- 1. SECÇÃO DO VENCEDOR PRINCIPAL (HERO) --- */}
+      <section className="potm-dark-hero">
+        <div className="potm-dark-hero-text">
+          <span className="hero-eyebrow"><FaTrophy /> VENCEDOR DO MÊS</span>
+          <h1 className="hero-photo-title">{mainWinner.title}</h1>
+          <p className="hero-author">{mainWinner.author}</p>
+          <p className="hero-description">
+            Esta impressionante captura foi escolhida como a grande vencedora. 
+            Veja abaixo os outros finalistas e saiba como participar.
+          </p>
+          
+          {/* --- BOTÃO "SUBMETER FOTO" REMOVIDO DESTA LINHA --- */}
 
-      {/* A lista de acordeões (estrutura interna mantida) */}
-      <div className="photo-accordion-list">
-        {winners.map((winner, index) => {
-          const isExpanded = winner.id === expandedId;
-          const rank = index + 1;
+        </div>
+        <div className="potm-dark-hero-image-wrapper">
+          <img 
+            src={mainWinner.image} 
+            alt={mainWinner.title}
+            className="potm-dark-hero-image"
+            onError={(e) => { e.target.onerror = null; e.target.src = placeholderImage; }}
+          />
+        </div>
+      </section>
 
-          return (
-            <div
-              key={winner.id}
-              className={`accordion-item ${isExpanded ? 'expanded' : ''}`}
-            >
-              <div
-                className="accordion-header"
-                onClick={() => handleToggleExpand(winner.id)}
-                role="button"
-                aria-expanded={isExpanded}
-                aria-controls={`content-${winner.id}`}
-              >
-                <span className="accordion-rank">{rank.toString().padStart(2, '0')}</span>
+      {/* --- 2. SECÇÃO FINALISTAS (FILMSTRIP) --- */}
+      <section className="potm-filmstrip-section">
+        <h2 className="dark-section-title">Finalistas</h2>
+        <div className="filmstrip-track-wrapper">
+          <div className="filmstrip-track">
+            {runnersUp.map((winner, index) => (
+              <div key={winner.id || index} className="filmstrip-card">
                 <img
                   src={winner.image}
-                  alt={`Pré-visualização de ${winner.title}`}
-                  className="accordion-thumbnail"
-                  loading="lazy"
-                />
-                <h3 className="accordion-title">{winner.title}</h3>
-                <span className="accordion-icon">
-                  {isExpanded ? <FaChevronUp /> : <FaChevronDown />}
-                </span>
-              </div>
-              <div
-                id={`content-${winner.id}`}
-                className="accordion-content"
-                aria-hidden={!isExpanded}
-              >
-                <img
-                  src={winner.image}
-                  alt={`Foto de ${winner.author} - ${winner.title}`}
-                  className="accordion-full-image"
+                  alt={winner.title}
+                  className="filmstrip-image"
                   onError={(e) => { e.target.onerror = null; e.target.src = placeholderImage; }}
                   loading="lazy"
                 />
-                <div className="accordion-info">
-                  <p className="accordion-photographer">{winner.author}</p>
-                  <p className="accordion-location">{winner.location}</p>
+                <div className="filmstrip-info">
+                  <span className="filmstrip-rank">{index + 2}º</span>
+                  <p className="filmstrip-author">{winner.author}</p>
                 </div>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      
+      {/* --- 3. SECÇÃO ARQUIVO (HALL OF FAME) --- */}
+      <section className="potm-archive-section">
+        <h2 className="dark-section-title">Arquivo de Vencedores</h2>
+        <div className="archive-container">
+          {/* Coluna de Seleção (Menu) */}
+          <div className="archive-menu">
+            <label htmlFor="archive-select" className="archive-label">Explorar meses anteriores:</label>
+            <div className="archive-select-wrapper">
+              <select 
+                id="archive-select"
+                value={selectedArchiveId}
+                onChange={(e) => setSelectedArchiveId(e.target.value)}
+              >
+                {pastWinnersData.map(winner => (
+                  <option key={winner.id} value={winner.id}>
+                    {winner.monthWon} - {winner.photographer}
+                  </option>
+                ))}
+              </select>
             </div>
-          );
-        })}
-      </div>
+          </div>
+
+          {/* Coluna de Exibição */}
+          {selectedArchiveWinner && (
+            <div className="archive-display">
+              <img 
+                src={selectedArchiveWinner.image}
+                alt={selectedArchiveWinner.title}
+                className="archive-display-image"
+                onError={(e) => { e.target.onerror = null; e.target.src = placeholderImage; }}
+              />
+              <div className="archive-display-info">
+                <span className="archive-month">{selectedArchiveWinner.monthWon}</span>
+                <h3 className="archive-title">{selectedArchiveWinner.title}</h3>
+                <p className="archive-author">{selectedArchiveWinner.photographer}</p>
+                <p className="archive-notes">
+                  <strong>Nota dos Jurados:</strong> "{selectedArchiveWinner.judgesNotes}"
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* --- 4. SECÇÃO REGRAS (MINIMALISTA) --- */}
+      <section className="potm-dark-rules">
+        <h2 className="dark-section-title">Como Participar</h2>
+        <div className="rules-grid">
+          <div>
+            <h4>Tema do Próximo Mês</h4>
+            <p className="rules-highlight">"Fotografia de Rua"</p>
+          </div>
+          <div>
+            <h4>Limite de Submissão</h4>
+            <p className="rules-highlight">Dia 25 deste Mês</p>
+          </div>
+          <div>
+            <h4>Quem Pode</h4>
+            <p className="rules-highlight">Exclusivo para Associados</p>
+          </div>
+        </div>
+        <Link to="/login" className="rules-link">
+          Ainda não é associado? Junte-se a nós <FaChevronRight />
+        </Link>
+      </section>
+
     </div>
   );
 }
 
-// MUDANÇA: Nome da exportação
 export default PhotoOfTheMonthPage;

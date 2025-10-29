@@ -1,7 +1,7 @@
 // src/components/layout/Header.jsx
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth'; // Verifique o caminho
-import './Header.css'; // O CSS atualizado abaixo
+import './Header.css';
 
 function Header() {
   const { isLoggedIn } = useAuth();
@@ -9,17 +9,19 @@ function Header() {
 
   return (
     <header className="header">
-      <Link to="/home" className="logo">
+      <Link to="/" className="logo"> {/* Alterado para / para ir para a raiz */}
         <img src={logoSrc} alt="FotoClube Logo"/>
       </Link>
       <nav className="nav">
         <Link to="/eventos" className="nav-link">Eventos</Link>
 
-        {/* --- Dropdown "Concurso" (Estrutura mantida) --- */}
+        {/* --- Dropdown "Concursos" --- */}
         <div className="dropdown">
           <span className="nav-link dropdown-toggle">Concursos</span>
           <div className="dropdown-menu">
-            <Link to="/vencedores" className="dropdown-item">Foto do Mês</Link>
+            {/* --- MUDANÇA AQUI --- */}
+            <Link to="/foto-do-mes" className="dropdown-item">Foto do Mês</Link>
+            {/* --- FIM DA MUDANÇA --- */}
             {/* <Link to="/concurso/regulamento" className="dropdown-item">Regulamento</Link> */}
           </div>
         </div>

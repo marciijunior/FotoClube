@@ -41,7 +41,6 @@
   padding-bottom: 8px; /* Espaço para a linha */
   cursor: pointer;
   transition: color 0.3s ease;
-  user-select: none;
   white-space: nowrap;
 }
 
@@ -50,6 +49,7 @@
 .dropdown:hover .dropdown-toggle {
   color: var(--color-accent);
   text-decoration: none !important;
+  cursor: pointer;
 }
 
 /* --- ANIMAÇÃO LINHA HORIZONTAL (SÓ LINKS NORMAIS) --- */
