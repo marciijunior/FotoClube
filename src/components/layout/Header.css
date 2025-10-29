@@ -88,7 +88,7 @@
   position: absolute;
   /* Abaixo do padding do toggle */
   top: calc(100% + 8px - 2px);
-  right: 0; /* Alinhada à DIREITA */
+  right: -87px; /* Alinhada à DIREITA */
   width: 2px;
   height: 0; /* Começa 0 */
   background-color: var(--color-accent);
@@ -98,7 +98,7 @@
 }
 /* Expande no hover */
 .dropdown:hover::after {
-  height: var(--dropdown-line-height); /* Usa a variável */
+  height: 47px; /* Usa a variável */
   /* ENCOLHE DEPOIS (0.3s de atraso) */
   transition: height 0.2s ease 0.3s;
 }
@@ -108,8 +108,8 @@
   content: "";
   position: absolute;
   /* MUDANÇA: Posicionada EXATAMENTE onde a vertical termina */
-  top: calc(100% + 8px - 2px + var(--dropdown-line-height));
-  right: 0; /* Começa na DIREITA */
+  top: calc(100% + -32px - 2px + var(--dropdown-line-height));
+  left: 0; /* Começa na ESQUERDA */
   width: 0; /* Começa 0 */
   height: 2px;
   background-color: var(--color-accent);
@@ -119,7 +119,7 @@
 }
 /* Expande no hover */
 .dropdown:hover::before {
-  width: 100%; /* Expande para a ESQUERDA */
+  width: 200%; /* Expande para a ESQUERDA */
   /* ENCOLHE PRIMEIRO (sem atraso) */
   transition: width 0.3s ease 0s;
 }
@@ -129,11 +129,10 @@
 .dropdown-menu {
   position: absolute;
   /* MUDANÇA: Posicionado logo ABAIXO da linha horizontal */
-  top: calc(100% + 8px - 2px + var(--dropdown-line-height) + 2px);
+  top: calc(100% + -32px - 2px + var(--dropdown-line-height));
   left: 0;
-  width: 100%; /* Largura do pai (.dropdown) */
-  background-color: rgba(0, 59, 86, 0.95);
-  backdrop-filter: blur(5px);
+  width: 200%; /* Largura do pai (.dropdown) */
+  background-color: var(--color-light);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   z-index: 100; /* Abaixo das linhas animadas */
   border-radius: 0; /* Retangular */
@@ -157,8 +156,8 @@
 
 /* Links dentro do dropdown */
 .dropdown-item {
-  color: var(--color-light);
-  padding: 8px 18px;
+  color: var(--color-primary);
+  padding: 5px 15px;
   text-decoration: none !important;
   display: block;
   font-family: var(--font-body);
@@ -168,8 +167,7 @@
   white-space: nowrap;
 }
 .dropdown-item:hover {
-  background-color: var(--color-accent);
-  color: var(--color-light);
+  color: var(--color-accent);
 }
 /* --- FIM DOS ESTILOS DO DROPDOWN --- */
 

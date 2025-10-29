@@ -17,7 +17,7 @@ function Header() {
 
         {/* --- Dropdown "Concurso" (Estrutura mantida) --- */}
         <div className="dropdown">
-          <span className="nav-link dropdown-toggle">Concurso</span>
+          <span className="nav-link dropdown-toggle">Concursos</span>
           <div className="dropdown-menu">
             <Link to="/vencedores" className="dropdown-item">Foto do Mês</Link>
             {/* <Link to="/concurso/regulamento" className="dropdown-item">Regulamento</Link> */}
