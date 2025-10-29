@@ -1,19 +1,33 @@
+// src/components/layout/Header.jsx
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
-import './Header.css'; // MUDANÇA: Importação direta do CSS
+import { useAuth } from '../../hooks/useAuth'; // Verifique o caminho
+import './Header.css'; // O CSS atualizado abaixo
 
 function Header() {
   const { isLoggedIn } = useAuth();
+  const logoSrc = "./src/assets/logo-fotoclube.png"; // Verifique o caminho
 
   return (
-    // MUDANÇA: classes como strings
     <header className="header">
-      <Link to="/home" className="logo"><img src="./src/assets/logo-fotoclube.png"/>
+      <Link to="/home" className="logo">
+        <img src={logoSrc} alt="FotoClube Logo"/>
       </Link>
       <nav className="nav">
         <Link to="/eventos" className="nav-link">Eventos</Link>
+
+        {/* --- Dropdown "Concurso" (Estrutura mantida) --- */}
+        <div className="dropdown">
+          <span className="nav-link dropdown-toggle">Concurso</span>
+          <div className="dropdown-menu">
+            <Link to="/vencedores" className="dropdown-item">Foto do Mês</Link>
+            {/* <Link to="/concurso/regulamento" className="dropdown-item">Regulamento</Link> */}
+          </div>
+        </div>
+        {/* --- FIM DO Dropdown --- */}
+
         <Link to="/sobre" className="nav-link">Sobre Nós</Link>
         <Link to="/contatos" className="nav-link">Contatos</Link>
+
         {isLoggedIn ? (
           <Link to="/perfil" className="nav-link-highlight">Meu Perfil</Link>
         ) : (

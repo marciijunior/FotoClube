@@ -1,4 +1,10 @@
 /* src/components/layout/Header.css */
+
+/* Variável para controlar a altura da linha vertical/espaço do menu */
+:root {
+  --dropdown-line-height: 40px; /* Altura estimada/desejada da linha vertical */
+}
+
 .header {
   position: absolute;
   top: 0;
@@ -7,63 +13,187 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 50px 10% 0px 10%;
+  padding: 50px 10%;
   z-index: 100;
   color: var(--color-light);
 }
 
 .logo img {
   height: 5rem;
+  display: block;
 }
 
 .nav {
   display: flex;
   gap: 30px;
-  align-items: center;
+  align-items: baseline; /* Mantém alinhamento baseline */
 }
 
-.nav-link {
+/* Estilo base para links normais e toggle */
+.nav-link,
+.dropdown-toggle {
   color: var(--color-light);
-  text-decoration: none;
+  text-decoration: none !important;
   font-weight: 400;
+  font-family: var(--font-body);
+  font-size: 1rem;
   position: relative;
+  padding-bottom: 8px; /* Espaço para a linha */
+  cursor: pointer;
+  transition: color 0.3s ease;
+  user-select: none;
+  white-space: nowrap;
 }
 
-.nav-link:hover{
-  text-decoration: none;
+/* Hover base */
+.nav-link:hover,
+.dropdown:hover .dropdown-toggle {
+  color: var(--color-accent);
+  text-decoration: none !important;
 }
 
+/* --- ANIMAÇÃO LINHA HORIZONTAL (SÓ LINKS NORMAIS) --- */
 .nav-link::after {
   content: "";
   position: absolute;
-  bottom: -5px;
+  bottom: 0;
   left: 0;
   width: 0;
   height: 2px;
-  background-color: var(--color-light);
-  transition: width 0.3s;
+  background-color: var(--color-accent);
+  transition: width 0.3s ease;
 }
-
 .nav-link:hover::after {
   width: 100%;
 }
+/* Remove ::after do toggle para não conflitar com animação L */
+.dropdown-toggle::after {
+  content: none;
+}
 
+
+/* --- ESTILOS E ANIMAÇÃO L INVERTIDA (Vertical Direita -> Horizontal Esquerda) --- */
+.dropdown {
+  position: relative;
+  display: inline-block; /* Para largura correta do menu */
+}
+
+.dropdown-toggle {
+  cursor: default;
+}
+
+/* 1. LINHA VERTICAL (ANIMADA NO WRAPPER ::after) */
+.dropdown::after {
+  content: "";
+  position: absolute;
+  /* Abaixo do padding do toggle */
+  top: calc(100% + 8px - 2px);
+  right: 0; /* Alinhada à DIREITA */
+  width: 2px;
+  height: 0; /* Começa 0 */
+  background-color: var(--color-accent);
+  /* Anima altura PRIMEIRO (0.2s) */
+  transition: height 0.2s ease;
+  z-index: 101;
+}
+/* Expande no hover */
+.dropdown:hover::after {
+  height: var(--dropdown-line-height); /* Usa a variável */
+  /* ENCOLHE DEPOIS (0.3s de atraso) */
+  transition: height 0.2s ease 0.3s;
+}
+
+/* 2. LINHA HORIZONTAL (ANIMADA NO WRAPPER ::before) */
+.dropdown::before {
+  content: "";
+  position: absolute;
+  /* MUDANÇA: Posicionada EXATAMENTE onde a vertical termina */
+  top: calc(100% + 8px - 2px + var(--dropdown-line-height));
+  right: 0; /* Começa na DIREITA */
+  width: 0; /* Começa 0 */
+  height: 2px;
+  background-color: var(--color-accent);
+  /* Anima largura DEPOIS (0.15s de atraso, duração 0.3s) */
+  transition: width 0.3s ease 0.15s;
+  z-index: 102; /* Acima da vertical */
+}
+/* Expande no hover */
+.dropdown:hover::before {
+  width: 100%; /* Expande para a ESQUERDA */
+  /* ENCOLHE PRIMEIRO (sem atraso) */
+  transition: width 0.3s ease 0s;
+}
+
+
+/* O menu dropdown */
+.dropdown-menu {
+  position: absolute;
+  /* MUDANÇA: Posicionado logo ABAIXO da linha horizontal */
+  top: calc(100% + 8px - 2px + var(--dropdown-line-height) + 2px);
+  left: 0;
+  width: 100%; /* Largura do pai (.dropdown) */
+  background-color: rgba(0, 59, 86, 0.95);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 100; /* Abaixo das linhas animadas */
+  border-radius: 0; /* Retangular */
+  padding: 8px 0;
+  margin-top: 0;
+
+  /* Animação */
+  opacity: 0;
+  transform: translateY(5px);
+  pointer-events: none;
+  /* Aparece DEPOIS da linha horizontal */
+  transition: opacity 0.2s ease 0.4s, transform 0.2s ease 0.4s; /* Atraso maior */
+}
+
+.dropdown:hover .dropdown-menu {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  display: block; /* Garante visibilidade */
+}
+
+/* Links dentro do dropdown */
+.dropdown-item {
+  color: var(--color-light);
+  padding: 8px 18px;
+  text-decoration: none !important;
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+}
+.dropdown-item:hover {
+  background-color: var(--color-accent);
+  color: var(--color-light);
+}
+/* --- FIM DOS ESTILOS DO DROPDOWN --- */
+
+
+/* --- ESTILO ORIGINAL RESTAURADO DO BOTÃO HIGHLIGHT (Mantido) --- */
 .nav-link-highlight {
-  background-color: var(--color-accent); /* Usa a cor de destaque */
-  color: var(--color-light); /* Texto claro */
+  background-color: var(--color-accent);
+  color: var(--color-light);
   padding: 10px 20px;
   font-weight: 400;
-  text-decoration: none;
+  text-decoration: none !important;
   transition:
     background-color 0.3s,
     color 0.3s;
   position: relative;
+  border-radius: 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
 }
 
 .nav-link-highlight:hover {
   background-color: var(--color-light);
   color: var(--color-accent);
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 .nav-link-highlight::after {
@@ -80,3 +210,4 @@
 .nav-link-highlight:hover::after {
   width: 100%;
 }
+/* --- FIM DA RESTAURAÇÃO HIGHLIGHT --- */

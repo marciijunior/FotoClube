@@ -1,30 +1,42 @@
-// src/routes/index.jsx
+// Exemplo de como pode estar seu router
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import AppLayout from './components/layout/AppLayout';
+import HomePage from './features/home/HomePage';
+import EventsPage from './pages/EventsPage';
+import LoginPage from './pages/LoginPage';
+import ProfilePage from './features/profile/ProfilePage';
+import ProtectedRoute from './components/auth/ProtectedRoute';
+// --- MUDANÇA AQUI ---
+import PhotoOfTheMonthPage from './pages/PhotoOfTheMonthPage'; // 1. Importa o nome novo
 
-import { Routes, Route } from 'react-router-dom';
-import App from '../App';
-import HomePage from '../features/home/HomePage';
-import LoginPage from '../features/authentication/LoginPage';
-import ProfilePage from '../features/profile/ProfilePage';
-import ProtectedRoute from './ProtectedRoute';
-import EventsPage from '../features/events/EventsPage'; // <-- 1. LINHA ADICIONADA
+const router = createBrowserRouter([
+  {
+    element: <AppLayout />,
+    children: [
+      { path: '/', element: <HomePage /> },
+      { path: '/home', element: <HomePage /> },
+      { path: '/eventos', element: <EventsPage /> },
+      { path: '/login', element: <LoginPage /> },
+      {
+        path: '/perfil',
+        element: (
+          <ProtectedRoute>
+            <ProfilePage />
+          </ProtectedRoute>
+        ),
+      },
+      // --- MUDANÇA AQUI ---
+      // Pode manter /vencedores ou mudar para /foto-do-mes
+      { path: '/vencedores', element: <PhotoOfTheMonthPage /> }, // 2. Usa o componente novo
+      // --- Fim da mudança ---
 
-export function AppRoutes() {
-  return (
-    <Routes>
-      <Route path="/" element={<App />}>
-        <Route index element={<HomePage />} />
-        <Route path="login" element={<LoginPage />} />
-        <Route path="eventos" element={<EventsPage />} /> {/* <-- 2. LINHA ADICIONADA */}
-        <Route 
-          path="perfil" 
-          element={
-            <ProtectedRoute>
-              <ProfilePage />
-            </ProtectedRoute>
-          } 
-        />
-        {/* Adicione outras rotas aqui, como /eventos, /sobre, etc. */}
-      </Route>
-    </Routes>
-  );
+      // Adicione outras rotas (Sobre, Contatos) aqui...
+    ],
+  },
+]);
+
+function App() {
+  return <RouterProvider router={router} />;
 }
+
+export default App;

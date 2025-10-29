@@ -1,21 +1,22 @@
 // src/features/home/HomePage.jsx
 import HeroCarousel from './HeroCarousel';
-import PhotoOfTheMonth from './PhotoOfTheMonth'; // 1. Importe o novo componente
 import UpcomingEvents from './UpcomingEvents';
 import AboutSection from './AboutSection';
 import RecentActivities from './RecentActivities';
 import JoinUsSection from './JoinUsSection';
-import "./HomePage.css";
+import "./HomePage.css"; // Certifique-se que o CSS da HomePage está atualizado
 
 function HomePage() {
   return (
     <div className="home-container">
+      {/* A HomePage agora começa diretamente com o HeroCarousel */}
       <HeroCarousel />
-      <PhotoOfTheMonth /> {/* 2. Adicione a nova secção aqui */}
+      {/* A secção PhotoOfTheMonth foi removida daqui */}
       <UpcomingEvents />
       <AboutSection />
       <RecentActivities />
       <JoinUsSection />
+      {/* O Footer será adicionado pelo AppLayout */}
     </div>
   );
 }
