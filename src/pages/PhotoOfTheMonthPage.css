@@ -106,26 +106,61 @@
   object-fit: cover;
 }
 
-/* --- 2. Secção Filmstrip - Mantida --- */
+/* --- 2. Secção Filmstrip --- */
 .potm-filmstrip-section {
   padding-bottom: 80px;
 }
 
 .filmstrip-track-wrapper {
   overflow-x: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  /* Estilização sutil da scrollbar (Mantida) */
+  scrollbar-width: thin; 
+  scrollbar-color: var(--color-accent) #6f6f6f07;
+  
+  /* --- NOVO: Estilos para "Clicar e Arrastar" --- */
+  cursor: grab; /* Mãozinha para "agarrar" */
+  user-select: none; /* Impede selecionar o texto */
+  /* --- FIM DAS NOVIDADES --- */
 }
+
+/* --- NOVO: Estilo quando está a arrastar --- */
+.filmstrip-track-wrapper.dragging {
+  cursor: grabbing; /* Mãozinha "agarrando" */
+}
+
 .filmstrip-track-wrapper::-webkit-scrollbar {
-  display: none;
+  display: block;
+  height: 8px;
 }
+.filmstrip-track-wrapper::-webkit-scrollbar-track {
+  background: #333;
+  border-radius: 4px;
+}
+.filmstrip-track-wrapper::-webkit-scrollbar-thumb {
+  background-color: var(--color-accent);
+  border-radius: 4px;
+}
+.filmstrip-track-wrapper::-webkit-scrollbar-thumb:hover {
+  background-color: #ff7b33;
+}
+
 
 .filmstrip-track {
   display: flex;
   gap: 20px;
   width: max-content;
   padding-inline: var(--container-gutter);
+  padding-bottom: 10px;
+  
+  /* --- NOVO: Impede que os filhos interfiram no "arrastar" --- */
+  pointer-events: none;
 }
+
+/* Re-ativa os pointer-events nos links dentro dos cards (se existirem) */
+.filmstrip-track a {
+  pointer-events: auto;
+}
+/* --- FIM DAS NOVIDADES --- */
 
 .filmstrip-card {
   position: relative;
@@ -135,6 +170,9 @@
   border-radius: 4px;
   overflow: hidden;
   transition: transform 0.3s ease;
+  
+  /* --- NOVO: Ativa pointer-events no card para o hover funcionar --- */
+  pointer-events: auto; 
 }
 .filmstrip-card:hover {
   transform: scale(1.03);
@@ -348,6 +386,18 @@
   text-align: center;
 }
 
+/* Título "Como Participar" centralizado */
+.potm-dark-rules .dark-section-title {
+  text-align: center;
+}
+
+/* After centralizado (Mantido da correção anterior) */
+.potm-dark-rules .dark-section-title::after {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
 .rules-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -391,13 +441,6 @@
   from { opacity: 0; transform: translateX(50px); }
   to { opacity: 1; transform: translateX(0); }
 }
-/* A animação slideInUp pode ser removida se o modal não for usado */
-/*
-@keyframes slideInUp {
-  from { opacity: 0; transform: translateY(30px) scale(0.98); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-*/
 
 /* --- Responsividade (Mantida e ajustada) --- */
 @media (max-width: 900px) {
@@ -418,9 +461,8 @@
   .hero-description {
     margin-inline: auto;
   }
-  /* Carrossel já funciona bem, mas ajustamos texto */
   .archive-carousel-info {
-    text-align: center; /* Centraliza texto no mobile */
+    text-align: center;
     padding: 20px;
   }
    .archive-carousel-notes {
@@ -430,6 +472,8 @@
   .rules-grid {
     grid-template-columns: 1fr;
   }
+  
+  /* Centraliza todos os 'after' em mobile */
   .dark-section-title::after {
     left: 50%;
     transform: translateX(-50%);

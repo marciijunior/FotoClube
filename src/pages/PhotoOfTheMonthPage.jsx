@@ -1,19 +1,66 @@
 // src/pages/PhotoOfTheMonthPage.jsx
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef } from 'react'; // --- NOVO: Importa o useRef ---
 import { Link } from 'react-router-dom';
-import { FaTrophy, FaChevronRight, FaChevronLeft, FaScroll, FaRegDotCircle, FaRegCircle } from 'react-icons/fa'; // Ícones extras para navegação e regras
+import { FaTrophy, FaChevronRight, FaChevronLeft, FaScroll, FaRegDotCircle, FaRegCircle } from 'react-icons/fa';
 import { slidesData } from '../data/slidesData';
 import { pastWinnersData } from '../data/pastWinnersData';
-import './PhotoOfTheMonthPage.css'; // O CSS será atualizado a seguir
+import './PhotoOfTheMonthPage.css';
 
 function PhotoOfTheMonthPage() {
   const mainWinner = slidesData[0];
   const runnersUp = slidesData.slice(1, 9);
   const placeholderImage = "/src/assets/images/placeholder-winner.png";
 
-  // --- NOVO ESTADO PARA O CARROSSEL DO ARQUIVO ---
-  const [archiveIndex, setArchiveIndex] = useState(0); // Índice do slide atual no arquivo
+  // --- Estado para o Carrossel do Arquivo (Mantido) ---
+  const [archiveIndex, setArchiveIndex] = useState(0);
+  
+  // --- NOVO: Lógica para "Clicar e Arrastar" o Filmstrip ---
+  const filmstripRef = useRef(null); // Ref para o container da scrollbar
+  const [isDragging, setIsDragging] = useState(false); // Estado para saber se está a arrastar
+  const dragState = useRef({
+    startX: 0,
+    scrollLeft: 0,
+  });
 
+  const handleMouseDown = (e) => {
+    if (!filmstripRef.current) return;
+    e.preventDefault(); // Evita o "arrastar" padrão de imagens
+    const slider = filmstripRef.current;
+    
+    setIsDragging(true); // Ativa o estado (para o CSS)
+    
+    // Posição inicial do clique
+    dragState.current.startX = e.pageX - slider.offsetLeft;
+    // Posição inicial da scrollbar
+    dragState.current.scrollLeft = slider.scrollLeft;
+  };
+
+  const handleMouseLeave = () => {
+    setIsDragging(false); // Para de arrastar se o rato sair
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false); // Para de arrastar ao soltar o clique
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging || !filmstripRef.current) return;
+    e.preventDefault(); // Evita selecionar texto
+    const slider = filmstripRef.current;
+    
+    // Posição atual do rato
+    const x = e.pageX - slider.offsetLeft;
+    
+    // Distância que o rato moveu (walk)
+    const walk = (x - dragState.current.startX) * 1.5; // Multiplicador para scroll mais rápido
+    
+    // Move a scrollbar
+    slider.scrollLeft = dragState.current.scrollLeft - walk;
+  };
+  // --- FIM DA LÓGICA "CLICAR E ARRASTAR" ---
+
+
+  // --- Funções do Carrossel (Mantidas) ---
   const goToNextArchive = () => {
     setArchiveIndex((prevIndex) => (prevIndex + 1) % pastWinnersData.length);
   };
@@ -25,7 +72,7 @@ function PhotoOfTheMonthPage() {
   const goToArchiveSlide = (index) => {
     setArchiveIndex(index);
   }
-  // --- FIM DO NOVO ESTADO ---
+  // --- Fim das Funções do Carrossel ---
 
   return (
     <div className="potm-dark-container">
@@ -51,10 +98,19 @@ function PhotoOfTheMonthPage() {
         </div>
       </section>
 
-      {/* --- 2. SECÇÃO FINALISTAS (FILMSTRIP) - Mantida --- */}
+      {/* --- 2. SECÇÃO FINALISTAS (FILMSTRIP) --- */}
       <section className="potm-filmstrip-section">
         <h2 className="dark-section-title">Finalistas</h2>
-        <div className="filmstrip-track-wrapper">
+        
+        {/* --- NOVO: Event Handlers adicionados ao wrapper --- */}
+        <div 
+          className={`filmstrip-track-wrapper ${isDragging ? 'dragging' : ''}`}
+          ref={filmstripRef}
+          onMouseDown={handleMouseDown}
+          onMouseLeave={handleMouseLeave}
+          onMouseUp={handleMouseUp}
+          onMouseMove={handleMouseMove}
+        >
           <div className="filmstrip-track">
             {runnersUp.map((winner, index) => (
               <div key={winner.id || index} className="filmstrip-card">
@@ -74,11 +130,12 @@ function PhotoOfTheMonthPage() {
           </div>
         </div>
       </section>
+      {/* --- FIM DA SECÇÃO FINALISTAS --- */}
 
-      {/* --- 3. SECÇÃO ARQUIVO (CARROSSEL - VARIAÇÃO B) --- */}
-      <section className="potm-archive-carousel-section"> {/* Nova classe */}
+      {/* --- 3. SECÇÃO ARQUIVO (CARROSSEL) - Mantida --- */}
+      <section className="potm-archive-carousel-section">
         <h2 className="dark-section-title">Arquivo de Vencedores</h2>
-        <div className="archive-carousel-container"> {/* Novo container */}
+        <div className="archive-carousel-container">
           {/* Botão Anterior */}
           <button
             className="archive-carousel-arrow prev"
@@ -92,7 +149,7 @@ function PhotoOfTheMonthPage() {
           <div className="archive-carousel-slides-wrapper">
             <div
               className="archive-carousel-slides-track"
-              style={{ transform: `translateX(-${archiveIndex * 100}%)` }} // Move o track
+              style={{ transform: `translateX(-${archiveIndex * 100}%)` }}
             >
               {pastWinnersData.map((winner) => (
                 <div key={winner.id} className="archive-carousel-slide">
@@ -139,7 +196,7 @@ function PhotoOfTheMonthPage() {
           </div>
         </div>
       </section>
-      {/* --- FIM DA SECÇÃO ARQUIVO (VARIAÇÃO B) --- */}
+      {/* --- FIM DA SECÇÃO ARQUIVO --- */}
 
       {/* --- 4. SECÇÃO REGRAS (MINIMALISTA) - Mantida --- */}
       <section className="potm-dark-rules">
