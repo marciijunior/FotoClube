@@ -1,0 +1,326 @@
+/* src/pages/PhotoOfTheMonthPage/ArchiveSection.css (ESTILO 3: MENU VERTICAL + MODAL) */
+
+/* --- Esconde os estilos dos outros arquivos --- */
+.potm-archive-carousel-section,
+.potm-archive-grid-section {
+  display: none;
+}
+/* Obs: .archive-modal-backdrop é usado, então NÃO é escondido */
+
+
+/* --- Estilos do Menu Vertical (Estilo 3) --- */
+.potm-archive-menu-section {
+  padding-bottom: 80px;
+  background-color: #1f1f1f;
+  padding-block: 60px;
+}
+
+.archive-menu-container {
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: var(--container-gutter);
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+/* --- Coluna da Lista (Menu) --- */
+.archive-menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  position: sticky;
+  top: 200px;
+}
+
+.archive-menu-button {
+  background-color: #333;
+  color: #aaa;
+  border: none;
+  padding: 15px 20px;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  border-left: 4px solid transparent;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.archive-menu-button:hover {
+  background-color: #444;
+  color: var(--color-light);
+}
+
+.archive-menu-button.active {
+  background-color: #121212;
+  color: var(--color-accent);
+  border-left-color: var(--color-accent);
+}
+
+.archive-menu-button span {
+  display: block;
+}
+
+.archive-menu-month {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.archive-menu-photographer {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  color: var(--color-light);
+  margin-top: 3px;
+  transition: color 0.3s ease; 
+}
+
+.archive-menu-button.active .archive-menu-photographer {
+  color: var(--color-accent);
+}
+
+
+/* --- Coluna de Destaque (Display) --- */
+.archive-menu-display {
+  background-color: #121212;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.archive-menu-display-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+  animation: fadeIn 0.5s ease;
+  cursor: pointer; /* --- ADICIONADO: Indica que a imagem é clicável --- */
+  transition: opacity 0.3s ease;
+}
+.archive-menu-display-image:hover {
+  opacity: 0.85; /* Efeito de hover */
+}
+
+
+.archive-menu-display-info {
+  padding: 30px;
+  animation: fadeIn 0.5s ease;
+}
+
+.archive-menu-display-month {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  display: block;
+}
+
+.archive-menu-display-title {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  color: var(--color-light);
+  margin: 5px 0 10px 0;
+  line-height: 1.1;
+}
+
+.archive-menu-display-author {
+  font-size: 1.1rem;
+  font-style: italic;
+  color: #aaa;
+  margin: 0 0 20px 0;
+}
+
+.archive-menu-display-notes {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #ccc;
+  font-style: italic;
+  border-left: 2px solid var(--color-accent);
+  padding-left: 15px;
+}
+.archive-menu-display-notes strong {
+  font-style: normal;
+}
+
+/* Animação */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* --- Responsividade (Menu Vertical) --- */
+@media (max-width: 900px) {
+  .archive-menu-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .archive-menu-list {
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 10px;
+    padding-bottom: 10px;
+    position: static;
+    
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-accent) #333;
+  }
+  .archive-menu-list::-webkit-scrollbar {
+    height: 6px;
+  }
+  .archive-menu-list::-webkit-scrollbar-track {
+    background: #333;
+    border-radius: 3px;
+  }
+  .archive-menu-list::-webkit-scrollbar-thumb {
+    background-color: var(--color-accent);
+    border-radius: 3px;
+  }
+
+  .archive-menu-button {
+    border-left: none;
+    border-bottom: 4px solid transparent;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+  
+  .archive-menu-button.active {
+    border-left-color: transparent;
+    border-bottom-color: var(--color-accent);
+  }
+  
+  .archive-menu-display {
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 700px) {
+   .archive-menu-display-title {
+      font-size: 2rem;
+   }
+}
+
+
+/* =====================================================
+--- NOVOS ESTILOS: Modal (Copiados do Estilo 2) ---
+=====================================================
+*/
+
+.archive-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  animation: fadeIn 0.3s ease-out; 
+}
+
+.archive-modal-content {
+  background-color: #1f1f1f;
+  color: var(--color-light);
+  border-radius: 4px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  display: grid;
+  grid-template-columns: 1fr; /* Mobile-first */
+  overflow: hidden;
+  position: relative;
+  animation: slideInUp 0.4s ease-out;
+}
+
+@media (min-width: 768px) {
+  .archive-modal-content {
+     grid-template-columns: 1.5fr 1fr; /* Imagem | Texto */
+  }
+}
+
+.archive-modal-image {
+  width: 100%;
+  height: auto;
+  max-height: 90vh;
+  object-fit: contain;
+  display: block;
+  background-color: #121212;
+}
+
+.archive-modal-info {
+  padding: 30px;
+  overflow-y: auto;
+}
+
+.archive-modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(0, 0, 0, 0.5);
+  color: var(--color-light);
+  border: none;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background-color 0.3s ease;
+  z-index: 10;
+}
+.archive-modal-close:hover {
+  background: rgba(255, 92, 0, 0.8);
+}
+
+.archive-modal-month {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  display: block;
+}
+
+.archive-modal-title {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  color: var(--color-light);
+  margin: 5px 0 10px 0;
+}
+
+.archive-modal-author {
+  font-size: 1.1rem;
+  font-style: italic;
+  color: #aaa;
+  margin: 0 0 25px 0;
+}
+
+.archive-modal-notes {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #ccc;
+  font-style: italic;
+  border-left: 2px solid var(--color-accent);
+  padding-left: 15px;
+}
+.archive-modal-notes strong {
+  font-style: normal;
+}
+
+/* Animação para o Modal */
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(30px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (max-width: 700px) {
+   .archive-modal-title {
+      font-size: 1.8rem;
+   }
+}

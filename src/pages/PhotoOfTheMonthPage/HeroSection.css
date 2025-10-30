@@ -1,0 +1,109 @@
+/* src/pages/PhotoOfTheMonthPage/HeroSection.css */
+
+.potm-dark-hero {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr; /* Texto | Imagem */
+  gap: 40px;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto 80px auto;
+  padding-inline: var(--container-gutter);
+}
+
+.potm-dark-hero-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  animation: fadeIn 1s ease-out;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.hero-photo-title {
+  font-family: var(--font-heading);
+  font-size: 4.5rem;
+  color: var(--color-light);
+  margin: 0;
+  line-height: 1;
+  text-align: left;
+}
+
+.hero-author {
+  font-family: var(--font-body);
+  font-size: 1.2rem;
+  font-style: italic;
+  color: #aaa;
+  margin: 15px 0 25px 0;
+  text-align: left;
+}
+
+.hero-description {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #ccc;
+  margin-bottom: 30px;
+  max-width: 500px;
+  text-align: left;
+}
+
+.potm-dark-hero-image-wrapper {
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  aspect-ratio: 16 / 10;
+  animation: slideInRight 1s ease-out;
+}
+
+.potm-dark-hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Animações usadas nesta secção */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Responsividade desta secção */
+@media (max-width: 900px) {
+  .potm-dark-hero {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .potm-dark-hero-text {
+     align-items: center;
+  }
+   .hero-photo-title, .hero-author, .hero-description {
+     text-align: center;
+  }
+  .potm-dark-hero-image-wrapper {
+    margin-top: 40px;
+    order: -1;
+  }
+  .hero-description {
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 700px) {
+  .hero-photo-title {
+    font-size: 3rem;
+  }
+}
