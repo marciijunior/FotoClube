@@ -1,6 +1,6 @@
-/* src/features/home/UpcomingEvents.css */
+/* src/features/home/UpcomingEvents.css (HÍBRIDO: POLAROID + HUB + PASSADOS) */
 
-/* ... (Todo o seu CSS do .upcoming-events-section até .dot.active permanece O MESMO) ... */
+/* --- 1. ESTILOS ANTIGOS MANTIDOS (A "CONCHA") --- */
 .upcoming-events-section {
   display: flex;
   justify-content: center;
@@ -8,19 +8,10 @@
   padding: 80px 0px;
   width: 100%;
 }
-
-/* Container principal com mesmo padrão do RecentActivities */
 .upcoming-events-container {
   margin: 0 auto;
   padding-inline: var(--container-gutter);
   width: 100%;
-}
-
-.aba-pasta {
-  content: "";
-  width: 50px;
-  height: 10px;
-  background-color: var(--color-accent);
 }
 .polaroid-container {
   max-width: 1200px;
@@ -28,365 +19,516 @@
   border-radius: 4px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
   position: relative;
+  padding: 60px 40px 40px 40px;
 }
 .polaroid-container::before {
   content: "";
   position: absolute;
-  width: 120px; /* Largura da aba */
-  height: 10px; /* Altura da aba */
-  background-color: var(--color-accent); /* Cor laranja */
-  border-radius: 4px 4px 0 0; /* Cantos arredondados só em cima */
-  top: -10px; /* Posição "colada" no topo */
-  left: var(--container-gutter);
+  width: 120px;
+  height: 10px;
+  background-color: var(--color-accent);
+  border-radius: 4px 4px 0 0;
+  top: -10px;
+  left: 40px;
 }
 .section-title {
-  font-family: var(--font-heading); /* Bebas Neue */
+  font-family: var(--font-heading);
   font-size: 2.5rem;
-  color: var(--color-primary); /* Azul escuro */
-  margin: 0; /* Remove margem padrão */
-  margin-bottom: 30px; /* Espaço abaixo do título */
+  color: var(--color-primary);
+  margin-bottom: 30px;
   position: relative;
-  padding: 40px 0 10px 0;
+  padding-bottom: 10px;
   letter-spacing: 1px;
 }
-
 .section-title::after {
   content: "";
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 60px;
+  width: 100%;
   height: 4px;
-  background-color: var(--color-accent); /* Laranja */
+  background-color: var(--color-accent);
   border-radius: 2px;
 }
-.featured-event-carousel {
-  position: relative;
-  margin-bottom: 40px;
+/* --- FIM DOS ESTILOS ANTIGOS MANTIDOS --- */
+
+/* --- 2. ESTILOS ANTIGOS REMOVIDOS (CARROSSEL E LISTA) --- */
+.featured-event-carousel,
+.events-list,
+.events-list-nav,
+.featured-slide,
+.event-card {
+  display: none;
+  visibility: hidden;
 }
-.events-header {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  z-index: 3;
-  margin-bottom: 0;
+/* --- FIM DA REMOÇÃO --- */
+
+/* --- 3. NOVOS ESTILOS DO "HUB" (COM ALTURA FIXA) --- */
+@keyframes ph-fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
-.filter-button {
-  background-color: var(--color-accent) !important;
-  border: 2px solid var(--color-primary);
-  color: var(--color-light) !important;
-  border-radius: 50px;
+
+.ph-grid {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr 0.7fr;
+  gap: 25px;
+  height: 600px; /* ALTURA FIXA */
+  margin-bottom: 40px; /* Espaço antes da nova secção */
+  border-bottom: 1px solid #eee; /* Linha divisória */
+  padding-bottom: 40px; /* Espaço antes da nova secção */
+}
+
+/* Coluna 1: Lista */
+.ph-col-list {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.ph-list-scroll {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow-y: auto;
+  height: 0;
+  padding-right: 10px;
+}
+.ph-list-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+.ph-list-scroll::-webkit-scrollbar-track {
+  background: #f4f4f4;
+}
+.ph-list-scroll::-webkit-scrollbar-thumb {
+  background-color: #ddd;
+  border-radius: 3px;
+}
+
+.ph-list-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+  background-color: #f9f9f4; /* Ligeiro tom creme */
+  border: 1px solid #eee;
+  border-radius: 4px;
+  padding: 15px;
+  margin-bottom: 10px;
   cursor: pointer;
-  font-family: var(--font-body); /* */
-  font-size: 0.9rem;
-  font-weight: 400 !important;
-  transition: all 0.3s;
+  text-align: left;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
 }
-.filter-button:hover {
-  background-color: var(--color-primary) !important;
+.ph-list-item:hover {
+  transform: translateX(5px);
+  background-color: #fff;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
-.featured-slide {
-  height: 350px;
+.ph-list-item.active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  transform: translateX(5px);
+  box-shadow: 0 5px 15px rgba(0, 59, 86, 0.2);
+}
+.ph-item-date {
+  background-color: var(--color-accent);
+  color: var(--color-white);
+  border-radius: 4px;
+  padding: 8px;
+  text-align: center;
+  line-height: 1.1;
+  flex-shrink: 0;
+  transition: background-color 0.3s ease;
+}
+.ph-list-item.active .ph-item-date {
+  background-color: var(--color-white);
+  color: var(--color-primary);
+}
+.ph-item-date span:first-child {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  display: block;
+}
+.ph-item-date span:last-child {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  display: block;
+}
+.ph-item-category {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 3px;
+}
+.ph-list-item.active .ph-item-category {
+  color: var(--color-accent);
+}
+.ph-item-title {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  color: var(--color-primary);
+  line-height: 1.2;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+.ph-list-item.active .ph-item-title {
+  color: var(--color-white);
+}
+.ph-all-events-link {
+  font-family: var(--font-body);
+  font-weight: 600;
+  color: var(--color-accent);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 20px;
+  flex-shrink: 0;
+}
+.ph-all-events-link:hover {
+  text-decoration: underline;
+}
+
+/* Coluna 2: Imagem */
+.ph-col-image {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+.ph-bg-image {
+  position: absolute;
+  inset: 0;
   background-size: cover;
   background-position: center;
-  border-radius: 8px;
+  opacity: 0;
+  transform: scale(1.05);
+  transition:
+    opacity 0.6s ease-in-out,
+    transform 0.6s ease-in-out;
+}
+.ph-bg-image.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Coluna 3: Detalhes */
+.ph-col-details {
+  position: relative;
+  border-left: 1px solid #eee;
+  padding-left: 25px;
+  height: 100%;
   display: flex;
-  align-items: flex-end;
-  padding-block: 30px; /* vertical */
-  padding-inline: var(--container-gutter); /* horizontal padronizado */
-  color: var(--color-light);
-  position: relative;
+  flex-direction: column;
+  overflow: hidden;
 }
-.featured-slide::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
-  border-radius: 8px;
-  z-index: 1;
+.ph-details-content {
+  animation: ph-fadeIn 0.6s ease-out;
+  flex-grow: 1;
+  overflow-y: auto;
+  padding-right: 15px;
 }
-.featured-content {
-  position: relative;
-  z-index: 2;
-  max-width: 60%;
+.ph-countdown {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--color-accent);
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  padding-top: 10px;
 }
-.featured-content h3 {
-  font-size: 2.2rem;
-  color: var(--color-light);
+.ph-details-title {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  color: var(--color-primary);
+  line-height: 1.1;
   margin: 0 0 10px 0;
 }
-.featured-content p {
-  font-size: 1rem;
-  opacity: 0.9;
+.ph-details-location {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   margin-bottom: 10px;
 }
-.featured-content span {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.featured-nav {
-  position: absolute;
-  bottom: 30px;
-  right: 30px;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  z-index: 3;
-}
-.featured-nav .arrow {
-  background: rgba(0, 0, 0, 0.3);
-  border: none;
-  color: var(--color-light);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.dots {
-  display: flex;
-  gap: 8px;
-}
-.dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.5);
-}
-.dot.active {
-  background: var(--color-accent);
-}
-
-/* === INÍCIO DAS MUDANÇAS (ESTILO FINAL + ESPAÇAMENTO INTERNO PADRÃO 25px) === */
-
-/* Lista de Eventos */
-.events-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px; /* Espaço entre os cartões */
-}
-
-/* O .event-card é o container da LINHA */
-.event-card {
-  display: flex;
-  background-color: transparent;
-  border-radius: 0;
-  overflow: visible;
-  padding: 0;
-}
-.event-image {
-  width: 250px; /* Largura da imagem */
-  object-fit: cover;
+.ph-details-location svg {
+  color: var(--color-accent);
   flex-shrink: 0;
-  border-radius: 6px 0 0 6px; /* Arredonda só o canto esquerdo */
 }
-
-/* O bloco azul que contém detalhes e ações */
-.event-content-wrapper {
-  display: flex; /* Cria as duas colunas internas */
-  flex-grow: 1;
-  background-color: var(--color-primary); /* Fundo azul escuro */
-  color: var(--color-light); /* Texto claro */
-  padding: 10px; /* PADRÃO: Padding interno principal */
-  border-radius: 0 6px 6px 0; /* Arredonda só o canto direito */
-}
-
-/* Coluna de Detalhes (Esquerda) */
-.event-details {
+.ph-details-time {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #555;
   display: flex;
-  flex-direction: column;
-  flex-grow: 1; /* Ocupa o espaço restante */
-  padding-right: 25px; /* PADRÃO: Espaço antes da coluna de ações */
-  padding-inline-end: var(--space-md);
-}
-
-/* Pílula branca de Data/Hora */
-.event-meta {
-  background-color: var(--color-white); /* Fundo branco */
-  color: var(--color-primary); /* Texto escuro */
-  border-radius: 20px; /* Bem arredondado */
-  padding: 6px 12px;
-  display: inline-flex;
-  align-self: flex-start;
-  gap: 15px;
+  align-items: center;
+  gap: 8px;
   margin-bottom: 20px;
 }
-.pill-date,
-.pill-time {
-  display: flex;
-  align-items: center; /* Alinha ícone e texto verticalmente */
-  gap: 6px;
-  font-family: var(--font-body); /* Poppins */
-  font-size: 0.8rem;
-  font-weight: 600;
-}
-.pill-date svg,
-.pill-time svg {
-  color: var(--color-accent); /* Ícones laranja */
-  font-size: 0.9rem; /* Tamanho dos ícones */
+.ph-details-time svg {
+  color: var(--color-accent);
   flex-shrink: 0;
-}
-.pill {
-  display: none;
-} /* Remove regra antiga */
-
-/* Título (Bebas Neue) */
-.event-details h4 {
-  font-family: var(--font-heading); /* Bebas Neue */
-  font-size: 1.6rem;
-  color: var(--color-light);
-  margin: 0 0 10px 0;
-  font-weight: 400; /* Bebas Neue já é "bold" */
-  letter-spacing: 1px; /* Espaçamento de letra para Bebas Neue */
-}
-
-/* Descrição (Poppins) */
-.event-description {
-  font-family: var(--font-body); /* Poppins */
-  font-size: 0.85rem; /* Um pouco menor */
-  opacity: 0.7;
-  margin: 0 0 15px 0;
-  line-height: 1.6; /* Maior espaçamento entre linhas */
-}
-
-/* Localização (Poppins) */
-.event-location {
-  font-family: var(--font-body); /* Poppins */
-  font-size: 0.85rem;
-  opacity: 0.9;
-  display: flex;
   align-items: center;
-  gap: 8px;
-  margin-top: auto; /* Empurra para o fundo */
+  margin-bottom: 4px;
 }
-.event-location svg {
-  font-size: 0.9rem; /* Tamanho do ícone de mapa */
-}
-
-/* Coluna de Ações (Direita) */
-.event-actions {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; /* Espaça verticalmente */
-  align-items: center;
-  flex-shrink: 0;
-  width: 150px;
-  padding-left: 25px; /* PADRÃO: Padding antes da coluna */
-  padding-inline-start: var(--space-md);
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* "Tem interesse?" */
-.interest-prompt {
-  text-align: center;
-  width: 100%;
-}
-.interest-prompt span {
-  text-align: center;
-  font-family: var(--font-body); /* Poppins */
-  font-size: 0.8rem;
-  display: block;
-  margin-bottom: 8px;
-  opacity: 0.8;
-  color: var(--color-light);
-}
-
-/* Botão "Saiba mais!" */
-.learn-more-button {
-  background: var(--color-light); /* Fundo claro */
-  color: var(--color-primary); /* Texto escuro */
-  border: none;
-  border-radius: 20px !important; /* Bem arredondado (mantém !important se necessário) */
-  cursor: pointer;
-  font-family: var(--font-body); /* Poppins */
-  font-weight: 400 !important; /* Mais negrito */
-  font-size: 0.7rem;
-  width: 100%;
-  transition: all 0.3s ease;
-}
-.learn-more-button:hover {
-  background-color: #ddd;
-}
-
-/* Botões Sociais */
-.social-buttons {
-  display: flex;
-  gap: 25px; /* PADRÃO: Espaço entre os botões */
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-}
-.social-buttons button {
-  background: none;
-  border: none;
-  color: var(--color-light);
-  cursor: pointer;
-  opacity: 0.8;
-  transition:
-    opacity 0.3s,
-    color 0.3s;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-body); /* Poppins */
-  font-size: 0.9rem; /* Tamanho do número de likes */
-  font-weight: 600;
-  gap: 6px;
-}
-.social-buttons button svg {
-  font-size: 1.1rem; /* Tamanho do ícone */
-}
-.social-buttons button:hover {
-  opacity: 1;
-  color: var(--color-light); /* Sem mudança de cor no hover */
-}
-
-/* Navegação da Lista (Se existir) */
-.events-list-nav {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 15px;
-  padding: 20px 0;
-}
-/* ... (estilos da navegação .arrow, .dots, .dot continuam iguais) ... */
-.events-list-nav .arrow {
-  background: transparent;
-  border: 2px solid var(--color-primary); /* Corrigido */
-  color: var(--color-primary);
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.ph-details-description {
+  font-family: var(--font-body);
   font-size: 0.9rem;
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease; /* Adicionado color transition */
+  line-height: 1.7;
+  color: #333;
+  margin-bottom: 25px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 25px;
 }
-.events-list-nav .arrow:hover {
-  background-color: var(--color-primary); /* Preenche no hover */
-  color: var(--color-light); /* Cor do ícone muda */
-}
-.events-list-nav .dots {
+.ph-spots {
+  font-family: var(--font-body);
+  font-weight: 600;
+  color: var(--color-primary);
+  background-color: #e0f7fa;
+  border: 1px solid #b2ebf2;
+  padding: 12px;
+  border-radius: 4px;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+.ph-spots.low {
+  background-color: #fff3e0;
+  border-color: #ffe0b2;
+  color: #e65100;
+}
+.ph-spots svg {
+  font-size: 1.2rem;
+}
+
+/* --- MUDANÇA AQUI: Estilos copiados do .nav-link-highlight --- */
+.ph-details-cta {
+  /* Estilos base do .nav-link-highlight */
+  background-color: var(--color-accent);
+  color: var(--color-light);
+  padding: 10px 20px; /* Padding do Header */
+  font-weight: 400;
+  text-decoration: none !important;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+  position: relative;
+  border-radius: 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
+
+  /* Estilos mantidos do .ph-details-cta */
+  display: block;
+  text-align: center;
+  flex-shrink: 0;
+  border: none;
+  cursor: pointer;
+}
+
+.ph-details-cta:hover {
+  /* Estilo hover do .nav-link-highlight */
+  background-color: var(--color-primary);
+  color: var(--color-light);
+  text-decoration: none !important;
+}
+
+.ph-details-cta::after {
+  /* Animação ::after do .nav-link-highlight */
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(
+    --color-accent
+  ); /* Linha clara (como no seu Header.css) */
+  transition: width 0.3s ease-in-out;
+}
+
+.ph-details-cta:hover::after {
+  /* Animação :hover::after do .nav-link-highlight */
+  width: 100%;
+}
+/* --- FIM DAS MUDANÇAS --- */
+
+.ph-calendar-link {
+  font-family: var(--font-body);
+  font-weight: 600;
+  color: var(--color-primary);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 8px;
+  margin-top: 15px;
+  font-size: 0.85rem;
+  transition: color 0.3s ease;
+  flex-shrink: 0;
+  padding-bottom: 10px;
 }
-.events-list-nav .dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.2);
+.ph-calendar-link:hover {
+  color: var(--color-accent);
 }
-.events-list-nav .dot.active {
-  background: var(--color-accent);
+.ph-calendar-link svg {
+  margin-bottom: 4px;
+}
+
+/* Responsividade do Hub (Mantida) */
+@media (max-width: 1000px) {
+  .ph-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    height: auto;
+  }
+  .ph-col-image {
+    min-height: 400px;
+    height: auto;
+    grid-row: 2;
+  }
+  .ph-col-details {
+    grid-row: 3;
+    border-left: none;
+    padding-left: 0;
+    height: auto;
+    overflow-y: visible;
+  }
+  .ph-details-content {
+    overflow-y: visible;
+  }
+  .ph-list-scroll {
+    max-height: 250px;
+    flex-grow: 0;
+    height: auto;
+  }
+}
+@media (max-width: 600px) {
+  .polaroid-container {
+    padding: 40px 20px 20px 20px;
+  }
+  .ph-col-image {
+    min-height: 250px;
+  }
+  .ph-grid {
+    gap: 20px;
+  }
+}
+
+/* --- 4. NOVOS ESTILOS (EVENTOS ANTERIORES) --- */
+.pe-section {
+  /* (Estilos mantidos) */
+}
+.pe-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--color-primary);
+  letter-spacing: 1px;
+  margin: 0 0 20px 0;
+}
+.pe-list-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #ddd #f9f9f9;
+}
+.pe-list-wrapper::-webkit-scrollbar {
+  height: 6px;
+}
+.pe-list-wrapper::-webkit-scrollbar-track {
+  background: #f9f9f9;
+  border-radius: 3px;
+}
+.pe-list-wrapper::-webkit-scrollbar-thumb {
+  background-color: #ddd;
+  border-radius: 3px;
+}
+.pe-list-wrapper::-webkit-scrollbar-thumb:hover {
+  background-color: #ccc;
+}
+.pe-list {
+  display: flex;
+  gap: 15px;
+  width: max-content;
+  padding-bottom: 10px;
+}
+.pe-card-link {
+  text-decoration: none;
+  display: block;
+}
+.pe-card {
+  width: 200px;
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  overflow: hidden;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.pe-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+.pe-card-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  border-bottom: 1px solid #eee;
+}
+.pe-card-category {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  background-color: var(--color-accent);
+  color: var(--color-white);
+  padding: 3px 8px;
+  border-radius: 3px;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.pe-card-content {
+  padding: 10px;
+}
+.pe-card-title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--color-dark);
+  margin: 0;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 2.6rem;
+}
+.pe-card-link:hover .pe-card-title {
+  color: var(--color-accent);
 }

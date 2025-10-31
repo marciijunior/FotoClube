@@ -1,0 +1,29 @@
+/* src/components/common/ThemeToggleButton.css */
+
+.theme-toggle-button {
+  background: none;
+  border: none;
+  /* --- MUDANÇA: A cor agora usa variável de tema --- */
+  color: var(--theme-text-secondary); 
+  font-size: 1.4rem; /* Tamanho do ícone */
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s ease, transform 0.3s ease;
+  
+  /* --- MUDANÇA: Isto alinha o botão com o seu 'padding-bottom: 8px' dos .nav-link --- */
+  padding-bottom: 8px; 
+  margin-left: 10px; /* (Adiciona espaçamento) */
+}
+
+.theme-toggle-button:hover {
+  color: var(--color-accent); /* Laranja no hover */
+  transform: scale(1.1);
+}
+
+.theme-toggle-button svg {
+  transition: opacity 0.3s ease;
+}
