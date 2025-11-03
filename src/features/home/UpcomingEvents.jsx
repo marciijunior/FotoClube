@@ -122,7 +122,7 @@ function UpcomingEvents() {
             
           </div> {/* Fim do .ph-grid */}
 
-          {/* --- SECÇÃO DE EVENTOS ANTERIORES (Mantida) --- */}
+ 
           <div className="pe-section">
             <h3 className="pe-title">Eventos Anteriores</h3>
             <div className="pe-list-wrapper">

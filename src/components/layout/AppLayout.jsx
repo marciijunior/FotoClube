@@ -1,24 +1,31 @@
 // src/components/layout/AppLayout.jsx
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom'; // 1. Importa o useLocation
 import Header from './Header';
 import Footer from './Footer';
-import { AuthProvider } from '../../context/AuthProvider.jsx'; // Importe o AuthProvider
-
-// Remova a importação do AppLayout.css se ele não for mais necessário
-// import './AppLayout.css';
+import { AuthProvider } from '../../context/AuthProvider.jsx';
+import './AppLayout.css'; // 2. Importa o AppLayout.css
 
 const AppLayout = () => {
+  // 3. Verifica qual é a página atual
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
+
   return (
     <AuthProvider>
-      <div className="app-container"> {/* Pode manter este wrapper se quiser */}
+      <> 
         <Header />
-        {/* --- REVERSÃO AQUI --- */}
-        <main> {/* Remove a classe "app-main-content" */}
+        
+        {/* 4. Adiciona classes ao <main>
+          - 'app-main-content' aplica o padding-top
+          - 'is-home-page' é usada pelo AppLayout.css para REMOVER o padding
+        */}
+        <main className={`app-main-content ${isHomePage ? 'is-home-page' : ''}`}>
           <Outlet />
         </main>
-        {/* --- FIM DA REVERSÃO --- */}
+        
+        {/* 5. CORREÇÃO: O Footer agora aparece em TODAS as páginas */}
         <Footer />
-      </div>
+      </>
     </AuthProvider>
   );
 };

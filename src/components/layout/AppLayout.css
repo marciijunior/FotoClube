@@ -1,24 +1,21 @@
 /* src/components/layout/AppLayout.css */
 
 .app-main-content {
-  /*
-    Calcular o padding-top necessário para empurrar o conteúdo para baixo.
-    Isso deve corresponder à altura do seu header.
-
-    Header:
-    - padding-top: 50px
-    - padding-bottom: 50px
-    - Altura do logo: 5rem (que é 80px se 1rem = 16px)
-
-    Então, a altura total do header é ~ 50px (top) + 80px (logo) + 50px (bottom) = 180px.
-    Adicione um pouco mais para garantir espaçamento.
+  /* O seu Header tem 'position: absolute'.
+    Este padding-top "empurra" o conteúdo de TODAS as páginas
+    para baixo, para que comecem *depois* do Header.
+    (Baseado no seu Header.css, a altura é aprox. 180px-200px)
   */
-  padding-top: 180px; /* Ajuste este valor conforme a altura real do seu header */
-  min-height: calc(100vh - 200px); /* Exemplo: subtrair altura do header e footer */
-  box-sizing: border-box; /* Garante que padding e border não adicionem largura/altura */
+  padding-top: 200px; 
+  
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
-/*
-  Se você estiver usando o 'App.css' para estilos globais,
-  certifique-se de que não há conflitos ou sobreposições.
+/* EXCEÇÃO: Se for a Home Page (com o carrossel 100vh), 
+  removemos o padding-top para que o carrossel comece 
+  no topo da tela (atrás do header).
 */
+.app-main-content.is-home-page {
+  padding-top: 0;
+}
