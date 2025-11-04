@@ -13,7 +13,7 @@ function HomePage() {
       <HeroCarousel />
       {/* A secção PhotoOfTheMonth foi removida daqui */}
       <UpcomingEvents />
-      <AboutSection />
+      <AboutSection/>
       <RecentActivities />
       <JoinUsSection />
       {/* O Footer será adicionado pelo AppLayout */}

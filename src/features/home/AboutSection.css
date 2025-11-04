@@ -1,157 +1,127 @@
-/* src/features/home/AboutSection.css */
+/* src/features/home/AboutSection.css (MODELO 3: REVISTA/SOBREPOSIÇÃO) */
 
-
-.about-section {
-  display: flex;
-  justify-content: center;
-  background-color: #f4f4f4;
-  padding: 80px 0;
+.about-section-magazine {
+  background-color: var(--color-light); /* Fundo creme/branco */
+  padding: 120px 0;
   width: 100%;
 }
 
-/* Container principal com mesmo padrão do RecentActivities */
-.polaroid-container {
-  background-color: #ffffff;
-  border-radius: 4px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-  position: relative;
-  max-width: 1200px;
+.magazine-container {
+  max-width: var(--container-max-width, 1200px);
   margin: 0 auto;
-  width: 100%;
-  margin-top: 60px; /* Espaço para a aba */
-  padding-inline: var(--container-gutter);
+  padding: 0 var(--container-gutter, 24px);
+  
+  /* O grid principal */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 40px;
 }
 
-/* Aba laranja */
-.polaroid-container::before {
-  content: '';
+/* Coluna da Pilha de Imagens */
+.magazine-image-stack {
+  position: relative;
+  height: 450px; /* Altura fixa para a pilha */
+}
+
+.magazine-image {
   position: absolute;
-  width: 120px;
-  height: 10px;
-  background-color: var(--color-accent); /* Laranja */
-  border-radius: 4px 4px 0 0;
-  top: -10px;
-  left: 40px;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  transition: transform 0.4s ease;
 }
 
-/* Container Flex que agora está DENTRO do Polaroid */
-.about-flex-wrapper {
-  display: flex;
-  align-items: flex-start; /* Alinha no topo */
-  gap: 40px; /* Espaço original entre texto e imagem mantido */
-  width: 100%;
-  padding: 30px 0;
+.magazine-image:hover {
+  transform: scale(1.03);
+  z-index: 5;
 }
 
-/* Conteúdo da esquerda (texto) */
-.about-content {
-  display: flex;
-  flex-direction: column;
-}
-
-/* === AJUSTE: Título da Secção PADRONIZADO === */
-.about-title {
-  font-family: var(--font-heading); /* Bebas Neue */
-  font-size: 2.5rem; /* Tamanho padronizado */
-  color: var(--color-primary); /* Azul escuro */
-  margin: 0; /* Remove margem padrão */
-  margin-bottom: 30px; /* Espaço abaixo padronizado */
-  position: relative; /* Necessário para o ::after */
-  padding: 0px 0 10px 0; /* Espaço para a linha */
-  letter-spacing: 1px; /* Espaçamento de letra padronizado */
-}
-
-/* Linha laranja decorativa (igual aos outros títulos) */
-.about-title::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
+.image-back {
+  width: 80%;
+  height: 350px;
+  top: 0;
   left: 0;
-  width: 60px;
-  height: 4px;
-  background-color: var(--color-accent); /* Laranja */
-  border-radius: 2px;
-}
-/* === FIM DO AJUSTE === */
-
-
-.about-text {
-  font-family: var(--font-body); /* Poppins */
-  font-size: 1rem;
-  line-height: 1.7;
-  color: var(--color-dark); /* Cor de texto padrão */
-  opacity: 0.8;
-  margin: 0 0 30px 0;
-  padding: 0;
 }
 
-.about-button {
-  background-color: var(--color-primary); /* Fundo azul escuro */
-  color: var(--color-light); /* Texto claro */
-  border: none;
-  border-radius: 25px; /* Bem arredondado */
-  padding: 12px 30px;
-  font-family: var(--font-body); /* Poppins */
+.image-front {
+  width: 65%;
+  height: 280px;
+  bottom: 0;
+  right: 0;
+  border: 4px solid var(--color-light); /* Borda para destacar */
+  z-index: 2; /* Fica na frente da 'image-back' */
+}
+
+/* Coluna da Caixa de Texto */
+.magazine-text-box {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  z-index: 10; /* Fica na frente de tudo */
+  
+  /* --- A MÁGICA DA SOBREPOSIÇÃO --- */
+  /* Movemos a caixa de texto 80px para a esquerda, 
+     fazendo-a "invadir" o espaço da coluna da imagem. */
+  margin-left: -80px; 
+}
+
+.magazine-eyebrow {
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.9rem;
+  color: var(--color-accent);
   text-transform: uppercase;
   letter-spacing: 1px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin: 30px 0;
 }
 
-.about-button:hover {
-  background-color: var(--color-accent); /* Laranja no hover */
-  color: var(--color-light);
-}
-
-/* Conteúdo Extra (Expansão) */
-.about-extra-content {
-  max-height: 0;
-  opacity: 0;
-  overflow: hidden;
-  transition: max-height 0.6s ease-in-out, opacity 0.4s 0.2s ease-in-out, margin-top 0.6s ease-in-out;
-  margin-top: 0;
-}
-.about-section.expanded .about-extra-content {
-  max-height: 1000px;
-  opacity: 1;
-  margin-top: 30px;
-}
-.about-extra-content h5 {
-  font-family: var(--font-heading); /* Bebas Neue */
-  font-size: 1.3rem;
+.magazine-title {
+  font-family: var(--font-heading);
+  font-size: 2.8rem;
   color: var(--color-primary);
-  margin: 0 0 10px 0;
-  letter-spacing: 1px;
+  margin: 10px 0 20px 0;
 }
-.about-extra-content p {
-  font-family: var(--font-body); /* Poppins */
-  font-size: 0.95rem;
+
+.magazine-text {
+  font-size: 1rem;
   line-height: 1.7;
-  color: var(--color-dark);
-  opacity: 0.8;
-  margin-bottom: 15px;
-}
-.about-section.expanded .about-button {
-  background-color: var(--color-accent); /* Laranja */
-  color: var(--color-light);
-}
-.about-section.expanded .about-button:hover {
-  background-color: #e65100; /* Laranja mais escuro no hover */
+  color: #333;
+  margin-bottom: 20px;
 }
 
-
-/* Container da Imagem (Direita) */
-.about-image-container {
-  flex-basis: 40%;
-  flex-shrink: 0;
+.magazine-link {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--color-primary);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
-.about-image {
-  width: 100%;
-  border-radius: 8px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  display: block;
+.magazine-link:hover {
+  color: var(--color-accent);
+  transform: translateX(5px);
+}
+
+/* Responsividade: Desfazemos a sobreposição em telas pequenas */
+@media (max-width: 900px) {
+  .magazine-container {
+    grid-template-columns: 1fr; /* Empilha */
+    gap: 20px;
+  }
+  
+  .magazine-image-stack {
+    /* Imagem vem primeiro em telas pequenas */
+    order: -1; 
+    height: 350px; /* Altura menor */
+  }
+
+  .magazine-text-box {
+    /* Reseta a sobreposição */
+    margin-left: 0; 
+  }
 }

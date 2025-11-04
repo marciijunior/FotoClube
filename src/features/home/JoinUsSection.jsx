@@ -1,39 +1,76 @@
 // src/features/home/JoinUsSection.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './JoinUsSection.css'; // O CSS que você já aprovou
+import { FaUsers, FaCamera, FaCoffee } from 'react-icons/fa';
+import './JoinUsSection.css'; // O CSS atualizado
+
+// 1. (CORREÇÃO DA IMAGEM): IMPORTE SUA IMAGEM AQUI
+//    Substitua o caminho pela sua imagem de fundo desejada
+import FundoParallax from '../../assets/imgJoinUs.jpg'; // Usei uma das suas imagens como exemplo
 
 function JoinUsSection() {
-  // A imagem de fundo (parallax)
-  const imageUrl = "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=2071&auto-format&fit=crop";
-
   return (
     <section 
-      className="join-us-section-parallax-light-card"
-      style={{ backgroundImage: `url(${imageUrl})` }}
+      className="join-us-stats-section"
+      // 2. (CORREÇÃO DA IMAGEM): Usamos a variável importada aqui
+      style={{ 
+        backgroundImage: `url(${FundoParallax})` 
+      }}
     >
-      {/* O container agora centralizará o card */}
-      <div className="join-us-container-light-card">
+      <div className="join-us-stats-container">
         
-        {/* O Card de Conteúdo Flutuante com fundo claro */}
-        <div className="join-us-card-light-card">
-          
-          {/* --- NOVO TEXTO ABAIXO --- */}
-          
-          <h2 className="join-us-title-light-card">A SUA PAIXÃO NOS CONECTA</h2>
-          <p className="join-us-text-light-card">
-            O FotoClube de Araçatuba é o lugar onde amantes da fotografia se identificam. 
-            Se você busca inspiração, técnica ou um grupo para compartilhar 
-            suas melhores capturas, aqui você encontrará seu espaço.
+        {/* O card flutuante (que agora será mais largo) */}
+        <div className="join-us-floating-card">
+
+          <h2 className="join-us-stats-title">O Ponto de Encontro da Fotografia</h2>
+          <p className="join-us-stats-intro">
+            Mais do que um clube, somos uma comunidade vibrante que respira fotografia. 
+            Nossa missão é conectar pessoas, inspirar a criatividade e celebrar 
+            a arte de capturar momentos.
           </p>
-          
-          {/* --- FIM DO NOVO TEXTO --- */}
 
-          <Link to="/login" className="join-us-button-light-card">
-            QUERO SER ASSOCIADO
-          </Link>
-        </div>
+          {/* Grid de Valores/Estatísticas (dentro do card) */}
+          <div className="stats-grid">
+            <div className="stat-item">
+              <div className="stat-icon">
+                <FaUsers />
+              </div>
+              <h3 className="stat-title">150+ Membros</h3>
+              <p className="stat-description">
+                Uma rede diversa de fotógrafos apaixonados.
+              </p>
+            </div>
+            
+            <div className="stat-item">
+              <div className="stat-icon">
+                <FaCamera />
+              </div>
+              <h3 className="stat-title">Workshops Mensais</h3>
+              <p className="stat-description">
+                Do básico ao avançado, sempre há algo novo para aprender.
+              </p>
+            </div>
+            
+            <div className="stat-item">
+              <div className="stat-icon">
+                <FaCoffee />
+              </div>
+              <h3 className="stat-title">Passeios e Encontros</h3>
+              <p className="stat-description">
+                Exploramos a região e fortalecemos nossos laços.
+              </p>
+            </div>
+          </div>
 
+          {/* Botão de Ação (dentro do card) */}
+          <div className="join-us-stats-cta">
+            <Link to="/login" className="stats-cta-button">
+              Faça Parte Desta Comunidade
+            </Link>
+          </div>
+
+        </div> 
+        {/* Fim do card flutuante */}
       </div>
     </section>
   );

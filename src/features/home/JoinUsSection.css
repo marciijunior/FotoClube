@@ -1,79 +1,156 @@
-/* src/features/home/JoinUsSection.css */
+/* src/features/home/JoinUsSection.css (Parallax + Card Flutuante) */
 
-.join-us-section-parallax-light-card {
-  position: relative;
-  padding: 120px 20px;
-
-  /* A MÁGICA DO PARALLAX */
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
+/* 1. SECÇÃO (FUNDO PARALLAX) */
+.join-us-stats-section {
+  /* A imagem de fundo agora é definida via 'style' no JSX */
   background-size: cover;
+  background-position: center center;
+  background-attachment: fixed; /* O PARALLAX */
+  padding: 120px 0; 
+  width: 100%;
+  position: relative;
+  border-top: 1px solid #eee;
 }
 
-.join-us-container-light-card {
-  max-width: 1100px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 2;
+/* Overlay escuro */
+.join-us-stats-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); 
+  z-index: 1;
+}
 
-  /* Centralizando o card */
+/* 2. CONTAINER (Centraliza o card) */
+.join-us-stats-container {
+  /* O max-width do container vem do index.css (1200px) */
+  max-width: var(--container-max-width); 
+  margin: 0 auto;
+  padding: 0 var(--container-gutter, 24px);
+  position: relative; 
+  z-index: 2;
+  
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.join-us-card-light-card {
-  /* Fundo claro */
+/* 3. O CARD FLUTUANTE */
+.join-us-floating-card {
   background-color: var(--color-light); 
-  
+  color: var(--color-dark); 
   padding: 50px;
-  border-radius: 4px;
+  border-radius: 8px;
   box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-  max-width: 550px; 
-  width: 100%; /* Garante que funcione bem em telas menores */
-
-  /* Texto centralizado */
+  
+  /* --- (CORREÇÃO DA LARGURA) --- */
+  /* Alterado de 1100px para usar a largura total do container (1200px) */
+  max-width: 1200px; 
+  /* ------------------------------ */
+  
+  width: 100%; /* Garante que ocupe os 1200px do max-width */
   text-align: center;
 }
 
-.join-us-title-light-card {
+/* 4. ESTILOS DO CONTEÚDO (Sem mudanças) */
+
+.join-us-stats-title {
   font-family: var(--font-heading);
-  font-size: 2.8rem;
-  /* Cor do título escura */
+  font-size: 2.5rem;
   color: var(--color-primary); 
   margin-bottom: 20px;
-}
-
-.join-us-text-light-card {
-  font-family: var(--font-body);
-  font-size: 1.1rem;
-  line-height: 1.6;
-  margin-bottom: 30px;
-  /* Cor do texto escura */
-  color: var(--color-dark);
-  opacity: 0.9;
-}
-
-.join-us-button-light-card {
+  position: relative;
   display: inline-block;
-  /* Botão Laranja (destaque) */
+  padding-bottom: 10px;
+}
+
+.join-us-stats-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
   background-color: var(--color-accent); 
+}
+
+.join-us-stats-intro {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #555; 
+  max-width: 750px; /* Mantém o texto centralizado */
+  margin: 0 auto 50px auto;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  margin-bottom: 50px;
+}
+
+.stat-item {
+  background-color: #f9f9f9; 
+  padding: 30px;
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+.stat-icon {
+  font-size: 3rem;
+  color: var(--color-accent); 
+  margin-bottom: 15px;
+}
+
+.stat-title {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  color: var(--color-primary); 
+  margin: 0 0 10px 0;
+}
+
+.stat-description {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #333; 
+}
+
+.stats-cta-button {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1rem;
+  background-color: var(--color-accent);
   color: var(--color-light);
   padding: 15px 35px;
-  border-radius: 4px;
+  border-radius: 50px;
   text-decoration: none;
-  font-family: var(--font-heading);
-  font-size: 1.2rem;
-  letter-spacing: 1.5px;
-  transition: all 0.3s ease;
-  border: 2px solid var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: inline-block;
+  border: none;
 }
 
-.join-us-button-light-card:hover {
-  /* Hover para Azul */
-  background-color: var(--color-primary);
-  color: var(--color-light);
-  border-color: var(--color-primary);
+.stats-cta-button:hover {
   transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  .join-us-floating-card {
+    padding: 30px;
+  }
 }

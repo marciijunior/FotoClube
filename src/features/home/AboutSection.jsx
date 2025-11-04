@@ -1,56 +1,52 @@
-// src/features/home/AboutSection.jsx
-import { useState } from 'react';
-import './AboutSection.css';
+// src/features/home/AboutSection.jsx (MODELO 3: REVISTA - VERSÃO 'SOBRE NÓS')
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { FaArrowRight } from 'react-icons/fa';
+
+// --- CORREÇÃO DE IMAGEM ---
+// Importando imagens reais da sua pasta de assets
+import imgOverlap1 from '../../assets/images/past-winner-3.png'; // Imagem de trás
+import imgOverlap2 from '../../assets/images/past-winner-4.png'; // Imagem da frente
+
+import './AboutSection.css'; // Usará o CSS do Modelo 3
 
 function AboutSection() {
-  const [isExpanded, setIsExpanded] = useState(false);
-
-  const toggleExpand = () => {
-    setIsExpanded(!isExpanded);
-  };
-
-  const imageUrl = "/images/about-image.jpg";
-  const placeholderUrl = "https://picsum.photos/400/300?grayscale";
-
   return (
-    // 1. A section continua igual
-    <section className={`about-section ${isExpanded ? 'expanded' : ''}`}>
-      {/* 2. ADICIONA O POLAROID CONTAINER AQUI */}
-      <div className="polaroid-container">
-        {/* 3. A div que antes era 'about-container' agora está DENTRO do polaroid */}
-        <div className="about-flex-wrapper"> {/* Renomeado para clareza */}
-          <div className="about-content">
-            <h2 className="about-title">Sobre Nós</h2>
-            <p className="about-text">
-              Somos um grupo apaixonado por fotografia, dedicado a explorar o mundo
-              através das lentes. Reunimo-nos regularmente para partilhar
-              conhecimentos, inspirarmo-nos mutuamente e capturar momentos únicos.
-              Junte-se a nós nesta jornada visual!
-            </p>
-            <button
-              className="about-button"
-              onClick={toggleExpand}
-              aria-expanded={isExpanded}
-            >
-              {isExpanded ? 'Ver Menos' : 'Saber Mais'}
-            </button>
-            <div className="about-extra-content">
-              <h5>Nossa Missão</h5>
-              <p>Fomentar a arte fotográfica na comunidade, oferecendo um espaço para aprendizado, colaboração e exposição de trabalhos.</p>
-              <h5>Junte-se a Nós</h5>
-              <p>Se você compartilha da nossa paixão, entre em contacto! Realizamos workshops, passeios fotográficos e encontros mensais.</p>
-            </div>
-          </div>
-          <div className="about-image-container">
-            <img
-              src={imageUrl}
-              alt="Membros do FotoClube"
-              className="about-image"
-              onError={(e) => { e.target.onerror = null; e.target.src=placeholderUrl; }}
-            />
-          </div>
+    <section className="about-section-magazine">
+      <div className="magazine-container">
+        
+        {/* Coluna 1: Pilha de Imagens */}
+        <div className="magazine-image-stack">
+          <img 
+            src={imgOverlap1} 
+            alt="Foto do clube 1" 
+            className="magazine-image image-back" 
+          />
+          <img 
+            src={imgOverlap2} 
+            alt="Foto do clube 2" 
+            className="magazine-image image-front" 
+          />
         </div>
-      </div> {/* Fim do polaroid-container */}
+
+        {/* Coluna 2: Caixa de Texto (com textos atualizados) */}
+        <div className="magazine-text-box">
+          <span className="magazine-eyebrow">SOBRE NÓS</span>
+          <h2 className="magazine-title">Nossa História, Nossas Lentes</h2>
+          <p className="magazine-text">
+            Fundado em 2015, o FotoClube nasceu da paixão compartilhada de um 
+            pequeno grupo de fotógrafos. O que começou como encontros informais 
+            para discutir técnicas rapidamente cresceu.
+          </p>
+          <p className="magazine-text">
+            Hoje, somos uma comunidade vibrante dedicada a aprender, praticar e 
+            celebrar a arte da fotografia em Araçatuba.
+          </p>
+          <Link to="/sobre" className="magazine-link">
+            Conheça nossa história completa <FaArrowRight />
+          </Link>
+        </div>
+      </div>
     </section>
   );
 }
