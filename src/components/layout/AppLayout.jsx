@@ -1,29 +1,31 @@
 // src/components/layout/AppLayout.jsx
-import { Outlet, useLocation } from 'react-router-dom'; // 1. Importa o useLocation
+import { Outlet, useLocation } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import { AuthProvider } from '../../context/AuthProvider.jsx';
-import './AppLayout.css'; // 2. Importa o AppLayout.css
+import './AppLayout.css'; 
 
 const AppLayout = () => {
-  // 3. Verifica qual é a página atual
   const location = useLocation();
-  const isHomePage = location.pathname === '/';
+
+  // --- (MODIFICAÇÃO) ---
+  // 1. Definimos quais páginas não devem ter o padding-top.
+  const fullBleedPages = ['/', '/sobre']; 
+  
+  // 2. Verificamos se a página atual está nessa lista.
+  const isFullBleedPage = fullBleedPages.includes(location.pathname);
+  // --- (FIM DA MODIFICAÇÃO) ---
 
   return (
     <AuthProvider>
       <> 
         <Header />
         
-        {/* 4. Adiciona classes ao <main>
-          - 'app-main-content' aplica o padding-top
-          - 'is-home-page' é usada pelo AppLayout.css para REMOVER o padding
-        */}
-        <main className={`app-main-content ${isHomePage ? 'is-home-page' : ''}`}>
+        {/* 3. Usamos a nova variável para aplicar a classe */}
+        <main className={`app-main-content ${isFullBleedPage ? 'is-home-page' : ''}`}>
           <Outlet />
         </main>
         
-        {/* 5. CORREÇÃO: O Footer agora aparece em TODAS as páginas */}
         <Footer />
       </>
     </AuthProvider>

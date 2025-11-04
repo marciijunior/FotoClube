@@ -10,7 +10,12 @@ import HomePage from './features/home/HomePage';
 import LoginPage from './features/authentication/LoginPage';
 import ProfilePage from './features/profile/ProfilePage';
 import EventsPage from './features/events/EventsPage';
-import PhotoOfTheMonthPage from './pages/PhotoOfTheMonthPage'; // Import correto
+import PhotoOfTheMonthPage from './pages/PhotoOfTheMonthPage'; 
+
+// --- (MODIFICAÇÃO) ---
+// 1. Importa a nova página "Sobre Nós"
+import AboutPage from './pages/AboutPage/AboutPage'; 
+// --- (FIM DA MODIFICAÇÃO) ---
 
 import './styles/index.css';
 
@@ -23,11 +28,11 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: 'login', // Correto (sem /)
+        path: 'login', 
         element: <LoginPage />,
       },
       {
-        path: 'perfil', // Correto (sem /)
+        path: 'perfil', 
         element: (
           <ProtectedRoute>
             <ProfilePage />
@@ -35,17 +40,21 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: 'eventos', // Correto (sem /)
+        path: 'eventos', 
         element: <EventsPage />,
       },
-      // --- MUDANÇA AQUI ---
       {
-        path: 'foto-do-mes', // Alterado de 'vencedores'
+        path: 'foto-do-mes', 
         element: <PhotoOfTheMonthPage />,
       },
-      // --- FIM DA MUDANÇA ---
-
-      // Adicione outras rotas (sobre, contatos) aqui se necessário
+      
+      // --- (MODIFICAÇÃO) ---
+      // 2. Adiciona a nova rota para a página "Sobre Nós"
+      {
+        path: 'sobre',
+        element: <AboutPage />,
+      },
+      // --- (FIM DA MODIFICAÇÃO) ---
     ],
   },
 ]);
