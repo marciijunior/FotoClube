@@ -7,22 +7,19 @@ import './AppLayout.css';
 
 const AppLayout = () => {
   const location = useLocation();
-
-  // --- (MODIFICAÇÃO) ---
-  // 1. Definimos quais páginas não devem ter o padding-top.
-  const fullBleedPages = ['/', '/sobre']; 
-  
-  // 2. Verificamos se a página atual está nessa lista.
-  const isFullBleedPage = fullBleedPages.includes(location.pathname);
-  // --- (FIM DA MODIFICAÇÃO) ---
+  const isHomePage = location.pathname === '/';
 
   return (
     <AuthProvider>
       <> 
-        <Header />
+        {/* --- (MODIFICAÇÃO) ---
+            Agora passamos a prop 'isHomePage' para o Header,
+            para que ele saiba como se deve comportar.
+        */}
+        <Header isHomePage={isHomePage} />
+        {/* --- (FIM DA MODIFICAÇÃO) --- */}
         
-        {/* 3. Usamos a nova variável para aplicar a classe */}
-        <main className={`app-main-content ${isFullBleedPage ? 'is-home-page' : ''}`}>
+        <main className={`app-main-content ${isHomePage ? 'is-home-page' : ''}`}>
           <Outlet />
         </main>
         

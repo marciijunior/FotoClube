@@ -1,18 +1,19 @@
 /* src/components/layout/AppLayout.css */
 
 .app-main-content {
-  /* O seu Header tem 'position: absolute'.
-    Este padding-top "empurra" o conteúdo de TODAS as páginas
-    para baixo, para que comecem *depois* do Header.
-    (Baseado no seu Header.css, a altura é aprox. 180px-200px)
+  /* --- (MODIFICAÇÃO) ---
+    Este padding é para páginas INTERNAS.
+    Ajustado de 200px para 100px, para compensar a altura 
+    exata do novo Header no modo 'header-solid' (fixo).
   */
-  padding-top: 200px; 
+  padding-top: 100px; 
+  /* --- (FIM DA MODIFICAÇÃO) --- */
   
   min-height: 100vh;
   box-sizing: border-box;
 }
 
-/* EXCEÇÃO: Se for a Home Page (com o carrossel 100vh), 
+/* EXCEÇÃO: Na Home Page (com o carrossel 100vh), 
   removemos o padding-top para que o carrossel comece 
   no topo da tela (atrás do header).
 */

@@ -1,31 +1,33 @@
 // src/components/layout/Header.jsx
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth'; // Verifique o caminho
+import { useAuth } from '../../hooks/useAuth'; 
 import './Header.css';
 
-function Header() {
+// --- (Sem alterações aqui) ---
+const logoBranco = "./src/assets/logo-fotoclube.png"; 
+const logoAzul = "./src/assets/logo-fotoclube-azul.png"; 
+
+function Header({ isHomePage }) {
   const { isLoggedIn } = useAuth();
-  const logoSrc = "./src/assets/logo-fotoclube.png"; // Verifique o caminho
+
+  const headerClass = `header ${!isHomePage ? 'header-solid' : ''}`;
+  const logoSrc = !isHomePage ? logoAzul : logoBranco;
+  // --- (Fim) ---
 
   return (
-    <header className="header">
-      <Link to="/" className="logo"> {/* Alterado para / para ir para a raiz */}
+    <header className={headerClass}>
+      <Link to="/" className="logo">
         <img src={logoSrc} alt="FotoClube Logo"/>
       </Link>
       <nav className="nav">
         <Link to="/eventos" className="nav-link">Eventos</Link>
 
-        {/* --- Dropdown "Concursos" --- */}
         <div className="dropdown">
           <span className="nav-link dropdown-toggle">Concursos</span>
           <div className="dropdown-menu">
-            {/* --- MUDANÇA AQUI --- */}
             <Link to="/foto-do-mes" className="dropdown-item">Foto do Mês</Link>
-            {/* --- FIM DA MUDANÇA --- */}
-            {/* <Link to="/concurso/regulamento" className="dropdown-item">Regulamento</Link> */}
           </div>
         </div>
-        {/* --- FIM DO Dropdown --- */}
 
         <Link to="/sobre" className="nav-link">Sobre Nós</Link>
         <Link to="/contatos" className="nav-link">Contatos</Link>
@@ -33,6 +35,7 @@ function Header() {
         {isLoggedIn ? (
           <Link to="/perfil" className="nav-link-highlight">Meu Perfil</Link>
         ) : (
+          // --- (MODIFICAÇÃO) O TEXTO DO BOTÃO FOI ALTERADO AQUI ---
           <Link to="/login" className="nav-link-highlight">Seja Associado</Link>
         )}
       </nav>
