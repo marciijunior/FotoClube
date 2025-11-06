@@ -1,19 +1,5 @@
-/* src/pages/AboutPage/AboutPage.css */
-
-/* Este arquivo principal agora só contém os estilos
-  que são compartilhados por TODAS as secções da página.
-*/
-
-.about-page-content {
+/* CSS simples apenas para o wrapper da página */
+.about-page-wrapper {
   width: 100%;
-  animation: fadeIn 0.5s ease-out;
+  overflow: hidden; /* Garante que nada vaze */
 }
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* O CSS específico de cada secção (History, Mission, Team, CTA)
-  foi movido para os seus próprios arquivos .css
-*/

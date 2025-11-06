@@ -1,0 +1,88 @@
+.members-section {
+  width: 100%;
+  padding: 80px var(--container-gutter, 24px);
+  background-color: var(--color-light-gray, #f8f9fa); /* Fundo sutil */
+}
+
+.members-container {
+  max-width: var(--container-max-width, 1200px);
+  margin: 0 auto;
+}
+
+.members-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.members-header h2 {
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  color: var(--color-primary-dark);
+  margin-bottom: 15px;
+}
+
+.members-header p {
+  font-size: 1.15rem;
+  color: var(--color-dark-gray, #555);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Grid dos Membros */
+.members-grid {
+  display: grid;
+  /* Cria colunas responsivas: 4 em desktop, 2 em tablet, 1 em mobile */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+/* Card Individual */
+.member-card {
+  background-color: var(--color-light);
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.07);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.member-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.member-card-image {
+  width: 100%;
+  height: 280px;
+  background-size: cover;
+  background-position: center;
+  border-bottom: 1px solid #eee;
+}
+
+.member-card-info {
+  padding: 20px;
+  text-align: center;
+}
+
+.member-card-info h3 {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  color: var(--color-primary);
+  margin: 0 0 10px 0;
+}
+
+.member-card-info a,
+.member-card-info span {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--color-accent);
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.member-card-info a:hover {
+  text-decoration: underline;
+}
+.member-card-info span {
+  color: #777;
+}
