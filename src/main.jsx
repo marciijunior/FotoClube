@@ -4,16 +4,17 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
+// REMOVIDOS: ProtectedRoute, LoginPage, ProfilePage
+
 import AppLayout from './components/layout/AppLayout.jsx';
-import HomePage from './features/home/HomePage';
-import EventsPage from './features/events/EventsPage';
 
-// --- MUDANÇA AQUI ---
-// O caminho agora aponta para dentro da pasta
-import PhotoOfTheMonthPage from './pages/PhotoOfTheMonthPage/PhotoOfTheMonthPage.jsx'; 
-// --- FIM DA MUDANÇA ---
+// --- MUDANÇAS AQUI ---
+import HomePage from './pages/home/HomePage.jsx'; // Caminho atualizado
+import PaginaEventos from './pages/Eventos/PaginaEventos.jsx'; // Novo componente
+// --- FIM DAS MUDANÇAS ---
 
-import AboutPage from './pages/AboutPage/AboutPage'; 
+import PhotoOfTheMonthPage from './pages/PhotoOfTheMonthPage/PhotoOfTheMonthPage.jsx';
+import AboutPage from './pages/AboutPage/AboutPage';
 
 import './styles/index.css';
 
@@ -25,13 +26,14 @@ const router = createBrowserRouter([
         path: '/',
         element: <HomePage />,
       },
+      // ROTA /login e /perfil REMOVIDAS
       {
-        path: 'eventos', 
-        element: <EventsPage />,
+        path: 'eventos',
+        element: <PaginaEventos />, // Atualizado
       },
       {
-        path: 'foto-do-mes', 
-        element: <PhotoOfTheMonthPage />, // Esta linha continua funcionando
+        path: 'foto-do-mes',
+        element: <PhotoOfTheMonthPage />,
       },
       {
         path: 'sobre',
