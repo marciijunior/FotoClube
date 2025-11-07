@@ -1,18 +1,21 @@
-// src/pages/PhotoOfTheMonthPage.jsx
+// src/pages/PhotoOfTheMonthPage/PhotoOfTheMonthPage.jsx
 import React from 'react';
 
 // Importa os dados
-import { slidesData } from '../data/slidesData';
-import { pastWinnersData } from '../data/pastWinnersData';
+import { slidesData } from '../../data/slidesData';
+import { pastWinnersData } from '../../data/pastWinnersData';
 
-// Importa o CSS principal
+// --- MUDANÇA AQUI ---
+// O CSS agora está na mesma pasta, então './PhotoOfTheMonthPage.css' está correto.
 import './PhotoOfTheMonthPage.css';
 
-// MUDANÇA: Importações de 'default' (sem chavetas)
-import HeroSection from './PhotoOfTheMonthPage/HeroSection';
-import FilmstripSection from './PhotoOfTheMonthPage/FilmstripSection';
-import ArchiveSection from './PhotoOfTheMonthPage/ArchiveSection';
-import RulesSection from './PhotoOfTheMonthPage/RulesSection';
+// --- MUDANÇA AQUI ---
+// As seções agora estão na mesma pasta (removido o './PhotoOfTheMonthPage/')
+import HeroSection from './HeroSection';
+import FilmstripSection from './FilmstripSection';
+import ArchiveSection from './ArchiveSection';
+import RulesSection from './RulesSection';
+// --- FIM DA MUDANÇA ---
 
 function PhotoOfTheMonthPage() {
   // Prepara os dados
@@ -38,10 +41,10 @@ function PhotoOfTheMonthPage() {
       {/* 3. Secção Arquivo */}
       <ArchiveSection 
         pastWinners={pastWinnersData} 
-        placeholderImage={placeholderImage} 
+        placeholderImage={placeholderImage}
       />
-
-      {/* 4. Secção Regras */}
+      
+      {/* 4. Secção de Regras */ }
       <RulesSection />
 
     </div>
