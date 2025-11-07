@@ -1,65 +1,46 @@
 // src/main.jsx
 
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import ProtectedRoute from './routes/ProtectedRoute';
-import AppLayout from './components/layout/AppLayout.jsx';
-import HomePage from './features/home/HomePage';
-import LoginPage from './features/authentication/LoginPage';
-import ProfilePage from './features/profile/ProfilePage';
-import EventsPage from './features/events/EventsPage';
-import PhotoOfTheMonthPage from './pages/PhotoOfTheMonthPage'; 
+// REMOVIDOS: ProtectedRoute, LoginPage, ProfilePage
 
-// --- (MODIFICAÇÃO) ---
-// 1. Importa a nova página "Sobre Nós"
-import AboutPage from './pages/AboutPage/AboutPage'; 
-// --- (FIM DA MODIFICAÇÃO) ---
+import AppLayout from "./components/layout/AppLayout.jsx";
+import HomePage from "./features/home/HomePage";
+import EventsPage from "./features/events/EventsPage";
+import PhotoOfTheMonthPage from "./pages/PhotoOfTheMonthPage";
+import AboutPage from "./pages/AboutPage/AboutPage";
 
-import './styles/index.css';
+import "./styles/index.css";
 
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
     children: [
       {
-        path: '/',
+        path: "/",
         element: <HomePage />,
       },
+      // ROTA /login REMOVIDA
+      // ROTA /perfil REMOVIDA
       {
-        path: 'login', 
-        element: <LoginPage />,
-      },
-      {
-        path: 'perfil', 
-        element: (
-          <ProtectedRoute>
-            <ProfilePage />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: 'eventos', 
+        path: "eventos",
         element: <EventsPage />,
       },
       {
-        path: 'foto-do-mes', 
+        path: "foto-do-mes",
         element: <PhotoOfTheMonthPage />,
       },
-      
-      // --- (MODIFICAÇÃO) ---
-      // 2. Adiciona a nova rota para a página "Sobre Nós"
       {
-        path: 'sobre',
+        path: "sobre",
         element: <AboutPage />,
       },
-      // --- (FIM DA MODIFICAÇÃO) ---
     ],
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RouterProvider router={router} />
   </React.StrictMode>

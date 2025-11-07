@@ -1,18 +1,16 @@
 // src/components/layout/Header.jsx
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth'; 
+// O 'useAuth' foi removido, o que está correto.
 import './Header.css';
 
-// --- (Sem alterações aqui) ---
 const logoBranco = "./src/assets/logo-fotoclube.png"; 
 const logoAzul = "./src/assets/logo-fotoclube-azul.png"; 
 
 function Header({ isHomePage }) {
-  const { isLoggedIn } = useAuth();
+  // A lógica 'isLoggedIn' foi removida, o que está correto.
 
   const headerClass = `header ${!isHomePage ? 'header-solid' : ''}`;
   const logoSrc = !isHomePage ? logoAzul : logoBranco;
-  // --- (Fim) ---
 
   return (
     <header className={headerClass}>
@@ -32,12 +30,15 @@ function Header({ isHomePage }) {
         <Link to="/sobre" className="nav-link">Sobre Nós</Link>
         <Link to="/contatos" className="nav-link">Contatos</Link>
 
-        {isLoggedIn ? (
-          <Link to="/perfil" className="nav-link-highlight">Meu Perfil</Link>
-        ) : (
-          // --- (MODIFICAÇÃO) O TEXTO DO BOTÃO FOI ALTERADO AQUI ---
-          <Link to="/login" className="nav-link-highlight">Seja Associado</Link>
-        )}
+        {/* --- BOTÃO READICIONADO --- */}
+        {/* Aqui está o botão "Seja Associado" que você pediu para manter.
+          Ele está fixo (não depende de login) e usa o mesmo estilo 'nav-link-highlight'.
+          O link "to" aponta para "#" por enquanto.
+        */}
+        <Link to="#" className="nav-link nav-link-highlight">
+          Seja Associado
+        </Link>
+        {/* --- FIM DA ADIÇÃO --- */}
       </nav>
     </header>
   );

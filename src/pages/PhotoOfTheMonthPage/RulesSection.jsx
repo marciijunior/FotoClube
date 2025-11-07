@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { FaChevronRight } from 'react-icons/fa';
 import './RulesSection.css';
 
-// MUDANÇA: 'export' removido daqui
 function RulesSection() {
   return (
     <section className="potm-dark-rules">
@@ -23,12 +22,14 @@ function RulesSection() {
           <p className="rules-highlight">Exclusivo para Associados</p>
         </div>
       </div>
-      <Link to="/login" className="rules-link">
+      
+      {/* --- MUDANÇA AQUI --- */}
+      <Link to="/sobre" className="rules-link">
         Ainda não é associado? Junte-se a nós <FaChevronRight />
       </Link>
+      {/* --- FIM DA MUDANÇA --- */}
     </section>
   );
 }
 
-// MUDANÇA: Adicionado 'export default' aqui
 export default RulesSection;

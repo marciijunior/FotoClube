@@ -2,24 +2,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaUsers, FaCamera, FaCoffee } from 'react-icons/fa';
-import './JoinUsSection.css'; // O CSS atualizado
+import './JoinUsSection.css'; 
 
-// 1. (CORREÇÃO DA IMAGEM): IMPORTE SUA IMAGEM AQUI
-//    Substitua o caminho pela sua imagem de fundo desejada
-import FundoParallax from '../../assets/imgJoinUs.jpg'; // Usei uma das suas imagens como exemplo
+import FundoParallax from '../../assets/imgJoinUs.jpg'; 
 
 function JoinUsSection() {
   return (
     <section 
       className="join-us-stats-section"
-      // 2. (CORREÇÃO DA IMAGEM): Usamos a variável importada aqui
       style={{ 
         backgroundImage: `url(${FundoParallax})` 
       }}
     >
       <div className="join-us-stats-container">
         
-        {/* O card flutuante (que agora será mais largo) */}
         <div className="join-us-floating-card">
 
           <h2 className="join-us-stats-title">O Ponto de Encontro da Fotografia</h2>
@@ -29,7 +25,6 @@ function JoinUsSection() {
             a arte de capturar momentos.
           </p>
 
-          {/* Grid de Valores/Estatísticas (dentro do card) */}
           <div className="stats-grid">
             <div className="stat-item">
               <div className="stat-icon">
@@ -62,15 +57,15 @@ function JoinUsSection() {
             </div>
           </div>
 
-          {/* Botão de Ação (dentro do card) */}
           <div className="join-us-stats-cta">
-            <Link to="/login" className="stats-cta-button">
+            {/* --- MUDANÇA AQUI --- */}
+            <Link to="/sobre" className="stats-cta-button">
               Faça Parte Desta Comunidade
             </Link>
+            {/* --- FIM DA MUDANÇA --- */}
           </div>
 
         </div> 
-        {/* Fim do card flutuante */}
       </div>
     </section>
   );
