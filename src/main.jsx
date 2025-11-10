@@ -1,20 +1,16 @@
-// src/main.jsx
-
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-// REMOVIDOS: ProtectedRoute, LoginPage, ProfilePage
-
 import AppLayout from './components/layout/AppLayout.jsx';
-
-// --- MUDANÇAS AQUI ---
-import HomePage from './pages/home/HomePage.jsx'; // Caminho atualizado
-import PaginaEventos from './pages/Eventos/PaginaEventos.jsx'; // Novo componente
-// --- FIM DAS MUDANÇAS ---
-
+import HomePage from './pages/Home/HomePage.jsx';
 import PhotoOfTheMonthPage from './pages/PhotoOfTheMonthPage/PhotoOfTheMonthPage.jsx';
-import AboutPage from './pages/AboutPage/AboutPage';
+import AboutPage from './pages/AboutPage/AboutPage.jsx';
+
+// --- CONFIGURAÇÃO PADRÃO ---
+// 1. Importa o arquivo PADRÃO (nome genérico)
+import PaginaEventos from './pages/Eventos/Calendario.jsx';
+// --- FIM DA CONFIGURAÇÃO ---
 
 import './styles/index.css';
 
@@ -26,10 +22,12 @@ const router = createBrowserRouter([
         path: '/',
         element: <HomePage />,
       },
-      // ROTA /login e /perfil REMOVIDAS
       {
         path: 'eventos',
-        element: <PaginaEventos />, // Atualizado
+        // --- CONFIGURAÇÃO PADRÃO ---
+        // 2. Renderiza o componente PADRÃO
+        element: <PaginaEventos />,
+        // --- FIM DA CONFIGURAÇÃO ---
       },
       {
         path: 'foto-do-mes',
