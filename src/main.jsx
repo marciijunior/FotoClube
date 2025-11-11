@@ -7,10 +7,11 @@ import HomePage from './pages/Home/HomePage.jsx';
 import PhotoOfTheMonthPage from './pages/PhotoOfTheMonthPage/PhotoOfTheMonthPage.jsx';
 import AboutPage from './pages/AboutPage/AboutPage.jsx';
 
-// --- CONFIGURAÇÃO PADRÃO ---
-// 1. Importa o arquivo PADRÃO (nome genérico)
-import PaginaEventos from './pages/Eventos/Calendario.jsx';
-// --- FIM DA CONFIGURAÇÃO ---
+// --- CORREÇÃO AQUI ---
+// O import estava apontando para Calendario.jsx
+// O import CORRETO é para PageEventos.jsx
+import PaginaEventos from './pages/Eventos/PageEventos.jsx';
+// --- FIM DA CORREÇÃO ---
 
 import './styles/index.css';
 
@@ -24,10 +25,8 @@ const router = createBrowserRouter([
       },
       {
         path: 'eventos',
-        // --- CONFIGURAÇÃO PADRÃO ---
-        // 2. Renderiza o componente PADRÃO
+        // Isto agora renderiza o PageEventos (que contém Calendario E HistorySection)
         element: <PaginaEventos />,
-        // --- FIM DA CONFIGURAÇÃO ---
       },
       {
         path: 'foto-do-mes',
