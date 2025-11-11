@@ -4,6 +4,7 @@
   background: linear-gradient(180deg, #fbfdff 0%, #f7f9fc 100%);
   padding: 40px 0;
   box-sizing: border-box;
+  overflow: visible;
 }
 
 .page-eventos-container {

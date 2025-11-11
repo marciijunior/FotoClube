@@ -1,17 +1,30 @@
-/* Novo estilo: calendário em cartões, espaçamento, cores suaves e foco no dia selecionado */
+/* Novo visual: clean + glassy cards para o calendário */
 
-/* Container geral */
-.pagina-eventos-calendario,
-.calendar-page {
-  background: linear-gradient(180deg, #fbfdff 0%, #f7f9fc 100%);
-  width: 100%;
-  padding: 56px 0 96px 0;
-  box-sizing: border-box;
-  color: var(--color-dark, #263238);
-  -webkit-font-smoothing: antialiased;
+/* base */
+:root {
+  --bg-start: #f8fbff;
+  --bg-end: #f3f7fb;
+  --card-bg: rgba(255, 255, 255, 0.85);
+  --muted: #64748b;
+  --ink: #0f1724;
+  --accent: var(--color-accent, #ff9f1c);
+  --accent-opaque: rgba(255, 159, 28, 0.12);
+  --glass-shadow: 0 10px 30px rgba(12, 20, 30, 0.06);
 }
 
-/* Área centralizada */
+/* page container */
+.pagina-eventos-calendario,
+.calendar-page {
+  width: 100%;
+  padding: 56px 0 96px;
+  background: linear-gradient(180deg, var(--bg-start), var(--bg-end));
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+.pagina-eventos-calendario { position: relative; z-index: 1; }
+.events-history { position: relative; z-index: 2; }
+
+/* layout */
 .eventos-container-calendario {
   max-width: 1180px;
   margin: 0 auto;
@@ -22,253 +35,226 @@
   align-items: start;
 }
 
-/* Cabeçalho do calendário (mês + navegação) */
+/* header / month navigation */
 .calendar-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
   margin-bottom: 18px;
+  gap: 12px;
 }
 .calendar-title {
-  font-family: var(--font-heading);
-  font-size: 1.4rem;
-  color: #0f1724;
   margin: 0;
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  color: var(--muted);
+  font-weight: 700;
+  letter-spacing: 0.6px;
 }
 .calendar-nav {
   display: flex;
-  gap: 12px;
   align-items: center;
+  gap: 12px;
 }
 .calendar-nav .nav-button {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  background: #fff;
-  border: 1px solid rgba(15, 23, 36, 0.06);
-  padding: 8px 12px;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
   border-radius: 10px;
-  font-size: 0.95rem;
-  color: #0f1724;
-  box-shadow: 0 6px 18px rgba(12, 20, 30, 0.04);
+  background: var(--card-bg);
+  border: 1px solid rgba(12, 20, 30, 0.04);
+  box-shadow: var(--glass-shadow);
+  cursor: pointer;
   transition:
     transform 0.12s ease,
-    box-shadow 0.14s ease,
-    color 0.16s ease,
-    background-color 0.16s ease;
-  cursor: pointer;
-  font-family: var(--font-heading);
-  font-weight: 700;
-  letter-spacing: 0.3px;
-  -webkit-font-smoothing: antialiased;
-  text-transform: none;
-}
-.calendar-nav .nav-icon {
-  width: 18px;
-  height: 18px;
-  display: inline-block;
-  vertical-align: middle;
-  color: var(--color-primary);
-}
-.calendar-nav .nav-label {
-  display: inline-block;
-  font-size: 0.95rem;
-  color: #072030;
+    box-shadow 0.12s ease,
+    background-color 0.12s ease;
 }
 .calendar-nav .nav-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(12, 20, 30, 0.06);
-  background: linear-gradient(180deg, #fff, #fbfbfd);
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(12, 20, 30, 0.07);
 }
-.calendar-nav .nav-button:hover .nav-label {
-  color: var(--color-accent);
+.calendar-nav .nav-icon {
+  color: var(--ink);
+  width: 18px;
+  height: 18px;
 }
+
+/* central month label */
 .calendar-month-year {
-  font-weight: 700;
-  font-size: 1.05rem;
-  color: #0b1220;
+  font-family: var(--font-heading);
+  font-size: 1.12rem;
+  font-weight: 800;
+  color: var(--ink);
   padding: 8px 14px;
   border-radius: 999px;
   background: linear-gradient(
     90deg,
-    rgba(255, 255, 255, 0.8),
-    rgba(250, 250, 250, 0.85)
+    rgba(255, 255, 255, 0.9),
+    rgba(250, 250, 250, 0.95)
   );
-  border: 1px solid rgba(11, 18, 32, 0.04);
-  box-shadow: 0 4px 14px rgba(12, 20, 30, 0.03);
+  border: 1px solid rgba(12, 20, 30, 0.04);
+  box-shadow: 0 6px 18px rgba(12, 20, 30, 0.03);
 }
 
-/* Weekday headers: compacto e elegante */
+/* weekdays row */
 .calendar-weekdays {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 10px;
+  gap: 12px;
   margin-bottom: 12px;
 }
 .weekday-header {
   text-align: center;
-  font-size: 0.78rem;
+  font-size: 0.72rem;
+  color: var(--muted);
   font-weight: 700;
-  color: #64748b;
-  text-transform: uppercase;
   letter-spacing: 0.08em;
   padding: 6px 8px;
+  text-transform: uppercase;
 }
 
-/* Grid de dias com espaçamento entre cartões */
+/* calendar grid: uniform squares */
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 12px;
-
-  /* garante que todas as células preencham linha igualmente */
   align-items: stretch;
 }
 
-/* Cada dia agora é um cartão leve */
-/* Ajustado para sempre formar quadrados iguais usando aspect-ratio */
+/* day card */
 .calendar-day {
-  background: linear-gradient(180deg, #ffffff, #fcfeff);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.95),
+    rgba(249, 250, 252, 0.96)
+  );
   border-radius: 12px;
   padding: 12px;
-  /* REMOVE min-height e usa aspect-ratio para quadrado perfeito */
-  min-height: unset;
-  aspect-ratio: 1 / 1;
   box-sizing: border-box;
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   transition:
-    transform 0.14s ease,
-    box-shadow 0.14s ease,
-    border-color 0.14s ease;
-  border: 1px solid rgba(11, 18, 32, 0.03);
+    transform 0.12s ease,
+    box-shadow 0.12s ease,
+    border-color 0.12s ease;
+  border: 1px solid rgba(12, 20, 30, 0.03);
   cursor: default;
-  overflow: hidden; /* evita estouro de conteúdo */
+  aspect-ratio: 1 / 1; /* garante quadrado */
+  overflow: hidden;
 }
 
-/* número do dia em um "bullet" no canto superior esquerdo */
+/* empty padding cells keep same size but subtle */
+.calendar-day.empty {
+  background: transparent;
+  border: none;
+  color: rgba(15, 23, 36, 0.28);
+}
+
+/* day number badge */
 .calendar-day .day-number {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 34px;
+  min-width: 34px;
   height: 34px;
+  padding: 0 10px;
   border-radius: 10px;
-  background: rgba(15, 23, 36, 0.03);
-  color: #0f1724;
+  background: rgba(15, 23, 36, 0.04);
+  color: var(--ink);
   font-weight: 700;
   font-size: 0.95rem;
-  box-shadow: 0 4px 12px rgba(12, 20, 30, 0.02);
+  box-shadow: 0 6px 14px rgba(12, 20, 30, 0.02);
 }
 
-/* dia vazio estilo discreto - mantém o mesmo tamanho quadrado */
-.calendar-day.empty {
-  background: transparent;
-  border: none;
-  color: rgba(11, 18, 32, 0.35);
-  /* mantém o aspect-ratio mesmo quando vazio */
-  min-height: unset;
-  aspect-ratio: 1 / 1;
-  cursor: default;
-}
-
-/* Destaque para hoje: borda suave e glow */
-.calendar-day.today {
-  border: 1px solid rgba(var(--color-accent-rgb, 255, 165, 0), 0.24);
-  box-shadow: 0 8px 30px rgba(255, 165, 0, 0.06);
-}
-
-/* dias com eventos são clicáveis - mantém aspect-ratio */
-.calendar-day.has-events {
-  border: 1px solid rgba(var(--color-accent-rgb, 255, 165, 0), 0.18);
-  background: linear-gradient(180deg, rgba(255, 250, 240, 0.95), #fffaf2);
-  box-shadow: 0 12px 30px rgba(255, 165, 0, 0.06);
-  cursor: pointer;
-  padding: 10px;
-  min-height: unset;
-  aspect-ratio: 1 / 1;
-}
-.calendar-day.has-events:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 18px 40px rgba(6, 10, 20, 0.06);
-}
-
-/* container dos pontos que indicam eventos (canto inferior direito) */
-.event-dot-container {
-  position: absolute;
-  right: 10px;
-  bottom: 10px;
-  display: flex;
-  gap: 6px;
-}
-.event-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: linear-gradient(180deg, var(--color-accent), #ffb04d);
-  box-shadow: 0 6px 14px rgba(255, 165, 0, 0.12);
-  border: 2px solid rgba(255, 255, 255, 0.4);
-}
-
-/* topo da célula organiza número + miniaturas (ajustado) */
+/* top row inside day */
 .calendar-day .day-top {
   display: flex;
-  align-items: center;
   gap: 10px;
+  align-items: center;
+  width: 100%;
 }
 
-/* badge com contagem de eventos */
+/* event count bubble */
 .event-count {
-  background: var(--color-accent);
-  color: var(--color-light);
-  font-weight: 700;
-  font-size: 0.78rem;
+  margin-left: auto;
+  background: linear-gradient(180deg, var(--accent), #ffb65a);
+  color: white;
+  font-weight: 800;
+  font-size: 0.75rem;
   padding: 6px 8px;
   border-radius: 999px;
-  box-shadow: 0 6px 18px rgba(255, 165, 0, 0.08);
-  margin-left: auto;
+  box-shadow: 0 8px 20px rgba(255, 159, 28, 0.12);
 }
 
-/* NOVO: lista compacta de até 2 eventos dentro da célula do dia */
+/* compact list of up to 2 events */
 .day-events {
-  margin-top: 8px;
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  align-items: flex-start;
+  gap: 8px;
   width: 100%;
 }
 .day-event-item {
   font-size: 0.78rem;
-  color: #0f1724;
-  background: rgba(11, 18, 32, 0.03);
+  color: var(--ink);
+  background: rgba(12, 20, 30, 0.035);
   padding: 6px 8px;
   border-radius: 999px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100%;
+  font-weight: 600;
 }
 
-/* quando houver muitos caracteres, mostra tooltip no hover */
-.day-event-item[title] {
-  cursor: default;
+/* hover & focus for clickable days */
+.calendar-day.has-events {
+  cursor: pointer;
+  border: 1px solid rgba(255, 159, 28, 0.12);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 250, 240, 0.95),
+    rgba(255, 247, 235, 0.95)
+  );
+  box-shadow: 0 10px 30px rgba(255, 159, 28, 0.06);
 }
-.day-event-item:hover {
-  box-shadow: 0 8px 20px rgba(12, 20, 30, 0.04);
+.calendar-day.has-events:hover,
+.calendar-day.has-events:focus {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(12, 20, 30, 0.08);
+  z-index: 3;
 }
 
-/* interação por teclado (a11y) */
+/* selected day (stronger) */
+.calendar-day.selected {
+  border-left: 6px solid var(--accent);
+  background: linear-gradient(180deg, #fffaf2, #fff6ea);
+  transform: translateY(-4px);
+  box-shadow: 0 18px 44px rgba(18, 38, 63, 0.06);
+}
+
+/* today indicator */
+.calendar-day.today {
+  box-shadow: 0 12px 36px rgba(22, 154, 255, 0.06);
+  border: 1px solid rgba(22, 154, 255, 0.12);
+}
+.calendar-day.today .day-number {
+  background: linear-gradient(180deg, #e6f5ff, #dff0ff);
+  color: #0b6aa6;
+}
+
+/* accessibility focus */
 .calendar-day:focus {
-  box-shadow: 0 0 0 4px rgba(11, 18, 32, 0.06);
-  border-color: rgba(11, 18, 32, 0.08);
   outline: none;
+  box-shadow: 0 0 0 6px rgba(12, 20, 30, 0.04);
 }
 
-/* responsividade: empilhar sidebar e reduzir gaps */
+/* responsive: stack sidebar and reduce gaps */
 @media (max-width: 992px) {
   .eventos-container-calendario {
     grid-template-columns: 1fr;
@@ -276,17 +262,33 @@
   .calendar-grid {
     gap: 10px;
   }
-  .calendar-weekdays {
-    gap: 8px;
+  .weekday-header {
+    font-size: 0.7rem;
   }
 }
-
-/* mobile: dias menores e mais compactos (aspect-ratio permanece) */
 @media (max-width: 576px) {
+  .calendar-grid {
+    gap: 8px;
+  }
   .calendar-day {
     padding: 10px;
     border-radius: 10px;
-    /* mantém proporção, reduz apenas o padding para caber melhor */
-    aspect-ratio: 1 / 1;
+  }
+  .day-event-item {
+    font-size: 0.72rem;
+    padding: 5px 7px;
+  }
+  .calendar-month-year {
+    font-size: 1rem;
+    padding: 6px 10px;
+  }
+}
+
+/* reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .calendar-day,
+  .calendar-nav .nav-button {
+    transition: none !important;
+    transform: none !important;
   }
 }

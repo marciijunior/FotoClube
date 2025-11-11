@@ -1,18 +1,22 @@
 import React from "react";
 import "./PageEventos.css";
 import Calendario from "./Calendario.jsx";
+import HistorySection from "./HistorySection.jsx";
 
-/*
-  PageEventos atua como "main" da área de Eventos.
-  Ele agrega o Calendário (que por sua vez importa InformacoesCalendario e ModalInformacoes)
-  e fornece um wrapper consistente para a rota / página de eventos.
-*/
 export default function PageEventos() {
+  console.log("PageEventos montado");
   return (
     <main className="page-eventos">
       <div className="page-eventos-container">
         <Calendario />
       </div>
+
+      {/* DEBUG: caixa simples */}
+      <div style={{ padding: 20, border: "2px dashed red", margin: "18px" }}>
+        DEBUG — abaixo do calendário
+      </div>
+
+      <HistorySection />
     </main>
   );
 }

@@ -3,13 +3,13 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-import { eventsData } from "../../data/eventsData";
 // CSS específico do calendário (grade / dias)
 import "./Calendario.css";
 
 // Componentes separados
 import InformacoesCalendario from "./InformacoesCalendario.jsx";
 import ModalInformacoes from "./ModalInformacoes.jsx";
+import { eventsData } from "../../data/eventsData";
 
 // carrega todas as imagens de src/assets/images (Vite / import.meta.glob)
 const imageModules = import.meta.glob(
@@ -30,14 +30,17 @@ const getRandomImage = () => {
   return imageUrls[Math.floor(Math.random() * imageUrls.length)];
 };
 
-// --- DADOS MOCK (ajustado para NÃO preencher todos os dias) ---
+// --- DADOS MOCK (inclui dias passados e futuros) ---
 const EVENTS_COUNT = 1000;
-const MAX_DAYS_WITH_EVENTS = 60; // número máximo de dias distintos que terão eventos
-const MAX_EVENTS_PER_DAY = 6; // limite por dia
-const SPAN_DAYS = 180; // janela de distribuição (próximos X dias)
+const MAX_DAYS_WITH_EVENTS = 60; // dias distintos com eventos
+const MAX_EVENTS_PER_DAY = 6;
+const PAST_DAYS = 90;   // quantos dias no passado podem ter eventos
+const FUTURE_DAYS = 180; // quantos dias no futuro podem ter eventos
+
+const SPAN_DAYS = PAST_DAYS + FUTURE_DAYS + 1; // janela total
 
 const mockEvents = (() => {
-  const start = new Date();
+  const start = new Date(); // referência (hoje)
   const arr = [];
   const titles = [
     "Encontro Aberto",
@@ -50,21 +53,21 @@ const mockEvents = (() => {
     "Tarde de Revelação",
   ];
 
-  // 1) escolhe um conjunto limitado de dias que terão eventos
+  // escolhe dias distintos dentro da janela passada+futura
   const dayOffsets = new Set();
   while (dayOffsets.size < Math.min(MAX_DAYS_WITH_EVENTS, SPAN_DAYS)) {
-    dayOffsets.add(Math.floor(Math.random() * SPAN_DAYS));
+    // offset em [-PAST_DAYS, FUTURE_DAYS]
+    const off = Math.floor(Math.random() * SPAN_DAYS) - PAST_DAYS;
+    dayOffsets.add(off);
   }
   const eventDays = Array.from(dayOffsets);
 
-  // 2) cria um mapa para contar eventos por dia e para gerar datas únicas
   const countsByOffset = {};
   for (const off of eventDays) countsByOffset[off] = 0;
 
-  // 3) distribui eventos entre os dias escolhidos, respeitando MAX_EVENTS_PER_DAY
   let created = 0;
   let attempt = 0;
-  const maxAttempts = EVENTS_COUNT * 5; // segurança para evitar loop infinito
+  const maxAttempts = EVENTS_COUNT * 5;
 
   while (created < EVENTS_COUNT && attempt < maxAttempts) {
     attempt++;
@@ -83,13 +86,10 @@ const mockEvents = (() => {
 
     arr.push({
       id,
-      title:
-        titles[created % titles.length] +
-        (created % 5 === 0 ? " — Especial" : ""),
+      title: titles[created % titles.length] + (created % 5 === 0 ? " — Especial" : ""),
       dateObj,
       time: `${hour}:${minute}`,
       location: ["Estúdio", "Parque", "Museu", "Praça"][created % 4],
-      // usa imagens existentes aleatoriamente
       image: getRandomImage(),
       description: `Descrição do evento ${created + 1} — detalhes e informações importantes.`,
     });
@@ -212,6 +212,13 @@ export default function PaginaEventosCalendario() {
   };
 
   const weekDays = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+
+  // exemplo: pegar os 6 eventos mais recentes
+  const recentFromData = (eventsData || [])
+    .slice()
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
+    .slice(0, 6);
+  console.log("recentFromData:", recentFromData); // remove em produção
 
   return (
     <div className="pagina-eventos-calendario">
