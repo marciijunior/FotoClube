@@ -1,267 +1,165 @@
-// src/pages/eventos_calendario/PaginaEventosCalendario.jsx
-
 import React, { useState, useMemo, useEffect } from "react";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight, FaCalendarDay } from "react-icons/fa";
 
-// CSS específico do calendário (grade / dias)
 import "./Calendario.css";
 
-// Componentes separados
+// Imports locais da mesma pasta
 import InformacoesCalendario from "./InformacoesCalendario.jsx";
 import ModalInformacoes from "./ModalInformacoes.jsx";
-import { eventsData } from "../../data/eventsData";
 
-// carrega todas as imagens de src/assets/images (Vite / import.meta.glob)
+// Importação de Imagens (Vite Glob) - Caminho corrigido baseado na sua árvore
 const imageModules = import.meta.glob(
   "../../assets/images/*.{jpg,jpeg,png,webp}",
-  {
-    eager: true,
-    as: "url",
-  }
+  { eager: true, as: "url" }
 );
 const imageUrls = Object.values(imageModules);
 
-// utilitário para pegar imagem aleatória (fallback caso vazio)
+// Fallback seguro
 const getRandomImage = () => {
-  if (!imageUrls || imageUrls.length === 0) {
-    // fallback antigo se não houver imagens no diretório
-    return `/src/assets/images/event-placeholder-1.jpg`;
-  }
+  if (!imageUrls.length) return "";
   return imageUrls[Math.floor(Math.random() * imageUrls.length)];
 };
 
-// --- DADOS MOCK (inclui dias passados e futuros) ---
-const EVENTS_COUNT = 1000;
-const MAX_DAYS_WITH_EVENTS = 60; // dias distintos com eventos
-const MAX_EVENTS_PER_DAY = 6;
-const PAST_DAYS = 90;   // quantos dias no passado podem ter eventos
-const FUTURE_DAYS = 180; // quantos dias no futuro podem ter eventos
-
-const SPAN_DAYS = PAST_DAYS + FUTURE_DAYS + 1; // janela total
-
-const mockEvents = (() => {
-  const start = new Date(); // referência (hoje)
-  const arr = [];
-  const titles = [
-    "Encontro Aberto",
-    "Saída Fotográfica",
-    "Palestra Técnica",
-    "Oficina Prática",
-    "Exibição de Fotos",
-    "Concurso Mensal",
-    "Sessão de Crítica",
-    "Tarde de Revelação",
-  ];
-
-  // escolhe dias distintos dentro da janela passada+futura
-  const dayOffsets = new Set();
-  while (dayOffsets.size < Math.min(MAX_DAYS_WITH_EVENTS, SPAN_DAYS)) {
-    // offset em [-PAST_DAYS, FUTURE_DAYS]
-    const off = Math.floor(Math.random() * SPAN_DAYS) - PAST_DAYS;
-    dayOffsets.add(off);
-  }
-  const eventDays = Array.from(dayOffsets);
-
-  const countsByOffset = {};
-  for (const off of eventDays) countsByOffset[off] = 0;
-
-  let created = 0;
-  let attempt = 0;
-  const maxAttempts = EVENTS_COUNT * 5;
-
-  while (created < EVENTS_COUNT && attempt < maxAttempts) {
-    attempt++;
-    const off = eventDays[Math.floor(Math.random() * eventDays.length)];
-    if (countsByOffset[off] >= MAX_EVENTS_PER_DAY) continue;
-
-    const dateObj = new Date(
-      start.getFullYear(),
-      start.getMonth(),
-      start.getDate() + off
-    );
-
-    const hour = String(9 + Math.floor(Math.random() * 10)).padStart(2, "0");
-    const minute = ["00", "15", "30", "45"][Math.floor(Math.random() * 4)];
-    const id = `mock-${created}-${dateObj.getTime()}`;
-
-    arr.push({
-      id,
-      title: titles[created % titles.length] + (created % 5 === 0 ? " — Especial" : ""),
-      dateObj,
-      time: `${hour}:${minute}`,
-      location: ["Estúdio", "Parque", "Museu", "Praça"][created % 4],
+/* --- DADOS DE EXEMPLO --- 
+   Nota: Futuramente, pode substituir isto por: 
+   import { eventsData } from "../../data/eventsData"; 
+*/
+const generateMockEvents = () => {
+  const events = [];
+  const today = new Date();
+  const titles = ["Workshop Luz", "Saída Urbana", "Reunião Mensal", "Edição Criativa", "Exposição"];
+  
+  for (let i = 0; i < 40; i++) {
+    const offset = Math.floor(Math.random() * 60) - 15;
+    const d = new Date(today.getFullYear(), today.getMonth(), today.getDate() + offset);
+    events.push({
+      id: i,
+      title: titles[i % titles.length],
+      dateObj: d,
+      time: "14:00",
+      location: "Sede FotoClube",
       image: getRandomImage(),
-      description: `Descrição do evento ${created + 1} — detalhes e informações importantes.`,
+      description: "Evento exclusivo para sócios e convidados.",
+      type: "normal"
     });
-
-    countsByOffset[off] += 1;
-    created += 1;
   }
+  return events;
+};
 
-  return arr;
-})();
-// --- FIM DOS DADOS MOCK ---
+const cachedEvents = generateMockEvents();
 
-export default function PaginaEventosCalendario() {
-  const [currentDate, setCurrentDate] = useState(new Date(2025, 11, 1));
+export default function Calendario() {
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [selectedDay, setSelectedDay] = useState(new Date().getDate());
   const [selectedEvents, setSelectedEvents] = useState([]);
-  const [selectedDay, setSelectedDay] = useState(null);
-
+  
+  // Modal
   const [modalOpen, setModalOpen] = useState(false);
   const [modalEvent, setModalEvent] = useState(null);
 
-  useEffect(() => {
-    if (!modalOpen) return;
-    const onKey = (e) => {
-      if (e.key === "Escape") closeModal();
-    };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [modalOpen]);
-
-  const openModal = (event) => {
-    setModalEvent(event);
-    setModalOpen(true);
-  };
-  const closeModal = () => {
-    setModalOpen(false);
-    setModalEvent(null);
-  };
-
+  // Cálculos de Data
   const { monthName, year, daysInMonth, firstDayOfWeek } = useMemo(() => {
-    const year = currentDate.getFullYear();
-    const month = currentDate.getMonth();
-    const monthName = new Date(year, month).toLocaleString("pt-BR", {
-      month: "long",
-    });
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-    const firstDayOfWeek = new Date(year, month, 1).getDay();
-    return { monthName, year, daysInMonth, firstDayOfWeek };
+    const y = currentDate.getFullYear();
+    const m = currentDate.getMonth();
+    return {
+      monthName: new Date(y, m).toLocaleString("pt-PT", { month: "long" }),
+      year: y,
+      daysInMonth: new Date(y, m + 1, 0).getDate(),
+      firstDayOfWeek: new Date(y, m, 1).getDay(),
+    };
   }, [currentDate]);
 
-  const calendarCells = [];
-  for (let i = 0; i < firstDayOfWeek; i++) {
-    calendarCells.push(
-      <div key={`pad-start-${i}`} className="calendar-day empty" />
+  useEffect(() => {
+    if (!selectedDay) {
+      setSelectedEvents([]);
+      return;
+    }
+    const evts = cachedEvents.filter(e => 
+      e.dateObj.getDate() === selectedDay &&
+      e.dateObj.getMonth() === currentDate.getMonth() &&
+      e.dateObj.getFullYear() === currentDate.getFullYear()
     );
-  }
+    setSelectedEvents(evts);
+  }, [selectedDay, currentDate]);
 
-  const handleDayClick = (day, events) => {
-    setSelectedDay(day);
-    setSelectedEvents(events);
+  const changeMonth = (offset) => {
+    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + offset, 1));
+    setSelectedDay(null);
   };
 
-  for (let day = 1; day <= daysInMonth; day++) {
-    const eventsOnThisDay = mockEvents.filter(
-      (e) =>
+  const jumpToToday = () => {
+    const now = new Date();
+    setCurrentDate(now);
+    setSelectedDay(now.getDate());
+  };
+
+  const openModal = (evt) => { setModalEvent(evt); setModalOpen(true); };
+  const closeModal = () => { setModalOpen(false); setModalEvent(null); };
+
+  // Render Grid
+  const renderGrid = () => {
+    const cells = [];
+    const weekDays = ["D", "S", "T", "Q", "Q", "S", "S"];
+    
+    weekDays.forEach((d, i) => cells.push(<div key={`h-${i}`} className="cal-header-day">{d}</div>));
+    
+    for (let i = 0; i < firstDayOfWeek; i++) {
+      cells.push(<div key={`empty-${i}`} className="cal-day empty" />);
+    }
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      const dayEvents = cachedEvents.filter(e => 
         e.dateObj.getDate() === day &&
         e.dateObj.getMonth() === currentDate.getMonth() &&
         e.dateObj.getFullYear() === currentDate.getFullYear()
-    );
+      );
+      
+      const isSelected = selectedDay === day;
+      const isToday = day === new Date().getDate() && 
+                      currentDate.getMonth() === new Date().getMonth() &&
+                      currentDate.getFullYear() === new Date().getFullYear();
 
-    calendarCells.push(
-      <div
-        key={`day-${day}`}
-        className={`calendar-day ${
-          eventsOnThisDay.length > 0 ? "has-events" : ""
-        } ${selectedDay === day ? "selected" : ""}`}
-        onClick={() => handleDayClick(day, eventsOnThisDay)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ")
-            handleDayClick(day, eventsOnThisDay);
-        }}
-        role={eventsOnThisDay.length > 0 ? "button" : undefined}
-        tabIndex={0}
-        aria-label={`${day} - ${eventsOnThisDay.length} evento(s)`}
-        title={
-          eventsOnThisDay.length > 0
-            ? `${eventsOnThisDay.length} evento(s)`
-            : undefined
-        }
-      >
-        <div className="day-top">
-          <span className="day-number">{day}</span>
-
-          {eventsOnThisDay.length > 0 && (
-            <div className="event-count" aria-hidden="true">
-              {eventsOnThisDay.length}
+      cells.push(
+        <div 
+          key={day} 
+          className={`cal-day ${isSelected ? 'selected' : ''} ${isToday ? 'today' : ''} ${dayEvents.length ? 'has-event' : ''}`}
+          onClick={() => setSelectedDay(day)}
+        >
+          <span className="cal-day-num">{day}</span>
+          {dayEvents.length > 0 && (
+            <div className="cal-dots">
+              {dayEvents.slice(0, 3).map((_, i) => <span key={i} className="cal-dot"/>)}
             </div>
           )}
         </div>
-
-        {/* NOVO: lista compacta (até 2) com títulos dos eventos */}
-        {eventsOnThisDay.length > 0 && (
-          <div className="day-events" aria-hidden="true">
-            {eventsOnThisDay.slice(0, 2).map((e) => (
-              <div key={e.id} className="day-event-item" title={e.title}>
-                {e.title}
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    );
-  }
-
-  const changeMonth = (offset) => {
-    setCurrentDate(
-      (prev) => new Date(prev.getFullYear(), prev.getMonth() + offset, 1)
-    );
-    setSelectedDay(null);
-    setSelectedEvents([]);
+      );
+    }
+    return cells;
   };
 
-  const weekDays = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
-
-  // exemplo: pegar os 6 eventos mais recentes
-  const recentFromData = (eventsData || [])
-    .slice()
-    .sort((a, b) => new Date(b.date) - new Date(a.date))
-    .slice(0, 6);
-  console.log("recentFromData:", recentFromData); // remove em produção
-
   return (
-    <div className="pagina-eventos-calendario">
-      <div className="eventos-container-calendario">
-        <div className="calendar-main-content">
-          <header className="calendar-header">
-            <h1 className="calendar-title">Nossos Encontros</h1>
-            <div className="calendar-nav">
-              <button
-                className="nav-button prev"
-                onClick={() => changeMonth(-1)}
-                aria-label="Mês Anterior"
-              >
-                <FaChevronLeft className="nav-icon" />
-                <span className="nav-label"></span>
-              </button>
-
-              <h2 className="calendar-month-year">{`${monthName} ${year}`}</h2>
-
-              <button
-                className="nav-button next"
-                onClick={() => changeMonth(1)}
-                aria-label="Próximo Mês"
-              >
-                <span className="nav-label"></span>
-                <FaChevronRight className="nav-icon" />
-              </button>
-            </div>
-          </header>
-
-          <div className="calendar-weekdays">
-            {weekDays.map((d) => (
-              <div key={d} className="weekday-header">
-                {d}
-              </div>
-            ))}
+    <div className="calendario-wrapper">
+      <div className="calendario-main">
+        <header className="cal-header">
+          <div>
+            <h2 className="cal-month-title">{monthName} <span>{year}</span></h2>
           </div>
-
-          <div className="calendar-grid">{calendarCells}</div>
+          <div className="cal-controls">
+            <button onClick={jumpToToday} className="btn-mini-today" title="Hoje"><FaCalendarDay/></button>
+            <div className="nav-arrows">
+              <button onClick={() => changeMonth(-1)}><FaChevronLeft/></button>
+              <button onClick={() => changeMonth(1)}><FaChevronRight/></button>
+            </div>
+          </div>
+        </header>
+        
+        <div className="cal-grid">
+          {renderGrid()}
         </div>
+      </div>
 
-        {/* Sidebar separado */}
-        <InformacoesCalendario
+      <div className="calendario-sidebar-wrapper">
+        <InformacoesCalendario 
           selectedEvents={selectedEvents}
           selectedDay={selectedDay}
           monthName={monthName}
@@ -269,11 +167,10 @@ export default function PaginaEventosCalendario() {
         />
       </div>
 
-      {/* Modal separado */}
-      <ModalInformacoes
-        modalOpen={modalOpen}
-        modalEvent={modalEvent}
-        closeModal={closeModal}
+      <ModalInformacoes 
+        modalOpen={modalOpen} 
+        modalEvent={modalEvent} 
+        closeModal={closeModal} 
       />
     </div>
   );

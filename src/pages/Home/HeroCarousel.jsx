@@ -1,8 +1,9 @@
 // src/features/home/HeroCarousel.jsx
-import { useState, useEffect, useCallback, useRef } from 'react';
-import { FaChevronLeft, FaChevronRight, FaRegBookmark } from 'react-icons/fa';
-import { slidesData } from '../../data/slidesData';
-import './HeroCarousel.css';
+import { useState, useEffect, useCallback, useRef } from "react";
+import { FaChevronLeft, FaChevronRight, FaRegBookmark } from "react-icons/fa";
+import { Link } from "react-router-dom"; // <--- IMPORTAR ISTO
+import { slidesData } from "../../data/slidesData";
+import "./HeroCarousel.css";
 
 const NUM_VISIBLE_THUMBNAILS = 5;
 
@@ -38,24 +39,22 @@ function HeroCarousel() {
   useEffect(() => {
     // Atrasamos a atualização para não competir com a animação principal
     const updateTimeout = setTimeout(() => {
-      
       // --- SUA LÓGICA ORIGINAL (ATIVA NA ESQUERDA) MANTIDA ---
       const newVisibleOrder = [];
       for (let i = 0; i < NUM_VISIBLE_THUMBNAILS; i++) {
-        const dataIndex = (currentIndex + i + slidesData.length) % slidesData.length;
+        const dataIndex =
+          (currentIndex + i + slidesData.length) % slidesData.length;
         newVisibleOrder.push({
           ...slidesData[dataIndex],
-          originalIndex: dataIndex
+          originalIndex: dataIndex,
         });
       }
       setVisibleThumbnails(newVisibleOrder);
       // --- FIM DA SUA LÓGICA ORIGINAL ---
-
     }, 100); // Atraso de 100ms
 
     // Limpa o timeout se o índice mudar antes
     return () => clearTimeout(updateTimeout);
-
   }, [currentIndex]);
   // --- FIM DA OTIMIZAÇÃO ---
 
@@ -73,7 +72,7 @@ function HeroCarousel() {
           <div
             key={index}
             // Sua classe active original
-            className={`slide ${index === currentIndex ? 'active' : ''}`}
+            className={`slide ${index === currentIndex ? "active" : ""}`}
             style={{ backgroundImage: `url(${slide.image})` }}
           >
             <div className="slide-content">
@@ -81,8 +80,15 @@ function HeroCarousel() {
               <h2 className="title">{slide.title}</h2>
               <p className="author">{slide.author}</p>
               <div className="actions">
-                <button className="bookmark-button"><FaRegBookmark /></button>
-                <button className="read-more-button">Ler Mais</button>
+                <button className="bookmark-button">
+                  <FaRegBookmark />
+                </button>
+                <Link
+                  to={`/detalhes-foto/${slide.id}`}
+                  className="read-more-button"
+                >
+                  Ler Mais
+                </Link>
               </div>
             </div>
           </div>
@@ -94,7 +100,7 @@ function HeroCarousel() {
           {visibleThumbnails.map((thumbData, displayIndex) => (
             <div
               key={thumbData.originalIndex}
-              className={`thumbnail ${displayIndex === 0 ? 'active-thumbnail' : ''}`}
+              className={`thumbnail ${displayIndex === 0 ? "active-thumbnail" : ""}`}
               onClick={() => goToSlide(thumbData.originalIndex)}
             >
               <img src={thumbData.image} alt={`Thumbnail ${thumbData.title}`} />
@@ -103,11 +109,15 @@ function HeroCarousel() {
         </div>
         <div className="navigation-controls">
           <div className="counter">
-            {(currentIndex + 1).toString().padStart(2, '0')}
+            {(currentIndex + 1).toString().padStart(2, "0")}
           </div>
           <div className="navigation">
-            <button onClick={goToPrevious} className="arrow"><FaChevronLeft /></button>
-            <button onClick={goToNext} className="arrow"><FaChevronRight /></button>
+            <button onClick={goToPrevious} className="arrow">
+              <FaChevronLeft />
+            </button>
+            <button onClick={goToNext} className="arrow">
+              <FaChevronRight />
+            </button>
           </div>
         </div>
       </div>

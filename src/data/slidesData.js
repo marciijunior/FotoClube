@@ -12,56 +12,84 @@ import imagemCarrossel9 from '../assets/imagemCarrossel9.png';
 
 export const slidesData = [
   {
+    id: 1,
     image: imagemCarrossel1,
-    location: 'Vale Encantado',
+    location: 'Vale Encantado, MG',
     title: 'Amanhecer nas Montanhas',
-    author: 'Por Ricardo Gomes',
+    author: 'Ricardo Gomes',
+    description: "Uma captura realizada durante a expedição de inverno. A luz dourada durou apenas 4 minutos.",
+    technical: { camera: "Canon R5", lens: "24-70mm", iso: "100", aperture: "f/8" }
   },
   {
+    id: 2,
     image: imagemCarrossel2,
-    location: 'Erzurum, Türkiye',
+    location: 'Erzurum, Turquia',
     title: 'Cerejas Vermelhas',
     author: 'Büsra Aksoy',
+    description: "O contraste vibrante das frutas frescas contra a neve recém-caída no mercado local.",
+    technical: { camera: "Sony A7III", lens: "90mm Macro", iso: "400", aperture: "f/2.8" }
   },
   {
+    id: 3,
     image: imagemCarrossel3,
-    location: 'São Paulo',
+    location: 'São Paulo, SP',
     title: 'Noite Urbana',
-    author: 'Por Ana Clara',
+    author: 'Ana Clara',
+    description: "Longa exposição na Avenida Paulista capturando o movimento frenético da cidade.",
+    technical: { camera: "Nikon D850", lens: "16-35mm", iso: "64", aperture: "f/11" }
   },
   {
+    id: 4,
     image: imagemCarrossel4,
-    location: 'Dōtonbori, Chūō-ku, Osaka, Prefettura di Osaka, Giappone',
-    title: 'Luzes da cidade',
+    location: 'Osaka, Japão',
+    title: 'Luzes da Cidade',
     author: 'Sir. Simo',
+    description: "Reflexos de néon após uma chuva torrencial em Dōtonbori.",
+    technical: { camera: "Fujifilm XT-4", lens: "23mm", iso: "1600", aperture: "f/1.4" }
   },
   {
+    id: 5,
     image: imagemCarrossel5,
     location: 'Costa Litoral',
     title: 'Ondas do Atlântico',
-    author: 'Por Sofia Alves',
+    author: 'Sofia Alves',
+    description: "A força do mar capturada em alta velocidade.",
+    technical: { camera: "Canon 6D", lens: "70-200mm", iso: "200", aperture: "f/5.6" }
   },
   {
+    id: 6,
     image: imagemCarrossel6,
-    location: 'Serra da Estrela',
-    title: 'Inverno Silencioso',
-    author: 'Por Marco Aurélio',
+    location: 'Serra da Mantiqueira',
+    title: 'Neblina da Manhã',
+    author: 'Carlos Dias',
+    description: "Minimalismo na natureza durante o amanhecer.",
+    technical: { camera: "Sony A6400", lens: "18-135mm", iso: "100", aperture: "f/8" }
   },
-  {
+   {
+    id: 7,
     image: imagemCarrossel7,
-    location: 'Estúdio Criativo',
-    title: 'Retrato de um Olhar',
-    author: 'Por Juliana Paiva',
+    location: 'Deserto do Atacama',
+    title: 'Céu Estrelado',
+    author: 'Mariana Costa',
+    description: "Astrofotografia no deserto mais árido do mundo.",
+    technical: { camera: "Canon R6", lens: "14mm", iso: "3200", aperture: "f/2.8" }
   },
-  {
+   {
+    id: 8,
     image: imagemCarrossel8,
-    location: 'Centro Urbano',
-    title: 'Arquitetura Moderna',
-    author: 'Por Tiago Ferreira',
+    location: 'Amazônia',
+    title: 'Vida Selvagem',
+    author: 'Pedro H.',
+    description: "Flagrante raro da fauna local.",
+    technical: { camera: "Nikon Z9", lens: "600mm", iso: "800", aperture: "f/4" }
   },
-  {
+   {
+    id: 9,
     image: imagemCarrossel9,
-    location: 'Parque Nacional',
-    title: 'Trilhas e Aventuras',
+    location: 'Ouro Preto',
+    title: 'Janelas do Tempo',
+    author: 'Lúcia M.',
+    description: "Detalhes da arquitetura barroca mineira.",
+    technical: { camera: "Fuji X100V", lens: "23mm Fixa", iso: "200", aperture: "f/5.6" }
   }
 ];

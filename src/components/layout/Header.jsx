@@ -1,15 +1,16 @@
 // src/components/layout/Header.jsx
 import { Link } from 'react-router-dom';
-// O 'useAuth' foi removido, o que está correto.
 import './Header.css';
 
-const logoBranco = "./src/assets/logo-fotoclube.png"; 
-const logoAzul = "./src/assets/logo-fotoclube-azul.png"; 
+// --- MUDANÇA AQUI: Importe as imagens diretamente ---
+// Isso garante que o Vite resolva o caminho correto, não importa a página
+import logoBranco from '../../assets/logo-fotoclube.png'; 
+import logoAzul from '../../assets/logo-fotoclube-azul.png'; 
 
 function Header({ isHomePage }) {
-  // A lógica 'isLoggedIn' foi removida, o que está correto.
-
   const headerClass = `header ${!isHomePage ? 'header-solid' : ''}`;
+  
+  // A lógica permanece a mesma, mas agora usa as variáveis importadas
   const logoSrc = !isHomePage ? logoAzul : logoBranco;
 
   return (
@@ -30,15 +31,10 @@ function Header({ isHomePage }) {
         <Link to="/sobre" className="nav-link">Sobre Nós</Link>
         <Link to="/contatos" className="nav-link">Contatos</Link>
 
-        {/* --- BOTÃO READICIONADO --- */}
-        {/* Aqui está o botão "Seja Associado" que você pediu para manter.
-          Ele está fixo (não depende de login) e usa o mesmo estilo 'nav-link-highlight'.
-          O link "to" aponta para "#" por enquanto.
-        */}
-        <Link to="#" className="nav-link nav-link-highlight">
-          Seja Associado
+        {/* Botão Seja Associado mantido */}
+        <Link to="/contatos" className="nav-link-highlight">
+            Seja Associado
         </Link>
-        {/* --- FIM DA ADIÇÃO --- */}
       </nav>
     </header>
   );

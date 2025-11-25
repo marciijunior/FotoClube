@@ -6,9 +6,8 @@ import {
   FaMapMarkerAlt, 
   FaCalendarAlt, 
   FaArrowRight,
-  FaRegClock,
   FaUserFriends,
-  FaClock // NOVO: Ícone de Horário
+  FaClock 
 } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import "./UpcomingEvents.css";
@@ -36,6 +35,30 @@ function UpcomingEvents() {
     return { ...event, ...extraEventData[event.id] };
   }, [activeEventId, nextEvents]);
 
+  // --- NOVA FUNÇÃO: Gera o link para o calendário ---
+  const generateCalendarLink = (dateString) => {
+    try {
+      if (!dateString) return '/eventos';
+      // Formato esperado no eventsData: "15, Dez-2025"
+      const [dayStr, rest] = dateString.split(', ');
+      const [monthStr, yearStr] = rest.split('-');
+      
+      const monthMap = {
+        'Jan': 0, 'Fev': 1, 'Mar': 2, 'Abr': 3, 'Mai': 4, 'Jun': 5,
+        'Jul': 6, 'Ago': 7, 'Set': 8, 'Out': 9, 'Nov': 10, 'Dez': 11
+      };
+
+      const day = parseInt(dayStr);
+      const year = parseInt(yearStr);
+      const month = monthMap[monthStr];
+
+      // Retorna: /eventos?ano=2025&mes=11&dia=15
+      return `/eventos?ano=${year}&mes=${month}&dia=${day}`;
+    } catch (e) {
+      return '/eventos';
+    }
+  };
+
   if (nextEvents.length === 0) {
     return null;
   }
@@ -53,24 +76,31 @@ function UpcomingEvents() {
             {/* COLUNA 1: LISTA */}
             <div className="ph-col-list">
               <div className="ph-list-scroll">
-                {nextEvents.map((event) => (
-                  <button
-                    key={event.id}
-                    className={`ph-list-item ${event.id === activeEventId ? 'active' : ''}`}
-                    onMouseEnter={() => setActiveEventId(event.id)}
-                  >
-                    <div className="ph-item-date">
-                      <span>{event.date.day}</span>
-                      <span>{event.date.month}</span>
-                    </div>
-                    <div className="ph-item-info">
-                      <span className="ph-item-category">
-                        {extraEventData[event.id]?.category || 'Evento'}
-                      </span>
-                      <h4 className="ph-item-title">{event.title}</h4>
-                    </div>
-                  </button>
-                ))}
+                {nextEvents.map((event) => {
+                   // Extração segura da data para exibição (string split)
+                   const dateParts = event.date ? event.date.split(', ') : ['01', 'Jan-2025'];
+                   const day = dateParts[0];
+                   const month = dateParts[1] ? dateParts[1].split('-')[0] : '';
+
+                   return (
+                    <button
+                      key={event.id}
+                      className={`ph-list-item ${event.id === activeEventId ? 'active' : ''}`}
+                      onMouseEnter={() => setActiveEventId(event.id)}
+                    >
+                      <div className="ph-item-date">
+                        <span>{day}</span>
+                        <span>{month}</span>
+                      </div>
+                      <div className="ph-item-info">
+                        <span className="ph-item-category">
+                          {extraEventData[event.id]?.category || 'Evento'}
+                        </span>
+                        <h4 className="ph-item-title">{event.title}</h4>
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
               <Link to="/eventos" className="ph-all-events-link">
                 Ver todos os eventos <FaArrowRight />
@@ -96,11 +126,10 @@ function UpcomingEvents() {
                   <h3 className="ph-details-title">{activeEvent.title}</h3>
                   <p className="ph-details-location"><FaMapMarkerAlt /> {activeEvent.location}</p>
                   
-                  {/* --- NOVO: Horário do Evento --- */}
+                  {/* Horário do Evento */}
                   <p className="ph-details-time">
                     <FaClock /> {activeEvent.time}
                   </p>
-                  {/* --- FIM DA MUDANÇA --- */}
 
                   <p className="ph-details-description">{activeEvent.description}</p>
                   
@@ -112,7 +141,16 @@ function UpcomingEvents() {
                         : "Vagas Esgotadas"}
                     </div>
                   )}
-                  <Link to={`/eventos/${activeEvent.id}`} className="ph-details-cta">Saber Mais</Link>
+                  
+                  {/* --- MUDANÇA PRINCIPAL: Link Dinâmico --- */}
+                  <Link 
+                    to={generateCalendarLink(activeEvent.date)} 
+                    className="ph-details-cta"
+                  >
+                    Saber Mais
+                  </Link>
+                  {/* --------------------------------------- */}
+
                   <a href="https://calendar.google.com/" target="_blank" rel="noopener noreferrer" className="ph-calendar-link">
                     <FaCalendarAlt /> Adicionar ao Calendário
                   </a>
@@ -122,7 +160,6 @@ function UpcomingEvents() {
             
           </div> {/* Fim do .ph-grid */}
 
- 
           <div className="pe-section">
             <h3 className="pe-title">Eventos Anteriores</h3>
             <div className="pe-list-wrapper">
