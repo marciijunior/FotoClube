@@ -1,8 +1,3 @@
-/* src/App.css (LIMPO) */
-
-/* Removemos todas as regras de 'max-width', 'padding' e 'text-align' 
-  do #root, que estavam a quebrar o seu layout de 100% de largura.
-*/
 #root {
   /* Deixe esta regra vazia */
 }

@@ -1,16 +1,13 @@
-/* src/pages/PhotoOfTheMonthPage.css (CSS Principal Simplificado) */
-
-/* --- Container Principal --- */
 .potm-dark-container {
   background-color: #121212;
   color: var(--color-light);
-  padding-top: 180px; /* Ajuste este valor! */
+  padding-top: 180px;
   width: 100%;
   overflow-x: hidden;
   padding-bottom: 80px;
 }
 
-/* Título de Secção Padrão (Dark) */
+
 .dark-section-title {
   font-family: var(--font-heading);
   font-size: 2.8rem;
@@ -24,7 +21,7 @@
   padding-inline: var(--container-gutter);
 }
 .dark-section-title::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: var(--container-gutter);
@@ -34,9 +31,7 @@
   border-radius: 2px;
 }
 
-/* --- Responsividade (Apenas o que for global) --- */
 @media (max-width: 900px) {
-  /* Centraliza todos os 'after' em mobile */
   .dark-section-title::after {
     left: 50%;
     transform: translateX(-50%);
@@ -45,15 +40,6 @@
 
 @media (max-width: 700px) {
   .potm-dark-container {
-     padding-top: 140px; /* Header menor no mobile */
+    padding-top: 140px; 
   }
 }
-
-/* --- CORREÇÃO ---
-  As regras que escondiam os componentes de arquivo 
-  (.potm-archive-grid-section, .archive-modal-backdrop, etc.) 
-  foram REMOVIDAS daqui. 
-  
-  O CSS do componente (ArchiveSection.css) agora 
-  controla o que é mostrado ou escondido.
-*/

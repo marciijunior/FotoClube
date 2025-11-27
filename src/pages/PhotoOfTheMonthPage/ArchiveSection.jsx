@@ -1,34 +1,24 @@
-// src/pages/PhotoOfTheMonthPage/ArchiveSection.jsx
 import React, { useState, useMemo } from 'react';
-import { FaTimes } from 'react-icons/fa'; // Importa o ícone de fechar
-import './ArchiveSection.css'; // O CSS atualizado abaixo
+import { FaTimes } from 'react-icons/fa'; 
+import './ArchiveSection.css';
 
-// Função do componente
 function ArchiveSection({ pastWinners, placeholderImage }) {
-  
-  // Estado para controlar o vencedor selecionado (Menu Vertical)
   const [selectedWinnerId, setSelectedWinnerId] = useState(pastWinners[0]?.id || null);
-
-  // --- NOVO ESTADO PARA O MODAL ---
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Encontra o objeto completo do vencedor selecionado
   const selectedWinner = useMemo(() => {
     return pastWinners.find(w => w.id === selectedWinnerId);
   }, [selectedWinnerId, pastWinners]);
 
-  // Funções do Modal
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
   return (
-    // Usa um Fragment (<>) para que o modal possa ser "irmão" da secção
     <>
       <section className="potm-archive-menu-section">
         <h2 className="dark-section-title">Arquivo de Vencedores</h2>
         <div className="archive-menu-container">
           
-          {/* --- Coluna do Menu (Sem alterações) --- */}
           <div className="archive-menu-list">
             {pastWinners.map((winner) => (
               <button
@@ -42,7 +32,6 @@ function ArchiveSection({ pastWinners, placeholderImage }) {
             ))}
           </div>
 
-          {/* --- Coluna de Destaque (Com onClick na imagem) --- */}
           <div className="archive-menu-display">
             {selectedWinner ? (
               <>
@@ -52,7 +41,7 @@ function ArchiveSection({ pastWinners, placeholderImage }) {
                   alt={selectedWinner.title}
                   className="archive-menu-display-image"
                   onError={(e) => { e.target.onerror = null; e.target.src = placeholderImage; }}
-                  onClick={openModal} // --- ADICIONADO: Abre o modal ---
+                  onClick={openModal}
                 />
                 <div 
                   key={`${selectedWinner.id}-info`}
@@ -74,15 +63,12 @@ function ArchiveSection({ pastWinners, placeholderImage }) {
         </div>
       </section>
 
-      {/* --- NOVO: MODAL (Renderizado fora da secção) --- */}
-      {/* O modal só é renderizado se estiver aberto E houver um vencedor selecionado */}
       {isModalOpen && selectedWinner && (
         <div className="archive-modal-backdrop" onClick={closeModal}>
           <div className="archive-modal-content" onClick={(e) => e.stopPropagation()}>
             <button className="archive-modal-close" onClick={closeModal}>
               <FaTimes />
             </button>
-            {/* O conteúdo do modal é baseado no 'selectedWinner' */}
             <img
               src={selectedWinner.image}
               alt={selectedWinner.title}
@@ -100,10 +86,8 @@ function ArchiveSection({ pastWinners, placeholderImage }) {
           </div>
         </div>
       )}
-      {/* --- FIM DO MODAL --- */}
     </>
   );
 }
 
-// Exportação Padrão
 export default ArchiveSection;

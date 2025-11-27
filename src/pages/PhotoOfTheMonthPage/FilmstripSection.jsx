@@ -1,11 +1,8 @@
-// src/pages/PhotoOfTheMonthPage/FilmstripSection.jsx
 import React, { useState, useRef } from 'react';
 import './FilmstripSection.css';
 
-// MUDANÇA: 'export' removido daqui
 function FilmstripSection({ runnersUp, placeholderImage }) {
   
-  // Lógica "Clicar e Arrastar"
   const filmstripRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
   const dragState = useRef({
@@ -77,5 +74,4 @@ function FilmstripSection({ runnersUp, placeholderImage }) {
   );
 }
 
-// MUDANÇA: Adicionado 'export default' aqui
 export default FilmstripSection;

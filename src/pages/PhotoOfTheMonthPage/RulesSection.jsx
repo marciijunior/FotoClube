@@ -1,8 +1,7 @@
-// src/pages/PhotoOfTheMonthPage/RulesSection.jsx
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { FaChevronRight } from 'react-icons/fa';
-import './RulesSection.css';
+import React from "react";
+import { Link } from "react-router-dom";
+import { FaChevronRight } from "react-icons/fa";
+import "./RulesSection.css";
 
 function RulesSection() {
   return (
@@ -22,12 +21,10 @@ function RulesSection() {
           <p className="rules-highlight">Exclusivo para Associados</p>
         </div>
       </div>
-      
-      {/* --- MUDANÇA AQUI --- */}
+
       <Link to="/sobre" className="rules-link">
         Ainda não é associado? Junte-se a nós <FaChevronRight />
       </Link>
-      {/* --- FIM DA MUDANÇA --- */}
     </section>
   );
 }

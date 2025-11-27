@@ -1,14 +1,8 @@
-/* src/pages/PhotoOfTheMonthPage/ArchiveSection.css (ESTILO 3: MENU VERTICAL + MODAL) */
-
-/* --- Esconde os estilos dos outros arquivos --- */
 .potm-archive-carousel-section,
 .potm-archive-grid-section {
   display: none;
 }
-/* Obs: .archive-modal-backdrop é usado, então NÃO é escondido */
 
-
-/* --- Estilos do Menu Vertical (Estilo 3) --- */
 .potm-archive-menu-section {
   padding-bottom: 80px;
   background-color: #1f1f1f;
@@ -25,7 +19,6 @@
   align-items: flex-start;
 }
 
-/* --- Coluna da Lista (Menu) --- */
 .archive-menu-list {
   display: flex;
   flex-direction: column;
@@ -81,8 +74,6 @@
   color: var(--color-accent);
 }
 
-
-/* --- Coluna de Destaque (Display) --- */
 .archive-menu-display {
   background-color: #121212;
   border-radius: 4px;
@@ -96,11 +87,11 @@
   object-fit: cover;
   display: block;
   animation: fadeIn 0.5s ease;
-  cursor: pointer; /* --- ADICIONADO: Indica que a imagem é clicável --- */
+  cursor: pointer;
   transition: opacity 0.3s ease;
 }
 .archive-menu-display-image:hover {
-  opacity: 0.85; /* Efeito de hover */
+  opacity: 0.85; 
 }
 
 
@@ -145,13 +136,11 @@
   font-style: normal;
 }
 
-/* Animação */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
-/* --- Responsividade (Menu Vertical) --- */
 @media (max-width: 900px) {
   .archive-menu-container {
     grid-template-columns: 1fr;
@@ -202,12 +191,6 @@
    }
 }
 
-
-/* =====================================================
---- NOVOS ESTILOS: Modal (Copiados do Estilo 2) ---
-=====================================================
-*/
-
 .archive-modal-backdrop {
   position: fixed;
   inset: 0;
@@ -230,7 +213,7 @@
   width: 100%;
   max-height: 90vh;
   display: grid;
-  grid-template-columns: 1fr; /* Mobile-first */
+  grid-template-columns: 1fr;
   overflow: hidden;
   position: relative;
   animation: slideInUp 0.4s ease-out;
@@ -238,7 +221,7 @@
 
 @media (min-width: 768px) {
   .archive-modal-content {
-     grid-template-columns: 1.5fr 1fr; /* Imagem | Texto */
+     grid-template-columns: 1.5fr 1fr;
   }
 }
 
@@ -313,7 +296,6 @@
   font-style: normal;
 }
 
-/* Animação para o Modal */
 @keyframes slideInUp {
   from { opacity: 0; transform: translateY(30px) scale(0.98); }
   to { opacity: 1; transform: translateY(0) scale(1); }

@@ -1,6 +1,3 @@
-/* src/features/home/UpcomingEvents.css (HÍBRIDO: POLAROID + HUB + PASSADOS) */
-
-/* --- 1. ESTILOS ANTIGOS MANTIDOS (A "CONCHA") --- */
 .upcoming-events-section {
   display: flex;
   justify-content: center;
@@ -30,6 +27,7 @@
   top: -10px;
   left: 40px;
 }
+
 .section-title {
   font-family: var(--font-heading);
   font-size: 2.5rem;
@@ -39,6 +37,7 @@
   padding-bottom: 10px;
   letter-spacing: 1px;
 }
+
 .section-title::after {
   content: "";
   position: absolute;
@@ -49,9 +48,7 @@
   background-color: var(--color-accent);
   border-radius: 2px;
 }
-/* --- FIM DOS ESTILOS ANTIGOS MANTIDOS --- */
 
-/* --- 2. ESTILOS ANTIGOS REMOVIDOS (CARROSSEL E LISTA) --- */
 .featured-event-carousel,
 .events-list,
 .events-list-nav,
@@ -60,9 +57,7 @@
   display: none;
   visibility: hidden;
 }
-/* --- FIM DA REMOÇÃO --- */
 
-/* --- 3. NOVOS ESTILOS DO "HUB" (COM ALTURA FIXA) --- */
 @keyframes ph-fadeIn {
   from {
     opacity: 0;
@@ -78,18 +73,18 @@
   display: grid;
   grid-template-columns: 0.8fr 1.2fr 0.7fr;
   gap: 25px;
-  height: 600px; /* ALTURA FIXA */
-  margin-bottom: 40px; /* Espaço antes da nova secção */
-  border-bottom: 1px solid #eee; /* Linha divisória */
-  padding-bottom: 40px; /* Espaço antes da nova secção */
+  height: 600px; 
+  margin-bottom: 40px;
+  border-bottom: 1px solid #eee; 
+  padding-bottom: 40px; 
 }
 
-/* Coluna 1: Lista */
 .ph-col-list {
   display: flex;
   flex-direction: column;
   height: 100%;
 }
+
 .ph-list-scroll {
   display: flex;
   flex-direction: column;
@@ -98,12 +93,15 @@
   height: 0;
   padding-right: 10px;
 }
+
 .ph-list-scroll::-webkit-scrollbar {
   width: 5px;
 }
+
 .ph-list-scroll::-webkit-scrollbar-track {
   background: #f4f4f4;
 }
+
 .ph-list-scroll::-webkit-scrollbar-thumb {
   background-color: #ddd;
   border-radius: 3px;
@@ -114,7 +112,7 @@
   align-items: center;
   gap: 15px;
   width: 100%;
-  background-color: #f9f9f4; /* Ligeiro tom creme */
+  background-color: #f9f9f4; 
   border: 1px solid #eee;
   border-radius: 4px;
   padding: 15px;
@@ -124,17 +122,20 @@
   transition: all 0.3s ease;
   flex-shrink: 0;
 }
+
 .ph-list-item:hover {
   transform: translateX(5px);
   background-color: #fff;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
+
 .ph-list-item.active {
   background-color: var(--color-primary);
   border-color: var(--color-primary);
   transform: translateX(5px);
   box-shadow: 0 5px 15px rgba(0, 59, 86, 0.2);
 }
+
 .ph-item-date {
   background-color: var(--color-accent);
   color: var(--color-white);
@@ -145,15 +146,18 @@
   flex-shrink: 0;
   transition: background-color 0.3s ease;
 }
+
 .ph-list-item.active .ph-item-date {
   background-color: var(--color-white);
   color: var(--color-primary);
 }
+
 .ph-item-date span:first-child {
   font-family: var(--font-heading);
   font-size: 1.5rem;
   display: block;
 }
+
 .ph-item-date span:last-child {
   font-family: var(--font-body);
   font-size: 0.7rem;
@@ -161,6 +165,7 @@
   text-transform: uppercase;
   display: block;
 }
+
 .ph-item-category {
   font-family: var(--font-body);
   font-size: 0.7rem;
@@ -170,9 +175,11 @@
   display: block;
   margin-bottom: 3px;
 }
+
 .ph-list-item.active .ph-item-category {
   color: var(--color-accent);
 }
+
 .ph-item-title {
   font-family: var(--font-heading);
   font-size: 1.2rem;
@@ -181,9 +188,11 @@
   margin: 0;
   transition: color 0.3s ease;
 }
+
 .ph-list-item.active .ph-item-title {
   color: var(--color-white);
 }
+
 .ph-all-events-link {
   font-family: var(--font-body);
   font-weight: 600;
@@ -196,11 +205,11 @@
   padding-top: 20px;
   flex-shrink: 0;
 }
+
 .ph-all-events-link:hover {
   text-decoration: underline;
 }
 
-/* Coluna 2: Imagem */
 .ph-col-image {
   position: relative;
   width: 100%;
@@ -209,6 +218,7 @@
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
+
 .ph-bg-image {
   position: absolute;
   inset: 0;
@@ -220,12 +230,12 @@
     opacity 0.6s ease-in-out,
     transform 0.6s ease-in-out;
 }
+
 .ph-bg-image.active {
   opacity: 1;
   transform: scale(1);
 }
 
-/* Coluna 3: Detalhes */
 .ph-col-details {
   position: relative;
   border-left: 1px solid #eee;
@@ -235,12 +245,14 @@
   flex-direction: column;
   overflow: hidden;
 }
+
 .ph-details-content {
   animation: ph-fadeIn 0.6s ease-out;
   flex-grow: 1;
   overflow-y: auto;
   padding-right: 15px;
 }
+
 .ph-countdown {
   font-family: var(--font-heading);
   font-size: 1.5rem;
@@ -252,6 +264,7 @@
   margin-bottom: 15px;
   padding-top: 10px;
 }
+
 .ph-details-title {
   font-family: var(--font-heading);
   font-size: 1.8rem;
@@ -259,6 +272,7 @@
   line-height: 1.1;
   margin: 0 0 10px 0;
 }
+
 .ph-details-location {
   font-family: var(--font-body);
   font-size: 0.9rem;
@@ -269,10 +283,12 @@
   gap: 8px;
   margin-bottom: 10px;
 }
+
 .ph-details-location svg {
   color: var(--color-accent);
   flex-shrink: 0;
 }
+
 .ph-details-time {
   font-family: var(--font-body);
   font-size: 0.9rem;
@@ -283,12 +299,14 @@
   gap: 8px;
   margin-bottom: 20px;
 }
+
 .ph-details-time svg {
   color: var(--color-accent);
   flex-shrink: 0;
   align-items: center;
   margin-bottom: 4px;
 }
+
 .ph-details-description {
   font-family: var(--font-body);
   font-size: 0.9rem;
@@ -298,6 +316,7 @@
   border-bottom: 1px solid #eee;
   padding-bottom: 25px;
 }
+
 .ph-spots {
   font-family: var(--font-body);
   font-weight: 600;
@@ -314,21 +333,21 @@
   font-size: 0.9rem;
   flex-shrink: 0;
 }
+
 .ph-spots.low {
   background-color: #fff3e0;
   border-color: #ffe0b2;
   color: #e65100;
 }
+
 .ph-spots svg {
   font-size: 1.2rem;
 }
 
-/* --- MUDANÇA AQUI: Estilos copiados do .nav-link-highlight --- */
 .ph-details-cta {
-  /* Estilos base do .nav-link-highlight */
   background-color: var(--color-accent);
   color: var(--color-light);
-  padding: 10px 20px; /* Padding do Header */
+  padding: 10px 20px;
   font-weight: 400;
   text-decoration: none !important;
   transition:
@@ -338,8 +357,6 @@
   border-radius: 0;
   font-family: var(--font-body);
   font-size: 1rem;
-
-  /* Estilos mantidos do .ph-details-cta */
   display: block;
   text-align: center;
   flex-shrink: 0;
@@ -348,14 +365,12 @@
 }
 
 .ph-details-cta:hover {
-  /* Estilo hover do .nav-link-highlight */
   background-color: var(--color-primary);
   color: var(--color-light);
   text-decoration: none !important;
 }
 
 .ph-details-cta::after {
-  /* Animação ::after do .nav-link-highlight */
   content: "";
   position: absolute;
   bottom: -8px;
@@ -364,15 +379,13 @@
   height: 2px;
   background-color: var(
     --color-accent
-  ); /* Linha clara (como no seu Header.css) */
+  );
   transition: width 0.3s ease-in-out;
 }
 
 .ph-details-cta:hover::after {
-  /* Animação :hover::after do .nav-link-highlight */
   width: 100%;
 }
-/* --- FIM DAS MUDANÇAS --- */
 
 .ph-calendar-link {
   font-family: var(--font-body);
@@ -396,7 +409,6 @@
   margin-bottom: 4px;
 }
 
-/* Responsividade do Hub (Mantida) */
 @media (max-width: 1000px) {
   .ph-grid {
     grid-template-columns: 1fr;
@@ -436,9 +448,7 @@
   }
 }
 
-/* --- 4. NOVOS ESTILOS (EVENTOS ANTERIORES) --- */
 .pe-section {
-  /* (Estilos mantidos) */
 }
 .pe-title {
   font-family: var(--font-heading);

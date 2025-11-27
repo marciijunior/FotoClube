@@ -1,5 +1,3 @@
-/* src/pages/PhotoOfTheMonthPage/RulesSection.css */
-
 .potm-dark-rules {
   max-width: 1200px;
   margin-inline: auto;
@@ -7,12 +5,10 @@
   text-align: center;
 }
 
-/* Centraliza o título desta secção */
 .potm-dark-rules .dark-section-title {
   text-align: center;
 }
 
-/* Centraliza o ::after especificamente para esta secção */
 .potm-dark-rules .dark-section-title::after {
   left: 50%;
   transform: translateX(-50%);
@@ -24,6 +20,7 @@
   gap: 30px;
   margin-bottom: 40px;
 }
+
 .rules-grid h4 {
   font-family: var(--font-heading);
   font-size: 1.3rem;
@@ -31,6 +28,7 @@
   letter-spacing: 1px;
   margin: 0 0 10px 0;
 }
+
 .rules-grid .rules-highlight {
   font-family: var(--font-body);
   font-size: 1.5rem;
@@ -48,11 +46,11 @@
   gap: 8px;
   transition: color 0.3s;
 }
+
 .rules-link:hover {
   color: #ff7b33;
 }
 
-/* Responsividade */
 @media (max-width: 900px) {
   .rules-grid {
     grid-template-columns: 1fr;

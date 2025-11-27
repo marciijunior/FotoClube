@@ -1,7 +1,4 @@
-/* src/features/home/RecentActivities.css */
-
 .recent-activities-section {
-  /* MUDANÇA: Padding vertical ajustado para 80px */
   padding: 40px 0;
   background-color: #ffffff;
   border-top: 1px solid #eee;
@@ -15,9 +12,9 @@
 }
 
 .activities-title {
-  font-family: var(--font-heading); /* Bebas Neue */
+  font-family: var(--font-heading);
   font-size: 2.5rem;
-  color: var(--color-primary); /* Azul escuro */
+  color: var(--color-primary);
   margin-bottom: 30px;
   position: relative;
   padding-bottom: 10px;
@@ -31,13 +28,13 @@
   left: 0;
   width: 60px;
   height: 4px;
-  background-color: var(--color-accent); /* Laranja */
+  background-color: var(--color-accent);
   border-radius: 2px;
 }
 
 .activities-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 colunas */
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
 
@@ -73,11 +70,11 @@
 
 .activity-category {
   display: inline-block;
-  background-color: var(--color-accent); /* Laranja */
-  color: var(--color-light); /* Texto claro */
+  background-color: var(--color-accent); 
+  color: var(--color-light);
   padding: 3px 10px;
   border-radius: 12px;
-  font-family: var(--font-body); /* Poppins */
+  font-family: var(--font-body);
   font-size: 0.7rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -85,9 +82,9 @@
 }
 
 .activity-card-title {
-  font-family: var(--font-heading); /* Bebas Neue */
+  font-family: var(--font-heading); 
   font-size: 1.3rem;
-  color: var(--color-primary); /* Azul escuro */
+  color: var(--color-primary);
   margin: 0 0 5px 0;
   font-weight: 400;
   letter-spacing: 0.5px;
@@ -100,9 +97,9 @@
 }
 
 .activity-description {
-  font-family: var(--font-body); /* Poppins */
+  font-family: var(--font-body); 
   font-size: 0.8rem;
-  color: var(--color-dark); /* Texto escuro */
+  color: var(--color-dark); 
   opacity: 0.7;
   margin: 0;
   line-height: 1.5;

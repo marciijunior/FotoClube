@@ -1,8 +1,6 @@
-/* src/pages/PhotoOfTheMonthPage/HeroSection.css */
-
 .potm-dark-hero {
   display: grid;
-  grid-template-columns: 1fr 1.5fr; /* Texto | Imagem */
+  grid-template-columns: 1fr 1.5fr;
   gap: 40px;
   align-items: center;
   max-width: 1200px;
@@ -71,7 +69,6 @@
   object-fit: cover;
 }
 
-/* Animações usadas nesta secção */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
@@ -81,7 +78,6 @@
   to { opacity: 1; transform: translateX(0); }
 }
 
-/* Responsividade desta secção */
 @media (max-width: 900px) {
   .potm-dark-hero {
     grid-template-columns: 1fr;

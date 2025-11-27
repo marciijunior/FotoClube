@@ -1,20 +1,16 @@
-/* src/pages/PhotoDetailsPage/PhotoDetailsPage.css */
-
 .photo-details-container {
-  background-color: #111; /* Fundo escuro para destacar a foto */
+  background-color: #111;
   color: #fff;
   min-height: 100vh;
   padding-bottom: 80px;
 }
 
-/* Layout dividido: Imagem | Informações */
 .photo-details-grid {
   display: grid;
-  grid-template-columns: 1.5fr 1fr; /* Imagem maior que texto */
+  grid-template-columns: 1.5fr 1fr; 
   min-height: 90vh;
 }
 
-/* Coluna da Imagem */
 .photo-details-image-col {
   background-color: #000;
   display: flex;
@@ -30,7 +26,6 @@
   border-radius: 4px;
 }
 
-/* Coluna do Texto */
 .photo-details-info-col {
   padding: 80px 60px;
   display: flex;
@@ -114,7 +109,6 @@
   color: #000;
 }
 
-/* Responsividade */
 @media (max-width: 900px) {
   .photo-details-grid {
     grid-template-columns: 1fr;

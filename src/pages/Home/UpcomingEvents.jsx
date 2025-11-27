@@ -182,9 +182,8 @@ function UpcomingEvents() {
               </div>
             </div>
           </div>
-          {/* --- FIM DA SECÇÃO --- */}
 
-        </div> {/* Fim do .polaroid-container */}
+        </div> 
       </div>
     </section>
   );

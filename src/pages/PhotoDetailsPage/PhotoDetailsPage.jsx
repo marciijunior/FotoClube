@@ -1,4 +1,3 @@
-// src/pages/PhotoDetailsPage/PhotoDetailsPage.jsx
 import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { slidesData } from '../../data/slidesData';
@@ -6,13 +5,9 @@ import { FaCamera, FaArrowLeft } from 'react-icons/fa';
 import './PhotoDetailsPage.css';
 
 function PhotoDetailsPage() {
-  // Pega o ID da URL
   const { id } = useParams();
-  
-  // Encontra a foto correspondente nos dados
   const photo = slidesData.find(item => item.id === Number(id));
 
-  // Rola para o topo ao abrir
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
@@ -30,12 +25,10 @@ function PhotoDetailsPage() {
     <div className="photo-details-container">
       <div className="photo-details-grid">
         
-        {/* Lado Esquerdo: Imagem */}
         <div className="photo-details-image-col">
           <img src={photo.image} alt={photo.title} />
         </div>
 
-        {/* Lado Direito: Informações */}
         <div className="photo-details-info-col">
           
           <div>
@@ -50,7 +43,6 @@ function PhotoDetailsPage() {
             </div>
           </div>
 
-          {/* Detalhes Técnicos */}
           {photo.technical && (
             <div className="technical-grid">
               <div className="tech-item">

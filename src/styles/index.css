@@ -1,17 +1,13 @@
-/* src/styles/index.css */
-
 :root {
-  /* Sua paleta de cores */
-  --color-primary: #003b56; /* Azul escuro */
-  --color-accent: #ff5c00; /* Laranja */
-  --color-light: #f5f2f0; /* Branco/Creme */
-  --color-dark: #000000; /* Cor de texto escuro */
+  --color-primary: #003b56;
+  --color-accent: #ff5c00;
+  --color-light: #f5f2f0;
+  --color-dark: #000000;
   --color-white: rgb(255, 255, 255);
   --font-body: "Poppins", sans-serif;
   --font-heading: "Bebas Neue", sans-serif;
-
   --container-max-width: 1200px;
-  --container-gutter: 24px; /* espaçamento horizontal padrão */
+  --container-gutter: 24px;
   --space-xs: 6px;
   --space-sm: 12px;
   --space-md: 24px;
@@ -36,7 +32,7 @@ body {
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--color-light); /* Fundo padrão do site */
+  background-color: var(--color-light); 
   color: var(--color-dark);
   overflow-x: hidden;
 }
@@ -49,11 +45,11 @@ h5,
 h6 {
   font-family: var(--font-heading);
   letter-spacing: 1.5px;
-  color: var(--color-primary); /* Títulos usam a cor primária */
+  color: var(--color-primary); 
 }
 
 a {
-  color: var(--color-accent); /* Links usam a cor de destaque */
+  color: var(--color-accent); 
   text-decoration: none;
 }
 
@@ -61,17 +57,22 @@ a:hover {
   text-decoration: underline;
 }
 
-/* Uso de container com padding-inline lógico */
 .container {
   max-width: var(--container-max-width);
-  margin-inline: auto;          /* centraliza usando propriedades lógicas */
+  margin-inline: auto; 
   padding-inline: var(--container-gutter);
   width: 100%;
 }
 
-/* Utilitários rápidos */
-.px-sm { padding-inline: var(--space-sm); }
-.px-md { padding-inline: var(--space-md); }
-.gap-sm { gap: var(--space-sm); }
-.gap-md { gap: var(--space-md); }
-
+.px-sm {
+  padding-inline: var(--space-sm);
+}
+.px-md {
+  padding-inline: var(--space-md);
+}
+.gap-sm {
+  gap: var(--space-sm);
+}
+.gap-md {
+  gap: var(--space-md);
+}

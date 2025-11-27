@@ -1,9 +1,7 @@
-// src/pages/PhotoOfTheMonthPage/HeroSection.jsx
 import React from 'react';
 import { FaTrophy } from 'react-icons/fa';
 import './HeroSection.css';
 
-// MUDANÇA: 'export' removido daqui
 function HeroSection({ winner, placeholderImage }) {
   return (
     <section className="potm-dark-hero">
@@ -28,5 +26,4 @@ function HeroSection({ winner, placeholderImage }) {
   );
 }
 
-// MUDANÇA: Adicionado 'export default' aqui
 export default HeroSection;
