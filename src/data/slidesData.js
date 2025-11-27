@@ -1,5 +1,3 @@
-// src/data/slidesData.js
-
 import imagemCarrossel1 from '../assets/imagemCarrossel1.png';
 import imagemCarrossel2 from '../assets/imagemCarrossel2.png';
 import imagemCarrossel3 from '../assets/imagemCarrossel3.png';

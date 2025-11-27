@@ -1,8 +1,7 @@
-// src/features/home/PhotoOfTheMonth.jsx
 import React, { useState } from 'react';
 import { slidesData } from '../../data/slidesData';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
-import './PhotoOfTheMonth.css'; // Certifique-se que está a usar o CSS da V6 - 2 Colunas + Rank
+import './PhotoOfTheMonth.css';
 
 function PhotoOfTheMonth() {
   const winners = slidesData.slice(0, 9);

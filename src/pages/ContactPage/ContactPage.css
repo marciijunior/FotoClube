@@ -1,12 +1,9 @@
-/* src/pages/ContactPage/ContactPage.css */
-
 .contact-page-wrapper {
   width: 100%;
   background-color: var(--color-light);
   padding-bottom: 80px;
 }
 
-/* --- Hero Section --- */
 .contact-hero {
   text-align: center;
   padding: 60px 20px 40px;
@@ -29,18 +26,16 @@
   line-height: 1.6;
 }
 
-/* --- Container Principal (Grid) --- */
 .contact-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 var(--container-gutter);
   display: grid;
-  grid-template-columns: 1fr 1.2fr; /* Info | Form */
+  grid-template-columns: 1fr 1.2fr;
   gap: 60px;
   align-items: start;
 }
 
-/* --- Coluna da Esquerda: Informações --- */
 .contact-info-column {
   background-color: #fff;
   padding: 40px;
@@ -58,7 +53,7 @@
 .contact-icon-box {
   width: 50px;
   height: 50px;
-  background-color: rgba(0, 59, 86, 0.1); /* Primary color with opacity */
+  background-color: rgba(0, 59, 86, 0.1);
   color: var(--color-primary);
   border-radius: 50%;
   display: flex;
@@ -90,7 +85,6 @@
   color: var(--color-accent);
 }
 
-/* Mapa Embutido Pequeno */
 .contact-map-small {
   margin-top: 20px;
   width: 100%;
@@ -105,7 +99,6 @@
   border: 0;
 }
 
-/* --- Coluna da Direita: Formulário --- */
 .contact-form-column {
   padding-top: 10px;
 }
@@ -166,7 +159,6 @@
   transform: translateY(-2px);
 }
 
-/* --- Responsividade --- */
 @media (max-width: 900px) {
   .contact-container {
     grid-template-columns: 1fr;

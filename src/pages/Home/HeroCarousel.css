@@ -1,4 +1,3 @@
-/* src/features/home/HeroCarousel.css */
 .carousel-container {
   width: 100%;
   height: 100%;
@@ -9,17 +8,11 @@
 .slides-wrapper {
   display: flex;
   height: 100%;
-  /* Otimização: Transição ligeiramente mais rápida */
   transition: transform 0.8s cubic-bezier(0.45, 0.05, 0.55, 0.95);
-
-  /* --- NOVAS OTIMIZAÇÕES DE PERFORMANCE --- */
-  /* Força a criação de uma camada de composição (GPU) */
   transform: translateZ(0);
-  will-change: transform; /* Mantém a otimização anterior */
+  will-change: transform;
   backface-visibility: hidden;
-  /* Melhora a renderização de fontes durante a animação (Webkit/Blink) */
   -webkit-font-smoothing: subpixel-antialiased;
-  /* --- FIM DAS NOVAS OTIMIZAÇÕES --- */
 }
 
 .slide {
@@ -32,9 +25,8 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  /* Otimização: Usar padding-inline para consistência */
   padding-block: 0;
-  padding-inline: 10%; /* Mesmo padding do header */
+  padding-inline: 10%;
   color: var(--color-light);
 }
 
@@ -52,7 +44,6 @@
   );
 }
 
-/* Sua lógica original de animação de conteúdo */
 .slide-content {
   position: relative;
   z-index: 2;
@@ -66,7 +57,6 @@
   transform: translateY(0);
   opacity: 1;
 }
-/* Fim da sua lógica original */
 
 .location {
   font-family: var(--font-body);
@@ -146,7 +136,6 @@
   z-index: 10;
 }
 
-/* Seu estilo original das miniaturas (com padding 50%) */
 .slide-thumbnails {
   display: flex;
   align-items: center;
@@ -188,7 +177,6 @@
   object-fit: cover;
 }
 
-/* Seu estilo original dos controles */
 .navigation-controls {
   display: flex;
   justify-content: space-between;

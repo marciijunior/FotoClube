@@ -1,5 +1,4 @@
-/* CSS simples apenas para o wrapper da página */
 .about-page-wrapper {
   width: 100%;
-  overflow: hidden; /* Garante que nada vaze */
+  overflow: hidden;
 }

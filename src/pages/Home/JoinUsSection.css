@@ -1,18 +1,13 @@
-/* src/features/home/JoinUsSection.css (Parallax + Card Flutuante) */
-
-/* 1. SECÇÃO (FUNDO PARALLAX) */
 .join-us-stats-section {
-  /* A imagem de fundo agora é definida via 'style' no JSX */
   background-size: cover;
   background-position: center center;
-  background-attachment: fixed; /* O PARALLAX */
+  background-attachment: fixed;
   padding: 120px 0; 
   width: 100%;
   position: relative;
   border-top: 1px solid #eee;
 }
 
-/* Overlay escuro */
 .join-us-stats-section::before {
   content: '';
   position: absolute;
@@ -24,9 +19,7 @@
   z-index: 1;
 }
 
-/* 2. CONTAINER (Centraliza o card) */
 .join-us-stats-container {
-  /* O max-width do container vem do index.css (1200px) */
   max-width: var(--container-max-width); 
   margin: 0 auto;
   padding: 0 var(--container-gutter, 24px);
@@ -38,24 +31,16 @@
   align-items: center;
 }
 
-/* 3. O CARD FLUTUANTE */
 .join-us-floating-card {
   background-color: var(--color-light); 
   color: var(--color-dark); 
   padding: 50px;
   border-radius: 8px;
   box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-  
-  /* --- (CORREÇÃO DA LARGURA) --- */
-  /* Alterado de 1100px para usar a largura total do container (1200px) */
-  max-width: 1200px; 
-  /* ------------------------------ */
-  
-  width: 100%; /* Garante que ocupe os 1200px do max-width */
+  max-width: 1200px;   
+  width: 100%;
   text-align: center;
 }
-
-/* 4. ESTILOS DO CONTEÚDO (Sem mudanças) */
 
 .join-us-stats-title {
   font-family: var(--font-heading);
@@ -82,7 +67,7 @@
   font-size: 1.1rem;
   line-height: 1.7;
   color: #555; 
-  max-width: 750px; /* Mantém o texto centralizado */
+  max-width: 750px; 
   margin: 0 auto 50px auto;
 }
 
@@ -145,7 +130,6 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
   .stats-grid {
     grid-template-columns: 1fr;

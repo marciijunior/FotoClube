@@ -1,21 +1,15 @@
-// src/features/home/AboutSection.jsx (MODELO 3: REVISTA - VERSÃO 'SOBRE NÓS')
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa';
+import imgOverlap1 from '../../assets/images/past-winner-3.png';
+import imgOverlap2 from '../../assets/images/past-winner-4.png';
 
-// --- CORREÇÃO DE IMAGEM ---
-// Importando imagens reais da sua pasta de assets
-import imgOverlap1 from '../../assets/images/past-winner-3.png'; // Imagem de trás
-import imgOverlap2 from '../../assets/images/past-winner-4.png'; // Imagem da frente
-
-import './AboutSection.css'; // Usará o CSS do Modelo 3
+import './AboutSection.css';
 
 function AboutSection() {
   return (
     <section className="about-section-magazine">
       <div className="magazine-container">
-        
-        {/* Coluna 1: Pilha de Imagens */}
         <div className="magazine-image-stack">
           <img 
             src={imgOverlap1} 
@@ -29,7 +23,6 @@ function AboutSection() {
           />
         </div>
 
-        {/* Coluna 2: Caixa de Texto (com textos atualizados) */}
         <div className="magazine-text-box">
           <span className="magazine-eyebrow">SOBRE NÓS</span>
           <h2 className="magazine-title">Nossa História, Nossas Lentes</h2>

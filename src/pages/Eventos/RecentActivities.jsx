@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 import React, { useMemo, useState, useEffect } from "react";
 import "./RecentActivities.css";
 import {
@@ -9,7 +8,6 @@ import {
   FaNewspaper,
 } from "react-icons/fa";
 
-/* carrega todas as imagens de assets para usar como fallback/aleatórias */
 const imageModules = import.meta.glob(
   "../../assets/images/*.{jpg,jpeg,png,webp}",
   {
@@ -23,23 +21,18 @@ const getRandomImage = () =>
     ? imageUrls[Math.floor(Math.random() * imageUrls.length)]
     : "/src/assets/images/event-placeholder-1.jpg";
 
-/* --- carregar dados de src/data sem usar require direto (compatível Vite/ESM) --- */
 const dataModules = import.meta.glob("../../data/*.{js,ts,json}", {
   eager: true,
   as: "default",
 });
 
 const findExport = (exportName, fileBase) => {
-  // 1) se houver módulo com nome de arquivo correspondente, tenta extrair export
   for (const path in dataModules) {
     if (!Object.prototype.hasOwnProperty.call(dataModules, path)) continue;
     const mod = dataModules[path] ?? {};
-    // se módulo tiver export direto
     if (mod && mod[exportName]) return mod[exportName];
-    // se for default export container
     if (mod && mod.default && mod.default[exportName])
       return mod.default[exportName];
-    // tentar casar por nome de arquivo (eventsData.js etc.)
     if (
       path.endsWith(`/${fileBase}.js`) ||
       path.endsWith(`/${fileBase}.ts`) ||
@@ -110,10 +103,8 @@ const mapGallery = (arr = []) =>
   }));
 
 export default function RecentActivities({ limit = 8, onOpen }) {
-  // state para atualizações simuladas (injetadas em runtime)
   const [injected, setInjected] = useState([]);
 
-  // expõe função global para facilitar teste/simulação no console do navegador
   useEffect(() => {
     window.simulateUpdate = (opts = {}) => {
       const now = new Date();
@@ -131,7 +122,6 @@ export default function RecentActivities({ limit = 8, onOpen }) {
       return mock;
     };
 
-    // INJETAR DEMO AUTOMÁTICO SE NÃO HOUVER FONTES REAIS
     const hasSources =
       (eventsData && eventsData.length) ||
       (announcementsData && announcementsData.length) ||
@@ -152,7 +142,6 @@ export default function RecentActivities({ limit = 8, onOpen }) {
     }
 
     return () => {
-      // cleanup
       if (window.simulateUpdate) delete window.simulateUpdate;
     };
   }, []);
@@ -163,10 +152,9 @@ export default function RecentActivities({ limit = 8, onOpen }) {
       ...mapAnnouncements(announcementsData),
       ...mapPosts(postsData),
       ...mapGallery(galleryData),
-      ...injected, // injeta as atualizações simuladas
+      ...injected,
     ];
 
-    // remove duplicados por id e filtra itens sem data
     const byId = new Map();
     for (const item of list) {
       if (!item.dateObj || Number.isNaN(item.dateObj.getTime())) continue;
@@ -273,7 +261,6 @@ export default function RecentActivities({ limit = 8, onOpen }) {
   );
 }
 
-// exemplo de simulação rápida via console (usa imagens do assets)
 window.simulateUpdate &&
   window.simulateUpdate({
     type: "event",

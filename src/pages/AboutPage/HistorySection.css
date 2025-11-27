@@ -1,5 +1,3 @@
-/* src/pages/AboutPage/HistorySection.css (MODELO 3: A SEDE) */
-
 .history-section-hq {
   max-width: var(--container-max-width, 1200px);
   margin: 80px auto;
@@ -13,7 +11,6 @@
   align-items: center;
 }
 
-/* Coluna 1: Texto */
 .history-page-main-title {
   font-family: var(--font-heading);
   font-size: 3.5rem;
@@ -24,6 +21,7 @@
   display: inline-block;
   padding-bottom: 10px;
 }
+
 .hq-subtitle {
   font-family: var(--font-body);
   font-size: 1.3rem;
@@ -31,6 +29,7 @@
   color: #333;
   margin-bottom: 30px;
 }
+
 .hq-text-content p {
   font-family: var(--font-body);
   font-size: 1.1rem;
@@ -39,7 +38,6 @@
   margin-bottom: 20px;
 }
 
-/* Coluna 2: Cartão da Sede */
 .hq-card {
   background-color: #f9f9f9;
   border-radius: 8px;
@@ -48,6 +46,7 @@
   transform: scale(1.05) rotate(2deg); /* Efeito de "foto" */
   transition: transform 0.3s ease;
 }
+
 .hq-card:hover {
   transform: scale(1.08) rotate(0deg);
 }
@@ -63,6 +62,7 @@
 .hq-card-info {
   padding: 30px;
 }
+
 .hq-card-info h2 {
   font-family: var(--font-body);
   font-size: 0.9rem;
@@ -71,6 +71,7 @@
   text-transform: uppercase;
   margin: 0;
 }
+
 .hq-card-info h3 {
   font-family: var(--font-heading);
   font-size: 2rem;
@@ -93,15 +94,13 @@
   flex-shrink: 0;
 }
 
-
-/* Responsividade */
 @media (max-width: 900px) {
   .hq-container {
-    grid-template-columns: 1fr; /* Empilha */
+    grid-template-columns: 1fr;
   }
   .hq-card {
     margin-top: 40px;
-    transform: rotate(0deg); /* Remove rotação */
+    transform: rotate(0deg);
   }
   .hq-card:hover {
     transform: scale(1.02);

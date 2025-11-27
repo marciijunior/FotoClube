@@ -1,10 +1,8 @@
-// src/pages/ContactPage/ContactPage.jsx
 import React, { useState } from 'react';
 import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import './ContactPage.css';
 
 function ContactPage() {
-  // Estado simples para o formulário
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -18,15 +16,13 @@ function ContactPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aqui entraria a lógica de envio real (backend ou serviço de email)
     alert(`Obrigado, ${formData.name}! Sua mensagem foi enviada (Simulação).`);
     setFormData({ name: '', email: '', subject: '', message: '' });
   };
 
   return (
     <div className="contact-page-wrapper">
-      
-      {/* 1. Cabeçalho Hero */}
+
       <section className="contact-hero">
         <h1>Fale Conosco</h1>
         <p>
@@ -35,12 +31,8 @@ function ContactPage() {
         </p>
       </section>
 
-      {/* 2. Conteúdo Principal */}
       <div className="contact-container">
-        
-        {/* Esquerda: Informações */}
         <div className="contact-info-column">
-          
           <div className="contact-info-item">
             <div className="contact-icon-box">
               <FaMapMarkerAlt />
@@ -90,7 +82,6 @@ function ContactPage() {
             </div>
           </div>
 
-          {/* Mapa Pequeno */}
           <div className="contact-map-small">
             <iframe
               title="Mapa FotoClube"
@@ -99,10 +90,9 @@ function ContactPage() {
               referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
           </div>
-
+          
         </div>
 
-        {/* Direita: Formulário */}
         <div className="contact-form-column">
           <form onSubmit={handleSubmit}>
             <div className="form-group">

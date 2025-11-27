@@ -1,4 +1,3 @@
-// src/features/home/JoinUsSection.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaUsers, FaCamera, FaCoffee } from 'react-icons/fa';
@@ -58,11 +57,9 @@ function JoinUsSection() {
           </div>
 
           <div className="join-us-stats-cta">
-            {/* --- MUDANÇA AQUI --- */}
             <Link to="/sobre" className="stats-cta-button">
               Faça Parte Desta Comunidade
             </Link>
-            {/* --- FIM DA MUDANÇA --- */}
           </div>
 
         </div> 

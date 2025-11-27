@@ -2,14 +2,11 @@ import React from 'react';
 import './MembersSection.css';
 import { FaLink } from 'react-icons/fa';
 
-// Imagens placeholder para os membros (CORRIGIDO)
-// Vamos usar imagens reais da sua pasta /assets/
 import member1 from '../../assets/imagemCarrossel1.png';
 import member2 from '../../assets/imagemCarrossel2.png';
 import member3 from '../../assets/imagemCarrossel3.png';
 import member4 from '../../assets/imagemCarrossel4.png';
 
-// Componente reutilizável para o card
 function MemberCard({ name, image, portfolioUrl }) {
   return (
     <div className="member-card">
@@ -29,7 +26,6 @@ function MemberCard({ name, image, portfolioUrl }) {
   );
 }
 
-// Seção principal
 function MembersSection() {
   return (
     <section className="members-section">
@@ -41,9 +37,7 @@ function MembersSection() {
             que fazem a comunidade acontecer.
           </p>
         </div>
-
         <div className="members-grid">
-          {/* Você pode preencher isso dinamicamente no futuro */}
           <MemberCard 
             name="Adriano 'Drico' Coelho" 
             image={member1} 
@@ -64,7 +58,6 @@ function MembersSection() {
             image={member4} 
             portfolioUrl="#" 
           />
-          {/* Adicione mais cards conforme necessário */}
         </div>
       </div>
     </section>

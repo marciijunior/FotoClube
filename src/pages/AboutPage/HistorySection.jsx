@@ -1,17 +1,12 @@
-// src/pages/AboutPage/HistorySection.jsx (MODELO 3: A SEDE)
 import React from 'react';
-import './HistorySection.css'; // O CSS do Modelo 3
+import './HistorySection.css';
 import { FaMapMarkerAlt, FaInstagram } from 'react-icons/fa';
-
-// Importa a imagem do Estúdio 4K (ou uma genérica)
-import studioImage from '../../assets/imagemCarrossel3.png'; // Substitua pela foto do estúdio
+import studioImage from '../../assets/imagemCarrossel3.png';
 
 function HistorySection() {
   return (
     <section className="history-section-hq">
       <div className="hq-container">
-        
-        {/* Coluna 1: O Texto da História */}
         <div className="hq-text-content">
           <h1 className="history-page-main-title">O Nosso Ponto de Encontro</h1>
           <p className="hq-subtitle">
@@ -24,8 +19,6 @@ function HistorySection() {
             Hoje, o <strong>Estúdio 4K Fotografia</strong> não é apenas a nossa sede; é o coração da nossa comunidade. É onde a troca de experiências acontece, onde incentivamos a prática e onde a nossa história continua a ser escrita.
           </p>
         </div>
-
-        {/* Coluna 2: O "Cartão de Visita" da Sede */}
         <div className="hq-card">
           <div className="hq-card-image">
             <img src={studioImage} alt="Sede do FotoClube" />
@@ -33,7 +26,6 @@ function HistorySection() {
           <div className="hq-card-info">
             <h2>Nossa Sede</h2>
             <h3>Estúdio 4K Fotografia</h3>
-            
             <div className="hq-info-item">
               <FaMapMarkerAlt />
               <span>Rua José Bonifácio 114, Araçatuba - 16010-380</span>
@@ -49,5 +41,4 @@ function HistorySection() {
     </section>
   );
 }
-
 export default HistorySection;

@@ -1,8 +1,6 @@
 import React from "react";
 import { FaCalendarAlt, FaBullhorn, FaArrowDown } from "react-icons/fa";
 import "./PageEventos.css";
-
-// Componentes internos da pasta Eventos
 import Calendario from "./Calendario.jsx";
 import RecentActivities from "./RecentActivities.jsx";
 
@@ -17,7 +15,6 @@ export default function PageEventos() {
 
   return (
     <main className="page-eventos-wrapper">
-      {/* Hero Section: Título e Apresentação */}
       <section className="eventos-hero">
         <div className="hero-content">
           <span className="hero-tag">FotoClube Atividades</span>
@@ -37,7 +34,6 @@ export default function PageEventos() {
 
       <div className="page-eventos-container">
         
-        {/* Seção do Calendário */}
         <section id="agenda-focus" className="eventos-section">
           <div className="section-label">
             <FaCalendarAlt className="icon-label" />
@@ -48,10 +44,8 @@ export default function PageEventos() {
           </div>
         </section>
 
-        {/* Separador */}
         <div className="section-spacer"></div>
 
-        {/* Seção de Atividades Recentes */}
         <section className="eventos-section">
           <div className="section-label">
             <FaBullhorn className="icon-label" />

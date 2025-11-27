@@ -1,14 +1,13 @@
-// src/features/home/HeroCarousel.jsx
 import { useState, useEffect, useCallback, useRef } from "react";
 import { FaChevronLeft, FaChevronRight, FaRegBookmark } from "react-icons/fa";
-import { Link } from "react-router-dom"; // <--- IMPORTAR ISTO
+import { Link } from "react-router-dom";
 import { slidesData } from "../../data/slidesData";
 import "./HeroCarousel.css";
 
 const NUM_VISIBLE_THUMBNAILS = 5;
 
 function HeroCarousel() {
-  const [currentIndex, setCurrentIndex] = useState(0); // Índice nos DADOS ORIGINAIS
+  const [currentIndex, setCurrentIndex] = useState(0); 
   const [visibleThumbnails, setVisibleThumbnails] = useState([]);
   const slidesWrapperRef = useRef(null);
 
@@ -28,18 +27,13 @@ function HeroCarousel() {
     setCurrentIndex(slideIndex);
   };
 
-  // Efeito para o autoplay
   useEffect(() => {
     const timer = setInterval(() => goToNext(), 8000);
     return () => clearInterval(timer);
-  }, [currentIndex, goToNext]); // Dependências corretas
+  }, [currentIndex, goToNext]); 
 
-  // --- EFEITO PARA CALCULAR A ORDEM VISUAL (ATIVA NA ESQUERDA) ---
-  // --- OTIMIZAÇÃO DE PERFORMANCE APLICADA ---
   useEffect(() => {
-    // Atrasamos a atualização para não competir com a animação principal
     const updateTimeout = setTimeout(() => {
-      // --- SUA LÓGICA ORIGINAL (ATIVA NA ESQUERDA) MANTIDA ---
       const newVisibleOrder = [];
       for (let i = 0; i < NUM_VISIBLE_THUMBNAILS; i++) {
         const dataIndex =
@@ -50,15 +44,11 @@ function HeroCarousel() {
         });
       }
       setVisibleThumbnails(newVisibleOrder);
-      // --- FIM DA SUA LÓGICA ORIGINAL ---
-    }, 100); // Atraso de 100ms
+    }, 100);
 
-    // Limpa o timeout se o índice mudar antes
     return () => clearTimeout(updateTimeout);
   }, [currentIndex]);
-  // --- FIM DA OTIMIZAÇÃO ---
 
-  // Efeito para mover o slide principal
   useEffect(() => {
     if (slidesWrapperRef.current) {
       slidesWrapperRef.current.style.transform = `translateX(-${currentIndex * 100}%)`;
@@ -71,7 +61,6 @@ function HeroCarousel() {
         {slidesData.map((slide, index) => (
           <div
             key={index}
-            // Sua classe active original
             className={`slide ${index === currentIndex ? "active" : ""}`}
             style={{ backgroundImage: `url(${slide.image})` }}
           >
@@ -96,7 +85,6 @@ function HeroCarousel() {
       </div>
       <div className="controls-overlay">
         <div className="slide-thumbnails">
-          {/* Sua lógica original (ativa na esquerda, displayIndex 0) */}
           {visibleThumbnails.map((thumbData, displayIndex) => (
             <div
               key={thumbData.originalIndex}

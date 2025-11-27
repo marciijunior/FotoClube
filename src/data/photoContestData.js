@@ -1,12 +1,9 @@
-// src/data/photoContestData.js
-
-// SUBSTITUA estes caminhos pelas suas imagens locais reais dos vencedores
-const basePath = "/src/assets/images/"; // Assumindo que guardou as imagens aqui
+const basePath = "/src/assets/images/"; 
 
 export const photoContestData = [
   {
     id: "pcm1",
-    image: basePath + "winner-photo-1.webp", // Ex: /src/assets/images/winner-photo-1.webp
+    image: basePath + "winner-photo-1.webp",
     photographer: "Ana Silva",
     month: "Outubro 2025",
   },
@@ -58,5 +55,4 @@ export const photoContestData = [
     photographer: "Inês Pereira",
     month: "Outubro 2025",
   },
-  // Adicione mais se necessário, ou ajuste para mostrar sempre as 9 últimas
 ];

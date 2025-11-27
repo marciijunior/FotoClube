@@ -1,11 +1,7 @@
-// src/data/pastWinnersData.js
-
-// Importe as imagens dos vencedores anteriores
-// SUBSTITUA PELOS CAMINHOS CORRETOS
-import pw1 from '../assets/images/past-winner-1.png'; // Exemplo
-import pw2 from '../assets/images/past-winner-2.png'; // Exemplo
-import pw3 from '../assets/images/past-winner-3.png'; // Exemplo
-import pw4 from '../assets/images/past-winner-4.png'; // Exemplo
+import pw1 from '../assets/images/past-winner-1.png'; 
+import pw2 from '../assets/images/past-winner-2.png'; 
+import pw3 from '../assets/images/past-winner-3.png'; 
+import pw4 from '../assets/images/past-winner-4.png'; 
 
 export const pastWinnersData = [
   {
@@ -13,7 +9,7 @@ export const pastWinnersData = [
     monthWon: 'Setembro 2025',
     photographer: 'Marcos Andrade',
     title: 'Pôr do Sol na Represa',
-    image: pw1, // Caminho importado
+    image: pw1,
     judgesNotes: 'Uma composição de cores quentes que captura perfeitamente a tranquilidade do momento.'
   },
   {

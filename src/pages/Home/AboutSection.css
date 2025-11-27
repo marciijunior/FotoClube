@@ -1,7 +1,5 @@
-/* src/features/home/AboutSection.css (MODELO 3: REVISTA/SOBREPOSIÇÃO) */
-
 .about-section-magazine {
-  background-color: var(--color-light); /* Fundo creme/branco */
+  background-color: var(--color-light);
   padding: 120px 0;
   width: 100%;
 }
@@ -10,18 +8,15 @@
   max-width: var(--container-max-width, 1200px);
   margin: 0 auto;
   padding: 0 var(--container-gutter, 24px);
-  
-  /* O grid principal */
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
   gap: 40px;
 }
 
-/* Coluna da Pilha de Imagens */
 .magazine-image-stack {
   position: relative;
-  height: 450px; /* Altura fixa para a pilha */
+  height: 450px;
 }
 
 .magazine-image {
@@ -49,21 +44,16 @@
   height: 280px;
   bottom: 0;
   right: 0;
-  border: 4px solid var(--color-light); /* Borda para destacar */
-  z-index: 2; /* Fica na frente da 'image-back' */
+  border: 4px solid var(--color-light); 
+  z-index: 2; 
 }
 
-/* Coluna da Caixa de Texto */
 .magazine-text-box {
   background-color: #ffffff;
   padding: 40px;
   border-radius: 8px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  z-index: 10; /* Fica na frente de tudo */
-  
-  /* --- A MÁGICA DA SOBREPOSIÇÃO --- */
-  /* Movemos a caixa de texto 80px para a esquerda, 
-     fazendo-a "invadir" o espaço da coluna da imagem. */
+  z-index: 10;
   margin-left: -80px; 
 }
 
@@ -107,21 +97,18 @@
   transform: translateX(5px);
 }
 
-/* Responsividade: Desfazemos a sobreposição em telas pequenas */
 @media (max-width: 900px) {
   .magazine-container {
-    grid-template-columns: 1fr; /* Empilha */
+    grid-template-columns: 1fr;
     gap: 20px;
   }
   
   .magazine-image-stack {
-    /* Imagem vem primeiro em telas pequenas */
     order: -1; 
-    height: 350px; /* Altura menor */
+    height: 350px;
   }
 
   .magazine-text-box {
-    /* Reseta a sobreposição */
     margin-left: 0; 
   }
 }

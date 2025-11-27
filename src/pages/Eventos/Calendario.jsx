@@ -1,177 +1,183 @@
 import React, { useState, useMemo, useEffect } from "react";
-import { FaChevronLeft, FaChevronRight, FaCalendarDay } from "react-icons/fa";
-
+import { FaChevronLeft, FaChevronRight, FaFilter, FaCalendarCheck } from "react-icons/fa";
+import { useSearchParams } from "react-router-dom"; 
 import "./Calendario.css";
-
-// Imports locais da mesma pasta
 import InformacoesCalendario from "./InformacoesCalendario.jsx";
 import ModalInformacoes from "./ModalInformacoes.jsx";
+import { eventsData } from "../../data/eventsData";
 
-// Importação de Imagens (Vite Glob) - Caminho corrigido baseado na sua árvore
+const CATEGORIES = [
+  { id: 'all', label: 'Todos', color: '#ccc' },
+  { id: 'Workshop', label: 'Workshops', color: '#8e44ad' },
+  { id: 'Passeio', label: 'Passeios', color: '#27ae60' },
+  { id: 'Exposição', label: 'Exposições', color: '#e67e22' },
+  { id: 'Reunião', label: 'Reuniões', color: '#2980b9' },
+];
+
+const getEventMeta = (event) => {
+  const title = event.title.toLowerCase();
+  let category = 'Outros';
+  let color = 'var(--color-primary)';
+
+  if (title.includes('workshop') || title.includes('curso')) { category = 'Workshop'; color = '#8e44ad'; }
+  else if (title.includes('passeio') || title.includes('saída')) { category = 'Passeio'; color = '#27ae60'; }
+  else if (title.includes('exposição') || title.includes('galeria')) { category = 'Exposição'; color = 'var(--color-accent)'; } // Laranja do tema
+  else if (title.includes('encontro') || title.includes('reunião')) { category = 'Reunião'; color = '#2980b9'; }
+
+  return { category, color };
+};
+
 const imageModules = import.meta.glob(
   "../../assets/images/*.{jpg,jpeg,png,webp}",
   { eager: true, as: "url" }
 );
 const imageUrls = Object.values(imageModules);
-
-// Fallback seguro
-const getRandomImage = () => {
-  if (!imageUrls.length) return "";
-  return imageUrls[Math.floor(Math.random() * imageUrls.length)];
-};
-
-/* --- DADOS DE EXEMPLO --- 
-   Nota: Futuramente, pode substituir isto por: 
-   import { eventsData } from "../../data/eventsData"; 
-*/
-const generateMockEvents = () => {
-  const events = [];
-  const today = new Date();
-  const titles = ["Workshop Luz", "Saída Urbana", "Reunião Mensal", "Edição Criativa", "Exposição"];
-  
-  for (let i = 0; i < 40; i++) {
-    const offset = Math.floor(Math.random() * 60) - 15;
-    const d = new Date(today.getFullYear(), today.getMonth(), today.getDate() + offset);
-    events.push({
-      id: i,
-      title: titles[i % titles.length],
-      dateObj: d,
-      time: "14:00",
-      location: "Sede FotoClube",
-      image: getRandomImage(),
-      description: "Evento exclusivo para sócios e convidados.",
-      type: "normal"
-    });
-  }
-  return events;
-};
-
-const cachedEvents = generateMockEvents();
+const getRandomImage = () => imageUrls.length ? imageUrls[Math.floor(Math.random() * imageUrls.length)] : "";
 
 export default function Calendario() {
-  const [currentDate, setCurrentDate] = useState(new Date());
-  const [selectedDay, setSelectedDay] = useState(new Date().getDate());
-  const [selectedEvents, setSelectedEvents] = useState([]);
-  
-  // Modal
+  const [searchParams] = useSearchParams();
+
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
+  const [selectedDay, setSelectedDay] = useState(null);
+  const [activeFilter, setActiveFilter] = useState('all'); 
   const [modalOpen, setModalOpen] = useState(false);
   const [modalEvent, setModalEvent] = useState(null);
 
-  // Cálculos de Data
-  const { monthName, year, daysInMonth, firstDayOfWeek } = useMemo(() => {
-    const y = currentDate.getFullYear();
-    const m = currentDate.getMonth();
-    return {
-      monthName: new Date(y, m).toLocaleString("pt-PT", { month: "long" }),
-      year: y,
-      daysInMonth: new Date(y, m + 1, 0).getDate(),
-      firstDayOfWeek: new Date(y, m, 1).getDay(),
-    };
-  }, [currentDate]);
-
   useEffect(() => {
-    if (!selectedDay) {
-      setSelectedEvents([]);
-      return;
+    const dia = searchParams.get('dia');
+    const mes = searchParams.get('mes');
+    const ano = searchParams.get('ano');
+    if (dia && mes && ano) {
+      setCurrentYear(parseInt(ano));
+      setCurrentMonth(parseInt(mes));
+      setSelectedDay(parseInt(dia));
+      const el = document.getElementById('calendario-anchor');
+      if(el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
-    const evts = cachedEvents.filter(e => 
-      e.dateObj.getDate() === selectedDay &&
-      e.dateObj.getMonth() === currentDate.getMonth() &&
-      e.dateObj.getFullYear() === currentDate.getFullYear()
-    );
-    setSelectedEvents(evts);
-  }, [selectedDay, currentDate]);
+  }, [searchParams]);
+
+  const eventsByDay = useMemo(() => {
+    const map = {};
+    eventsData.forEach(event => {
+       try {
+         const [dayStr, rest] = event.date.split(', ');
+         const [monthStr, yearStr] = rest.split('-');
+         const monthsMap = { 'Jan':0, 'Fev':1, 'Mar':2, 'Abr':3, 'Mai':4, 'Jun':5, 'Jul':6, 'Ago':7, 'Set':8, 'Out':9, 'Nov':10, 'Dez':11 };
+         
+         const evtDay = parseInt(dayStr);
+         const evtMonth = monthsMap[monthStr];
+         const evtYear = parseInt(yearStr);
+         const { category, color } = getEventMeta(event);
+         const matchesFilter = activeFilter === 'all' || category === activeFilter;
+
+         if (evtMonth === currentMonth && evtYear === currentYear && matchesFilter) {
+            if (!map[evtDay]) map[evtDay] = [];
+            map[evtDay].push({ ...event, image: event.image || getRandomImage(), category, color });
+         }
+       } catch (e) { console.error("Erro data:", e); }
+    });
+    return map;
+  }, [currentMonth, currentYear, activeFilter]);
 
   const changeMonth = (offset) => {
-    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + offset, 1));
+    let newMonth = currentMonth + offset;
+    let newYear = currentYear;
+    if (newMonth < 0) { newMonth = 11; newYear -= 1; }
+    else if (newMonth > 11) { newMonth = 0; newYear += 1; }
+    setCurrentMonth(newMonth);
+    setCurrentYear(newYear);
     setSelectedDay(null);
   };
 
-  const jumpToToday = () => {
-    const now = new Date();
-    setCurrentDate(now);
-    setSelectedDay(now.getDate());
+  const goToToday = () => {
+    const hoje = new Date();
+    setCurrentMonth(hoje.getMonth());
+    setCurrentYear(hoje.getFullYear());
+    setSelectedDay(hoje.getDate());
   };
 
-  const openModal = (evt) => { setModalEvent(evt); setModalOpen(true); };
-  const closeModal = () => { setModalOpen(false); setModalEvent(null); };
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+  const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+  const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+  const weekDays = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
 
-  // Render Grid
-  const renderGrid = () => {
-    const cells = [];
-    const weekDays = ["D", "S", "T", "Q", "Q", "S", "S"];
-    
-    weekDays.forEach((d, i) => cells.push(<div key={`h-${i}`} className="cal-header-day">{d}</div>));
-    
-    for (let i = 0; i < firstDayOfWeek; i++) {
-      cells.push(<div key={`empty-${i}`} className="cal-day empty" />);
-    }
+  const calendarCells = [];
+  for (let i = 0; i < firstDayOfMonth; i++) calendarCells.push(<div key={`empty-${i}`} className="calendar-day empty"></div>);
+  
+  for (let d = 1; d <= daysInMonth; d++) {
+    const dayEvents = eventsByDay[d] || [];
+    const isSelected = d === selectedDay;
+    const today = new Date();
+    const isToday = d === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear();
 
-    for (let day = 1; day <= daysInMonth; day++) {
-      const dayEvents = cachedEvents.filter(e => 
-        e.dateObj.getDate() === day &&
-        e.dateObj.getMonth() === currentDate.getMonth() &&
-        e.dateObj.getFullYear() === currentDate.getFullYear()
-      );
-      
-      const isSelected = selectedDay === day;
-      const isToday = day === new Date().getDate() && 
-                      currentDate.getMonth() === new Date().getMonth() &&
-                      currentDate.getFullYear() === new Date().getFullYear();
+    let classes = `calendar-day ${isSelected ? 'selected' : ''} ${isToday ? 'today' : ''} ${dayEvents.length > 0 ? 'has-events' : ''}`;
 
-      cells.push(
-        <div 
-          key={day} 
-          className={`cal-day ${isSelected ? 'selected' : ''} ${isToday ? 'today' : ''} ${dayEvents.length ? 'has-event' : ''}`}
-          onClick={() => setSelectedDay(day)}
-        >
-          <span className="cal-day-num">{day}</span>
-          {dayEvents.length > 0 && (
-            <div className="cal-dots">
-              {dayEvents.slice(0, 3).map((_, i) => <span key={i} className="cal-dot"/>)}
-            </div>
-          )}
-        </div>
-      );
-    }
-    return cells;
-  };
-
-  return (
-    <div className="calendario-wrapper">
-      <div className="calendario-main">
-        <header className="cal-header">
-          <div>
-            <h2 className="cal-month-title">{monthName} <span>{year}</span></h2>
-          </div>
-          <div className="cal-controls">
-            <button onClick={jumpToToday} className="btn-mini-today" title="Hoje"><FaCalendarDay/></button>
-            <div className="nav-arrows">
-              <button onClick={() => changeMonth(-1)}><FaChevronLeft/></button>
-              <button onClick={() => changeMonth(1)}><FaChevronRight/></button>
-            </div>
-          </div>
-        </header>
-        
-        <div className="cal-grid">
-          {renderGrid()}
+    calendarCells.push(
+      <div key={d} className={classes} onClick={() => setSelectedDay(d)}>
+        <span className="day-number">{d}</span>
+        <div className="day-dots">
+          {dayEvents.slice(0, 4).map((ev, idx) => (
+            <span key={idx} className="dot" style={{ backgroundColor: ev.color }} title={ev.title} />
+          ))}
+          {dayEvents.length > 4 && <span className="dot plus" style={{backgroundColor: '#555'}}></span>}
         </div>
       </div>
+    );
+  }
 
-      <div className="calendario-sidebar-wrapper">
-        <InformacoesCalendario 
-          selectedEvents={selectedEvents}
+  return (
+    <section className="pagina-eventos-calendario" id="calendario-anchor">
+      <div className="eventos-container-calendario">
+        <div className="calendar-main-panel">
+          <header className="calendar-header">
+            <div className="calendar-nav-controls">
+              <button className="nav-btn" onClick={() => changeMonth(-1)}><FaChevronLeft /></button>
+              <h2 className="month-title">{monthNames[currentMonth]} <span>{currentYear}</span></h2>
+              <button className="nav-btn" onClick={() => changeMonth(1)}><FaChevronRight /></button>
+            </div>
+            <button className="btn-today" onClick={goToToday}>
+              <FaCalendarCheck /> Hoje
+            </button>
+          </header>
+
+          <div className="filter-bar">
+            <div className="filter-label"><FaFilter /> Filtrar:</div>
+            <div className="filter-options">
+               {CATEGORIES.map(cat => (
+                 <button 
+                    key={cat.id}
+                    className={`filter-chip ${activeFilter === cat.id ? 'active' : ''}`}
+                    onClick={() => setActiveFilter(cat.id)}
+                 >
+                   <span className="chip-dot" style={{ backgroundColor: cat.color }}></span> 
+                   {cat.label}
+                 </button>
+               ))}
+            </div>
+          </div>
+
+          <div className="calendar-grid-wrapper">
+            <div className="weekdays-row">
+              {weekDays.map(d => <div key={d} className="weekday">{d}</div>)}
+            </div>
+            <div className="days-grid">{calendarCells}</div>
+          </div>
+        </div>
+
+        <InformacoesCalendario
+          selectedEvents={selectedDay ? (eventsByDay[selectedDay] || []) : []}
           selectedDay={selectedDay}
-          monthName={monthName}
-          openModal={openModal}
+          monthName={monthNames[currentMonth]}
+          openModal={(evt) => { setModalEvent(evt); setModalOpen(true); }}
         />
       </div>
 
-      <ModalInformacoes 
-        modalOpen={modalOpen} 
-        modalEvent={modalEvent} 
-        closeModal={closeModal} 
+      <ModalInformacoes
+        modalOpen={modalOpen}
+        modalEvent={modalEvent}
+        closeModal={() => setModalOpen(false)}
       />
-    </div>
+    </section>
   );
 }

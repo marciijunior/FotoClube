@@ -1,15 +1,11 @@
 import React from 'react';
 import './IntroSection.css';
-
-// Imagem ilustrativa da origem
 import originImage from '../../assets/imagemCarrossel2.png'; 
 
 function IntroSection() {
   return (
     <section className="intro-section">
       <div className="intro-container">
-        
-        {/* Coluna 1: Quem Somos (Missão) */}
         <div className="intro-column">
           <span className="intro-eyebrow">Nosso Propósito</span>
           <h2>Quem Somos</h2>
@@ -24,8 +20,6 @@ function IntroSection() {
             os fotógrafos locais e registrando nossa cultura.
           </p>
         </div>
-
-        {/* Coluna 2: Como Surgimos (Origem) */}
         <div className="intro-column">
           <span className="intro-eyebrow">Nossa Origem</span>
           <h2>Como Surgimos</h2>
@@ -40,7 +34,6 @@ function IntroSection() {
             profissionalizar nossa paixão.
           </p>
         </div>
-
       </div>
       <div className="intro-image-banner">
         <img src={originImage} alt="Membros do Fotoclube em saída fotográfica" />
@@ -48,5 +41,4 @@ function IntroSection() {
     </section>
   );
 }
-
 export default IntroSection;
