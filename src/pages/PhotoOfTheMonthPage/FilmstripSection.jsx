@@ -1,3 +1,4 @@
+// src/pages/PhotoOfTheMonthPage/FilmstripSection.jsx
 import React, { useState, useRef } from 'react';
 import './FilmstripSection.css';
 
@@ -5,44 +6,33 @@ function FilmstripSection({ runnersUp, placeholderImage }) {
   
   const filmstripRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
-  const dragState = useRef({
-    startX: 0,
-    scrollLeft: 0,
-  });
+  const dragState = useRef({ startX: 0, scrollLeft: 0 });
 
   const handleMouseDown = (e) => {
     if (!filmstripRef.current) return;
     e.preventDefault();
     const slider = filmstripRef.current;
-    
     setIsDragging(true);
-    
     dragState.current.startX = e.pageX - slider.offsetLeft;
     dragState.current.scrollLeft = slider.scrollLeft;
   };
 
-  const handleMouseLeave = () => {
-    setIsDragging(false);
-  };
-
-  const handleMouseUp = () => {
-    setIsDragging(false);
-  };
+  const handleMouseLeave = () => setIsDragging(false);
+  const handleMouseUp = () => setIsDragging(false);
 
   const handleMouseMove = (e) => {
     if (!isDragging || !filmstripRef.current) return;
     e.preventDefault();
     const slider = filmstripRef.current;
-    
     const x = e.pageX - slider.offsetLeft;
     const walk = (x - dragState.current.startX) * 1.5;
-    
     slider.scrollLeft = dragState.current.scrollLeft - walk;
   };
 
   return (
     <section className="potm-filmstrip-section">
-      <h2 className="dark-section-title">Finalistas</h2>
+      {/* Classe de título clara */}
+      <h2 className="section-title-light">Finalistas</h2>
       
       <div 
         className={`filmstrip-track-wrapper ${isDragging ? 'dragging' : ''}`}

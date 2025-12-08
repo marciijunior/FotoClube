@@ -5,9 +5,9 @@
   background-color: var(--color-light);
   color: var(--color-dark);
   padding: 80px 20px 0 20px;
-  margin-top: 60px;
+  margin-top: 0px;
   width: 100%;
-  border-top: 1px solid #ddd; /* Adiciona separador do conteúdo */
+  border-top: 3px solid #ffffff; /* Adiciona separador do conteúdo */
 }
 
 .footer-header {

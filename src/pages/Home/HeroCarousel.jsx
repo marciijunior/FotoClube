@@ -73,7 +73,7 @@ function HeroCarousel() {
                   <FaRegBookmark />
                 </button>
                 <Link
-                  to={`/detalhes-foto/${slide.id}`}
+                  to={`/foto-do-mes`}
                   className="read-more-button"
                 >
                   Ler Mais

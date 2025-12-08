@@ -1,3 +1,5 @@
+/* src/pages/Eventos/Calendario.css */
+
 .pagina-eventos-calendario {
   width: 100%;
   padding-bottom: 40px; 
@@ -36,13 +38,32 @@
   gap: 15px;
 }
 
+/* --- MUDANÇA AQUI: Título com linha laranja --- */
 .month-title {
   font-family: var(--font-heading);
   font-size: 1.8rem; 
   color: var(--color-primary);
   margin: 0;
   line-height: 1;
+  
+  /* Necessário para posicionar a linha */
+  position: relative;
+  padding-bottom: 8px; /* Espaço para a linha */
 }
+
+/* A linha laranja */
+.month-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%); /* Centraliza a linha */
+  width: 50px; /* Largura da linha */
+  height: 3px; /* Espessura da linha */
+  background-color: var(--color-accent);
+  border-radius: 2px;
+}
+/* --- FIM DA MUDANÇA --- */
 
 .month-title span {
   color: var(--color-accent);

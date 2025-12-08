@@ -10,17 +10,20 @@
   border: 1px solid rgba(12, 20, 30, 0.04);
   box-shadow: 0 12px 36px rgba(6, 10, 20, 0.04);
 }
+
 .recent-inner {
   max-width: 1180px;
   margin: 0 auto;
   padding: 0 20px;
 }
+
 .recent-activities h3 {
   margin: 0 0 12px 0;
   font-family: var(--font-heading);
   font-size: 1.05rem;
   color: var(--color-primary);
 }
+
 .recent-empty {
   padding: 14px;
   color: #6b7280;
@@ -30,27 +33,27 @@
 
 .recent-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
 }
 
 .recent-card {
+  position: relative;
   display: flex;
   gap: 12px;
   align-items: flex-start;
-  padding: 12px;
+  padding: 12px 12px 50px 12px;
   border-radius: 10px;
   background: white;
   border: 1px solid rgba(12, 20, 30, 0.03);
   box-shadow: 0 6px 18px rgba(6, 10, 20, 0.03);
-  transition:
-    transform 0.12s ease,
-    box-shadow 0.14s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
+  cursor: pointer;
 }
 
 .recent-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 18px 40px rgba(6, 10, 20, 0.06);
+  box-shadow: 5px 5px 10px 10px rgba(155, 155, 155, 0.185);
 }
 
 .recent-thumb-wrap {
@@ -63,7 +66,7 @@
 
 .recent-thumb {
   width: 84px;
-  height: 84px;
+  height: 100%;
   object-fit: cover;
   border-radius: 8px;
   display: block;
@@ -79,18 +82,21 @@
 .recent-body {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
   min-width: 0;
+  flex: 1;
 }
 
 .recent-title {
   margin: 0;
-  font-size: 0.96rem;
+  font-size: 1rem;
   color: var(--color-primary);
   font-weight: 700;
-  white-space: nowrap;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .recent-meta {
@@ -98,58 +104,57 @@
   gap: 8px;
   align-items: center;
   color: #6b7280;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   flex-wrap: wrap;
 }
 
 .recent-meta-item {
   display: inline-flex;
-  gap: 6px;
+  gap: 4px;
   align-items: center;
-  padding: 4px 8px;
-  border-radius: 999px;
-  background: rgba(11, 18, 32, 0.03);
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(11, 18, 32, 0.04);
   font-weight: 600;
 }
 
 .recent-actions {
-  margin-top: auto;
-  display: flex;
-  gap: 8px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 38px; 
+  z-index: 2;
 }
 
 .recent-btn {
-  padding: 7px 10px;
-  font-weight: 800;
-  border-radius: 8px;
-  border: 1px solid rgba(12, 20, 30, 0.06);
-  background: transparent;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-top: 1px solid rgba(0,0,0,0.05);
+  background: #f7f9fc;
   color: var(--color-primary);
+  font-weight: 700;
+  font-size: 0.8rem;
+  font-family: var(--font-body);
+  letter-spacing: 0.5px;
   cursor: pointer;
-  transition:
-    background-color 0.14s ease,
-    transform 0.12s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  border-radius: 0; 
 }
 
-.recent-btn:hover {
+.recent-card:hover .recent-btn {
   background: var(--color-accent);
-  color: var(--color-light);
-  transform: translateY(-3px);
+  color: white;
+  border-top-color: var(--color-accent);
 }
 
 @media (max-width: 720px) {
-  .recent-card {
-    padding: 10px;
-  }
-  .recent-thumb,
-  .recent-thumb--placeholder {
-    width: 64px;
-    height: 64px;
-  }
-  .recent-meta {
-    font-size: 0.8rem;
-  }
-  .recent-title {
-    font-size: 0.94rem;
+  .recent-grid {
+    grid-template-columns: 1fr;
   }
 }

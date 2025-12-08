@@ -1,3 +1,4 @@
+/* src/features/home/RecentActivities.jsx */
 import React, { useMemo, useState, useEffect } from "react";
 import "./RecentActivities.css";
 import {
@@ -6,14 +7,13 @@ import {
   FaBullhorn,
   FaImage,
   FaNewspaper,
+  FaArrowRight, // Ícone para a barra footer
 } from "react-icons/fa";
 
+/* Carrega imagens */
 const imageModules = import.meta.glob(
   "../../assets/images/*.{jpg,jpeg,png,webp}",
-  {
-    eager: true,
-    as: "url",
-  }
+  { eager: true, as: "url" }
 );
 const imageUrls = Object.values(imageModules || {});
 const getRandomImage = () =>
@@ -21,6 +21,7 @@ const getRandomImage = () =>
     ? imageUrls[Math.floor(Math.random() * imageUrls.length)]
     : "/src/assets/images/event-placeholder-1.jpg";
 
+/* Carrega dados */
 const dataModules = import.meta.glob("../../data/*.{js,ts,json}", {
   eager: true,
   as: "default",
@@ -199,7 +200,19 @@ export default function RecentActivities({ limit = 8, onOpen }) {
         <h3 id="recent-activities-title">Atualizações Recentes</h3>
         <div className="recent-grid">
           {unified.map((it) => (
-            <article key={it.id} className="recent-card">
+            <article
+              key={it.id}
+              className="recent-card"
+              onClick={() => handleOpen(it)} 
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  handleOpen(it);
+                }
+              }}
+              tabIndex="0"
+              role="button"
+            >
               <div className="recent-thumb-wrap">
                 {it.image ? (
                   <img
@@ -225,10 +238,10 @@ export default function RecentActivities({ limit = 8, onOpen }) {
                     {it.type === "event"
                       ? "Evento"
                       : it.type === "post"
-                        ? "Notícia"
-                        : it.type === "gallery"
-                          ? "Galeria"
-                          : "Atualização"}
+                      ? "Notícia"
+                      : it.type === "gallery"
+                      ? "Galeria"
+                      : "Atualização"}
                   </span>
 
                   <span className="recent-meta-item">
@@ -242,16 +255,16 @@ export default function RecentActivities({ limit = 8, onOpen }) {
                     </span>
                   )}
                 </div>
+              </div>
 
-                <div className="recent-actions">
-                  <button
-                    className="recent-btn"
-                    onClick={() => handleOpen(it)}
-                    aria-label={`Abrir ${it.title}`}
-                  >
-                    Ver
-                  </button>
-                </div>
+              <div className="recent-actions">
+                <button
+                  className="recent-btn"
+                  aria-label={`Abrir ${it.title}`}
+                  tabIndex="-1" // Evita foco duplo, já que o card é clicável
+                >
+                  Ver <FaArrowRight style={{ fontSize: '0.8em' }} />
+                </button>
               </div>
             </article>
           ))}
@@ -261,6 +274,7 @@ export default function RecentActivities({ limit = 8, onOpen }) {
   );
 }
 
+// Simulação para testes
 window.simulateUpdate &&
   window.simulateUpdate({
     type: "event",

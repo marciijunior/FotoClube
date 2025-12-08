@@ -1,3 +1,4 @@
+// src/pages/PhotoOfTheMonthPage/PhotoOfTheMonthPage.jsx
 import React from "react";
 import { slidesData } from "../../data/slidesData";
 import { pastWinnersData } from "../../data/pastWinnersData";
@@ -13,7 +14,7 @@ function PhotoOfTheMonthPage() {
   const placeholderImage = "/src/assets/images/placeholder-winner.png";
 
   return (
-    <div className="potm-dark-container">
+    <div className="potm-container">
       <HeroSection winner={mainWinner} placeholderImage={placeholderImage} />
 
       <FilmstripSection

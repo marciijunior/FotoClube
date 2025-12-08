@@ -5,7 +5,7 @@
 .filmstrip-track-wrapper {
   overflow-x: auto;
   scrollbar-width: thin; 
-  scrollbar-color: var(--color-accent) #333;
+  scrollbar-color: var(--color-accent) #ffffff;
   cursor: grab;
   user-select: none;
 }

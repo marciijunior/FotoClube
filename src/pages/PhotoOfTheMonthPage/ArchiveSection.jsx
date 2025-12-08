@@ -1,3 +1,4 @@
+// src/pages/PhotoOfTheMonthPage/ArchiveSection.jsx
 import React, { useState, useMemo } from 'react';
 import { FaTimes } from 'react-icons/fa'; 
 import './ArchiveSection.css';
@@ -16,7 +17,8 @@ function ArchiveSection({ pastWinners, placeholderImage }) {
   return (
     <>
       <section className="potm-archive-menu-section">
-        <h2 className="dark-section-title">Arquivo de Vencedores</h2>
+        {/* Título Claro */}
+        <h2 className="section-title-light">Arquivo de Vencedores</h2>
         <div className="archive-menu-container">
           
           <div className="archive-menu-list">
@@ -35,20 +37,16 @@ function ArchiveSection({ pastWinners, placeholderImage }) {
           <div className="archive-menu-display">
             {selectedWinner ? (
               <>
-                <img
-                  key={selectedWinner.id} 
-                  src={selectedWinner.image}
-                  alt={selectedWinner.title}
-                  className="archive-menu-display-image"
-                  onError={(e) => { e.target.onerror = null; e.target.src = placeholderImage; }}
-                  onClick={openModal}
-                />
-                <div 
-                  key={`${selectedWinner.id}-info`}
-                  className="archive-menu-display-info"
-                >
-                  <span className="archive-menu-display-month">{selectedWinner.monthWon}</span>
-                  <h3 className="archive-menu-display-title">{selectedWinner.title}</h3>
+                <div className="archive-menu-display-image-wrapper" onClick={openModal}>
+                  <img
+                    src={selectedWinner.image}
+                    alt={selectedWinner.title}
+                    className="archive-menu-display-image"
+                    onError={(e) => { e.target.onerror = null; e.target.src = placeholderImage; }}
+                  />
+                </div>
+                <div className="archive-menu-display-info">
+                  <h3>{selectedWinner.title}</h3>
                   <p className="archive-menu-display-author">{selectedWinner.photographer}</p>
                   <p className="archive-menu-display-notes">
                     <strong>Nota dos Jurados:</strong> "{selectedWinner.judgesNotes}"

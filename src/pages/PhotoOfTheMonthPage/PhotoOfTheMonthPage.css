@@ -1,17 +1,21 @@
-.potm-dark-container {
-  background-color: #121212;
-  color: var(--color-light);
-  padding-top: 180px;
+/* src/pages/PhotoOfTheMonthPage/PhotoOfTheMonthPage.css */
+
+/* --- Container Principal (Modo Claro) --- */
+.potm-container {
+  background-color: var(--color-light);
+  color: var(--color-dark);
+  /* Espaço para o header fixo */
+  padding-top: 80px; 
   width: 100%;
   overflow-x: hidden;
-  padding-bottom: 80px;
+
 }
 
-
-.dark-section-title {
+/* Título de Secção Padrão (Modo Claro) */
+.section-title-light {
   font-family: var(--font-heading);
   font-size: 2.8rem;
-  color: var(--color-light);
+  color: var(--color-primary); /* Azul Escuro */
   margin-bottom: 30px;
   position: relative;
   padding-bottom: 10px;
@@ -20,7 +24,8 @@
   margin-inline: auto;
   padding-inline: var(--container-gutter);
 }
-.dark-section-title::after {
+
+.section-title-light::after {
   content: "";
   position: absolute;
   bottom: 0;
@@ -31,15 +36,13 @@
   border-radius: 2px;
 }
 
+/* Responsividade */
 @media (max-width: 900px) {
-  .dark-section-title::after {
+  .section-title-light::after {
     left: 50%;
     transform: translateX(-50%);
   }
-}
-
-@media (max-width: 700px) {
-  .potm-dark-container {
-    padding-top: 140px; 
+  .section-title-light {
+    text-align: center;
   }
 }

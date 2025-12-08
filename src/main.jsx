@@ -9,7 +9,6 @@ import AboutPage from "./pages/AboutPage/AboutPage.jsx";
 import PaginaEventos from "./pages/Eventos/PageEventos.jsx";
 import ContactPage from "./pages/ContactPage/ContactPage.jsx";
 
-import PhotoDetailsPage from "./pages/PhotoDetailsPage/PhotoDetailsPage.jsx";
 
 import "./styles/index.css";
 
@@ -22,10 +21,6 @@ const router = createBrowserRouter([
       { path: "foto-do-mes", element: <PhotoOfTheMonthPage /> },
       { path: "sobre", element: <AboutPage /> },
       { path: "contatos", element: <ContactPage /> },
-      {
-        path: "detalhes-foto/:id",
-        element: <PhotoDetailsPage />,
-      },
     ],
   },
 ]);

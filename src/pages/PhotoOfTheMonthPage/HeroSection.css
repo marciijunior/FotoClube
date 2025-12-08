@@ -1,6 +1,8 @@
-.potm-dark-hero {
+/* src/pages/PhotoOfTheMonthPage/HeroSection.css */
+
+.potm-hero {
   display: grid;
-  grid-template-columns: 1fr 1.5fr;
+  grid-template-columns: 1fr 1.5fr; /* Texto | Imagem */
   gap: 40px;
   align-items: center;
   max-width: 1200px;
@@ -8,7 +10,7 @@
   padding-inline: var(--container-gutter);
 }
 
-.potm-dark-hero-text {
+.potm-hero-text {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -26,13 +28,16 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom: 10px;
+  background: rgba(255, 92, 0, 0.1); /* Fundo sutil laranja */
+  padding: 4px 10px;
+  border-radius: 20px;
 }
 
 .hero-photo-title {
   font-family: var(--font-heading);
   font-size: 4.5rem;
-  color: var(--color-light);
-  margin: 0;
+  color: var(--color-primary); /* Azul escuro */
+  margin: 10px 0 0 0;
   line-height: 1;
   text-align: left;
 }
@@ -41,65 +46,68 @@
   font-family: var(--font-body);
   font-size: 1.2rem;
   font-style: italic;
-  color: #aaa;
+  color: #666; /* Cinza médio */
   margin: 15px 0 25px 0;
   text-align: left;
 }
 
 .hero-description {
-  font-size: 1rem;
+  font-size: 1.05rem;
   line-height: 1.7;
-  color: #ccc;
-  margin-bottom: 30px;
+  color: #444; /* Cinza escuro */
+  margin: 0;
   max-width: 500px;
-  text-align: left;
+  text-align: left !important;
 }
 
-.potm-dark-hero-image-wrapper {
+.hero-cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-primary);
+  padding: 0px 0px;
   border-radius: 4px;
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.potm-hero-image-wrapper {
+  border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); /* Sombra suave */
   aspect-ratio: 16 / 10;
   animation: slideInRight 1s ease-out;
 }
 
-.potm-dark-hero-image {
+.potm-hero-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
+/* Animações */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 @keyframes slideInRight {
-  from { opacity: 0; transform: translateX(50px); }
+  from { opacity: 0; transform: translateX(30px); }
   to { opacity: 1; transform: translateX(0); }
 }
 
 @media (max-width: 900px) {
-  .potm-dark-hero {
+  .potm-hero {
     grid-template-columns: 1fr;
     text-align: center;
   }
-  .potm-dark-hero-text {
-     align-items: center;
+  .potm-hero-text {
+    align-items: center;
   }
-   .hero-photo-title, .hero-author, .hero-description {
-     text-align: center;
-  }
-  .potm-dark-hero-image-wrapper {
-    margin-top: 40px;
-    order: -1;
-  }
-  .hero-description {
-    margin-inline: auto;
-  }
-}
-
-@media (max-width: 700px) {
   .hero-photo-title {
-    font-size: 3rem;
+    text-align: center;
+    font-size: 3.5rem;
   }
 }

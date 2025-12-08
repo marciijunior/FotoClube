@@ -58,7 +58,7 @@ function JoinUsSection() {
 
           <div className="join-us-stats-cta">
             <Link to="/sobre" className="stats-cta-button">
-              Faça Parte Desta Comunidade
+              Quero participar!
             </Link>
           </div>
 
