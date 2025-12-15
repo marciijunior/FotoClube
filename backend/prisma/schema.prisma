@@ -1,0 +1,27 @@
+generator client {
+  provider        = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Event {
+  id          Int      @id @default(autoincrement())
+  title       String
+  date        String
+  time        String
+  description String
+  location    String
+  image       String?
+  category    String   @default("Geral")
+}
+
+model Winner {
+  id          Int      @id @default(autoincrement())
+  title       String
+  author      String
+  image       String
+  monthWon    String
+  judgesNotes String
+}

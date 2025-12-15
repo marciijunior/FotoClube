@@ -38,8 +38,10 @@ export default function ModalInformacoes({
           <div className="event-modal-content">
             <h2>{modalEvent.title}</h2>
             <p className="modal-meta">
-              <FaMapMarkerAlt /> {modalEvent.location} · <FaClock />{" "}
-              {modalEvent.time}
+              <FaMapMarkerAlt /> {modalEvent.location}
+            </p>
+            <p className="modal-meta">
+              <FaClock /> {modalEvent.time}
             </p>
             <p className="modal-description">
               {modalEvent.description ??

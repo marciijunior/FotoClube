@@ -6,6 +6,7 @@ import InformacoesCalendario from "./InformacoesCalendario.jsx";
 import ModalInformacoes from "./ModalInformacoes.jsx";
 import { eventsData } from "../../data/eventsData";
 
+// --- Configuração de Categorias ---
 const CATEGORIES = [
   { id: 'all', label: 'Todos', color: '#ccc' },
   { id: 'Workshop', label: 'Workshops', color: '#8e44ad' },
@@ -17,11 +18,11 @@ const CATEGORIES = [
 const getEventMeta = (event) => {
   const title = event.title.toLowerCase();
   let category = 'Outros';
-  let color = 'var(--color-primary)';
+  let color = 'var(--color-primary)'; 
 
   if (title.includes('workshop') || title.includes('curso')) { category = 'Workshop'; color = '#8e44ad'; }
   else if (title.includes('passeio') || title.includes('saída')) { category = 'Passeio'; color = '#27ae60'; }
-  else if (title.includes('exposição') || title.includes('galeria')) { category = 'Exposição'; color = 'var(--color-accent)'; } // Laranja do tema
+  else if (title.includes('exposição') || title.includes('galeria')) { category = 'Exposição'; color = 'var(--color-accent)'; }
   else if (title.includes('encontro') || title.includes('reunião')) { category = 'Reunião'; color = '#2980b9'; }
 
   return { category, color };
@@ -40,23 +41,49 @@ export default function Calendario() {
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [selectedDay, setSelectedDay] = useState(null);
+  
   const [activeFilter, setActiveFilter] = useState('all'); 
   const [modalOpen, setModalOpen] = useState(false);
   const [modalEvent, setModalEvent] = useState(null);
 
+  // Efeito: Ler URL (Detecta data e ID do evento)
   useEffect(() => {
     const dia = searchParams.get('dia');
     const mes = searchParams.get('mes');
     const ano = searchParams.get('ano');
+    const eventId = searchParams.get('eventId'); // LÊ O ID
+
     if (dia && mes && ano) {
       setCurrentYear(parseInt(ano));
       setCurrentMonth(parseInt(mes));
       setSelectedDay(parseInt(dia));
+      
       const el = document.getElementById('calendario-anchor');
       if(el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      // Lógica para abrir o modal se houver eventId
+      if (eventId) {
+        // Precisamos encontrar o evento nos dados originais
+        // Nota: Converta para string para garantir comparação segura
+        const foundEvent = eventsData.find(e => String(e.id) === String(eventId));
+        
+        if (foundEvent) {
+          // Prepara o objeto do evento (adiciona imagem/meta se faltar, igual ao processamento do grid)
+          const { category, color } = getEventMeta(foundEvent);
+          const fullEvent = {
+            ...foundEvent,
+            image: foundEvent.image || getRandomImage(),
+            category,
+            color
+          };
+          setModalEvent(fullEvent);
+          setModalOpen(true);
+        }
+      }
     }
   }, [searchParams]);
 
+  // Processamento dos Dados
   const eventsByDay = useMemo(() => {
     const map = {};
     eventsData.forEach(event => {
@@ -68,18 +95,26 @@ export default function Calendario() {
          const evtDay = parseInt(dayStr);
          const evtMonth = monthsMap[monthStr];
          const evtYear = parseInt(yearStr);
+         
          const { category, color } = getEventMeta(event);
+         
          const matchesFilter = activeFilter === 'all' || category === activeFilter;
 
          if (evtMonth === currentMonth && evtYear === currentYear && matchesFilter) {
             if (!map[evtDay]) map[evtDay] = [];
-            map[evtDay].push({ ...event, image: event.image || getRandomImage(), category, color });
+            map[evtDay].push({
+              ...event,
+              image: event.image || getRandomImage(),
+              category,
+              color
+            });
          }
        } catch (e) { console.error("Erro data:", e); }
     });
     return map;
   }, [currentMonth, currentYear, activeFilter]);
 
+  // Navegação
   const changeMonth = (offset) => {
     let newMonth = currentMonth + offset;
     let newYear = currentYear;
@@ -97,6 +132,7 @@ export default function Calendario() {
     setSelectedDay(hoje.getDate());
   };
 
+  // Renderização
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
   const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
   const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];

@@ -1,5 +1,5 @@
 import React from "react";
-import { FaMapMarkerAlt, FaClock } from "react-icons/fa";
+import { FaMapMarkerAlt, FaClock, FaArrowRight } from "react-icons/fa";
 import "./InformacoesCalendario.css";
 
 export default function InformacoesCalendario({
@@ -9,9 +9,7 @@ export default function InformacoesCalendario({
   openModal,
 }) {
   return (
-    <aside
-      className={`calendar-sidebar ${selectedEvents.length > 0 ? "is-open" : ""}`}
-    >
+    <aside className={`calendar-sidebar ${selectedEvents.length > 0 ? "is-open" : ""}`}>
       <div className="sidebar-content">
         {selectedEvents.length > 0 ? (
           <>
@@ -20,32 +18,44 @@ export default function InformacoesCalendario({
             </h3>
             <div className="sidebar-event-list">
               {selectedEvents.map((event) => (
-                <div key={event.id} className="sidebar-event-card" tabIndex={0}>
+                <div 
+                  key={event.id} 
+                  className="sidebar-event-card" 
+                  onClick={() => openModal(event)}
+                  tabIndex={0}
+                  role="button"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      openModal(event);
+                    }
+                  }}
+                >
+                  {/* Imagem à esquerda */}
                   <img
                     src={event.image}
                     alt={event.title}
                     className="sidebar-event-image"
                     loading="lazy"
-                    decoding="async"
                   />
-                  <div className="sidebar-event-details">
+                  
+                  {/* Corpo no meio */}
+                  <div className="sidebar-event-body">
                     <h4>{event.title}</h4>
-                    <p className="sidebar-event-meta">
-                      <span className="event-location">
-                        <FaMapMarkerAlt /> {event.location}
-                      </span>
+                    <div className="sidebar-event-meta">
                       <span className="event-time">
                         <FaClock /> {event.time}
                       </span>
-                    </p>
-                    <div className="sidebar-event-actions">
-                      <button
-                        className="sidebar-event-button"
-                        onClick={() => openModal(event)}
-                      >
-                        Saiba Mais
-                      </button>
+                      <span className="event-location">
+                        <FaMapMarkerAlt /> {event.location}
+                      </span>
                     </div>
+                  </div>
+
+                  {/* Barra Footer Fixa */}
+                  <div className="sidebar-event-actions">
+                    <button className="sidebar-event-button" tabIndex="-1">
+                      Saiba Mais <FaArrowRight style={{ fontSize: '0.8em' }}/>
+                    </button>
                   </div>
                 </div>
               ))}
@@ -53,7 +63,7 @@ export default function InformacoesCalendario({
           </>
         ) : (
           <div className="sidebar-placeholder">
-            <p>Selecione um dia no calendário para ver os eventos.</p>
+            <p>Selecione um dia no calendário para ver os eventos agendados.</p>
           </div>
         )}
       </div>

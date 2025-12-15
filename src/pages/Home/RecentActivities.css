@@ -1,14 +1,14 @@
+/* src/features/home/RecentActivities.css */
+
 .recent-activities-section {
   padding: 80px 0;
-  background-color: #ffffff;
-  border-top: 1px solid #eee;
+  background-color: var(--color-light);
 }
 
 .activities-container {
-  max-width: 1200px;
+  max-width: var(--container-max-width);
   margin: 0 auto;
-  padding: 0 20px;
-  padding-inline: var(--container-gutter);
+  padding: 0 var(--container-gutter);
 }
 
 .activities-title {
@@ -18,7 +18,6 @@
   margin-bottom: 30px;
   position: relative;
   padding-bottom: 10px;
-  letter-spacing: 1px;
 }
 
 .activities-title::after {
@@ -32,80 +31,125 @@
   border-radius: 2px;
 }
 
-.activities-grid {
+/* --- GRID: 4 COLUNAS X 2 LINHAS --- */
+.recent-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  /* Força 4 colunas em desktops */
+  grid-template-columns: repeat(4, 1fr); 
   gap: 20px;
 }
 
-.activity-card {
-  background-color: var(--color-white);
+/* --- CARD --- */
+.recent-card {
+  position: relative;
+  display: flex;
+  flex-direction: column; /* Layout vertical para caber 4 colunas */
+  gap: 12px;
+  padding: 12px 12px 55px 12px;
+  background: white;
   border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
+  border: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.activity-card:hover {
+.recent-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
 }
 
-.activity-link {
-  text-decoration: none;
-  color: inherit;
-  display: block;
-}
-
-.activity-image {
+.recent-thumb-wrap {
   width: 100%;
-  height: 180px;
+  height: 140px; /* Altura fixa da imagem para simetria no grid */
+}
+
+.recent-thumb {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  display: block;
+  border-radius: 4px;
 }
 
-.activity-content {
-  padding: 15px;
+.recent-body {
+  min-width: 0;
 }
 
-.activity-category {
-  display: inline-block;
-  background-color: var(--color-accent); 
-  color: var(--color-light);
-  padding: 3px 10px;
-  border-radius: 12px;
+.recent-title {
+  margin: 8px 0 5px 0;
   font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  line-height: 1.2;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.recent-card-desc {
+  font-size: 0.85rem;
+  color: #666;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.recent-meta-item {
   font-size: 0.7rem;
   font-weight: 600;
+  color: var(--color-accent);
   text-transform: uppercase;
-  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
-.activity-card-title {
-  font-family: var(--font-heading); 
-  font-size: 1.3rem;
+/* --- BARRA FOOTER --- */
+.recent-actions {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+}
+
+.recent-btn {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-top: 1px solid rgba(0,0,0,0.05);
+  background: #f8f9fa;
   color: var(--color-primary);
-  margin: 0 0 5px 0;
-  font-weight: 400;
-  letter-spacing: 0.5px;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  min-height: 2.6em;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s;
 }
 
-.activity-description {
-  font-family: var(--font-body); 
-  font-size: 0.8rem;
-  color: var(--color-dark); 
-  opacity: 0.7;
-  margin: 0;
-  line-height: 1.5;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.recent-card:hover .recent-btn {
+  background: var(--color-accent);
+  color: white;
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 1200px) {
+  .recent-grid { grid-template-columns: repeat(3, 1fr); } /* 3 colunas em tablets grandes */
+}
+
+@media (max-width: 900px) {
+  .recent-grid { grid-template-columns: repeat(2, 1fr); } /* 2 colunas em tablets */
+}
+
+@media (max-width: 600px) {
+  .recent-grid { grid-template-columns: 1fr; } /* 1 coluna em telemóveis */
 }

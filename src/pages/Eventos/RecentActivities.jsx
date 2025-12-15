@@ -1,5 +1,7 @@
 /* src/features/home/RecentActivities.jsx */
 import React, { useMemo, useState, useEffect } from "react";
+// 1. IMPORTAR useNavigate
+import { useNavigate } from "react-router-dom"; 
 import "./RecentActivities.css";
 import {
   FaMapMarkerAlt,
@@ -7,10 +9,10 @@ import {
   FaBullhorn,
   FaImage,
   FaNewspaper,
-  FaArrowRight, // Ícone para a barra footer
+  FaArrowRight,
 } from "react-icons/fa";
 
-/* Carrega imagens */
+/* ... (MANTENHA TODO O CÓDIGO DE IMPORTS DE IMAGENS E DADOS IGUAL) ... */
 const imageModules = import.meta.glob(
   "../../assets/images/*.{jpg,jpeg,png,webp}",
   { eager: true, as: "url" }
@@ -21,7 +23,6 @@ const getRandomImage = () =>
     ? imageUrls[Math.floor(Math.random() * imageUrls.length)]
     : "/src/assets/images/event-placeholder-1.jpg";
 
-/* Carrega dados */
 const dataModules = import.meta.glob("../../data/*.{js,ts,json}", {
   eager: true,
   as: "default",
@@ -52,6 +53,7 @@ let announcementsData =
 let postsData = findExport("postsData", "postsData") || [];
 let galleryData = findExport("galleryData", "galleryData") || [];
 
+/* ... (MANTENHA AS FUNÇÕES DE MAP (mapEvents, mapAnnouncements, etc.) IGUAIS) ... */
 const mapEvents = (arr = []) =>
   arr.map((it) => ({
     id: `event-${it.id ?? it.title}`,
@@ -103,10 +105,14 @@ const mapGallery = (arr = []) =>
     original: it,
   }));
 
-export default function RecentActivities({ limit = 8, onOpen }) {
+export default function RecentActivities({ limit = 2, onOpen }) {
   const [injected, setInjected] = useState([]);
+  
+  // 2. INICIALIZAR O HOOK
+  const navigate = useNavigate();
 
   useEffect(() => {
+    // ... (MANTENHA A LÓGICA DE SIMULAÇÃO IGUAL) ...
     window.simulateUpdate = (opts = {}) => {
       const now = new Date();
       const mock = {
@@ -137,7 +143,7 @@ export default function RecentActivities({ limit = 8, onOpen }) {
         image: getRandomImage(),
         excerpt: "Evento demo adicionado automaticamente para visualização.",
         meta: { location: "Praça Central", time: "16:00" },
-        original: {},
+        original: { id: 999 }, // ID fictício para demo
       };
       setInjected((prev) => [demo, ...prev]);
     }
@@ -187,8 +193,19 @@ export default function RecentActivities({ limit = 8, onOpen }) {
     return <FaBullhorn />;
   };
 
+  // 3. ALTERAR O HANDLE OPEN PARA REDIRECIONAR
   const handleOpen = (item) => {
-    if (onOpen) onOpen(item.original ?? item);
+    if (item.type === 'event') {
+      const d = item.dateObj;
+      // Pega o ID original do evento (crucial para o modal)
+      const originalId = item.original?.id; 
+      
+      // Navega para o calendário com a data E o eventId
+      navigate(`/eventos?ano=${d.getFullYear()}&mes=${d.getMonth()}&dia=${d.getDate()}&eventId=${originalId}`);
+    } else {
+      // Para outros tipos (notícias, galeria), mantém o comportamento padrão ou abre em outra rota
+      if (onOpen) onOpen(item.original ?? item);
+    }
   };
 
   return (
@@ -203,7 +220,7 @@ export default function RecentActivities({ limit = 8, onOpen }) {
             <article
               key={it.id}
               className="recent-card"
-              onClick={() => handleOpen(it)} 
+              onClick={() => handleOpen(it)}
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault();
@@ -213,6 +230,7 @@ export default function RecentActivities({ limit = 8, onOpen }) {
               tabIndex="0"
               role="button"
             >
+              {/* ... (O RESTANTE DO JSX PERMANECE IGUAL) ... */}
               <div className="recent-thumb-wrap">
                 {it.image ? (
                   <img
@@ -261,7 +279,7 @@ export default function RecentActivities({ limit = 8, onOpen }) {
                 <button
                   className="recent-btn"
                   aria-label={`Abrir ${it.title}`}
-                  tabIndex="-1" // Evita foco duplo, já que o card é clicável
+                  tabIndex="-1"
                 >
                   Ver <FaArrowRight style={{ fontSize: '0.8em' }} />
                 </button>
@@ -273,15 +291,3 @@ export default function RecentActivities({ limit = 8, onOpen }) {
     </section>
   );
 }
-
-// Simulação para testes
-window.simulateUpdate &&
-  window.simulateUpdate({
-    type: "event",
-    title: "Saída Fotográfica — Demo",
-    dateObj: new Date(),
-    image: getRandomImage(),
-    excerpt:
-      "Saída prática de testes — encontro às 08:30 na entrada principal.",
-    meta: { location: "Praça Central", time: "08:30" },
-  });

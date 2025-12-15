@@ -17,7 +17,7 @@
 .members-header h2 {
   font-family: var(--font-heading);
   font-size: 3rem;
-  color: var(--color-primary-dark);
+  color: var(--color-primary);
   margin-bottom: 15px;
 }
 
