@@ -1,0 +1,114 @@
+.winners-list-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.winners-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.winners-list-title {
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.winners-list-subtitle {
+  color: #868e96;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+.winners-add-button {
+  font-weight: 600;
+  background: linear-gradient(135deg, #ffd700 0%, #ffa500 100%);
+  border: none;
+  color: #495057;
+}
+
+.winners-add-button:hover {
+  background: linear-gradient(135deg, #ffcd00 0%, #ff9500 100%);
+}
+
+.winners-card {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.winners-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.winners-card-image {
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.winners-card-badge {
+  font-weight: 600;
+  background: linear-gradient(135deg, #ffd700 0%, #ffa500 100%);
+  color: #495057;
+}
+
+.winners-card-title {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #212529;
+  margin-top: 0.5rem;
+}
+
+.winners-card-author {
+  color: #495057;
+  font-size: 0.95rem;
+  margin-top: 0.25rem;
+}
+
+.winners-card-notes {
+  color: #868e96;
+  font-size: 0.9rem;
+  font-style: italic;
+  margin-top: 1rem;
+}
+
+.winners-card-actions {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.winners-edit-button {
+  font-weight: 600;
+}
+
+.winners-empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.winners-empty-icon {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+}
+
+.winners-empty-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #495057;
+  margin-bottom: 0.75rem;
+}
+
+.winners-empty-text {
+  color: #868e96;
+  font-size: 1rem;
+}
+
+.winners-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}

@@ -1,51 +1,173 @@
 // src/features/home/UpcomingEvents.jsx
-import React, { useState, useMemo } from 'react';
-import { eventsData } from "../../data/eventsData";
-import { recentActivitiesData } from '../../data/recentActivitiesData';
-import { 
-  FaMapMarkerAlt, 
-  FaCalendarAlt, 
+import React, { useState, useMemo, useEffect } from "react";
+import { gql } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
+import {
+  FaMapMarkerAlt,
+  FaCalendarAlt,
   FaArrowRight,
   FaUserFriends,
-  FaClock 
+  FaClock,
 } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import "./UpcomingEvents.css";
 
-// --- DADOS FICTÍCIOS ADICIONAIS (Mantidos) ---
-const extraEventData = {
-  "E001": { category: "Workshop", spots: 5, countdown: "Faltam 12 dias" },
-  "E002": { category: "Passeio Fotográfico", spots: 20, countdown: "Faltam 19 dias" },
-  "E003": { category: "Palestra Online", spots: 50, countdown: "Faltam 25 dias" },
-  "E004": { category: "Exposição", spots: null, countdown: "Começa em 30 dias" },
-  "E005": { category: "Workshop", spots: 3, countdown: "Faltam 32 dias" },
-};
-// --- FIM DOS DADOS FICTÍCIOS ---
+const ALL_EVENTS = gql`
+  query AllEvents {
+    allEvents {
+      id
+      title
+      date
+      time
+      location
+      description
+      image
+      category
+    }
+  }
+`;
 
 function UpcomingEvents() {
-  const nextEvents = eventsData.slice(0, 4);
-  const [activeEventId, setActiveEventId] = useState(nextEvents.length > 0 ? nextEvents[0].id : null);
-  const placeholderImage = "/src/assets/images/placeholder-event.png";
+  const { data, loading } = useQuery(ALL_EVENTS, {
+    fetchPolicy: "network-only",
+  });
 
-  const pastEvents = recentActivitiesData.slice(0, 8);
+  const placeholderImage = "/src/assets/images/placeholder-event.png";
+  const logoImage = "/src/assets/logo-fotoclube-azul.png";
+
+  // Função para converter data do formato "20, Dez-2025" para Date
+  const parseEventDate = (dateStr) => {
+    try {
+      const [dayStr, rest] = dateStr.split(", ");
+      const [monthStr, yearStr] = rest.split("-");
+      const monthMap = {
+        Jan: 0,
+        Fev: 1,
+        Mar: 2,
+        Abr: 3,
+        Mai: 4,
+        Jun: 5,
+        Jul: 6,
+        Ago: 7,
+        Set: 8,
+        Out: 9,
+        Nov: 10,
+        Dez: 11,
+      };
+      return new Date(parseInt(yearStr), monthMap[monthStr], parseInt(dayStr));
+    } catch {
+      return new Date(0);
+    }
+  };
+
+  // Filtrar e separar eventos futuros e passados
+  const { displayEvents, pastEvents } = useMemo(() => {
+    if (!data?.allEvents) return { displayEvents: [], pastEvents: [] };
+
+    const now = new Date();
+    now.setHours(0, 0, 0, 0); // Zerar hora para comparar apenas data
+
+    const future = [];
+    const past = [];
+
+    data.allEvents.forEach((event) => {
+      const eventDate = parseEventDate(event.date);
+      if (eventDate >= now) {
+        future.push(event);
+      } else {
+        past.push(event);
+      }
+    });
+
+    // Ordenar futuros: mais próximo primeiro
+    future.sort((a, b) => parseEventDate(a.date) - parseEventDate(b.date));
+
+    // Ordenar passados: mais recente primeiro
+    past.sort((a, b) => parseEventDate(b.date) - parseEventDate(a.date));
+
+    // Se não houver eventos futuros, usar os eventos passados mais recentes
+    const eventsToDisplay =
+      future.length > 0 ? future.slice(0, 4) : past.slice(0, 4);
+
+    return {
+      displayEvents: eventsToDisplay,
+      pastEvents: past.slice(0, 8),
+    };
+  }, [data]);
+
+  const [activeEventId, setActiveEventId] = useState(
+    displayEvents.length > 0 ? displayEvents[0].id : null
+  );
+  const [timerProgress, setTimerProgress] = useState(0);
+
+  // Atualizar activeEventId quando displayEvents mudar
+  useEffect(() => {
+    if (displayEvents.length > 0 && !activeEventId) {
+      setActiveEventId(displayEvents[0].id);
+    }
+  }, [displayEvents, activeEventId]);
+
+  // Animação do progresso do timer
+  useEffect(() => {
+    if (displayEvents.length <= 1) return;
+
+    setTimerProgress(0);
+    const progressInterval = setInterval(() => {
+      setTimerProgress((prev) => {
+        if (prev >= 100) return 0;
+        return prev + 0.833; // Incrementa 0.833% a cada 100ms = 12 segundos total
+      });
+    }, 100);
+
+    return () => clearInterval(progressInterval);
+  }, [activeEventId, displayEvents]);
+
+  // Rotação automática entre eventos
+  useEffect(() => {
+    if (displayEvents.length <= 1) return;
+
+    const interval = setInterval(() => {
+      const currentIndex = displayEvents.findIndex(
+        (e) => e.id === activeEventId
+      );
+      let nextIndex;
+
+      // Garante que o próximo seja diferente do atual
+      do {
+        nextIndex = Math.floor(Math.random() * displayEvents.length);
+      } while (nextIndex === currentIndex && displayEvents.length > 1);
+
+      setActiveEventId(displayEvents[nextIndex].id);
+    }, 12000); // Muda a cada 12 segundos
+
+    return () => clearInterval(interval);
+  }, [displayEvents, activeEventId]);
 
   const activeEvent = useMemo(() => {
-    const event = nextEvents.find(e => e.id === activeEventId);
-    if (!event) return null;
-    return { ...event, ...extraEventData[event.id] };
-  }, [activeEventId, nextEvents]);
+    return displayEvents.find((e) => e.id === activeEventId) || null;
+  }, [activeEventId, displayEvents]);
 
   // --- NOVA FUNÇÃO: Gera o link para o calendário ---
   const generateCalendarLink = (dateString) => {
     try {
-      if (!dateString) return '/eventos';
+      if (!dateString) return "/eventos";
       // Formato esperado no eventsData: "15, Dez-2025"
-      const [dayStr, rest] = dateString.split(', ');
-      const [monthStr, yearStr] = rest.split('-');
-      
+      const [dayStr, rest] = dateString.split(", ");
+      const [monthStr, yearStr] = rest.split("-");
+
       const monthMap = {
-        'Jan': 0, 'Fev': 1, 'Mar': 2, 'Abr': 3, 'Mai': 4, 'Jun': 5,
-        'Jul': 6, 'Ago': 7, 'Set': 8, 'Out': 9, 'Nov': 10, 'Dez': 11
+        Jan: 0,
+        Fev: 1,
+        Mar: 2,
+        Abr: 3,
+        Mai: 4,
+        Jun: 5,
+        Jul: 6,
+        Ago: 7,
+        Set: 8,
+        Out: 9,
+        Nov: 10,
+        Dez: 11,
       };
 
       const day = parseInt(dayStr);
@@ -55,11 +177,23 @@ function UpcomingEvents() {
       // Retorna: /eventos?ano=2025&mes=11&dia=15
       return `/eventos?ano=${year}&mes=${month}&dia=${day}`;
     } catch (e) {
-      return '/eventos';
+      return "/eventos";
     }
   };
 
-  if (nextEvents.length === 0) {
+  if (loading) {
+    return (
+      <section className="upcoming-events-section">
+        <div className="upcoming-events-container">
+          <p style={{ textAlign: "center", padding: "2rem" }}>
+            Carregando eventos...
+          </p>
+        </div>
+      </section>
+    );
+  }
+
+  if (displayEvents.length === 0) {
     return null;
   }
 
@@ -67,25 +201,32 @@ function UpcomingEvents() {
     <section className="upcoming-events-section">
       <div className="upcoming-events-container">
         <div className="polaroid-container">
-          
-          <h2 className="section-title">Próximos Eventos</h2>
-
+          <h2
+            className="section-title"
+            style={{
+              "--timer-width":
+                displayEvents.length > 1 ? `${timerProgress}%` : "100%",
+            }}
+          >
+            Próximos Eventos
+          </h2>
           {/* --- O "HUB" INTERATIVO (Mantido) --- */}
           <div className="ph-grid">
-            
             {/* COLUNA 1: LISTA */}
             <div className="ph-col-list">
               <div className="ph-list-scroll">
-                {nextEvents.map((event) => {
-                   // Extração segura da data para exibição (string split)
-                   const dateParts = event.date ? event.date.split(', ') : ['01', 'Jan-2025'];
-                   const day = dateParts[0];
-                   const month = dateParts[1] ? dateParts[1].split('-')[0] : '';
+                {displayEvents.map((event) => {
+                  // Extração segura da data para exibição (string split)
+                  const dateParts = event.date
+                    ? event.date.split(", ")
+                    : ["01", "Jan-2025"];
+                  const day = dateParts[0];
+                  const month = dateParts[1] ? dateParts[1].split("-")[0] : "";
 
-                   return (
+                  return (
                     <button
                       key={event.id}
-                      className={`ph-list-item ${event.id === activeEventId ? 'active' : ''}`}
+                      className={`ph-list-item ${event.id === activeEventId ? "active" : ""}`}
                       onMouseEnter={() => setActiveEventId(event.id)}
                     >
                       <div className="ph-item-date">
@@ -94,7 +235,7 @@ function UpcomingEvents() {
                       </div>
                       <div className="ph-item-info">
                         <span className="ph-item-category">
-                          {extraEventData[event.id]?.category || 'Evento'}
+                          {event.category || "Evento"}
                         </span>
                         <h4 className="ph-item-title">{event.title}</h4>
                       </div>
@@ -109,12 +250,16 @@ function UpcomingEvents() {
 
             {/* COLUNA 2: IMAGEM */}
             <div className="ph-col-image">
-              {nextEvents.map((event) => (
+              {displayEvents.map((event) => (
                 <div
                   key={event.id}
-                  className={`ph-bg-image ${event.id === activeEventId ? 'active' : ''}`}
-                  style={{ backgroundImage: `url(${event.image})` }}
-                  onError={(e) => { e.target.style.backgroundImage = `url(${placeholderImage})`; }}
+                  className={`ph-bg-image ${event.id === activeEventId ? "active" : ""}`}
+                  style={{
+                    backgroundImage: `url(${event.image || logoImage})`,
+                  }}
+                  onError={(e) => {
+                    e.target.style.backgroundImage = `url(${logoImage})`;
+                  }}
                 ></div>
               ))}
             </div>
@@ -124,66 +269,92 @@ function UpcomingEvents() {
               {activeEvent && (
                 <div className="ph-details-content" key={activeEvent.id}>
                   <h3 className="ph-details-title">{activeEvent.title}</h3>
-                  <p className="ph-details-location"><FaMapMarkerAlt /> {activeEvent.location}</p>
-                  
+                  <p className="ph-details-location">
+                    <FaMapMarkerAlt /> {activeEvent.location}
+                  </p>
+
                   {/* Horário do Evento */}
                   <p className="ph-details-time">
                     <FaClock /> {activeEvent.time}
                   </p>
 
-                  <p className="ph-details-description">{activeEvent.description}</p>
-                  
-                  {activeEvent.spots !== null && (
-                    <div className={`ph-spots ${activeEvent.spots < 10 ? 'low' : ''}`}>
-                      <FaUserFriends />
-                      {activeEvent.spots > 0 
-                        ? `Apenas ${activeEvent.spots} vagas restantes!`
-                        : "Vagas Esgotadas"}
-                    </div>
-                  )}
-                  
+                  <p className="ph-details-description">
+                    {activeEvent.description}
+                  </p>
+
                   {/* --- MUDANÇA PRINCIPAL: Link Dinâmico --- */}
-                  <Link 
-                    to={generateCalendarLink(activeEvent.date)} 
+                  <Link
+                    to={generateCalendarLink(activeEvent.date)}
                     className="ph-details-cta"
                   >
                     Saber Mais
                   </Link>
                   {/* --------------------------------------- */}
 
-                  <a href="https://calendar.google.com/" target="_blank" rel="noopener noreferrer" className="ph-calendar-link">
+                  <a
+                    href="https://calendar.google.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="ph-calendar-link"
+                  >
                     <FaCalendarAlt /> Adicionar ao Calendário
                   </a>
                 </div>
               )}
             </div>
-            
-          </div> {/* Fim do .ph-grid */}
-
+          </div>{" "}
+          {/* Fim do .ph-grid */}
           <div className="pe-section">
             <h3 className="pe-title">Eventos Anteriores</h3>
             <div className="pe-list-wrapper">
               <div className="pe-list">
-                {pastEvents.map(event => (
-                  <a href={event.link} key={event.id} className="pe-card-link">
-                    <div className="pe-card">
-                      <div className="pe-card-image"
-                        style={{ backgroundImage: `url(${event.image})` }}
-                        onError={(e) => { e.target.style.backgroundImage = `url(${placeholderImage})`; }}
-                      >
-                        <span className="pe-card-category">{event.category}</span>
-                      </div>
-                      <div className="pe-card-content">
-                        <h5 className="pe-card-title">{event.title}</h5>
+                {pastEvents.map((event) => (
+                  <div
+                    key={event.id}
+                    className="pe-card"
+                    onClick={() =>
+                      (window.location.href = generateCalendarLink(event.date))
+                    }
+                    role="button"
+                    tabIndex={0}
+                  >
+                    {/* Imagem à esquerda */}
+                    <img
+                      src={event.image || logoImage}
+                      alt={event.title}
+                      className="pe-card-image"
+                      loading="lazy"
+                      onError={(e) => {
+                        e.target.src = logoImage;
+                      }}
+                    />
+
+                    {/* Corpo no meio */}
+                    <div className="pe-card-body">
+                      <h4 className="pe-card-title">{event.title}</h4>
+                      <div className="pe-card-meta">
+                        <span className="pe-event-time">
+                          <FaClock /> {event.time}
+                        </span>
+                        <span className="pe-event-location">
+                          <FaMapMarkerAlt /> {event.location}
+                        </span>
                       </div>
                     </div>
-                  </a>
+
+                    {/* Barra Footer Fixa */}
+                    <div className="pe-card-actions">
+                      <button className="pe-card-button" tabIndex="-1">
+                        Saiba Mais{" "}
+                        <FaArrowRight style={{ fontSize: "0.8em" }} />
+                      </button>
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
           </div>
-
-        </div> 
+        </div>
       </div>
     </section>
   );

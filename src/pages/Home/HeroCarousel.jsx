@@ -1,23 +1,48 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { FaChevronLeft, FaChevronRight, FaRegBookmark } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { slidesData } from "../../data/slidesData";
+import { gql } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
 import "./HeroCarousel.css";
 
 const NUM_VISIBLE_THUMBNAILS = 5;
 
+const GET_SLIDES = gql`
+  query GetSlides {
+    allSlides {
+      id
+      image
+      title
+      subtitle
+      author
+      order
+    }
+  }
+`;
+
 function HeroCarousel() {
-  const [currentIndex, setCurrentIndex] = useState(0); 
+  const { data, loading, error } = useQuery(GET_SLIDES, {
+    fetchPolicy: "network-only", // Sempre buscar dados atualizados do servidor
+  });
+
+  // Criar cópia do array antes de ordenar (Apollo retorna array read-only)
+  const slidesData = [...(data?.allSlides || [])].sort(
+    (a, b) => a.order - b.order
+  );
+
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleThumbnails, setVisibleThumbnails] = useState([]);
   const slidesWrapperRef = useRef(null);
 
   const goToNext = useCallback(() => {
+    if (slidesData.length === 0) return;
     const isLastSlide = currentIndex === slidesData.length - 1;
     const newIndex = isLastSlide ? 0 : currentIndex + 1;
     setCurrentIndex(newIndex);
-  }, [currentIndex]);
+  }, [currentIndex, slidesData.length]);
 
   const goToPrevious = () => {
+    if (slidesData.length === 0) return;
     const isFirstSlide = currentIndex === 0;
     const newIndex = isFirstSlide ? slidesData.length - 1 : currentIndex - 1;
     setCurrentIndex(newIndex);
@@ -28,11 +53,13 @@ function HeroCarousel() {
   };
 
   useEffect(() => {
+    if (slidesData.length === 0) return;
     const timer = setInterval(() => goToNext(), 8000);
     return () => clearInterval(timer);
-  }, [currentIndex, goToNext]); 
+  }, [currentIndex, goToNext, slidesData.length]);
 
   useEffect(() => {
+    if (slidesData.length === 0) return;
     const updateTimeout = setTimeout(() => {
       const newVisibleOrder = [];
       for (let i = 0; i < NUM_VISIBLE_THUMBNAILS; i++) {
@@ -47,35 +74,55 @@ function HeroCarousel() {
     }, 100);
 
     return () => clearTimeout(updateTimeout);
-  }, [currentIndex]);
+  }, [currentIndex, slidesData]);
 
   useEffect(() => {
-    if (slidesWrapperRef.current) {
+    if (slidesWrapperRef.current && slidesData.length > 0) {
       slidesWrapperRef.current.style.transform = `translateX(-${currentIndex * 100}%)`;
     }
-  }, [currentIndex]);
+  }, [currentIndex, slidesData.length]);
+
+  // Se não houver slides, mostrar apenas fundo preto
+  if (loading) {
+    return (
+      <div
+        className="carousel-container"
+        style={{ backgroundColor: "#000", minHeight: "600px" }}
+      >
+        {/* Carregando... */}
+      </div>
+    );
+  }
+
+  if (slidesData.length === 0) {
+    return (
+      <div
+        className="carousel-container"
+        style={{ backgroundColor: "#000", minHeight: "600px" }}
+      >
+        {/* Fundo preto sem conteúdo */}
+      </div>
+    );
+  }
 
   return (
     <div className="carousel-container">
       <div className="slides-wrapper" ref={slidesWrapperRef}>
         {slidesData.map((slide, index) => (
           <div
-            key={index}
+            key={slide.id}
             className={`slide ${index === currentIndex ? "active" : ""}`}
             style={{ backgroundImage: `url(${slide.image})` }}
           >
             <div className="slide-content">
-              <p className="location">{slide.location}</p>
-              <h2 className="title">{slide.title}</h2>
-              <p className="author">{slide.author}</p>
+              <p className="location">{slide.title}</p>
+              <h2 className="title">{slide.subtitle}</h2>
+              <p className="author">Por {slide.author}</p>
               <div className="actions">
                 <button className="bookmark-button">
                   <FaRegBookmark />
                 </button>
-                <Link
-                  to={`/foto-do-mes`}
-                  className="read-more-button"
-                >
+                <Link to={`/foto-do-mes`} className="read-more-button">
                   Ler Mais
                 </Link>
               </div>
@@ -87,7 +134,7 @@ function HeroCarousel() {
         <div className="slide-thumbnails">
           {visibleThumbnails.map((thumbData, displayIndex) => (
             <div
-              key={thumbData.originalIndex}
+              key={`thumb-${thumbData.id}-pos${displayIndex}-idx${thumbData.originalIndex}`}
               className={`thumbnail ${displayIndex === 0 ? "active-thumbnail" : ""}`}
               onClick={() => goToSlide(thumbData.originalIndex)}
             >

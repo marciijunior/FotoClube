@@ -1,0 +1,73 @@
+.member-edit-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.member-edit-title {
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.member-edit-subtitle {
+  color: #868e96;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+.member-form-card {
+  margin-top: 2rem;
+}
+
+.member-form-label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+.member-form-input:focus {
+  border-color: #51cf66;
+  border-width: 2px;
+}
+
+.member-form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid #e9ecef;
+}
+
+.member-submit-button {
+  flex: 1;
+  font-weight: 600;
+  background: linear-gradient(135deg, #51cf66 0%, #37b24d 100%);
+  border: none;
+}
+
+.member-submit-button:hover {
+  background: linear-gradient(135deg, #40c057 0%, #2f9e44 100%);
+}
+
+.member-cancel-button {
+  font-weight: 600;
+}
+
+.member-delete-button {
+  font-weight: 600;
+}
+
+.member-delete-button:hover {
+  background-color: #fa5252;
+  color: white;
+}
+
+.member-avatar-preview {
+  margin-top: 1rem;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #e9ecef;
+}
+
+.member-role-select {
+  font-weight: 500;
+}

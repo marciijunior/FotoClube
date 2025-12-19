@@ -1,9 +1,8 @@
 // src/pages/PhotoOfTheMonthPage/FilmstripSection.jsx
-import React, { useState, useRef } from 'react';
-import './FilmstripSection.css';
+import React, { useState, useRef } from "react";
+import "./FilmstripSection.css";
 
 function FilmstripSection({ runnersUp, placeholderImage }) {
-  
   const filmstripRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
   const dragState = useRef({ startX: 0, scrollLeft: 0 });
@@ -33,9 +32,9 @@ function FilmstripSection({ runnersUp, placeholderImage }) {
     <section className="potm-filmstrip-section">
       {/* Classe de título clara */}
       <h2 className="section-title-light">Finalistas</h2>
-      
-      <div 
-        className={`filmstrip-track-wrapper ${isDragging ? 'dragging' : ''}`}
+
+      <div
+        className={`filmstrip-track-wrapper ${isDragging ? "dragging" : ""}`}
         ref={filmstripRef}
         onMouseDown={handleMouseDown}
         onMouseLeave={handleMouseLeave}
@@ -46,10 +45,17 @@ function FilmstripSection({ runnersUp, placeholderImage }) {
           {runnersUp.map((winner, index) => (
             <div key={winner.id || index} className="filmstrip-card">
               <img
-                src={winner.image}
+                src={
+                  winner.image?.startsWith("http")
+                    ? winner.image
+                    : `http://localhost:3002/uploads/${winner.image}`
+                }
                 alt={winner.title}
                 className="filmstrip-image"
-                onError={(e) => { e.target.onerror = null; e.target.src = placeholderImage; }}
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = placeholderImage;
+                }}
                 loading="lazy"
               />
               <div className="filmstrip-info">

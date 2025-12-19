@@ -1,8 +1,8 @@
-import HeroCarousel from './HeroCarousel';
-import UpcomingEvents from './UpcomingEvents';
-import AboutSection from './AboutSection';
-import RecentActivities from './RecentActivities';
-import JoinUsSection from './JoinUsSection';
+import HeroCarousel from "./HeroCarousel";
+import UpcomingEvents from "./UpcomingEvents";
+import AboutSection from "./AboutSection";
+import RecentActivities from "../Eventos/RecentActivities";
+import JoinUsSection from "./JoinUsSection";
 import "./HomePage.css";
 
 function HomePage() {
@@ -10,8 +10,8 @@ function HomePage() {
     <div className="home-container">
       <HeroCarousel />
       <UpcomingEvents />
-      <AboutSection/>
-      <RecentActivities />
+      <AboutSection />
+      <RecentActivities limit={8} />
       <JoinUsSection />
     </div>
   );

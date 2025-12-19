@@ -1,11 +1,11 @@
 import React from "react";
-import { FaCalendarAlt, FaBullhorn, FaArrowDown } from "react-icons/fa";
+import { FaCalendarAlt, FaBullhorn, FaNewspaper, FaArrowDown } from "react-icons/fa";
 import "./PageEventos.css";
 import Calendario from "./Calendario.jsx";
 import RecentActivities from "./RecentActivities.jsx";
+import FeedPosts from "./FeedPosts.jsx";
 
 export default function PageEventos() {
-  
   const scrollToAgenda = () => {
     const element = document.getElementById("agenda-focus");
     if (element) {
@@ -33,7 +33,6 @@ export default function PageEventos() {
       </section>
 
       <div className="page-eventos-container">
-        
         <section id="agenda-focus" className="eventos-section">
           <div className="section-label">
             <FaCalendarAlt className="icon-label" />
@@ -48,14 +47,25 @@ export default function PageEventos() {
 
         <section className="eventos-section">
           <div className="section-label">
-            <FaBullhorn className="icon-label" />
-            <h2>Feed de Atualizações</h2>
+            <FaNewspaper className="icon-label" />
+            <h2>Feed do FotoClube</h2>
           </div>
           <div className="glass-container feed-container">
-            <RecentActivities />
+            <FeedPosts limit={6} />
           </div>
         </section>
 
+        <div className="section-spacer"></div>
+
+        <section className="eventos-section">
+          <div className="section-label">
+            <FaBullhorn className="icon-label" />
+            <h2>Atualizações Recentes</h2>
+          </div>
+          <div className="glass-container feed-container">
+            <RecentActivities limit={8} />
+          </div>
+        </section>
       </div>
     </main>
   );

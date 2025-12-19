@@ -1,14 +1,9 @@
 import "dotenv/config";
 import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcryptjs";
 
-// Inicialização simples (o Prisma pega a URL do arquivo de config automaticamente)
-import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
-
-// Inicialização com driver adapter para o modo "client" (JS-only)
-const adapter = new PrismaBetterSqlite3({
-  url: process.env.DATABASE_URL ?? "file:./dev.db",
-});
-const prisma = new PrismaClient({ adapter });
+// Inicialização simples - usa DATABASE_URL do .env
+const prisma = new PrismaClient();
 
 async function main() {
   console.log("🌱 Iniciando seed...");
@@ -17,9 +12,23 @@ async function main() {
   try {
     await prisma.event.deleteMany({});
     await prisma.winner.deleteMany({});
+    await prisma.user.deleteMany({});
   } catch (e) {
     // Ignora erro se tabelas estiverem vazias
   }
+
+  // Criar usuário admin
+  const hashedPassword = await bcrypt.hash("admin123", 10);
+  await prisma.user.create({
+    data: {
+      email: "admin@fotoclube.com",
+      password: hashedPassword,
+      name: "Administrador",
+      role: "admin",
+    },
+  });
+
+  console.log("👤 Usuário admin criado: admin@fotoclube.com / admin123");
 
   await prisma.event.create({
     data: {

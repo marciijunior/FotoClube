@@ -1,7 +1,9 @@
 /* src/features/home/RecentActivities.jsx */
 import React, { useMemo, useState, useEffect } from "react";
 // 1. IMPORTAR useNavigate
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
+import { useQuery } from "@apollo/client/react";
+import { gql } from "@apollo/client";
 import "./RecentActivities.css";
 import {
   FaMapMarkerAlt,
@@ -11,6 +13,52 @@ import {
   FaNewspaper,
   FaArrowRight,
 } from "react-icons/fa";
+
+const GET_ALL_EVENTS = gql`
+  query GetAllEvents {
+    allEvents {
+      id
+      title
+      date
+      time
+      description
+      location
+      image
+      category
+    }
+  }
+`;
+
+const GET_ALL_WINNERS = gql`
+  query GetAllWinners {
+    allWinners {
+      id
+      title
+      author
+      image
+      monthWon
+      judgesNotes
+      isWinner
+      position
+      isCurrent
+      createdAt
+    }
+  }
+`;
+
+const GET_ALL_POSTS = gql`
+  query GetAllPosts {
+    allPosts {
+      id
+      title
+      content
+      image
+      author
+      category
+      createdAt
+    }
+  }
+`;
 
 /* ... (MANTENHA TODO O CÓDIGO DE IMPORTS DE IMAGENS E DADOS IGUAL) ... */
 const imageModules = import.meta.glob(
@@ -59,7 +107,7 @@ const mapEvents = (arr = []) =>
     id: `event-${it.id ?? it.title}`,
     type: "event",
     title: it.title,
-    dateObj: it.dateObj ?? (it.date ? new Date(it.date) : new Date()),
+    dateObj: it.createdAt ? new Date(it.createdAt) : new Date(it.id * 60000), // Usa ID como timestamp se não tiver createdAt
     image: it.image ?? getRandomImage(),
     excerpt: it.description ?? "",
     meta: { location: it.location, time: it.time },
@@ -80,15 +128,13 @@ const mapAnnouncements = (arr = []) =>
 
 const mapPosts = (arr = []) =>
   arr.map((it) => ({
-    id: `post-${it.id ?? it.slug ?? it.title}`,
+    id: `post-${it.id}`,
     type: "post",
     title: it.title,
-    dateObj: it.publishedAt
-      ? new Date(it.publishedAt)
-      : (it.dateObj ?? new Date()),
-    image: it.coverImage ?? it.image ?? getRandomImage(),
-    excerpt: it.excerpt ?? it.summary ?? "",
-    meta: {},
+    dateObj: it.createdAt ? new Date(it.createdAt) : new Date(),
+    image: it.image ?? getRandomImage(),
+    excerpt: it.content.substring(0, 120) + (it.content.length > 120 ? "..." : ""),
+    meta: { author: it.author, category: it.category },
     original: it,
   }));
 
@@ -105,11 +151,42 @@ const mapGallery = (arr = []) =>
     original: it,
   }));
 
-export default function RecentActivities({ limit = 2, onOpen }) {
+const mapWinners = (arr = []) =>
+  arr.map((it) => ({
+    id: `winner-${it.id}`,
+    type: "contest",
+    title: it.isCurrent
+      ? `🏆 Foto do Mês: ${it.title}`
+      : `Vencedor: ${it.title}`,
+    dateObj: it.createdAt ? new Date(it.createdAt) : new Date(),
+    image: it.image ?? getRandomImage(),
+    excerpt: `Por ${it.author}${it.monthWon ? ` - ${it.monthWon}` : ""}`,
+    meta: { author: it.author, monthWon: it.monthWon },
+    original: it,
+  }));
+
+export default function RecentActivities({ limit = 8, onOpen }) {
+  const { data: eventsDataQL } = useQuery(GET_ALL_EVENTS, {
+    fetchPolicy: "network-only",
+  });
+
+  const { data: winnersDataQL } = useQuery(GET_ALL_WINNERS, {
+    fetchPolicy: "network-only",
+  });
+
+  const { data: postsDataQL } = useQuery(GET_ALL_POSTS, {
+    fetchPolicy: "network-only",
+  });
+
   const [injected, setInjected] = useState([]);
-  
+
   // 2. INICIALIZAR O HOOK
   const navigate = useNavigate();
+
+  // Usar dados do GraphQL
+  const eventsData = eventsDataQL?.allEvents || [];
+  const winnersData = winnersDataQL?.allWinners || [];
+  const postsData = postsDataQL?.allPosts || [];
 
   useEffect(() => {
     // ... (MANTENHA A LÓGICA DE SIMULAÇÃO IGUAL) ...
@@ -156,6 +233,7 @@ export default function RecentActivities({ limit = 2, onOpen }) {
   const unified = useMemo(() => {
     const list = [
       ...mapEvents(eventsData),
+      ...mapWinners(winnersData),
       ...mapAnnouncements(announcementsData),
       ...mapPosts(postsData),
       ...mapGallery(galleryData),
@@ -173,7 +251,7 @@ export default function RecentActivities({ limit = 2, onOpen }) {
       (a, b) => b.dateObj - a.dateObj
     );
     return final.slice(0, limit);
-  }, [limit, injected]);
+  }, [limit, injected, eventsData, winnersData]);
 
   if (!unified || unified.length === 0) {
     return (
@@ -188,6 +266,7 @@ export default function RecentActivities({ limit = 2, onOpen }) {
 
   const iconFor = (type) => {
     if (type === "event") return <FaBullhorn />;
+    if (type === "contest") return <FaImage />;
     if (type === "post") return <FaNewspaper />;
     if (type === "gallery") return <FaImage />;
     return <FaBullhorn />;
@@ -195,13 +274,18 @@ export default function RecentActivities({ limit = 2, onOpen }) {
 
   // 3. ALTERAR O HANDLE OPEN PARA REDIRECIONAR
   const handleOpen = (item) => {
-    if (item.type === 'event') {
+    if (item.type === "event") {
       const d = item.dateObj;
       // Pega o ID original do evento (crucial para o modal)
-      const originalId = item.original?.id; 
-      
+      const originalId = item.original?.id;
+
       // Navega para o calendário com a data E o eventId
-      navigate(`/eventos?ano=${d.getFullYear()}&mes=${d.getMonth()}&dia=${d.getDate()}&eventId=${originalId}`);
+      navigate(
+        `/eventos?ano=${d.getFullYear()}&mes=${d.getMonth()}&dia=${d.getDate()}&eventId=${originalId}`
+      );
+    } else if (item.type === "contest") {
+      // Redireciona para a página de foto do mês
+      navigate("/foto-do-mes");
     } else {
       // Para outros tipos (notícias, galeria), mantém o comportamento padrão ou abre em outra rota
       if (onOpen) onOpen(item.original ?? item);
@@ -255,14 +339,17 @@ export default function RecentActivities({ limit = 2, onOpen }) {
                     {iconFor(it.type)}{" "}
                     {it.type === "event"
                       ? "Evento"
-                      : it.type === "post"
-                      ? "Notícia"
-                      : it.type === "gallery"
-                      ? "Galeria"
-                      : "Atualização"}
+                      : it.type === "contest"
+                        ? "Concurso"
+                        : it.type === "post"
+                          ? "Notícia"
+                          : it.type === "gallery"
+                            ? "Galeria"
+                            : "Atualização"}
                   </span>
 
                   <span className="recent-meta-item">
+                    <FaClock />
                     {it.dateObj.toLocaleDateString("pt-BR")}{" "}
                     {it.meta && it.meta.time ? `· ${it.meta.time}` : ""}
                   </span>
@@ -281,7 +368,7 @@ export default function RecentActivities({ limit = 2, onOpen }) {
                   aria-label={`Abrir ${it.title}`}
                   tabIndex="-1"
                 >
-                  Ver <FaArrowRight style={{ fontSize: '0.8em' }} />
+                  Ver <FaArrowRight style={{ fontSize: "0.8em" }} />
                 </button>
               </div>
             </article>

@@ -1,0 +1,81 @@
+.event-edit-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.event-edit-title {
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.event-edit-subtitle {
+  color: #868e96;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+.event-form-card {
+  margin-top: 2rem;
+}
+
+.event-form-section-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #495057;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.event-form-label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+.event-form-input:focus {
+  border-color: #228be6;
+  border-width: 2px;
+}
+
+.event-form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid #e9ecef;
+}
+
+.event-submit-button {
+  flex: 1;
+  font-weight: 600;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+}
+
+.event-submit-button:hover {
+  background: linear-gradient(135deg, #5568d3 0%, #6a4193 100%);
+}
+
+.event-cancel-button {
+  font-weight: 600;
+}
+
+.event-delete-button {
+  font-weight: 600;
+}
+
+.event-delete-button:hover {
+  background-color: #fa5252;
+  color: white;
+}
+
+.event-image-preview {
+  margin-top: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.event-category-select {
+  font-weight: 500;
+}

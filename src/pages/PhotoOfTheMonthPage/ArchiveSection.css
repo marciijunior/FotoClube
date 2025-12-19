@@ -16,9 +16,94 @@
 .archive-menu-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
   position: sticky;
   top: 150px;
+}
+
+.archive-filters {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.archive-filter-select {
+  padding: 10px 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #666;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+  flex: 1;
+  accent-color: var(--color-primary);
+}
+
+.archive-filter-select:hover {
+  border-left-color: var(--color-accent);
+  color: var(--color-primary);
+}
+
+.archive-filter-select:focus {
+  outline: none;
+  border-left-color: var(--color-accent);
+  color: var(--color-primary);
+}
+
+.archive-filter-select option {
+  background-color: #fff;
+  color: #333;
+  padding: 8px;
+}
+
+.archive-filter-select option:checked {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+.archive-timer-container {
+  height: 4px;
+  background-color: #e0e0e0;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.archive-timer-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-primary));
+  transition: width 0.1s linear;
+  border-radius: 2px;
+}
+
+.archive-menu-list-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.archive-menu-list-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.archive-menu-list-scroll::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.archive-menu-list-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-accent);
+  border-radius: 3px;
+}
+
+.archive-menu-list-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
 }
 
 .archive-menu-button {
@@ -92,7 +177,7 @@
 .archive-menu-display-info h3 {
   font-family: var(--font-heading);
   font-size: 2.5rem;
-  color: var(--color-primary); 
+  color: var(--color-primary);
   margin: 0 0 10px 0;
 }
 

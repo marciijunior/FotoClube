@@ -15,6 +15,7 @@ model Event {
   location    String
   image       String?
   category    String   @default("Geral")
+  createdAt   DateTime @default(now())
 }
 
 model Winner {
@@ -24,4 +25,47 @@ model Winner {
   image       String
   monthWon    String
   judgesNotes String
+  isWinner    Boolean  @default(true)
+  position    Int      @default(1)
+  isCurrent   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String
+  role      String   @default("user")
+  createdAt DateTime @default(now())
+}
+
+model Slide {
+  id       Int    @id @default(autoincrement())
+  image    String
+  title    String
+  subtitle String
+  author   String @default("Fotógrafo")
+  order    Int    @default(0)
+}
+
+model Member {
+  id          Int      @id @default(autoincrement())
+  name        String
+  email       String   @unique
+  phone       String?
+  bio         String?
+  avatar      String?
+  joinedAt    DateTime @default(now())
+  role        String   @default("member")
+}
+
+model Post {
+  id          Int      @id @default(autoincrement())
+  title       String
+  content     String
+  image       String?
+  author      String   @default("FotoClube")
+  category    String   @default("Notícia")
+  createdAt   DateTime @default(now())
 }

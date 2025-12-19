@@ -2,6 +2,8 @@ import React from "react";
 import { FaMapMarkerAlt, FaClock, FaArrowRight } from "react-icons/fa";
 import "./InformacoesCalendario.css";
 
+const logoImage = "/src/assets/logo-fotoclube-azul.png";
+
 export default function InformacoesCalendario({
   selectedEvents = [],
   selectedDay,
@@ -9,7 +11,9 @@ export default function InformacoesCalendario({
   openModal,
 }) {
   return (
-    <aside className={`calendar-sidebar ${selectedEvents.length > 0 ? "is-open" : ""}`}>
+    <aside
+      className={`calendar-sidebar ${selectedEvents.length > 0 ? "is-open" : ""}`}
+    >
       <div className="sidebar-content">
         {selectedEvents.length > 0 ? (
           <>
@@ -18,9 +22,9 @@ export default function InformacoesCalendario({
             </h3>
             <div className="sidebar-event-list">
               {selectedEvents.map((event) => (
-                <div 
-                  key={event.id} 
-                  className="sidebar-event-card" 
+                <div
+                  key={event.id}
+                  className="sidebar-event-card"
                   onClick={() => openModal(event)}
                   tabIndex={0}
                   role="button"
@@ -32,12 +36,15 @@ export default function InformacoesCalendario({
                 >
                   {/* Imagem à esquerda */}
                   <img
-                    src={event.image}
+                    src={event.image || logoImage}
                     alt={event.title}
                     className="sidebar-event-image"
                     loading="lazy"
+                    onError={(e) => {
+                      e.target.src = logoImage;
+                    }}
                   />
-                  
+
                   {/* Corpo no meio */}
                   <div className="sidebar-event-body">
                     <h4>{event.title}</h4>
@@ -54,7 +61,7 @@ export default function InformacoesCalendario({
                   {/* Barra Footer Fixa */}
                   <div className="sidebar-event-actions">
                     <button className="sidebar-event-button" tabIndex="-1">
-                      Saiba Mais <FaArrowRight style={{ fontSize: '0.8em' }}/>
+                      Saiba Mais <FaArrowRight style={{ fontSize: "0.8em" }} />
                     </button>
                   </div>
                 </div>

@@ -1,0 +1,106 @@
+.carousel-manage-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.carousel-manage-title {
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.carousel-manage-subtitle {
+  color: #868e96;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+.carousel-form-card {
+  margin-bottom: 2rem;
+}
+
+.carousel-form-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.carousel-upload-preview {
+  margin: 1rem 0;
+}
+
+.carousel-preview-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.carousel-submit-button {
+  font-weight: 600;
+}
+
+.carousel-list-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.carousel-slide-card {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.carousel-slide-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-slide-image {
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.carousel-slide-title {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #212529;
+}
+
+.carousel-slide-subtitle {
+  color: #495057;
+}
+
+.carousel-slide-meta {
+  color: #868e96;
+  font-size: 0.85rem;
+}
+
+.carousel-slide-badge {
+  font-weight: 600;
+}
+
+.carousel-delete-button:hover {
+  background-color: #fa5252;
+  color: white;
+}
+
+.carousel-empty-state {
+  text-align: center;
+  padding: 3rem 2rem;
+}
+
+.carousel-empty-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.carousel-empty-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #495057;
+}
+
+.carousel-empty-text {
+  color: #868e96;
+  margin-top: 0.5rem;
+}

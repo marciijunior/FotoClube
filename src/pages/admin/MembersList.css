@@ -1,0 +1,122 @@
+.members-list-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.members-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.members-list-title {
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.members-list-subtitle {
+  color: #868e96;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+.members-add-button {
+  font-weight: 600;
+  background: linear-gradient(135deg, #51cf66 0%, #37b24d 100%);
+  border: none;
+}
+
+.members-add-button:hover {
+  background: linear-gradient(135deg, #40c057 0%, #2f9e44 100%);
+}
+
+.members-card {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.members-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.members-card-avatar {
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #e9ecef;
+}
+
+.members-card-name {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #212529;
+}
+
+.members-card-role {
+  color: #868e96;
+  font-size: 0.9rem;
+}
+
+.members-card-badge {
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+.members-card-meta {
+  color: #868e96;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+.members-card-meta-icon {
+  margin-right: 0.25rem;
+}
+
+.members-card-bio {
+  color: #495057;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  line-height: 1.6;
+}
+
+.members-card-actions {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.members-edit-button {
+  font-weight: 600;
+}
+
+.members-empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.members-empty-icon {
+  font-size: 4rem;
+  color: #adb5bd;
+  margin-bottom: 1.5rem;
+}
+
+.members-empty-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #495057;
+  margin-bottom: 0.75rem;
+}
+
+.members-empty-text {
+  color: #868e96;
+  font-size: 1rem;
+}
+
+.members-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}

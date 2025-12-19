@@ -2,6 +2,8 @@ import React from "react";
 import { FaMapMarkerAlt, FaClock, FaTimes } from "react-icons/fa";
 import "./ModalInformacoes.css";
 
+const logoImage = "/src/assets/logo-fotoclube-azul.png";
+
 export default function ModalInformacoes({
   modalOpen,
   modalEvent,
@@ -28,13 +30,14 @@ export default function ModalInformacoes({
           <FaTimes />
         </button>
         <div className="event-modal-body">
-          {modalEvent.image && (
-            <img
-              src={modalEvent.image}
-              alt={modalEvent.title}
-              className="event-modal-image"
-            />
-          )}
+          <img
+            src={modalEvent.image || logoImage}
+            alt={modalEvent.title}
+            className="event-modal-image"
+            onError={(e) => {
+              e.target.src = logoImage;
+            }}
+          />
           <div className="event-modal-content">
             <h2>{modalEvent.title}</h2>
             <p className="modal-meta">

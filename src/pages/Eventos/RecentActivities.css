@@ -1,82 +1,92 @@
+/* src/features/home/RecentActivities.css */
+
 .recent-activities {
-  margin-top: 36px;
-  padding: 22px;
-  border-radius: 12px;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.9),
-    rgba(250, 250, 252, 0.95)
-  );
-  border: 1px solid rgba(12, 20, 30, 0.04);
-  box-shadow: 0 12px 36px rgba(6, 10, 20, 0.04);
+  padding: 80px 0;
+  background-color: #f4f4f4;
 }
 
 .recent-inner {
-  max-width: 1180px;
+  max-width: var(--container-max-width);
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 var(--container-gutter);
 }
 
 .recent-activities h3 {
-  margin: 0 0 12px 0;
   font-family: var(--font-heading);
-  font-size: 1.05rem;
+  font-size: 2.5rem;
   color: var(--color-primary);
+  margin-bottom: 30px;
+  position: relative;
+  padding-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+.recent-activities h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background-color: var(--color-accent);
+  border-radius: 2px;
 }
 
 .recent-empty {
-  padding: 14px;
-  color: #6b7280;
-  font-weight: 600;
+  padding: 40px;
+  color: #9ca3af;
+  font-weight: 500;
   text-align: center;
+  font-family: var(--font-body);
 }
 
+/* --- GRID: 4 COLUNAS X 2 LINHAS (mesmo estilo pe-card) --- */
 .recent-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 20px;
 }
 
+/* --- CARD (mesmo estilo pe-card) --- */
 .recent-card {
   position: relative;
   display: flex;
-  gap: 12px;
-  align-items: flex-start;
+  flex-direction: column;
   padding: 12px 12px 50px 12px;
-  border-radius: 10px;
-  background: white;
-  border: 1px solid rgba(12, 20, 30, 0.03);
-  box-shadow: 0 6px 18px rgba(6, 10, 20, 0.03);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: #ffffff;
+  border: 1px solid rgba(12, 20, 30, 0.05);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
   overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   cursor: pointer;
 }
 
 .recent-card:hover {
-  box-shadow: 5px 5px 10px 10px rgba(155, 155, 155, 0.185);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  border-color: rgba(12, 20, 30, 0.1);
 }
 
 .recent-thumb-wrap {
-  flex: 0 0 84px;
-  height: 84px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
+  height: 120px;
+  overflow: hidden;
+  background-color: #eee;
+  margin-bottom: 12px;
+  border-radius: 6px;
 }
 
 .recent-thumb {
-  width: 84px;
+  width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 8px;
-  display: block;
 }
 
 .recent-thumb--placeholder {
-  width: 84px;
-  height: 84px;
-  border-radius: 8px;
-  background: linear-gradient(180deg, #f4f4f4, #ececec);
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
 }
 
 .recent-body {
@@ -88,42 +98,47 @@
 }
 
 .recent-title {
-  margin: 0;
+  margin: 0 0 6px 0;
   font-size: 1rem;
   color: var(--color-primary);
+  line-height: 1.2;
   font-weight: 700;
-  line-height: 1.3;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  font-family: var(--font-heading);
 }
 
 .recent-meta {
   display: flex;
-  gap: 8px;
-  align-items: center;
-  color: #6b7280;
+  flex-direction: column;
+  gap: 4px;
   font-size: 0.8rem;
-  flex-wrap: wrap;
+  color: #666;
 }
 
 .recent-meta-item {
-  display: inline-flex;
-  gap: 4px;
+  display: flex;
   align-items: center;
-  padding: 2px 6px;
-  border-radius: 4px;
-  background: rgba(11, 18, 32, 0.04);
-  font-weight: 600;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-weight: 400;
 }
 
+.recent-meta-item svg {
+  color: var(--color-accent);
+  font-size: 0.9em;
+  flex-shrink: 0;
+}
+
+/* --- BOTÃO FOOTER (mesmo estilo pe-card-button) --- */
 .recent-actions {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 38px; 
+  height: 38px;
   z-index: 2;
 }
 
@@ -131,12 +146,12 @@
   width: 100%;
   height: 100%;
   border: none;
-  border-top: 1px solid rgba(0,0,0,0.05);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
   background: #f7f9fc;
   color: var(--color-primary);
-  font-weight: 600;
-  font-size: 0.8rem;
   font-family: var(--font-body);
+  font-weight: 400 !important;
+  font-size: 0.75rem;
   letter-spacing: 0.5px;
   cursor: pointer;
   display: flex;
@@ -144,17 +159,42 @@
   justify-content: center;
   gap: 8px;
   transition: all 0.2s ease;
-  border-radius: 0; 
 }
 
 .recent-card:hover .recent-btn {
   background: var(--color-accent);
-  color: white;
+  color: #fff;
   border-top-color: var(--color-accent);
 }
 
-@media (max-width: 720px) {
-  .recent-grid {
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 1200px) {
+  .recent-grid { 
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .recent-grid { 
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .recent-activities {
+    padding: 60px 0;
+  }
+  
+  .recent-activities h3 {
+    font-size: 2rem;
+  }
+  
+  .recent-grid { 
     grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .recent-thumb-wrap {
+    height: 160px;
   }
 }
