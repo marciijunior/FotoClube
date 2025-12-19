@@ -1,0 +1,16 @@
+:root {
+  --color-primary: #1a1a1a;
+  --color-accent: #ff5c00;
+  --color-light: #f8f9fa;
+  --color-white: #ffffff;
+  --font-heading: "Montserrat", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --container-max-width: 1200px;
+  --container-gutter: 20px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}

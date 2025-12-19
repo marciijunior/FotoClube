@@ -5,7 +5,6 @@ export default defineConfig({
     schema: 'prisma/schema.prisma',
   },
   datasource: {
-    provider: 'sqlite',
-    url: 'file:./dev.db',
+    url: 'file:./backend/dev.db',
   },
 });

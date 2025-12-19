@@ -426,15 +426,6 @@ const resolvers = {
     deletePost: async (_, { id }) => {
       return await prisma.post.delete({ where: { id: parseInt(id) } });
     },
-          data: { isCurrent: true },
-        });
-
-        return true;
-      } catch (error) {
-        console.error("Erro ao definir concurso atual:", error);
-        return false;
-      }
-    },
   },
 };
 
