@@ -56,12 +56,25 @@ function Footer() {
             Agradecemos aos parceiros que apoiam nossa paixão pela fotografia.
           </p>
           <div className="footer-partners-grid">
-            <img src="https://logo.clearbit.com/canon.com" alt="Canon Logo" />
-            <img src="https://logo.clearbit.com/nikon.com" alt="Nikon Logo" />
-            <img src="https://logo.clearbit.com/adobe.com" alt="Adobe Logo" />
+            <img 
+              src="https://logo.clearbit.com/canon.com" 
+              alt="Canon Logo" 
+              onError={(e) => { e.target.style.display = 'none'; }}
+            />
+            <img 
+              src="https://logo.clearbit.com/nikon.com" 
+              alt="Nikon Logo" 
+              onError={(e) => { e.target.style.display = 'none'; }}
+            />
+            <img 
+              src="https://logo.clearbit.com/adobe.com" 
+              alt="Adobe Logo" 
+              onError={(e) => { e.target.style.display = 'none'; }}
+            />
             <img
               src="https://logo.clearbit.com/fujifilm.com"
               alt="Fujifilm Logo"
+              onError={(e) => { e.target.style.display = 'none'; }}
             />
           </div>
         </div>

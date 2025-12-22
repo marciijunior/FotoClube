@@ -198,33 +198,40 @@ export default function ManageMonthWinners({ monthWon }) {
         .sort((a, b) => a.position - b.position);
 
       // Sempre criar array de 9 posições
-      const loadedPhotos = Array(9)
-        .fill(null)
-        .map((_, i) => {
-          const existing = monthPhotos.find((p) => p.position === i + 1);
-          if (existing) {
-            if (existing.isWinner) setSelectedWinner(i);
+      setPhotos((prevPhotos) => {
+        const loadedPhotos = Array(9)
+          .fill(null)
+          .map((_, i) => {
+            // Se já existe uma foto localmente (com file ou image), manter
+            if (prevPhotos[i] && (prevPhotos[i].file || prevPhotos[i].image)) {
+              return prevPhotos[i];
+            }
+            
+            const existing = monthPhotos.find((p) => p.position === i + 1);
+            if (existing) {
+              if (existing.isWinner) setSelectedWinner(i);
+              return {
+                id: existing.id,
+                title: existing.title,
+                author: existing.author,
+                image: existing.image,
+                judgesNotes: existing.judgesNotes,
+                position: i + 1,
+                file: null,
+              };
+            }
             return {
-              id: existing.id,
-              title: existing.title,
-              author: existing.author,
-              image: existing.image,
-              judgesNotes: existing.judgesNotes,
+              id: null,
+              title: "",
+              author: "",
+              image: "",
+              judgesNotes: "",
               position: i + 1,
               file: null,
             };
-          }
-          return {
-            id: null,
-            title: "",
-            author: "",
-            image: "",
-            judgesNotes: "",
-            position: i + 1,
-            file: null,
-          };
-        });
-      setPhotos(loadedPhotos);
+          });
+        return loadedPhotos;
+      });
     }
   }, [data, monthName]);
 

@@ -237,9 +237,9 @@ const resolvers = {
     allSlides: async () =>
       await prisma.slide.findMany({ orderBy: { order: "asc" } }),
     allEvents: async () =>
-      await prisma.event.findMany({ orderBy: { date: "desc" } }),
+      await prisma.event.findMany({ orderBy: { createdAt: "desc" } }),
     allWinners: async () =>
-      await prisma.winner.findMany({ orderBy: { monthWon: "desc" } }),
+      await prisma.winner.findMany({ orderBy: { createdAt: "desc" } }),
     allMembers: async () =>
       await prisma.member.findMany({ orderBy: { name: "asc" } }),    allPosts: async () =>
       await prisma.post.findMany({ orderBy: { createdAt: "desc" } }),    event: async (_, { id }) =>

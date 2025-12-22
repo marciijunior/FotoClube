@@ -155,19 +155,28 @@ export default function EditEventForm({ event, onDone }) {
   const [createEvent, { loading: creating }] = useMutation(CREATE_EVENT, {
     refetchQueries: ["AllEvents", "GetAllEvents"],
     awaitRefetchQueries: true,
-    onCompleted: () => onDone?.(),
+    onCompleted: () => {
+      // Forçar recarregamento completo do cache
+      window.location.reload();
+    },
   });
 
   const [updateEvent, { loading: updating }] = useMutation(UPDATE_EVENT, {
     refetchQueries: ["AllEvents", "GetAllEvents"],
     awaitRefetchQueries: true,
-    onCompleted: () => onDone?.(),
+    onCompleted: () => {
+      // Forçar recarregamento completo do cache
+      window.location.reload();
+    },
   });
 
   const [deleteEvent, { loading: deleting }] = useMutation(DELETE_EVENT, {
     refetchQueries: ["AllEvents", "GetAllEvents"],
     awaitRefetchQueries: true,
-    onCompleted: () => onDone?.(),
+    onCompleted: () => {
+      // Forçar recarregamento completo do cache
+      window.location.reload();
+    },
   });
 
   const handleSubmit = async (e) => {
@@ -530,8 +539,29 @@ export default function EditEventForm({ event, onDone }) {
                 clearable
                 description={
                   formData.image && !imageFile
-                    ? `Imagem atual: ${formData.image.substring(formData.image.lastIndexOf("/") + 1)}`
+                    ? "Imagem atual carregada"
                     : "Selecione uma nova imagem para substituir a atual"
+                }
+                rightSection={
+                  formData.image && !imageFile ? (
+                    <button
+                      type="button"
+                      onClick={() => setFormData({ ...formData, image: "" })}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        cursor: 'pointer',
+                        fontSize: '18px',
+                        color: '#868e96',
+                        padding: '4px',
+                        display: 'flex',
+                        alignItems: 'center'
+                      }}
+                      title="Remover imagem"
+                    >
+                      ✕
+                    </button>
+                  ) : null
                 }
               />
 

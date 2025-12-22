@@ -25,6 +25,7 @@ const GET_ALL_EVENTS = gql`
       location
       image
       category
+      createdAt
     }
   }
 `;
@@ -95,31 +96,38 @@ const findExport = (exportName, fileBase) => {
   return [];
 };
 
-let eventsData = findExport("eventsData", "eventsData") || [];
-let announcementsData =
-  findExport("announcementsData", "announcementsData") || [];
-let postsData = findExport("postsData", "postsData") || [];
-let galleryData = findExport("galleryData", "galleryData") || [];
+// REMOVIDO: Dados estáticos não devem ser usados - apenas dados do GraphQL
+// let eventsData = findExport("eventsData", "eventsData") || [];
+// let announcementsData = findExport("announcementsData", "announcementsData") || [];
+// let postsData = findExport("postsData", "postsData") || [];
+// let galleryData = findExport("galleryData", "galleryData") || [];
 
 /* ... (MANTENHA AS FUNÇÕES DE MAP (mapEvents, mapAnnouncements, etc.) IGUAIS) ... */
 const mapEvents = (arr = []) =>
-  arr.map((it) => ({
-    id: `event-${it.id ?? it.title}`,
-    type: "event",
-    title: it.title,
-    dateObj: it.createdAt ? new Date(it.createdAt) : new Date(it.id * 60000), // Usa ID como timestamp se não tiver createdAt
-    image: it.image ?? getRandomImage(),
-    excerpt: it.description ?? "",
-    meta: { location: it.location, time: it.time },
-    original: it,
-  }));
+  arr.map((it) => {
+    let imageUrl = getRandomImage();
+    if (it.image) {
+      // Se já tem o caminho completo, usa direto; senão, adiciona o prefixo
+      imageUrl = it.image.startsWith('http') ? it.image : `http://localhost:3002/uploads/${it.image}`;
+    }
+    return {
+      id: `event-${it.id ?? it.title}`,
+      type: "event",
+      title: it.title,
+      dateObj: it.createdAt ? new Date(Number(it.createdAt)) : new Date(),
+      image: imageUrl,
+      excerpt: it.description ?? "",
+      meta: { location: it.location, time: it.time },
+      original: it,
+    };
+  });
 
 const mapAnnouncements = (arr = []) =>
   arr.map((it) => ({
     id: `announcement-${it.id ?? it.title}`,
     type: "announcement",
     title: it.title,
-    dateObj: it.dateObj ?? (it.date ? new Date(it.date) : new Date()),
+    dateObj: it.createdAt ? new Date(it.createdAt) : (it.dateObj ?? (it.date ? new Date(it.date) : new Date())),
     image: it.image ?? getRandomImage(),
     excerpt: it.excerpt ?? it.summary ?? "",
     meta: {},
@@ -131,7 +139,7 @@ const mapPosts = (arr = []) =>
     id: `post-${it.id}`,
     type: "post",
     title: it.title,
-    dateObj: it.createdAt ? new Date(it.createdAt) : new Date(),
+    dateObj: it.createdAt ? new Date(Number(it.createdAt)) : new Date(),
     image: it.image ?? getRandomImage(),
     excerpt: it.content.substring(0, 120) + (it.content.length > 120 ? "..." : ""),
     meta: { author: it.author, category: it.category },
@@ -139,12 +147,11 @@ const mapPosts = (arr = []) =>
   }));
 
 const mapGallery = (arr = []) =>
-  arr.map((it, idx) => ({
-    id: `gallery-${it.id ?? idx}`,
+  arr.map((it) => ({
+    id: `gallery-${it.id ?? Math.random()}`,
     type: "gallery",
     title: it.title ?? it.filename ?? "Nova imagem",
-    dateObj:
-      it.dateObj ?? (it.uploadedAt ? new Date(it.uploadedAt) : new Date()),
+    dateObj: it.createdAt ? new Date(Number(it.createdAt)) : (it.dateObj ?? (it.uploadedAt ? new Date(it.uploadedAt) : new Date())),
     image: it.url ?? it.src ?? getRandomImage(),
     excerpt: it.caption ?? "",
     meta: {},
@@ -152,30 +159,40 @@ const mapGallery = (arr = []) =>
   }));
 
 const mapWinners = (arr = []) =>
-  arr.map((it) => ({
-    id: `winner-${it.id}`,
-    type: "contest",
-    title: it.isCurrent
-      ? `🏆 Foto do Mês: ${it.title}`
-      : `Vencedor: ${it.title}`,
-    dateObj: it.createdAt ? new Date(it.createdAt) : new Date(),
-    image: it.image ?? getRandomImage(),
-    excerpt: `Por ${it.author}${it.monthWon ? ` - ${it.monthWon}` : ""}`,
-    meta: { author: it.author, monthWon: it.monthWon },
-    original: it,
-  }));
+  arr.map((it) => {
+    let imageUrl = getRandomImage();
+    if (it.image) {
+      // Se já tem o caminho completo, usa direto; senão, adiciona o prefixo
+      imageUrl = it.image.startsWith('http') ? it.image : `http://localhost:3002/uploads/${it.image}`;
+    }
+    return {
+      id: `winner-${it.id}`,
+      type: "contest",
+      title: it.isCurrent
+        ? `🏆 Foto do Mês: ${it.title}`
+        : `Vencedor: ${it.title}`,
+      dateObj: it.createdAt ? new Date(Number(it.createdAt)) : new Date(),
+      image: imageUrl,
+      excerpt: `Por ${it.author}${it.monthWon ? ` - ${it.monthWon}` : ""}`,
+      meta: { author: it.author, monthWon: it.monthWon },
+      original: it,
+    };
+  });
 
 export default function RecentActivities({ limit = 8, onOpen }) {
-  const { data: eventsDataQL } = useQuery(GET_ALL_EVENTS, {
-    fetchPolicy: "network-only",
+  const { data: eventsDataQL, refetch: refetchEvents } = useQuery(GET_ALL_EVENTS, {
+    fetchPolicy: "cache-and-network",
+    nextFetchPolicy: "cache-and-network",
   });
 
-  const { data: winnersDataQL } = useQuery(GET_ALL_WINNERS, {
-    fetchPolicy: "network-only",
+  const { data: winnersDataQL, refetch: refetchWinners } = useQuery(GET_ALL_WINNERS, {
+    fetchPolicy: "network-only", // Forçar buscar do servidor sem cache
+    nextFetchPolicy: "network-only",
   });
 
-  const { data: postsDataQL } = useQuery(GET_ALL_POSTS, {
-    fetchPolicy: "network-only",
+  const { data: postsDataQL, refetch: refetchPosts } = useQuery(GET_ALL_POSTS, {
+    fetchPolicy: "cache-and-network",
+    nextFetchPolicy: "cache-and-network",
   });
 
   const [injected, setInjected] = useState([]);
@@ -187,6 +204,24 @@ export default function RecentActivities({ limit = 8, onOpen }) {
   const eventsData = eventsDataQL?.allEvents || [];
   const winnersData = winnersDataQL?.allWinners || [];
   const postsData = postsDataQL?.allPosts || [];
+
+  // Debug: Log dos dados recebidos
+  console.log('📊 Dados GraphQL:', {
+    events: eventsData.length,
+    winners: winnersData.length,
+    posts: postsData.length
+  });
+
+  // Refetch automaticamente a cada 10 segundos para pegar atualizações
+  useEffect(() => {
+    const interval = setInterval(() => {
+      refetchEvents();
+      refetchWinners();
+      refetchPosts();
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, [refetchEvents, refetchWinners, refetchPosts]);
 
   useEffect(() => {
     // ... (MANTENHA A LÓGICA DE SIMULAÇÃO IGUAL) ...
@@ -206,24 +241,9 @@ export default function RecentActivities({ limit = 8, onOpen }) {
       return mock;
     };
 
-    const hasSources =
-      (eventsData && eventsData.length) ||
-      (announcementsData && announcementsData.length) ||
-      (postsData && postsData.length) ||
-      (galleryData && galleryData.length);
-    if (!hasSources) {
-      const demo = {
-        id: `demo-${Date.now()}`,
-        type: "event",
-        title: "Evento Demo: Saída Fotográfica",
-        dateObj: new Date(),
-        image: getRandomImage(),
-        excerpt: "Evento demo adicionado automaticamente para visualização.",
-        meta: { location: "Praça Central", time: "16:00" },
-        original: { id: 999 }, // ID fictício para demo
-      };
-      setInjected((prev) => [demo, ...prev]);
-    }
+    // Removido: verificação de dados estáticos não é mais necessária
+    // const hasSources = (eventsData && eventsData.length) || ...
+    // Dados virão sempre do GraphQL
 
     return () => {
       if (window.simulateUpdate) delete window.simulateUpdate;
@@ -234,15 +254,15 @@ export default function RecentActivities({ limit = 8, onOpen }) {
     const list = [
       ...mapEvents(eventsData),
       ...mapWinners(winnersData),
-      ...mapAnnouncements(announcementsData),
       ...mapPosts(postsData),
-      ...mapGallery(galleryData),
       ...injected,
     ];
 
     const byId = new Map();
     for (const item of list) {
-      if (!item.dateObj || Number.isNaN(item.dateObj.getTime())) continue;
+      if (!item.dateObj || Number.isNaN(item.dateObj.getTime())) {
+        continue;
+      }
       if (!byId.has(item.id) || item.dateObj > byId.get(item.id).dateObj) {
         byId.set(item.id, item);
       }
@@ -250,8 +270,9 @@ export default function RecentActivities({ limit = 8, onOpen }) {
     const final = Array.from(byId.values()).sort(
       (a, b) => b.dateObj - a.dateObj
     );
+    
     return final.slice(0, limit);
-  }, [limit, injected, eventsData, winnersData]);
+  }, [limit, injected, eventsData, winnersData, postsData]);
 
   if (!unified || unified.length === 0) {
     return (
