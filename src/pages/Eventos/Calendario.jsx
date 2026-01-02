@@ -90,12 +90,15 @@ export default function Calendario() {
 
   // Usar dados do GraphQL ou array vazio se ainda estiver carregando
   const eventsData = data?.allEvents || [];
-  
+
   // Debug: Log dos dados recebidos
   useEffect(() => {
     if (data) {
-      console.log('📊 Calendário - Dados recebidos do GraphQL:', data.allEvents);
-      console.log('📊 Total de eventos:', data.allEvents?.length || 0);
+      console.log(
+        "📊 Calendário - Dados recebidos do GraphQL:",
+        data.allEvents
+      );
+      console.log("📊 Total de eventos:", data.allEvents?.length || 0);
     }
   }, [data]);
 
@@ -147,7 +150,12 @@ export default function Calendario() {
     const map = {};
     eventsData.forEach((event) => {
       try {
-        console.log('📅 Processando evento:', event.title, '- Data:', event.date);
+        console.log(
+          "📅 Processando evento:",
+          event.title,
+          "- Data:",
+          event.date
+        );
         const [dayStr, rest] = event.date.split(", ");
         const [monthStr, yearStr] = rest.split("-");
         const monthsMap = {
@@ -168,9 +176,13 @@ export default function Calendario() {
         const evtDay = parseInt(dayStr);
         const evtMonth = monthsMap[monthStr];
         const evtYear = parseInt(yearStr);
-        
-        console.log(`   → Dia: ${evtDay}, Mês: ${evtMonth} (${monthStr}), Ano: ${evtYear}`);
-        console.log(`   → Comparando: Mês atual=${currentMonth}, Ano atual=${currentYear}`);
+
+        console.log(
+          `   → Dia: ${evtDay}, Mês: ${evtMonth} (${monthStr}), Ano: ${evtYear}`
+        );
+        console.log(
+          `   → Comparando: Mês atual=${currentMonth}, Ano atual=${currentYear}`
+        );
 
         const { category, color } = getEventMeta(event);
 
@@ -287,17 +299,19 @@ export default function Calendario() {
   return (
     <section className="pagina-eventos-calendario" id="calendario-anchor">
       {loading && (
-        <div style={{ 
-          position: 'fixed', 
-          top: '20px', 
-          right: '20px', 
-          background: '#003b56', 
-          color: 'white', 
-          padding: '10px 20px', 
-          borderRadius: '8px',
-          zIndex: 1000,
-          boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
-        }}>
+        <div
+          style={{
+            position: "fixed",
+            top: "20px",
+            right: "20px",
+            background: "#003b56",
+            color: "white",
+            padding: "10px 20px",
+            borderRadius: "8px",
+            zIndex: 1000,
+            boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+          }}
+        >
           🔄 Carregando eventos do servidor...
         </div>
       )}

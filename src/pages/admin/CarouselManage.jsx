@@ -18,6 +18,8 @@ import {
   FileInput,
 } from "@mantine/core";
 import { useState } from "react";
+import { FaImages } from "react-icons/fa";
+import AdminPageLayout from "./AdminPageLayout";
 
 const GET_SLIDES = gql`
   query GetSlides {
@@ -163,34 +165,37 @@ export default function CarouselManage() {
 
   if (loading)
     return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "50vh",
-        }}
+      <AdminPageLayout
+        title="Carrossel"
+        subtitle="Carregando slides..."
+        icon={<FaImages />}
+        gradient="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
       >
-        <Loader size="xl" />
-      </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "50vh",
+          }}
+        >
+          <Loader size="xl" />
+        </div>
+      </AdminPageLayout>
     );
 
   return (
-    <div style={{ maxWidth: 1400, margin: "0 auto" }}>
+    <AdminPageLayout
+      title="Gerenciar Carrossel"
+      subtitle={`${data?.allSlides?.length || 0} ${
+        data?.allSlides?.length === 1
+          ? "slide cadastrado"
+          : "slides cadastrados"
+      }`}
+      icon={<FaImages />}
+      gradient="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+    >
       <Stack gap="xl">
-        <div>
-          <Title
-            order={1}
-            mb="xs"
-            style={{ fontSize: "2rem", fontWeight: 800 }}
-          >
-            🎠 Gerenciar Carrossel
-          </Title>
-          <Text c="dimmed" size="md">
-            Gerencie as imagens do carrossel principal da página inicial
-          </Text>
-        </div>
-
         <Card shadow="sm" padding="xl" radius="md" withBorder>
           <Title
             order={3}
@@ -399,6 +404,6 @@ export default function CarouselManage() {
           )}
         </div>
       </Stack>
-    </div>
+    </AdminPageLayout>
   );
 }

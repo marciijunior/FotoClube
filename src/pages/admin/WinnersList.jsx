@@ -15,8 +15,10 @@ import {
   Select,
 } from "@mantine/core";
 import { Link } from "react-router-dom";
+import { FaTrophy, FaPlus } from "react-icons/fa";
 import ManageMonthWinners from "../../components/ManageMonthWinners";
 import { SET_CURRENT_CONTEST } from "../../graphql/mutations";
+import AdminPageLayout from "./AdminPageLayout";
 
 const ALL_WINNERS = gql`
   query AllWinners {
@@ -81,16 +83,23 @@ export default function WinnersList() {
 
   if (loading)
     return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "50vh",
-        }}
+      <AdminPageLayout
+        title="Foto do Mês"
+        subtitle="Carregando concursos..."
+        icon={<FaTrophy />}
+        gradient="linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
       >
-        <Loader size="xl" />
-      </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "50vh",
+          }}
+        >
+          <Loader size="xl" />
+        </div>
+      </AdminPageLayout>
     );
 
   // Se está gerenciando um mês específico, mostrar o gerenciador
@@ -103,27 +112,23 @@ export default function WinnersList() {
   const months = Array.from(monthsSet).sort().reverse();
 
   return (
-    <div style={{ maxWidth: 1400, margin: "0 auto" }}>
+    <AdminPageLayout
+      title="Foto do Mês"
+      subtitle="Gerencie os vencedores do concurso mensal de fotografia"
+      icon={<FaTrophy />}
+      gradient="linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
+      actionButton={
+        <Button
+          onClick={() => setManagingMonth("")}
+          size="lg"
+          leftSection={<FaTrophy />}
+          className="admin-primary-button"
+        >
+          Novo Concurso (9 Fotos)
+        </Button>
+      }
+    >
       <Stack gap="xl">
-        <Group position="apart" align="center">
-          <div>
-            <Title order={1} style={{ fontSize: "2rem", fontWeight: 800 }}>
-              🏆 Foto do Mês
-            </Title>
-            <Text c="dimmed" size="md" mt="xs">
-              Gerencie os vencedores do concurso mensal
-            </Text>
-          </div>
-          <Button
-            onClick={() => setManagingMonth("")}
-            size="lg"
-            color="orange"
-            style={{ fontWeight: 600 }}
-          >
-            🏆 Novo Concurso (9 Fotos)
-          </Button>
-        </Group>
-
         {months.length > 0 && (
           <Card withBorder padding="md">
             <Text size="sm" fw={500} mb="xs">
@@ -316,6 +321,6 @@ export default function WinnersList() {
           )}
         </div>
       </Stack>
-    </div>
+    </AdminPageLayout>
   );
 }

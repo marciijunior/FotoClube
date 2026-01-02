@@ -1,0 +1,251 @@
+/* src/pages/PhotoOfTheMonthPage/PhotoDetailsModal.css */
+
+.photo-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 2rem;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.photo-modal-content {
+  background: white;
+  border-radius: 20px;
+  max-width: 1200px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: slideUp 0.3s ease;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.photo-modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  color: #1a1a1a;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 20px;
+  transition: all 0.3s ease;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.photo-modal-close:hover {
+  background: #e74c3c;
+  color: white;
+  transform: rotate(90deg);
+  box-shadow: 0 6px 16px rgba(231, 76, 60, 0.4);
+}
+
+.photo-modal-image-section {
+  position: relative;
+  width: 100%;
+  height: 60vh;
+  min-height: 400px;
+  background: #0a0a0a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px 20px 0 0;
+  overflow: hidden;
+}
+
+.photo-modal-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.photo-modal-winner-badge {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  background: linear-gradient(135deg, #ffd700 0%, #ffb800 100%);
+  color: #000;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: 700;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 6px 16px rgba(255, 215, 0, 0.4);
+}
+
+.photo-modal-info-section {
+  padding: 2.5rem;
+}
+
+.photo-modal-header {
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #e5e7eb;
+  padding-bottom: 1.5rem;
+}
+
+.photo-modal-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.photo-modal-author {
+  font-size: 1.125rem;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.photo-modal-author svg {
+  color: #3b82f6;
+}
+
+.photo-modal-month {
+  font-size: 0.95rem;
+  color: #9ca3af;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.photo-modal-month svg {
+  color: #3b82f6;
+}
+
+.photo-modal-details {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.photo-modal-detail-block {
+  background: #f9fafb;
+  padding: 1.25rem;
+  border-radius: 12px;
+  border-left: 4px solid #3b82f6;
+}
+
+.photo-modal-detail-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #4b5563;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.photo-modal-detail-label svg {
+  color: #3b82f6;
+}
+
+.photo-modal-detail-text {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #374151;
+}
+
+.photo-modal-position-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  margin-top: 6px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .photo-modal-content {
+    max-height: 95vh;
+    border-radius: 12px;
+  }
+
+  .photo-modal-image-section {
+    height: 40vh;
+    min-height: 300px;
+    border-radius: 12px 12px 0 0;
+  }
+
+  .photo-modal-info-section {
+    padding: 24px;
+  }
+
+  .photo-modal-title {
+    font-size: 24px;
+  }
+
+  .photo-modal-author {
+    font-size: 18px;
+  }
+
+  .photo-modal-close {
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+  }
+}
+
+/* Scroll customizado */
+.photo-modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.photo-modal-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.photo-modal-content::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.photo-modal-content::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

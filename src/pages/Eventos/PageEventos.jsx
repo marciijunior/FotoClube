@@ -1,5 +1,10 @@
 import React from "react";
-import { FaCalendarAlt, FaBullhorn, FaNewspaper, FaArrowDown } from "react-icons/fa";
+import {
+  FaCalendarAlt,
+  FaBullhorn,
+  FaNewspaper,
+  FaArrowDown,
+} from "react-icons/fa";
 import "./PageEventos.css";
 import Calendario from "./Calendario.jsx";
 import RecentActivities from "./RecentActivities.jsx";

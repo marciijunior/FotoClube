@@ -16,6 +16,7 @@ import ContactPage from "./pages/ContactPage/ContactPage.jsx";
 import AdminLayout from "./components/AdminLayout.jsx";
 import EventsList from "./pages/admin/EventsList.jsx";
 import EventEdit from "./pages/admin/EventEdit.jsx";
+import PostsListPage from "./pages/admin/PostsListPage.jsx";
 import LoginAdmin from "./pages/admin/Login.jsx";
 import AdminHome from "./pages/admin/AdminHome.jsx";
 import CarouselManage from "./pages/admin/CarouselManage.jsx";
@@ -73,6 +74,10 @@ const router = createBrowserRouter([
               { path: "new", element: <MemberEdit /> },
               { path: ":id/edit", element: <MemberEdit /> },
             ],
+          },
+          {
+            path: "posts/*",
+            element: <PostsListPage />,
           },
         ],
       },

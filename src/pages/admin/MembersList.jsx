@@ -14,6 +14,8 @@ import {
   Avatar,
 } from "@mantine/core";
 import { Link } from "react-router-dom";
+import { FaUsers, FaPlus } from "react-icons/fa";
+import AdminPageLayout from "./AdminPageLayout";
 
 const ALL_MEMBERS = gql`
   query AllMembers {
@@ -35,48 +37,48 @@ export default function MembersList() {
 
   if (loading)
     return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "50vh",
-        }}
+      <AdminPageLayout
+        title="Membros"
+        subtitle="Carregando membros..."
+        icon={<FaUsers />}
+        gradient="linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)"
       >
-        <Loader size="xl" />
-      </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "50vh",
+          }}
+        >
+          <Loader size="xl" />
+        </div>
+      </AdminPageLayout>
     );
 
   return (
-    <div style={{ maxWidth: 1400, margin: "0 auto" }}>
+    <AdminPageLayout
+      title="Membros do Clube"
+      subtitle={`${data?.allMembers?.length || 0} ${
+        data?.allMembers?.length === 1
+          ? "membro cadastrado"
+          : "membros cadastrados"
+      }`}
+      icon={<FaUsers />}
+      gradient="linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)"
+      actionButton={
+        <Button
+          component={Link}
+          to="/admin/members/new"
+          size="lg"
+          leftSection={<FaPlus />}
+          className="admin-primary-button"
+        >
+          Adicionar Membro
+        </Button>
+      }
+    >
       <Stack gap="xl">
-        <Group position="apart" align="center">
-          <div>
-            <Title order={1} style={{ fontSize: "2rem", fontWeight: 800 }}>
-              👥 Membros do Clube
-            </Title>
-            <Text c="dimmed" size="md" mt="xs">
-              Gerencie os membros do FotoClube
-            </Text>
-          </div>
-          <Button
-            component={Link}
-            to="/admin/members/new"
-            size="lg"
-            leftSection={<span>➕</span>}
-            style={{ fontWeight: 600 }}
-          >
-            Adicionar Membro
-          </Button>
-        </Group>
-
-        <Group mb="sm">
-          <Badge size="lg" variant="light" color="grape">
-            {data?.allMembers?.length || 0}{" "}
-            {data?.allMembers?.length === 1 ? "membro" : "membros"}
-          </Badge>
-        </Group>
-
         {!data?.allMembers || data.allMembers.length === 0 ? (
           <Card
             shadow="sm"
@@ -198,6 +200,6 @@ export default function MembersList() {
           </SimpleGrid>
         )}
       </Stack>
-    </div>
+    </AdminPageLayout>
   );
 }

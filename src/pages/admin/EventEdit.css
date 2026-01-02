@@ -1,3 +1,5 @@
+/* Event Edit - Modern Admin Style */
+
 .event-edit-container {
   max-width: 900px;
   margin: 0 auto;
@@ -6,76 +8,94 @@
 .event-edit-title {
   font-size: 2rem;
   font-weight: 800;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .event-edit-subtitle {
-  color: #868e96;
+  color: #64748b;
   font-size: 1rem;
   margin-top: 0.5rem;
+  font-weight: 400;
 }
 
 .event-form-card {
   margin-top: 2rem;
+  border-radius: 20px;
+  border: 2px solid #f1f5f9;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.event-form-card:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
 }
 
 .event-form-section-title {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 700;
-  color: #495057;
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid #e9ecef;
+  color: #1e293b;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 3px solid #f1f5f9;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .event-form-label {
   font-weight: 600;
   margin-bottom: 8px;
   font-size: 0.95rem;
+  color: #1e293b;
 }
 
 .event-form-input:focus {
-  border-color: #228be6;
+  border-color: #f5576c;
   border-width: 2px;
+  box-shadow: 0 0 0 3px rgba(245, 87, 108, 0.1);
 }
 
 .event-form-actions {
   display: flex;
   gap: 1rem;
-  margin-top: 2rem;
-  padding-top: 1.5rem;
-  border-top: 2px solid #e9ecef;
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 3px solid #f1f5f9;
 }
 
 .event-submit-button {
   flex: 1;
   font-weight: 600;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   border: none;
-}
-
-.event-submit-button:hover {
-  background: linear-gradient(135deg, #5568d3 0%, #6a4193 100%);
-}
-
-.event-cancel-button {
-  font-weight: 600;
-}
-
-.event-delete-button {
-  font-weight: 600;
-}
-
-.event-delete-button:hover {
-  background-color: #fa5252;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(240, 147, 251, 0.3);
   color: white;
 }
 
-.event-image-preview {
-  margin-top: 1rem;
-  border-radius: 8px;
-  overflow: hidden;
+.event-submit-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(240, 147, 251, 0.4);
 }
 
-.event-category-select {
-  font-weight: 500;
+.event-cancel-button {
+  flex: 1;
+  font-weight: 600;
+  background: white;
+  color: #64748b;
+  border: 2px solid #e2e8f0;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.event-cancel-button:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
 }

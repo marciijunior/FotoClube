@@ -1,126 +1,121 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import {
-  Paper,
-  Title,
-  Text,
-  SimpleGrid,
-  Card,
-  Badge,
-  Group,
-  Stack,
-} from "@mantine/core";
+  FaImages,
+  FaCalendarAlt,
+  FaTrophy,
+  FaUsers,
+  FaNewspaper,
+  FaChartLine,
+} from "react-icons/fa";
 import "./AdminHome.css";
 
 export default function AdminHome() {
-  const cards = [
+  const quickActions = [
     {
-      title: "Carrossel da Home",
-      description:
-        "Gerencie as imagens que aparecem no carrossel principal da página inicial",
+      title: "Carrossel",
+      description: "Gerencie slides da página inicial",
       link: "/admin/carousel",
-      color: "blue",
-      icon: "🎠",
-      stats: "Slides visuais",
+      gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+      icon: <FaImages />,
+      count: "Slides",
     },
     {
       title: "Eventos",
-      description:
-        "Adicione, edite ou remova eventos futuros do clube de fotografia",
+      description: "Adicione e edite eventos do clube",
       link: "/admin/events",
-      color: "green",
-      icon: "📅",
-      stats: "Calendário do clube",
+      gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
+      icon: <FaCalendarAlt />,
+      count: "Calendário",
     },
     {
       title: "Foto do Mês",
-      description: "Gerencie o concurso de fotos mensais e adicione vencedores",
+      description: "Gerencie concurso e vencedores",
       link: "/admin/winners",
-      color: "orange",
-      icon: "🏆",
-      stats: "Concurso mensal",
-      disabled: false,
+      gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
+      icon: <FaTrophy />,
+      count: "Concurso",
     },
     {
       title: "Membros",
-      description: "Gerencie os membros do FotoClube e suas informações",
+      description: "Administre membros do FotoClube",
       link: "/admin/members",
-      color: "grape",
-      icon: "👥",
-      stats: "Comunidade",
-      disabled: false,
+      gradient: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)",
+      icon: <FaUsers />,
+      count: "Comunidade",
+    },
+    {
+      title: "Posts",
+      description: "Crie e edite notícias e artigos",
+      link: "/admin/posts",
+      gradient: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
+      icon: <FaNewspaper />,
+      count: "Blog",
     },
   ];
 
   return (
-    <div className="admin-home-container">
-      <Stack gap="xl">
-        <div>
-          <Title order={1} mb="xs" className="admin-home-title">
-            Painel Administrativo
-          </Title>
-          <Text size="lg" c="dimmed" className="admin-home-subtitle">
-            Gerencie o conteúdo do site do FotoClube
-          </Text>
+    <div className="admin-home-wrapper">
+      {/* Header Section */}
+      <div className="admin-home-header">
+        <div className="header-content">
+          <div className="header-text">
+            <h1 className="admin-title">Painel Administrativo</h1>
+            <p className="admin-subtitle">
+              Gerencie todo o conteúdo do site FotoClube em um só lugar
+            </p>
+          </div>
+          <div className="header-stats">
+            <div className="admin-stat-item">
+              <FaChartLine className="stat-icon" />
+              <div className="stat-content">
+                <span className="stat-number">5</span>
+                <span className="stat-label">Seções</span>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
 
-        <SimpleGrid
-          cols={3}
-          spacing="lg"
-          breakpoints={[
-            { maxWidth: "md", cols: 2 },
-            { maxWidth: "sm", cols: 1 },
-          ]}
-        >
-          {cards.map((card, index) => (
-            <Card
+      {/* Quick Actions Grid */}
+      <div className="admin-actions-container">
+        <h2 className="section-title">Acesso Rápido</h2>
+        <div className="actions-grid">
+          {quickActions.map((action, index) => (
+            <Link
               key={index}
-              component={card.disabled ? "div" : Link}
-              to={card.link}
-              shadow="sm"
-              padding="xl"
-              radius="md"
-              withBorder
-              className="admin-card"
-              style={{
-                cursor: card.disabled ? "not-allowed" : "pointer",
-                opacity: card.disabled ? 0.6 : 1,
-              }}
+              to={action.link}
+              className="action-card"
+              style={{ "--card-gradient": action.gradient }}
             >
-              <Group position="apart" mb="md">
-                <div className="admin-card-icon">{card.icon}</div>
-                <Badge color={card.color} variant="light" size="lg">
-                  {card.stats}
-                </Badge>
-              </Group>
-
-              <Title order={3} mb="sm" className="admin-card-title">
-                {card.title}
-              </Title>
-
-              <Text size="sm" c="dimmed" className="admin-card-description">
-                {card.description}
-              </Text>
-
-              {!card.disabled && (
-                <Text
-                  size="sm"
-                  fw={600}
-                  c={card.color}
-                  mt="md"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                  }}
-                >
-                  Acessar <span style={{ fontSize: "1.2rem" }}>→</span>
-                </Text>
-              )}
-            </Card>
+              <div className="card-gradient-bg"></div>
+              <div className="card-content">
+                <div className="card-icon">{action.icon}</div>
+                <div className="card-info">
+                  <h3 className="card-title">{action.title}</h3>
+                  <p className="card-description">{action.description}</p>
+                </div>
+                <div className="card-badge">{action.count}</div>
+                <div className="card-arrow">→</div>
+              </div>
+            </Link>
           ))}
-        </SimpleGrid>
-      </Stack>
+        </div>
+      </div>
+
+      {/* Quick Tips Section */}
+      <div className="admin-tips-section">
+        <div className="tip-card">
+          <div className="tip-icon">💡</div>
+          <div className="tip-content">
+            <h3 className="tip-title">Dica Rápida</h3>
+            <p className="tip-text">
+              Use as seções acima para gerenciar o conteúdo do site. Todas as
+              alterações são salvas automaticamente no banco de dados.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

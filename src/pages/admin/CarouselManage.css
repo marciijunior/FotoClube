@@ -1,3 +1,5 @@
+/* Carousel Manage - Modern Admin Style */
+
 .carousel-manage-container {
   max-width: 1400px;
   margin: 0 auto;
@@ -6,92 +8,145 @@
 .carousel-manage-title {
   font-size: 2rem;
   font-weight: 800;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .carousel-manage-subtitle {
-  color: #868e96;
+  color: #64748b;
   font-size: 1rem;
   margin-top: 0.5rem;
+  font-weight: 400;
 }
 
 .carousel-form-card {
   margin-bottom: 2rem;
+  border-radius: 16px;
+  border: 2px solid #f1f5f9;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+
+.carousel-form-card:hover {
+  border-color: #e2e8f0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .carousel-form-title {
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
+  color: #1e293b;
 }
 
 .carousel-upload-preview {
   margin: 1rem 0;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 12px;
 }
 
 .carousel-preview-title {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 600;
   margin-bottom: 0.75rem;
+  color: #1e293b;
 }
 
 .carousel-submit-button {
   font-weight: 600;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 0.875rem 2rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.carousel-submit-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
 }
 
 .carousel-list-title {
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   font-weight: 700;
   margin-bottom: 1rem;
+  color: #1e293b;
 }
 
 .carousel-slide-card {
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+  transition: all 0.3s ease;
+  border-radius: 16px;
+  border: 2px solid #f1f5f9;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .carousel-slide-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  border-color: #667eea;
 }
 
 .carousel-slide-image {
-  border-radius: 8px;
+  border-radius: 12px;
   object-fit: cover;
 }
 
 .carousel-slide-title {
   font-weight: 700;
   font-size: 1.1rem;
-  color: #212529;
+  color: #1e293b;
 }
 
 .carousel-slide-subtitle {
-  color: #495057;
+  color: #64748b;
+  font-size: 0.95rem;
 }
 
 .carousel-slide-meta {
-  color: #868e96;
+  color: #94a3b8;
   font-size: 0.85rem;
 }
 
 .carousel-slide-badge {
   font-weight: 600;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+}
+
+.carousel-delete-button {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: all 0.3s ease;
 }
 
 .carousel-delete-button:hover {
-  background-color: #fa5252;
-  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
 }
 
 .carousel-empty-state {
   text-align: center;
   padding: 3rem 2rem;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 16px;
 }
 
 .carousel-empty-icon {
   font-size: 3rem;
   margin-bottom: 1rem;
+  opacity: 0.5;
 }
 
 .carousel-empty-title {
@@ -101,6 +156,6 @@
 }
 
 .carousel-empty-text {
-  color: #868e96;
+  color: #64748b;
   margin-top: 0.5rem;
 }

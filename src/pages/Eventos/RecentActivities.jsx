@@ -108,7 +108,9 @@ const mapEvents = (arr = []) =>
     let imageUrl = getRandomImage();
     if (it.image) {
       // Se já tem o caminho completo, usa direto; senão, adiciona o prefixo
-      imageUrl = it.image.startsWith('http') ? it.image : `http://localhost:3002/uploads/${it.image}`;
+      imageUrl = it.image.startsWith("http")
+        ? it.image
+        : `http://localhost:3002/uploads/${it.image}`;
     }
     return {
       id: `event-${it.id ?? it.title}`,
@@ -127,7 +129,9 @@ const mapAnnouncements = (arr = []) =>
     id: `announcement-${it.id ?? it.title}`,
     type: "announcement",
     title: it.title,
-    dateObj: it.createdAt ? new Date(it.createdAt) : (it.dateObj ?? (it.date ? new Date(it.date) : new Date())),
+    dateObj: it.createdAt
+      ? new Date(it.createdAt)
+      : (it.dateObj ?? (it.date ? new Date(it.date) : new Date())),
     image: it.image ?? getRandomImage(),
     excerpt: it.excerpt ?? it.summary ?? "",
     meta: {},
@@ -141,7 +145,8 @@ const mapPosts = (arr = []) =>
     title: it.title,
     dateObj: it.createdAt ? new Date(Number(it.createdAt)) : new Date(),
     image: it.image ?? getRandomImage(),
-    excerpt: it.content.substring(0, 120) + (it.content.length > 120 ? "..." : ""),
+    excerpt:
+      it.content.substring(0, 120) + (it.content.length > 120 ? "..." : ""),
     meta: { author: it.author, category: it.category },
     original: it,
   }));
@@ -151,7 +156,9 @@ const mapGallery = (arr = []) =>
     id: `gallery-${it.id ?? Math.random()}`,
     type: "gallery",
     title: it.title ?? it.filename ?? "Nova imagem",
-    dateObj: it.createdAt ? new Date(Number(it.createdAt)) : (it.dateObj ?? (it.uploadedAt ? new Date(it.uploadedAt) : new Date())),
+    dateObj: it.createdAt
+      ? new Date(Number(it.createdAt))
+      : (it.dateObj ?? (it.uploadedAt ? new Date(it.uploadedAt) : new Date())),
     image: it.url ?? it.src ?? getRandomImage(),
     excerpt: it.caption ?? "",
     meta: {},
@@ -163,7 +170,9 @@ const mapWinners = (arr = []) =>
     let imageUrl = getRandomImage();
     if (it.image) {
       // Se já tem o caminho completo, usa direto; senão, adiciona o prefixo
-      imageUrl = it.image.startsWith('http') ? it.image : `http://localhost:3002/uploads/${it.image}`;
+      imageUrl = it.image.startsWith("http")
+        ? it.image
+        : `http://localhost:3002/uploads/${it.image}`;
     }
     return {
       id: `winner-${it.id}`,
@@ -180,15 +189,21 @@ const mapWinners = (arr = []) =>
   });
 
 export default function RecentActivities({ limit = 8, onOpen }) {
-  const { data: eventsDataQL, refetch: refetchEvents } = useQuery(GET_ALL_EVENTS, {
-    fetchPolicy: "cache-and-network",
-    nextFetchPolicy: "cache-and-network",
-  });
+  const { data: eventsDataQL, refetch: refetchEvents } = useQuery(
+    GET_ALL_EVENTS,
+    {
+      fetchPolicy: "cache-and-network",
+      nextFetchPolicy: "cache-and-network",
+    }
+  );
 
-  const { data: winnersDataQL, refetch: refetchWinners } = useQuery(GET_ALL_WINNERS, {
-    fetchPolicy: "network-only", // Forçar buscar do servidor sem cache
-    nextFetchPolicy: "network-only",
-  });
+  const { data: winnersDataQL, refetch: refetchWinners } = useQuery(
+    GET_ALL_WINNERS,
+    {
+      fetchPolicy: "network-only", // Forçar buscar do servidor sem cache
+      nextFetchPolicy: "network-only",
+    }
+  );
 
   const { data: postsDataQL, refetch: refetchPosts } = useQuery(GET_ALL_POSTS, {
     fetchPolicy: "cache-and-network",
@@ -206,10 +221,10 @@ export default function RecentActivities({ limit = 8, onOpen }) {
   const postsData = postsDataQL?.allPosts || [];
 
   // Debug: Log dos dados recebidos
-  console.log('📊 Dados GraphQL:', {
+  console.log("📊 Dados GraphQL:", {
     events: eventsData.length,
     winners: winnersData.length,
-    posts: postsData.length
+    posts: postsData.length,
   });
 
   // Refetch automaticamente a cada 10 segundos para pegar atualizações
@@ -270,7 +285,7 @@ export default function RecentActivities({ limit = 8, onOpen }) {
     const final = Array.from(byId.values()).sort(
       (a, b) => b.dateObj - a.dateObj
     );
-    
+
     return final.slice(0, limit);
   }, [limit, injected, eventsData, winnersData, postsData]);
 

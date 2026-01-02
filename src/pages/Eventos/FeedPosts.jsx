@@ -38,11 +38,11 @@ export default function FeedPosts({ limit = 10 }) {
 
   const getCategoryColor = (category) => {
     const colors = {
-      "Notícia": "#2196F3",
-      "Evento": "#4CAF50",
-      "Destaque": "#FF9800",
-      "Comunicado": "#9C27B0",
-      "Tutorial": "#00BCD4",
+      Notícia: "#2196F3",
+      Evento: "#4CAF50",
+      Destaque: "#FF9800",
+      Comunicado: "#9C27B0",
+      Tutorial: "#00BCD4",
     };
     return colors[category] || "#757575";
   };

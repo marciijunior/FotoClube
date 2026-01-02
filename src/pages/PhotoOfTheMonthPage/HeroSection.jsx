@@ -1,43 +1,58 @@
 // src/pages/PhotoOfTheMonthPage/HeroSection.jsx
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import { FaTrophy, FaArrowRight } from "react-icons/fa";
 import "./HeroSection.css";
+import PhotoDetailsModal from "./PhotoDetailsModal";
 
 function HeroSection({ winner, placeholderImage }) {
-  return (
-    <section className="potm-hero">
-      <div className="potm-hero-text">
-        <span className="hero-eyebrow">
-          <FaTrophy /> VENCEDOR DO MÊS
-        </span>
-        <h1 className="hero-photo-title">{winner.title}</h1>
-        <p className="hero-author">{winner.author}</p>
-        <p className="hero-description">
-          Esta impressionante captura foi escolhida como a grande vencedora.
-          Veja abaixo os outros finalistas e saiba como participar.
-        </p>
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-        <Link to={`/detalhes-foto/${winner.id}`} className="hero-cta-button">
-          Ver Detalhes da Foto <FaArrowRight />
-        </Link>
-      </div>
-      <div className="potm-hero-image-wrapper">
-        <img
-          src={
-            winner.image?.startsWith("http")
-              ? winner.image
-              : `http://localhost:3002/uploads/${winner.image}`
-          }
-          alt={winner.title}
-          className="potm-hero-image"
-          onError={(e) => {
-            e.target.onerror = null;
-            e.target.src = placeholderImage;
-          }}
+  return (
+    <>
+      <section className="potm-hero">
+        <div className="potm-hero-text">
+          <span className="hero-eyebrow">
+            <FaTrophy /> VENCEDOR DO MÊS
+          </span>
+          <h1 className="hero-photo-title">{winner.title}</h1>
+          <p className="hero-author">{winner.author}</p>
+          <p className="hero-description">
+            Esta impressionante captura foi escolhida como a grande vencedora.
+            Veja abaixo os outros finalistas e saiba como participar.
+          </p>
+
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="hero-cta-button"
+          >
+            Ver Detalhes da Foto <FaArrowRight />
+          </button>
+        </div>
+        <div className="potm-hero-image-wrapper">
+          <img
+            src={
+              winner.image?.startsWith("http")
+                ? winner.image
+                : `http://localhost:3002/uploads/${winner.image}`
+            }
+            alt={winner.title}
+            className="potm-hero-image"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = placeholderImage;
+            }}
+          />
+        </div>
+      </section>
+
+      {isModalOpen && (
+        <PhotoDetailsModal
+          winner={winner}
+          placeholderImage={placeholderImage}
+          onClose={() => setIsModalOpen(false)}
         />
-      </div>
-    </section>
+      )}
+    </>
   );
 }
 

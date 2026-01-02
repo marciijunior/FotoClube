@@ -18,6 +18,8 @@ import { DateInput } from "@mantine/dates";
 import dayjs from "dayjs";
 import "dayjs/locale/pt-br";
 import { Link } from "react-router-dom";
+import { FaCalendarAlt, FaPlus } from "react-icons/fa";
+import AdminPageLayout from "./AdminPageLayout";
 
 const ALL_EVENTS = gql`
   query AllEvents {
@@ -163,48 +165,48 @@ export default function EventsList() {
 
   if (loading)
     return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "50vh",
-        }}
+      <AdminPageLayout
+        title="Eventos"
+        subtitle="Carregando eventos..."
+        icon={<FaCalendarAlt />}
+        gradient="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
       >
-        <Loader size="xl" />
-      </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "50vh",
+          }}
+        >
+          <Loader size="xl" />
+        </div>
+      </AdminPageLayout>
     );
 
   return (
-    <div style={{ maxWidth: 1400, margin: "0 auto" }}>
+    <AdminPageLayout
+      title="Gerenciar Eventos"
+      subtitle={`${filteredAndSortedEvents.length} ${
+        filteredAndSortedEvents.length === 1
+          ? "evento cadastrado"
+          : "eventos cadastrados"
+      }`}
+      icon={<FaCalendarAlt />}
+      gradient="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
+      actionButton={
+        <Button
+          component={Link}
+          to="/admin/events/new"
+          size="lg"
+          leftSection={<FaPlus />}
+          className="admin-primary-button"
+        >
+          Novo Evento
+        </Button>
+      }
+    >
       <Stack gap="xl">
-        <Group position="apart" align="center">
-          <div>
-            <Title order={1} style={{ fontSize: "2rem", fontWeight: 800 }}>
-              📅 Gerenciar Eventos
-            </Title>
-            <Text c="dimmed" size="md" mt="xs">
-              Adicione, edite ou remova eventos do clube
-            </Text>
-          </div>
-          <Button
-            component={Link}
-            to="/admin/events/new"
-            size="lg"
-            leftSection={<span>➕</span>}
-            style={{ fontWeight: 600 }}
-          >
-            Novo Evento
-          </Button>
-        </Group>
-
-        <Group mb="sm">
-          <Badge size="lg" variant="light">
-            {filteredAndSortedEvents.length || 0}{" "}
-            {filteredAndSortedEvents.length === 1 ? "evento" : "eventos"}
-          </Badge>
-        </Group>
-
         <Card shadow="sm" padding="lg" radius="md" withBorder mb="lg">
           <Stack gap="md">
             <Group align="flex-end" grow>
@@ -559,6 +561,6 @@ export default function EventsList() {
           </SimpleGrid>
         )}
       </Stack>
-    </div>
+    </AdminPageLayout>
   );
 }

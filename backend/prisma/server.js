@@ -109,7 +109,6 @@ const typeDefs = gql`
     title: String!
     content: String!
     image: String
-    author: String!
     category: String!
     createdAt: String
   }
@@ -136,7 +135,12 @@ const typeDefs = gql`
   type Mutation {
     login(email: String!, password: String!): AuthPayload!
     register(email: String!, password: String!, name: String!): AuthPayload!
-    createUser(email: String!, password: String!, name: String!, role: String): User!
+    createUser(
+      email: String!
+      password: String!
+      name: String!
+      role: String
+    ): User!
     createSlide(
       image: String!
       title: String!
@@ -216,7 +220,6 @@ const typeDefs = gql`
       title: String!
       content: String!
       image: String
-      author: String
       category: String
     ): Post!
     updatePost(
@@ -224,7 +227,6 @@ const typeDefs = gql`
       title: String
       content: String
       image: String
-      author: String
       category: String
     ): Post!
     deletePost(id: ID!): Post!
@@ -241,8 +243,10 @@ const resolvers = {
     allWinners: async () =>
       await prisma.winner.findMany({ orderBy: { createdAt: "desc" } }),
     allMembers: async () =>
-      await prisma.member.findMany({ orderBy: { name: "asc" } }),    allPosts: async () =>
-      await prisma.post.findMany({ orderBy: { createdAt: "desc" } }),    event: async (_, { id }) =>
+      await prisma.member.findMany({ orderBy: { name: "asc" } }),
+    allPosts: async () =>
+      await prisma.post.findMany({ orderBy: { createdAt: "desc" } }),
+    event: async (_, { id }) =>
       await prisma.event.findUnique({ where: { id: parseInt(id) } }),
     winner: async (_, { id }) =>
       await prisma.winner.findUnique({ where: { id: parseInt(id) } }),
@@ -285,9 +289,10 @@ const resolvers = {
           role: user.role,
         },
       };
-    },    createUser: async (_, { email, password, name, role }) => {
+    },
+    createUser: async (_, { email, password, name, role }) => {
       const hashedPassword = await bcrypt.hash(password, 10);
-      
+
       const user = await prisma.user.create({
         data: {
           email,
@@ -303,7 +308,8 @@ const resolvers = {
         name: user.name,
         role: user.role,
       };
-    },    register: async (_, { email, password, name }) => {
+    },
+    register: async (_, { email, password, name }) => {
       const existingUser = await prisma.user.findUnique({ where: { email } });
 
       if (existingUser) {
@@ -408,14 +414,21 @@ const resolvers = {
       }
     },
     createPost: async (_, args) => {
+      console.log("[createPost] args:", args);
       const postData = {
         title: args.title,
         content: args.content,
         image: args.image || null,
-        author: args.author || "FotoClube",
         category: args.category || "Notícia",
       };
-      return await prisma.post.create({ data: postData });
+      try {
+        const post = await prisma.post.create({ data: postData });
+        console.log("[createPost] post criado:", post);
+        return post;
+      } catch (error) {
+        console.error("[createPost] erro ao criar post:", error);
+        throw error;
+      }
     },
     updatePost: async (_, { id, ...data }) => {
       return await prisma.post.update({
@@ -435,7 +448,11 @@ const app = express();
 // Configurar CORS
 app.use(
   cors({
-    origin: ["http://localhost:5173", "http://localhost:5174", "http://localhost:3000"],
+    origin: [
+      "http://localhost:5173",
+      "http://localhost:5174",
+      "http://localhost:3000",
+    ],
     credentials: true,
   })
 );

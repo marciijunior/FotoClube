@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node prisma/server.js",
-    "dev": "nodemon server.js",
+    "dev": "nodemon prisma/server.js",
     "seed": "node prisma/seed.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

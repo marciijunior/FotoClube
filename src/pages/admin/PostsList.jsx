@@ -13,6 +13,10 @@ import {
   Image,
 } from "@mantine/core";
 import { Link } from "react-router-dom";
+import { FaNewspaper, FaPlus } from "react-icons/fa";
+import AdminPageLayout from "./AdminPageLayout";
+import AddPostForm from "./AddPostForm";
+import { Routes, Route, useLocation } from "react-router-dom";
 import "./PostsList.css";
 
 const ALL_POSTS = gql`
@@ -22,7 +26,6 @@ const ALL_POSTS = gql`
       title
       content
       image
-      author
       category
       createdAt
     }
@@ -38,6 +41,28 @@ const DELETE_POST = gql`
 `;
 
 export default function PostsList() {
+  const location = useLocation();
+  return (
+    <Routes location={location}>
+      <Route path="/" element={<PostsListMain />} />
+      <Route
+        path="/new"
+        element={
+          <AdminPageLayout
+            title="Nova Postagem"
+            subtitle="Adicione uma nova postagem ao feed de eventos"
+            icon={<FaPlus />}
+            gradient="linear-gradient(135deg, #fa709a 0%, #fee140 100%)"
+          >
+            <AddPostForm />
+          </AdminPageLayout>
+        }
+      />
+    </Routes>
+  );
+}
+
+function PostsListMain() {
   const { data, loading, refetch } = useQuery(ALL_POSTS);
   const [deletePost] = useMutation(DELETE_POST);
 
@@ -45,13 +70,11 @@ export default function PostsList() {
     if (!confirm(`Tem certeza que deseja deletar "${title}"?`)) {
       return;
     }
-
     try {
       await deletePost({ variables: { id } });
       alert("Post deletado com sucesso!");
       refetch();
     } catch (error) {
-      console.error("Erro ao deletar:", error);
       alert("Erro ao deletar post: " + error.message);
     }
   };
@@ -70,47 +93,58 @@ export default function PostsList() {
 
   const getCategoryColor = (category) => {
     const colors = {
-      "Notícia": "blue",
-      "Evento": "green",
-      "Destaque": "orange",
-      "Comunicado": "grape",
-      "Tutorial": "cyan",
+      Notícia: "blue",
+      Evento: "green",
+      Destaque: "orange",
+      Comunicado: "grape",
+      Tutorial: "cyan",
     };
     return colors[category] || "gray";
   };
 
   if (loading) {
     return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "50vh",
-        }}
+      <AdminPageLayout
+        title="Posts"
+        subtitle="Carregando posts..."
+        icon={<FaNewspaper />}
+        gradient="linear-gradient(135deg, #fa709a 0%, #fee140 100%)"
       >
-        <Loader size="xl" />
-      </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "50vh",
+          }}
+        >
+          <Loader size="xl" />
+        </div>
+      </AdminPageLayout>
     );
   }
 
   const posts = data?.allPosts || [];
 
   return (
-    <div className="posts-list-container">
+    <AdminPageLayout
+      title="Posts do FotoClube"
+      subtitle={`${posts.length} ${posts.length === 1 ? "post publicado" : "posts publicados"}`}
+      icon={<FaNewspaper />}
+      gradient="linear-gradient(135deg, #fa709a 0%, #fee140 100%)"
+      actionButton={
+        <Button
+          component={Link}
+          to="/admin/posts/new"
+          size="lg"
+          leftSection={<FaPlus />}
+          className="admin-primary-button"
+        >
+          Nova Postagem
+        </Button>
+      }
+    >
       <Stack gap="xl">
-        <Group justify="space-between">
-          <div>
-            <Title order={2}>📰 Posts do FotoClube</Title>
-            <Text size="sm" c="dimmed">
-              Gerencie as publicações no feed de notícias
-            </Text>
-          </div>
-          <Button component={Link} to="/admin/posts/new" size="md">
-            ➕ Nova Postagem
-          </Button>
-        </Group>
-
         {posts.length === 0 ? (
           <Card padding="xl" withBorder>
             <Stack align="center" gap="md">
@@ -191,6 +225,6 @@ export default function PostsList() {
           </Stack>
         )}
       </Stack>
-    </div>
+    </AdminPageLayout>
   );
 }
