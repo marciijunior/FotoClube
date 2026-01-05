@@ -596,3 +596,104 @@
   color: #fff;
   border-top-color: var(--color-accent);
 }
+
+/* ===============================================
+   RESPONSIVIDADE - TABLET (768px - 1024px)
+   =============================================== */
+@media (max-width: 1024px) {
+  .upcoming-events-section {
+    padding: 60px 5%;
+  }
+
+  .section-title {
+    font-size: 2.2rem;
+  }
+
+  .pe-list {
+    gap: 16px;
+  }
+
+  .pe-card {
+    max-width: 280px;
+  }
+}
+
+/* ===============================================
+   RESPONSIVIDADE - MOBILE (até 768px)
+   =============================================== */
+@media (max-width: 768px) {
+  .upcoming-events-section {
+    padding: 50px 5%;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+  }
+
+  .upcoming-events-section > p {
+    font-size: 0.95rem;
+  }
+
+  .pe-list-container {
+    overflow-x: auto;
+    padding-bottom: 20px;
+  }
+
+  .pe-list {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 15px;
+    padding: 10px 5px;
+  }
+
+  .pe-card {
+    min-width: 280px;
+    flex-shrink: 0;
+  }
+
+  .pe-card-image {
+    height: 160px;
+  }
+
+  .pe-card-title {
+    font-size: 1rem;
+  }
+
+  .pe-card-meta {
+    font-size: 0.75rem;
+  }
+}
+
+/* ===============================================
+   RESPONSIVIDADE - MOBILE PEQUENO (até 480px)
+   =============================================== */
+@media (max-width: 480px) {
+  .upcoming-events-section {
+    padding: 40px 5%;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .upcoming-events-section > p {
+    font-size: 0.9rem;
+  }
+
+  .pe-card {
+    min-width: 260px;
+  }
+
+  .pe-card-image {
+    height: 140px;
+  }
+
+  .pe-card-title {
+    font-size: 0.95rem;
+  }
+
+  .pe-card-button {
+    font-size: 0.7rem;
+  }
+}

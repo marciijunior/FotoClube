@@ -65,7 +65,7 @@ export default function PageEventos() {
             <h2>Atualizações Recentes</h2>
           </div>
           <div className="glass-container feed-container">
-            <RecentActivities limit={8} />
+            <RecentActivities limit={8} showTitle={false} />
           </div>
         </section>
       </div>

@@ -184,3 +184,63 @@
     font-size: 2rem;
   }
 }
+
+/* ===============================================
+   RESPONSIVIDADE ADICIONAL - TABLET (até 1024px)
+   =============================================== */
+@media (max-width: 1024px) {
+  .join-us-section {
+    padding: 60px 5%;
+  }
+
+  .join-us-title {
+    font-size: 2.5rem;
+  }
+
+  .join-us-description {
+    font-size: 1rem;
+  }
+
+  .join-us-floating-card {
+    padding: 35px;
+  }
+}
+
+/* ===============================================
+   RESPONSIVIDADE ADICIONAL - MOBILE (até 480px)
+   =============================================== */
+@media (max-width: 480px) {
+  .join-us-section {
+    padding: 40px 5%;
+  }
+
+  .join-us-title {
+    font-size: 1.8rem;
+  }
+
+  .join-us-description {
+    font-size: 0.9rem;
+  }
+
+  .join-us-floating-card {
+    padding: 25px;
+  }
+
+  .join-us-stats-title {
+    font-size: 1.6rem;
+  }
+
+  .stats-number {
+    font-size: 2rem;
+  }
+
+  .stats-label {
+    font-size: 0.85rem;
+  }
+
+  .join-button {
+    padding: 12px 28px;
+    font-size: 0.9rem;
+    width: 100%;
+  }
+}

@@ -188,7 +188,11 @@ const mapWinners = (arr = []) =>
     };
   });
 
-export default function RecentActivities({ limit = 8, onOpen }) {
+export default function RecentActivities({
+  limit = 8,
+  onOpen,
+  showTitle = true,
+}) {
   const { data: eventsDataQL, refetch: refetchEvents } = useQuery(
     GET_ALL_EVENTS,
     {
@@ -334,6 +338,9 @@ export default function RecentActivities({ limit = 8, onOpen }) {
       aria-labelledby="recent-activities-title"
     >
       <div className="recent-inner">
+        {showTitle && (
+          <h3 id="recent-activities-title">Atualizações Recentes</h3>
+        )}
         <div className="recent-grid">
           {unified.map((it) => (
             <article

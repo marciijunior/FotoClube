@@ -1,5 +1,10 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import { FaChevronLeft, FaChevronRight, FaStar, FaRegStar } from "react-icons/fa";
+import {
+  FaChevronLeft,
+  FaChevronRight,
+  FaStar,
+  FaRegStar,
+} from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { gql } from "@apollo/client";
 import { useQuery } from "@apollo/client/react";
@@ -33,7 +38,7 @@ function HeroCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleThumbnails, setVisibleThumbnails] = useState([]);
   const [favorites, setFavorites] = useState(() => {
-    const saved = localStorage.getItem('favoriteSlides');
+    const saved = localStorage.getItem("favoriteSlides");
     return saved ? JSON.parse(saved) : [];
   });
   const slidesWrapperRef = useRef(null);
@@ -61,7 +66,7 @@ function HeroCarousel() {
       const newFavorites = prev.includes(slideId)
         ? prev.filter((id) => id !== slideId)
         : [...prev, slideId];
-      localStorage.setItem('favoriteSlides', JSON.stringify(newFavorites));
+      localStorage.setItem("favoriteSlides", JSON.stringify(newFavorites));
       return newFavorites;
     });
   };
@@ -133,10 +138,14 @@ function HeroCarousel() {
               <h2 className="title">{slide.subtitle}</h2>
               <p className="author">Por {slide.author}</p>
               <div className="actions">
-                <button 
+                <button
                   className="bookmark-button"
                   onClick={() => toggleFavorite(slide.id)}
-                  title={favorites.includes(slide.id) ? "Remover dos favoritos" : "Adicionar aos favoritos"}
+                  title={
+                    favorites.includes(slide.id)
+                      ? "Remover dos favoritos"
+                      : "Adicionar aos favoritos"
+                  }
                 >
                   {favorites.includes(slide.id) ? <FaStar /> : <FaRegStar />}
                 </button>

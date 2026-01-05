@@ -140,6 +140,15 @@
   opacity: 0.5;
 }
 
+/* Reduzir padding do RecentActivities dentro de glass-container */
+.glass-container .recent-activities {
+  padding: 0;
+}
+
+.glass-container .recent-inner {
+  padding: 0;
+}
+
 @media (max-width: 768px) {
   .hero-title {
     font-size: 2.5rem;

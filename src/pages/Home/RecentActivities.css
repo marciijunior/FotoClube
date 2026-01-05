@@ -153,3 +153,59 @@
 @media (max-width: 600px) {
   .recent-grid { grid-template-columns: 1fr; } /* 1 coluna em telemóveis */
 }
+/* ===============================================
+   RESPONSIVIDADE ADICIONAL - MOBILE (até 768px)
+   =============================================== */
+@media (max-width: 768px) {
+  .recent-activities {
+    padding: 50px 5%;
+  }
+
+  .recent-activities h3 {
+    font-size: 1.8rem;
+  }
+
+  .recent-card-title {
+    font-size: 1rem;
+  }
+
+  .recent-card-excerpt {
+    font-size: 0.85rem;
+  }
+
+  .recent-card-badge {
+    font-size: 0.7rem;
+    padding: 4px 10px;
+  }
+}
+
+/* ===============================================
+   RESPONSIVIDADE - MOBILE PEQUENO (até 480px)
+   =============================================== */
+@media (max-width: 480px) {
+  .recent-activities {
+    padding: 40px 5%;
+  }
+
+  .recent-activities h3 {
+    font-size: 1.5rem;
+  }
+
+  .recent-card {
+    min-height: 280px;
+  }
+
+  .recent-card-title {
+    font-size: 0.95rem;
+  }
+
+  .recent-card-excerpt {
+    font-size: 0.8rem;
+    -webkit-line-clamp: 2;
+  }
+
+  .recent-card-badge {
+    font-size: 0.65rem;
+    padding: 3px 8px;
+  }
+}

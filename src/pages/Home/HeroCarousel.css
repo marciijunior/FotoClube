@@ -215,3 +215,155 @@
 .arrow:hover {
   background-color: var(--color-accent);
 }
+
+/* ===============================================
+   RESPONSIVIDADE - TABLET (768px - 1024px)
+   =============================================== */
+@media (max-width: 1024px) {
+  .slide {
+    padding-inline: 5%;
+  }
+
+  .title {
+    font-size: 4rem;
+  }
+
+  .location {
+    font-size: 0.9rem;
+  }
+
+  .author {
+    font-size: 1rem;
+  }
+
+  .thumbnail {
+    height: 100px;
+  }
+
+  .counter {
+    font-size: 3rem;
+  }
+
+  .arrow {
+    width: 45px;
+    height: 45px;
+    font-size: 1.1rem;
+  }
+}
+
+/* ===============================================
+   RESPONSIVIDADE - MOBILE (até 768px)
+   =============================================== */
+@media (max-width: 768px) {
+  .carousel-container {
+    height: 100vh;
+  }
+
+  .slide {
+    padding-inline: 5%;
+    align-items: flex-end;
+    padding-bottom: 180px;
+  }
+
+  .slide-content {
+    width: 100%;
+  }
+
+  .title {
+    font-size: 2.5rem;
+    line-height: 1.1;
+  }
+
+  .location {
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+  }
+
+  .author {
+    font-size: 0.95rem;
+    margin-top: 12px;
+  }
+
+  .actions {
+    margin-top: 20px;
+    gap: 15px;
+  }
+
+  .bookmark-button {
+    padding: 10px;
+    font-size: 1rem;
+  }
+
+  .read-more-button {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    margin-left: 0;
+  }
+
+  .slide-thumbnails {
+    gap: 10px;
+    padding: 0 5%;
+  }
+
+  .thumbnail {
+    height: 70px;
+  }
+
+  .navigation-controls {
+    padding: 15px 5%;
+  }
+
+  .counter {
+    font-size: 2.5rem;
+  }
+
+  .arrow {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+}
+
+/* ===============================================
+   RESPONSIVIDADE - MOBILE PEQUENO (até 480px)
+   =============================================== */
+@media (max-width: 480px) {
+  .slide {
+    padding-bottom: 160px;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .location {
+    font-size: 0.75rem;
+  }
+
+  .author {
+    font-size: 0.85rem;
+  }
+
+  .actions {
+    flex-wrap: wrap;
+  }
+
+  .read-more-button {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+
+  .thumbnail {
+    height: 60px;
+  }
+
+  .counter {
+    font-size: 2rem;
+  }
+
+  .arrow {
+    width: 35px;
+    height: 35px;
+    font-size: 0.9rem;
+  }
+}

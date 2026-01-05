@@ -17,7 +17,10 @@
   z-index: 100;
   color: var(--color-light);
   /* (MODIFICAÇÃO) Adicionada transição suave */
-  transition: background-color 0.4s ease, padding 0.4s ease, box-shadow 0.4s ease;
+  transition:
+    background-color 0.4s ease,
+    padding 0.4s ease,
+    box-shadow 0.4s ease;
 }
 
 .logo img {
@@ -30,7 +33,7 @@
 .nav {
   display: flex;
   gap: 30px;
-  align-items: baseline; 
+  align-items: baseline;
 }
 
 /* Estilo base para links normais e toggle */
@@ -42,7 +45,7 @@
   font-family: var(--font-body);
   font-size: 1rem;
   position: relative;
-  padding-bottom: 8px; 
+  padding-bottom: 8px;
   cursor: pointer;
   transition: color 0.3s ease;
   white-space: nowrap;
@@ -75,11 +78,10 @@
   content: none;
 }
 
-
 /* --- SEUS ESTILOS DE DROPDOWN (INTOCADOS) --- */
 .dropdown {
   position: relative;
-  display: inline-block; 
+  display: inline-block;
 }
 .dropdown-toggle {
   cursor: default;
@@ -88,53 +90,55 @@
   content: "";
   position: absolute;
   top: calc(100% + 8px - 2px);
-  right: -87px; 
+  right: -87px;
   width: 2px;
-  height: 0; 
+  height: 0;
   background-color: var(--color-accent);
   transition: height 0.2s ease;
   z-index: 101;
 }
 .dropdown:hover::after {
-  height: 47px; 
+  height: 47px;
   transition: height 0.2s ease 0.3s;
 }
 .dropdown::before {
   content: "";
   position: absolute;
   top: calc(100% + -32px - 2px + var(--dropdown-line-height));
-  left: 0; 
-  width: 0; 
+  left: 0;
+  width: 0;
   height: 2px;
   background-color: var(--color-accent);
   transition: width 0.3s ease 0.15s;
   z-index: 102;
 }
 .dropdown:hover::before {
-  width: 200%; 
+  width: 200%;
   transition: width 0.3s ease 0s;
 }
 .dropdown-menu {
   position: absolute;
   top: calc(100% + -32px - 2px + var(--dropdown-line-height));
   left: 0;
-  width: 200%; 
+  width: 200%;
   background-color: var(--color-light);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  z-index: 100; 
-  border-radius: 0; 
+  z-index: 100;
+  border-radius: 0;
   padding: 8px 0;
   margin-top: 0;
   opacity: 0;
   transform: translateY(5px);
   pointer-events: none;
-  transition: opacity 0.2s ease 0.4s, transform 0.2s ease 0.4s; 
+  transition:
+    opacity 0.2s ease 0.4s,
+    transform 0.2s ease 0.4s;
 }
 .dropdown:hover .dropdown-menu {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
-  display: block; 
+  display: block;
 }
 .dropdown-item {
   color: var(--color-primary);
@@ -144,14 +148,15 @@
   font-family: var(--font-body);
   font-size: 0.9rem;
   line-height: 1.5;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
   white-space: nowrap;
 }
 .dropdown-item:hover {
   color: var(--color-accent);
 }
 /* --- FIM DOS ESTILOS DO DROPDOWN --- */
-
 
 /* --- SEU BOTÃO HIGHLIGHT (INTOCADO) --- */
 .nav-link-highlight {
@@ -188,7 +193,6 @@
 }
 /* --- FIM DO HIGHLIGHT --- */
 
-
 /* --- (MODIFICAÇÃO) NOVOS ESTILOS PARA PÁGINAS INTERNAS --- */
 
 /* Esta classe é aplicada quando NÃO estamos na Home */
@@ -197,9 +201,9 @@
   background-color: var(--color-light); /* Fundo claro */
   color: var(--color-primary); /* Texto escuro */
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  
+
   /* Padding menor para o header fixo */
-  padding: 20px 10%; 
+  padding: 20px 10%;
 }
 
 /* Logo menor no header sólido */
@@ -211,7 +215,7 @@
 .header-solid .nav-link,
 .header-solid .dropdown-toggle {
   /* ESTA É A COR QUE VOCÊ PEDIU (cor primária) */
-  color: var(--color-primary); 
+  color: var(--color-primary);
 }
 
 /* Hover dos links no header sólido */
@@ -231,4 +235,272 @@
 }
 .header-solid .nav-link-highlight:hover::after {
   background-color: var(--color-primary);
+}
+/* ===============================================
+   RESPONSIVIDADE MOBILE - MENU HAMBÚRGUER
+   =============================================== */
+
+/* Esconder botão hambúrguer no desktop */
+.mobile-menu-toggle {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  /* Header mantém altura menor mas sempre visível no scroll up */
+  .header {
+    padding: 15px 5%;
+    position: fixed;
+    background-color: transparent;
+    transition:
+      background-color 0.4s ease,
+      padding 0.4s ease,
+      box-shadow 0.4s ease,
+      transform 0.3s ease;
+  }
+
+  /* Fundo branco quando não está no topo */
+  .header.header-scrolled {
+    background-color: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Logo e botão adaptam cor quando há fundo branco */
+  .header.header-scrolled .logo img {
+    /* Trocar para logo azul quando tiver fundo branco */
+    content: url("../../assets/logo-fotoclube-azul.png");
+  }
+
+  .header.header-scrolled .mobile-menu-toggle {
+    background: rgba(0, 48, 87, 0.05);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  .header.header-scrolled .mobile-menu-toggle:hover {
+    background: var(--color-primary);
+    color: white;
+  }
+
+  .header.header-scrolled .mobile-menu-toggle:hover {
+    background: var(--color-primary);
+    color: white;
+  }
+
+  .header-hidden {
+    transform: translateY(-100%);
+  }
+
+  .logo img {
+    height: 3rem;
+  }
+
+  /* Mostrar botão hambúrguer */
+  .mobile-menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 92, 0, 0.1);
+    border: 2px solid var(--color-accent);
+    color: var(--color-accent);
+    font-size: 1.4rem;
+    width: 45px;
+    height: 45px;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 1001;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(255, 92, 0, 0.15);
+  }
+
+  .header-solid .mobile-menu-toggle {
+    background: rgba(0, 48, 87, 0.05);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  .mobile-menu-toggle:hover {
+    background: var(--color-accent);
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(255, 92, 0, 0.3);
+  }
+
+  .header-solid .mobile-menu-toggle:hover {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: white;
+  }
+
+  /* Navegação mobile - menu lateral */
+  .nav {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    height: 100vh;
+    width: 300px;
+    background: linear-gradient(135deg, #003057 0%, #00416a 100%);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 90px 25px 30px;
+    gap: 8px;
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.3);
+    transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    overflow-y: auto;
+  }
+
+  .nav-mobile-open {
+    right: 0;
+  }
+
+  /* Links no menu mobile sempre com cor primária */
+  .nav-link,
+  .dropdown-toggle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.05rem;
+    font-weight: 500;
+    width: 100%;
+    padding: 14px 18px;
+    border-radius: 8px;
+    transition: all 0.25s ease;
+    letter-spacing: 0.3px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .nav-link::before,
+  .dropdown-toggle::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 3px;
+    background: var(--color-accent);
+    transform: scaleY(0);
+    transition: transform 0.25s ease;
+  }
+
+  .nav-link:hover,
+  .dropdown:hover .dropdown-toggle {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+    padding-left: 24px;
+  }
+
+  .nav-link:hover::before,
+  .dropdown:hover .dropdown-toggle::before {
+    transform: scaleY(1);
+  }
+
+  /* Ajustar dropdown no mobile */
+  .dropdown {
+    width: 100%;
+  }
+
+  .dropdown::after,
+  .dropdown::before {
+    display: none;
+  }
+
+  .dropdown-menu {
+    position: static;
+    width: 100%;
+    box-shadow: none;
+    background: rgba(0, 0, 0, 0.2);
+    margin-top: 8px;
+    margin-left: 12px;
+    padding: 8px 0;
+    border-radius: 8px;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    display: none;
+    border-left: 2px solid var(--color-accent);
+  }
+
+  .dropdown:hover .dropdown-menu {
+    display: block;
+  }
+
+  .dropdown-item {
+    padding: 12px 20px;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.95rem;
+    font-weight: 400;
+    border-radius: 6px;
+    margin: 2px 8px;
+    transition: all 0.2s ease;
+  }
+
+  .dropdown-item:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+    padding-left: 26px;
+  }
+
+  /* Botão highlight no mobile */
+  .nav-link-highlight {
+    width: calc(100% - 8px);
+    text-align: center;
+    margin: 20px 4px 0;
+    background: linear-gradient(135deg, var(--color-accent) 0%, #ff7a00 100%);
+    color: white;
+    padding: 16px 24px;
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(255, 92, 0, 0.3);
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+  }
+
+  .nav-link-highlight:hover {
+    background: linear-gradient(135deg, #ff7a00 0%, var(--color-accent) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 92, 0, 0.4);
+  }
+
+  .nav-link-highlight::before {
+    display: none;
+  }
+
+  /* Overlay escuro quando menu está aberto */
+  .nav-mobile-open::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(2px);
+    z-index: -1;
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .logo img {
+    height: 2.5rem;
+  }
+
+  .nav {
+    width: 280px;
+  }
+
+  .mobile-menu-toggle {
+    width: 42px;
+    height: 42px;
+    font-size: 1.3rem;
+  }
 }

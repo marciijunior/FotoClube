@@ -112,3 +112,57 @@
     margin-left: 0; 
   }
 }
+/* ===============================================
+   RESPONSIVIDADE ADICIONAL - MOBILE (até 768px)
+   =============================================== */
+@media (max-width: 768px) {
+  .magazine-section {
+    padding: 50px 5%;
+  }
+
+  .magazine-text-box h2 {
+    font-size: 2rem;
+  }
+
+  .magazine-text-box p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .magazine-image-stack {
+    height: 300px;
+  }
+
+  .magazine-cta-button {
+    padding: 12px 28px;
+    font-size: 0.95rem;
+  }
+}
+
+/* ===============================================
+   RESPONSIVIDADE - MOBILE PEQUENO (até 480px)
+   =============================================== */
+@media (max-width: 480px) {
+  .magazine-section {
+    padding: 40px 5%;
+  }
+
+  .magazine-text-box h2 {
+    font-size: 1.6rem;
+  }
+
+  .magazine-text-box p {
+    font-size: 0.9rem;
+  }
+
+  .magazine-image-stack {
+    height: 250px;
+  }
+
+  .magazine-cta-button {
+    padding: 10px 24px;
+    font-size: 0.9rem;
+    width: 100%;
+    justify-content: center;
+  }
+}
