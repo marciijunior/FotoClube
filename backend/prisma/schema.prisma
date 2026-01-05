@@ -65,6 +65,7 @@ model Post {
   title       String
   content     String
   image       String?
+  author      String   @default("FotoClube")
   category    String   @default("Notícia")
   createdAt   DateTime @default(now())
 }

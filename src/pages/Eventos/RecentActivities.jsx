@@ -334,7 +334,6 @@ export default function RecentActivities({ limit = 8, onOpen }) {
       aria-labelledby="recent-activities-title"
     >
       <div className="recent-inner">
-        <h3 id="recent-activities-title">Atualizações Recentes</h3>
         <div className="recent-grid">
           {unified.map((it) => (
             <article

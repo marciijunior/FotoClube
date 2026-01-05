@@ -22,7 +22,9 @@ async function verificarWinners() {
       console.log(`   Mês: ${winner.monthWon}`);
       console.log(`   createdAt: ${winner.createdAt}`);
       console.log(`   createdAt type: ${typeof winner.createdAt}`);
-      console.log(`   createdAt valid: ${winner.createdAt instanceof Date && !isNaN(winner.createdAt.getTime())}`);
+      console.log(
+        `   createdAt valid: ${winner.createdAt instanceof Date && !isNaN(winner.createdAt.getTime())}`
+      );
       console.log("");
     });
 

@@ -9,7 +9,7 @@ async function createAdmin() {
   try {
     // Verificar se já existe
     const existing = await prisma.user.findUnique({
-      where: { email: "admin@fotoclube.com" }
+      where: { email: "admin@fotoclube.com" },
     });
 
     if (existing) {

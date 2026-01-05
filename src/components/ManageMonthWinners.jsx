@@ -206,7 +206,7 @@ export default function ManageMonthWinners({ monthWon }) {
             if (prevPhotos[i] && (prevPhotos[i].file || prevPhotos[i].image)) {
               return prevPhotos[i];
             }
-            
+
             const existing = monthPhotos.find((p) => p.position === i + 1);
             if (existing) {
               if (existing.isWinner) setSelectedWinner(i);

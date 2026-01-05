@@ -40,7 +40,6 @@ export default function PageEventos() {
       <div className="page-eventos-container">
         <section id="agenda-focus" className="eventos-section">
           <div className="section-label">
-            <FaCalendarAlt className="icon-label" />
             <h2>Calendário Mensal</h2>
           </div>
           <div className="glass-container">
@@ -51,8 +50,7 @@ export default function PageEventos() {
         <div className="section-spacer"></div>
 
         <section className="eventos-section">
-          <div className="section-label">
-            <FaNewspaper className="icon-label" />
+          <div className="section-label centered">
             <h2>Feed do FotoClube</h2>
           </div>
           <div className="glass-container feed-container">
@@ -64,7 +62,6 @@ export default function PageEventos() {
 
         <section className="eventos-section">
           <div className="section-label">
-            <FaBullhorn className="icon-label" />
             <h2>Atualizações Recentes</h2>
           </div>
           <div className="glass-container feed-container">

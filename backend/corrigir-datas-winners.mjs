@@ -21,14 +21,17 @@ async function corrigirDatas() {
 
     for (const winner of winners) {
       // Verificar se createdAt é inválido ou está null
-      const createdAtIsInvalid = 
-        !winner.createdAt || 
-        !(winner.createdAt instanceof Date) || 
+      const createdAtIsInvalid =
+        !winner.createdAt ||
+        !(winner.createdAt instanceof Date) ||
         isNaN(winner.createdAt.getTime());
 
       if (createdAtIsInvalid) {
-        console.log(`❌ Winner ${winner.id} (${winner.title}) tem createdAt inválido:`, winner.createdAt);
-        
+        console.log(
+          `❌ Winner ${winner.id} (${winner.title}) tem createdAt inválido:`,
+          winner.createdAt
+        );
+
         // Atualizar com data atual
         await prisma.winner.update({
           where: { id: winner.id },
@@ -38,11 +41,15 @@ async function corrigirDatas() {
         console.log(`   ✅ Atualizado para: ${agora.toISOString()}\n`);
         corrigidos++;
       } else {
-        console.log(`✓ Winner ${winner.id} (${winner.title}) OK - createdAt: ${winner.createdAt.toISOString()}`);
+        console.log(
+          `✓ Winner ${winner.id} (${winner.title}) OK - createdAt: ${winner.createdAt.toISOString()}`
+        );
       }
     }
 
-    console.log(`\n✅ Correção concluída! ${corrigidos} Winners atualizados.\n`);
+    console.log(
+      `\n✅ Correção concluída! ${corrigidos} Winners atualizados.\n`
+    );
 
     await prisma.$disconnect();
     db.close();

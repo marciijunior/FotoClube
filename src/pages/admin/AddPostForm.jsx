@@ -13,8 +13,20 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const CREATE_POST = gql`
-  mutation CreatePost($input: CreatePostInput!) {
-    createPost(input: $input) {
+  mutation CreatePost(
+    $title: String!
+    $content: String!
+    $image: String
+    $author: String
+    $category: String
+  ) {
+    createPost(
+      title: $title
+      content: $content
+      image: $image
+      author: $author
+      category: $category
+    ) {
       id
       title
       content
@@ -62,11 +74,16 @@ export default function AddPostForm() {
         const result = await res.json();
         imageUrl = result.url;
       }
-      const postInput = {
-        ...form,
-        image: imageUrl || null,
-      };
-      await createPost({ variables: { input: postInput } });
+
+      await createPost({
+        variables: {
+          title: form.title,
+          content: form.content,
+          image: imageUrl || null,
+          author: "FotoClube",
+          category: form.category,
+        },
+      });
       alert("Post criado com sucesso!");
       navigate("/admin/posts");
     } catch (error) {

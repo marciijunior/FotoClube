@@ -548,14 +548,14 @@ export default function EditEventForm({ event, onDone }) {
                       type="button"
                       onClick={() => setFormData({ ...formData, image: "" })}
                       style={{
-                        background: 'none',
-                        border: 'none',
-                        cursor: 'pointer',
-                        fontSize: '18px',
-                        color: '#868e96',
-                        padding: '4px',
-                        display: 'flex',
-                        alignItems: 'center'
+                        background: "none",
+                        border: "none",
+                        cursor: "pointer",
+                        fontSize: "18px",
+                        color: "#868e96",
+                        padding: "4px",
+                        display: "flex",
+                        alignItems: "center",
                       }}
                       title="Remover imagem"
                     >

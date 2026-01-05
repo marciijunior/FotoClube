@@ -109,6 +109,7 @@ const typeDefs = gql`
     title: String!
     content: String!
     image: String
+    author: String!
     category: String!
     createdAt: String
   }
@@ -220,6 +221,7 @@ const typeDefs = gql`
       title: String!
       content: String!
       image: String
+      author: String
       category: String
     ): Post!
     updatePost(
@@ -227,6 +229,7 @@ const typeDefs = gql`
       title: String
       content: String
       image: String
+      author: String
       category: String
     ): Post!
     deletePost(id: ID!): Post!
@@ -374,7 +377,20 @@ const resolvers = {
     deleteMember: async (_, { id }) => {
       return await prisma.member.delete({ where: { id: parseInt(id) } });
     },
-    createEvent: async (_, args) => await prisma.event.create({ data: args }),
+    createEvent: async (_, args) => {
+      const { title, date, time, description, location, image, category } =
+        args;
+      const eventData = {
+        title,
+        date,
+        time,
+        description,
+        location,
+        category: category || "Geral",
+      };
+      if (image) eventData.image = image;
+      return await prisma.event.create({ data: eventData });
+    },
     updateEvent: async (_, { id, ...data }) => {
       return await prisma.event.update({
         where: { id: parseInt(id) },
@@ -414,21 +430,14 @@ const resolvers = {
       }
     },
     createPost: async (_, args) => {
-      console.log("[createPost] args:", args);
       const postData = {
         title: args.title,
         content: args.content,
         image: args.image || null,
+        author: args.author || "FotoClube",
         category: args.category || "Notícia",
       };
-      try {
-        const post = await prisma.post.create({ data: postData });
-        console.log("[createPost] post criado:", post);
-        return post;
-      } catch (error) {
-        console.error("[createPost] erro ao criar post:", error);
-        throw error;
-      }
+      return await prisma.post.create({ data: postData });
     },
     updatePost: async (_, { id, ...data }) => {
       return await prisma.post.update({
@@ -470,7 +479,18 @@ app.post("/upload", upload.single("image"), async (req, res) => {
     }
 
     const originalPath = req.file.path;
-    const webpFilename = req.file.filename.replace(/\.[^.]+$/, ".webp");
+
+    // Verificar se o arquivo existe
+    if (!fs.existsSync(originalPath)) {
+      return res
+        .status(400)
+        .json({ error: "Arquivo não foi salvo corretamente" });
+    }
+
+    // Gerar um nome único com timestamp para evitar conflitos
+    const timestamp = Date.now();
+    const random = Math.floor(Math.random() * 1000000);
+    const webpFilename = `${timestamp}-${random}.webp`;
     const webpPath = path.join(__dirname, "../uploads", webpFilename);
 
     // Converter para WebP com otimização
@@ -483,8 +503,14 @@ app.post("/upload", upload.single("image"), async (req, res) => {
       })
       .toFile(webpPath);
 
-    // Deletar arquivo original
-    fs.unlinkSync(originalPath);
+    // Deletar arquivo original apenas se for diferente do novo
+    if (originalPath !== webpPath) {
+      try {
+        fs.unlinkSync(originalPath);
+      } catch (e) {
+        console.warn("Não foi possível deletar arquivo original:", e.message);
+      }
+    }
 
     const imageUrl = `http://localhost:3002/uploads/${webpFilename}`;
     res.json({ url: imageUrl, filename: webpFilename });

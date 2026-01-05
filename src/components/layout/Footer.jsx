@@ -56,25 +56,33 @@ function Footer() {
             Agradecemos aos parceiros que apoiam nossa paixão pela fotografia.
           </p>
           <div className="footer-partners-grid">
-            <img 
-              src="https://logo.clearbit.com/canon.com" 
-              alt="Canon Logo" 
-              onError={(e) => { e.target.style.display = 'none'; }}
+            <img
+              src="https://logo.clearbit.com/canon.com"
+              alt="Canon Logo"
+              onError={(e) => {
+                e.target.style.display = "none";
+              }}
             />
-            <img 
-              src="https://logo.clearbit.com/nikon.com" 
-              alt="Nikon Logo" 
-              onError={(e) => { e.target.style.display = 'none'; }}
+            <img
+              src="https://logo.clearbit.com/nikon.com"
+              alt="Nikon Logo"
+              onError={(e) => {
+                e.target.style.display = "none";
+              }}
             />
-            <img 
-              src="https://logo.clearbit.com/adobe.com" 
-              alt="Adobe Logo" 
-              onError={(e) => { e.target.style.display = 'none'; }}
+            <img
+              src="https://logo.clearbit.com/adobe.com"
+              alt="Adobe Logo"
+              onError={(e) => {
+                e.target.style.display = "none";
+              }}
             />
             <img
               src="https://logo.clearbit.com/fujifilm.com"
               alt="Fujifilm Logo"
-              onError={(e) => { e.target.style.display = 'none'; }}
+              onError={(e) => {
+                e.target.style.display = "none";
+              }}
             />
           </div>
         </div>
@@ -83,7 +91,6 @@ function Footer() {
         <div className="footer-column">
           <h3 className="footer-title">Nossa Sede</h3>
           <div className="footer-map-wrapper">
-            
             {/* --- MUDANÇA IMPORTANTE AQUI --- */}
             <iframe
               /* ESTE É O LINK DE EMBED PÚBLICO E CORRETO */
@@ -97,7 +104,6 @@ function Footer() {
               title="Mapa de Araçatuba"
             ></iframe>
             {/* --- FIM DA MUDANÇA --- */}
-
           </div>
         </div>
       </div>
