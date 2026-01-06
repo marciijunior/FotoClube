@@ -187,20 +187,33 @@
 }
 
 @media (max-width: 600px) {
-  .recent-activities {
-    padding: 60px 0;
+  .recent-inner {
+    padding: 0 6px !important;
   }
-
-  .recent-activities h3 {
-    font-size: 2rem;
-  }
-
   .recent-grid {
-    grid-template-columns: 1fr;
-    gap: 15px;
+    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-rows: repeat(2, 1fr) !important;
+    gap: 10px !important;
   }
-
+  .recent-card,
+  .recent-thumb-wrap,
+  .recent-body,
+  .recent-title,
+  .recent-card-desc,
+  .recent-meta-item {
+    font-size: 0.8rem !important;
+    line-height: 1.2 !important;
+  }
+  .recent-card {
+    padding: 6px 6px 30px 6px !important;
+  }
   .recent-thumb-wrap {
-    height: 160px;
+    height: 70px !important;
+  }
+  .recent-title {
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
+    margin: 6px 0 4px 0 !important;
   }
 }

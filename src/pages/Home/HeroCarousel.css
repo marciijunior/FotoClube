@@ -50,7 +50,9 @@
   text-align: left;
   transform: translateY(20px);
   opacity: 0;
-  transition: transform 0.8s 0.5s ease-out, opacity 0.8s 0.5s ease-out;
+  transition:
+    transform 0.8s 0.5s ease-out,
+    opacity 0.8s 0.5s ease-out;
 }
 
 .slide.active .slide-content {
@@ -100,7 +102,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.3s, color 0.3s;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
 }
 
 .read-more-button {
@@ -115,11 +119,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.3s, color 0.3s;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
   padding: 12px 24px;
 }
 
-.bookmark-button:hover, .read-more-button:hover {
+.bookmark-button:hover,
+.read-more-button:hover {
   background-color: var(--color-light);
   color: var(--color-primary);
   border-color: var(--color-light);
@@ -270,33 +277,33 @@
   }
 
   .title {
-    font-size: 2.5rem;
+    font-size: 2rem;
     line-height: 1.1;
   }
 
   .location {
-    font-size: 0.85rem;
-    letter-spacing: 1.5px;
+    font-size: 0.75rem;
+    letter-spacing: 1.3px;
   }
 
   .author {
-    font-size: 0.95rem;
-    margin-top: 12px;
+    font-size: 0.85rem;
+    margin-top: 10px;
   }
 
   .actions {
-    margin-top: 20px;
-    gap: 15px;
+    margin-top: 18px;
+    gap: 12px;
   }
 
   .bookmark-button {
-    padding: 10px;
-    font-size: 1rem;
+    padding: 9px;
+    font-size: 0.95rem;
   }
 
   .read-more-button {
-    padding: 10px 20px;
-    font-size: 0.9rem;
+    padding: 9px 18px;
+    font-size: 0.85rem;
     margin-left: 0;
   }
 
@@ -314,7 +321,7 @@
   }
 
   .counter {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 
   .arrow {
@@ -329,28 +336,35 @@
    =============================================== */
 @media (max-width: 480px) {
   .slide {
-    padding-bottom: 160px;
+    padding-bottom: 150px;
   }
 
   .title {
-    font-size: 2rem;
+    font-size: 1.6rem;
   }
 
   .location {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
   }
 
   .author {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
   }
 
   .actions {
     flex-wrap: wrap;
+    margin-top: 15px;
+    gap: 10px;
+  }
+
+  .bookmark-button {
+    padding: 8px;
+    font-size: 0.9rem;
   }
 
   .read-more-button {
     padding: 8px 16px;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
   }
 
   .thumbnail {
@@ -358,7 +372,7 @@
   }
 
   .counter {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 
   .arrow {

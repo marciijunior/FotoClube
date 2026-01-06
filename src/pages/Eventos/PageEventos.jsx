@@ -39,7 +39,7 @@ export default function PageEventos() {
 
       <div className="page-eventos-container">
         <section id="agenda-focus" className="eventos-section">
-          <div className="section-label">
+          <div className="section-label centered">
             <h2>Calendário Mensal</h2>
           </div>
           <div className="glass-container">

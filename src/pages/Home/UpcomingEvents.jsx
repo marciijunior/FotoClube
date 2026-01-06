@@ -27,6 +27,16 @@ const ALL_EVENTS = gql`
   }
 `;
 
+function useIsMobile(breakpoint = 1000) {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= breakpoint);
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= breakpoint);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [breakpoint]);
+  return isMobile;
+}
+
 function UpcomingEvents() {
   const { data, loading } = useQuery(ALL_EVENTS, {
     fetchPolicy: "network-only",
@@ -99,6 +109,7 @@ function UpcomingEvents() {
     displayEvents.length > 0 ? displayEvents[0].id : null
   );
   const [timerProgress, setTimerProgress] = useState(0);
+  const isMobile = useIsMobile(1000);
 
   // Atualizar activeEventId quando displayEvents mudar
   useEffect(() => {
@@ -197,6 +208,67 @@ function UpcomingEvents() {
     return null;
   }
 
+  // MOBILE LAYOUT: data/foto em cima, descrição embaixo
+  if (isMobile) {
+    const event =
+      displayEvents.find((e) => e.id === activeEventId) || displayEvents[0];
+    const dateParts = event.date ? event.date.split(", ") : ["01", "Jan-2025"];
+    const day = dateParts[0];
+    const month = dateParts[1] ? dateParts[1].split("-")[0] : "";
+    return (
+      <section className="upcoming-events-section">
+        <div className="upcoming-events-container">
+          <div className="polaroid-container">
+            <h2 className="section-title">Próximos Eventos</h2>
+            <div className="ph-mobile-block">
+              <div className="ph-mobile-date-image">
+                <div className="ph-item-date">
+                  <span>{day}</span>
+                  <span>{month}</span>
+                </div>
+                <div className="ph-mobile-image">
+                  <div
+                    className="ph-bg-image active"
+                    style={{
+                      backgroundImage: `url(${event.image || logoImage})`,
+                      height: 180,
+                      borderRadius: 8,
+                    }}
+                  ></div>
+                </div>
+              </div>
+              <div className="ph-mobile-details">
+                <h3 className="ph-details-title">{event.title}</h3>
+                <p className="ph-details-location">
+                  <FaMapMarkerAlt /> {event.location}
+                </p>
+                <p className="ph-details-time">
+                  <FaClock /> {event.time}
+                </p>
+                <p className="ph-details-description">{event.description}</p>
+                <Link
+                  to={generateCalendarLink(event.date)}
+                  className="ph-details-cta"
+                >
+                  Saber Mais
+                </Link>
+                <a
+                  href="https://calendar.google.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ph-calendar-link"
+                >
+                  <FaCalendarAlt /> Adicionar ao Calendário
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // DESKTOP LAYOUT (original)
   return (
     <section className="upcoming-events-section">
       <div className="upcoming-events-container">
@@ -212,59 +284,63 @@ function UpcomingEvents() {
           </h2>
           {/* --- O "HUB" INTERATIVO (Mantido) --- */}
           <div className="ph-grid">
-            {/* COLUNA 1: LISTA */}
-            <div className="ph-col-list">
-              <div className="ph-list-scroll">
-                {displayEvents.map((event) => {
-                  // Extração segura da data para exibição (string split)
-                  const dateParts = event.date
-                    ? event.date.split(", ")
-                    : ["01", "Jan-2025"];
-                  const day = dateParts[0];
-                  const month = dateParts[1] ? dateParts[1].split("-")[0] : "";
+            <div className="ph-grid-top">
+              {/* COLUNA 1: LISTA */}
+              <div className="ph-col-list">
+                <div className="ph-list-scroll">
+                  {displayEvents.map((event) => {
+                    // Extração segura da data para exibição (string split)
+                    const dateParts = event.date
+                      ? event.date.split(", ")
+                      : ["01", "Jan-2025"];
+                    const day = dateParts[0];
+                    const month = dateParts[1]
+                      ? dateParts[1].split("-")[0]
+                      : "";
 
-                  return (
-                    <button
-                      key={event.id}
-                      className={`ph-list-item ${event.id === activeEventId ? "active" : ""}`}
-                      onMouseEnter={() => setActiveEventId(event.id)}
-                    >
-                      <div className="ph-item-date">
-                        <span>{day}</span>
-                        <span>{month}</span>
-                      </div>
-                      <div className="ph-item-info">
-                        <span className="ph-item-category">
-                          {event.category || "Evento"}
-                        </span>
-                        <h4 className="ph-item-title">{event.title}</h4>
-                      </div>
-                    </button>
-                  );
-                })}
+                    return (
+                      <button
+                        key={event.id}
+                        className={`ph-list-item ${event.id === activeEventId ? "active" : ""}`}
+                        onMouseEnter={() => setActiveEventId(event.id)}
+                      >
+                        <div className="ph-item-date">
+                          <span>{day}</span>
+                          <span>{month}</span>
+                        </div>
+                        <div className="ph-item-info">
+                          <span className="ph-item-category">
+                            {event.category || "Evento"}
+                          </span>
+                          <h4 className="ph-item-title">{event.title}</h4>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+                <Link to="/eventos" className="ph-all-events-link">
+                  Ver todos os eventos <FaArrowRight />
+                </Link>
               </div>
-              <Link to="/eventos" className="ph-all-events-link">
-                Ver todos os eventos <FaArrowRight />
-              </Link>
+
+              {/* COLUNA 2: IMAGEM */}
+              <div className="ph-col-image">
+                {displayEvents.map((event) => (
+                  <div
+                    key={event.id}
+                    className={`ph-bg-image ${event.id === activeEventId ? "active" : ""}`}
+                    style={{
+                      backgroundImage: `url(${event.image || logoImage})`,
+                    }}
+                    onError={(e) => {
+                      e.target.style.backgroundImage = `url(${logoImage})`;
+                    }}
+                  ></div>
+                ))}
+              </div>
             </div>
 
-            {/* COLUNA 2: IMAGEM */}
-            <div className="ph-col-image">
-              {displayEvents.map((event) => (
-                <div
-                  key={event.id}
-                  className={`ph-bg-image ${event.id === activeEventId ? "active" : ""}`}
-                  style={{
-                    backgroundImage: `url(${event.image || logoImage})`,
-                  }}
-                  onError={(e) => {
-                    e.target.style.backgroundImage = `url(${logoImage})`;
-                  }}
-                ></div>
-              ))}
-            </div>
-
-            {/* COLUNA 3: DETALHES */}
+            {/* DETALHES ABAIXO */}
             <div className="ph-col-details">
               {activeEvent && (
                 <div className="ph-details-content" key={activeEvent.id}>

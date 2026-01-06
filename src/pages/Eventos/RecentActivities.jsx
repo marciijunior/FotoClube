@@ -188,11 +188,23 @@ const mapWinners = (arr = []) =>
     };
   });
 
+function useIsMobile(breakpoint = 600) {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= breakpoint);
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= breakpoint);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [breakpoint]);
+  return isMobile;
+}
+
 export default function RecentActivities({
   limit = 8,
   onOpen,
   showTitle = true,
 }) {
+  const isMobile = useIsMobile(600);
+
   const { data: eventsDataQL, refetch: refetchEvents } = useQuery(
     GET_ALL_EVENTS,
     {
@@ -290,8 +302,8 @@ export default function RecentActivities({
       (a, b) => b.dateObj - a.dateObj
     );
 
-    return final.slice(0, limit);
-  }, [limit, injected, eventsData, winnersData, postsData]);
+    return final.slice(0, isMobile ? 4 : limit);
+  }, [limit, injected, eventsData, winnersData, postsData, isMobile]);
 
   if (!unified || unified.length === 0) {
     return (
