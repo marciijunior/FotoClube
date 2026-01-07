@@ -86,14 +86,14 @@
   font-weight: 400;
 }
 
-.stats-grid {
+.join-unique-stats-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 40px;
   margin-bottom: 50px;
 }
 
-.stat-item {
+.join-unique-stat-item {
   background: linear-gradient(to bottom, #ffffff 0%, #f9f9f9 100%) !important;
   padding: 35px 30px 30px 30px;
   border-radius: 12px;
@@ -105,7 +105,7 @@
   flex-direction: column;
 }
 
-.stat-item:hover {
+.join-unique-stat-item:hover {
   box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15) !important;
   border-color: var(--color-accent) !important;
   border-top-color: var(--color-primary) !important;
@@ -126,7 +126,7 @@
   transition: all 0.6s ease;
 }
 
-.stat-item:hover .stat-icon {
+.join-unique-stat-item:hover .stat-icon {
   transform: scale(1.8) rotate(350deg);
 }
 
@@ -170,11 +170,10 @@
 .stats-cta-button:hover {
   transform: translateY(-3px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-
 }
 
 @media (max-width: 768px) {
-  .stats-grid {
+  .join-unique-stats-grid {
     grid-template-columns: 1fr;
   }
   .join-us-floating-card {
@@ -219,7 +218,7 @@
   }
 
   .join-us-description {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
   }
 
   .join-us-floating-card {
@@ -227,7 +226,7 @@
   }
 
   .join-us-stats-title {
-    font-size: 1.6rem;
+    font-size: 1.2rem !important;
   }
 
   .stats-number {
@@ -242,5 +241,50 @@
     padding: 12px 28px;
     font-size: 0.9rem;
     width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .stats-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 12px !important;
+  }
+  .stat-item {
+    padding: 10px 4px 8px 4px !important;
+    font-size: 0.65rem !important;
+  }
+  .stats-number {
+    font-size: 0.9rem !important;
+  }
+  .stats-label {
+    font-size: 0.6rem !important;
+  }
+  .join-us-stats-title {
+    font-size: 1.1rem !important;
+    margin-bottom: 16px !important;
+    padding-bottom: 8px !important;
+  }
+}
+
+/* REFORÇO FINAL PARA MOBILE PEQUENO */
+@media (max-width: 480px) {
+  .join-unique-stats-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 8px !important;
+  }
+  .join-unique-stat-item {
+    font-size: 0.6rem !important;
+    padding: 6px 2px 6px 2px !important;
+  }
+  .stat-title {
+    font-size: 0.8rem !important;
+  }
+  .stat-description {
+    font-size: 0.5rem !important;
+  }
+  .join-us-stats-title {
+    font-size: 1.1rem !important;
+    margin-bottom: 10px !important;
+    padding-bottom: 6px !important;
   }
 }

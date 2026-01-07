@@ -24,8 +24,8 @@ function JoinUsSection() {
             a arte de capturar momentos.
           </p>
 
-          <div className="stats-grid">
-            <div className="stat-item">
+          <div className="join-unique-stats-grid">
+            <div className="join-unique-stat-item">
               <div className="stat-icon">
                 <FaUsers />
               </div>
@@ -35,7 +35,7 @@ function JoinUsSection() {
               </p>
             </div>
             
-            <div className="stat-item">
+            <div className="join-unique-stat-item">
               <div className="stat-icon">
                 <FaCamera />
               </div>
@@ -45,7 +45,7 @@ function JoinUsSection() {
               </p>
             </div>
             
-            <div className="stat-item">
+            <div className="join-unique-stat-item">
               <div className="stat-icon">
                 <FaCoffee />
               </div>
