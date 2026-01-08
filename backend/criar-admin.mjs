@@ -1,12 +1,21 @@
 import fetch from "node-fetch";
 
+const adminEmail = "admin@fotoclube.com";
+const adminPassword = process.env.ADMIN_PASSWORD;
+const adminName = "Admin";
+const adminRole = "admin";
+
+if (!adminPassword) {
+  throw new Error("Variável de ambiente ADMIN_PASSWORD não definida.");
+}
+
 const mutation = `
   mutation {
     createUser(
-      email: "admin@fotoclube.com"
-      password: "admin123"
-      name: "Admin"
-      role: "admin"
+      email: "${adminEmail}"
+      password: "${adminPassword}"
+      name: "${adminName}"
+      role: "${adminRole}"
     ) {
       id
       email

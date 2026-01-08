@@ -187,6 +187,21 @@
 }
 
 @media (max-width: 600px) {
+  body,
+  .activities-title,
+  .recent-title,
+  .recent-card-desc,
+  .recent-meta-item,
+  .recent-btn,
+  .recent-card,
+  .recent-thumb-wrap,
+  .recent-body,
+  .recent-contact,
+  .recent-partners-text {
+    font-size: 0.7rem !important;
+    line-height: 1.2 !important;
+  }
+
   .recent-inner {
     padding: 0 6px !important;
   }

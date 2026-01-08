@@ -237,3 +237,39 @@
     font-size: 0.85rem;
   }
 }
+
+@media (max-width: 600px) {
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  li,
+  .feed-title,
+  .feed-desc,
+  .feed-label,
+  .feed-content {
+    font-size: 0.7rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .feed-filters {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.6rem;
+    margin-bottom: 1rem;
+  }
+
+  .filter-icon {
+    font-size: 0.9rem;
+  }
+
+  .feed-filter-select {
+    width: 100%;
+    padding: 0.4rem 0.6rem;
+    font-size: 0.75rem;
+  }
+}

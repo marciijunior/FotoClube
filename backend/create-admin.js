@@ -12,15 +12,20 @@ async function createAdmin() {
       where: { email: "admin@fotoclube.com" },
     });
 
+    const adminPassword = process.env.ADMIN_PASSWORD;
+    if (!adminPassword) {
+      console.error("❌ Variável de ambiente ADMIN_PASSWORD não definida.");
+      return;
+    }
+
     if (existing) {
       console.log("✅ Usuário admin já existe!");
       console.log("Email: admin@fotoclube.com");
-      console.log("Senha: admin123");
       return;
     }
 
     // Criar usuário
-    const hashedPassword = await bcrypt.hash("admin123", 10);
+    const hashedPassword = await bcrypt.hash(adminPassword, 10);
     const user = await prisma.user.create({
       data: {
         email: "admin@fotoclube.com",
@@ -32,7 +37,6 @@ async function createAdmin() {
 
     console.log("✅ Usuário admin criado com sucesso!");
     console.log("Email: admin@fotoclube.com");
-    console.log("Senha: admin123");
   } catch (error) {
     console.error("❌ Erro ao criar admin:", error.message);
   } finally {

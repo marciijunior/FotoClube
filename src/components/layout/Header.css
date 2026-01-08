@@ -248,7 +248,7 @@
 @media (max-width: 768px) {
   /* Header mantém altura menor mas sempre visível no scroll up */
   .header {
-    padding: 15px 5%;
+    padding: 10px 5%;
     position: fixed;
     background-color: transparent;
     transition:
@@ -256,6 +256,10 @@
       padding 0.4s ease,
       box-shadow 0.4s ease,
       transform 0.3s ease;
+  }
+
+  .logo img {
+    height: 3rem;
   }
 
   /* Fundo branco quando não está no topo */

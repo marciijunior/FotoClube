@@ -6,9 +6,9 @@
     Ajustado de 200px para 100px, para compensar a altura 
     exata do novo Header no modo 'header-solid' (fixo).
   */
-  padding-top: 100px; 
+  padding-top: 100px;
   /* --- (FIM DA MODIFICAÇÃO) --- */
-  
+
   min-height: 100vh;
   box-sizing: border-box;
 }
@@ -19,4 +19,13 @@
 */
 .app-main-content.is-home-page {
   padding-top: 0;
+}
+
+@media (max-width: 600px) {
+  .app-main-content {
+    padding-top: 77px !important;
+  }
+  .app-main-content.is-home-page {
+    padding-top: 0 !important;
+  }
 }

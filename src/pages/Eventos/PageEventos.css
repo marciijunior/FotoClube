@@ -158,3 +158,31 @@
     justify-content: center;
   }
 }
+
+@media (max-width: 600px) {
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  li,
+  .page-title,
+  .page-desc,
+  .event-card,
+  .event-title,
+  .event-desc {
+    font-size: 0.7rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .eventos-hero {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}

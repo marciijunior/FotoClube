@@ -1,27 +1,27 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { FaUsers, FaCamera, FaCoffee } from 'react-icons/fa';
-import './JoinUsSection.css'; 
+import React from "react";
+import { Link } from "react-router-dom";
+import { FaUsers, FaCamera, FaCoffee } from "react-icons/fa";
+import "./JoinUsSection.css";
 
-import FundoParallax from '../../assets/imgJoinUs.jpg'; 
+import FundoParallax from "../../assets/imgJoinUs.jpg";
 
 function JoinUsSection() {
   return (
-    <section 
+    <section
       className="join-us-stats-section"
-      style={{ 
-        backgroundImage: `url(${FundoParallax})` 
+      style={{
+        backgroundImage: `url(${FundoParallax})`,
       }}
     >
       <div className="join-us-stats-container">
-        
         <div className="join-us-floating-card">
-
-          <h2 className="join-us-stats-title">O Ponto de Encontro da Fotografia</h2>
+          <h2 className="join-us-stats-title">
+            O Ponto de Encontro da Fotografia
+          </h2>
           <p className="join-us-stats-intro">
-            Mais do que um clube, somos uma comunidade vibrante que respira fotografia. 
-            Nossa missão é conectar pessoas, inspirar a criatividade e celebrar 
-            a arte de capturar momentos.
+            Mais do que um clube, somos uma comunidade vibrante que respira
+            fotografia. Nossa missão é conectar pessoas, inspirar a criatividade
+            e celebrar a arte de capturar momentos.
           </p>
 
           <div className="join-unique-stats-grid">
@@ -34,7 +34,7 @@ function JoinUsSection() {
                 Uma rede diversa de fotógrafos apaixonados.
               </p>
             </div>
-            
+
             <div className="join-unique-stat-item">
               <div className="stat-icon">
                 <FaCamera />
@@ -44,7 +44,7 @@ function JoinUsSection() {
                 Do básico ao avançado, sempre há algo novo para aprender.
               </p>
             </div>
-            
+
             <div className="join-unique-stat-item">
               <div className="stat-icon">
                 <FaCoffee />
@@ -61,8 +61,7 @@ function JoinUsSection() {
               Quero participar!
             </Link>
           </div>
-
-        </div> 
+        </div>
       </div>
     </section>
   );

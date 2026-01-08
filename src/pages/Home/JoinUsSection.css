@@ -3,6 +3,13 @@
   background-position: center center;
   background-attachment: fixed;
   padding: 120px 0;
+}
+
+@media (max-width: 600px) {
+  .join-us-stats-section {
+    padding-top: 100px;
+  }
+}
   width: 100%;
   position: relative;
   border-top: 1px solid #eee;

@@ -209,3 +209,23 @@
     font-size: 2rem;
   }
 }
+
+/* --- REDUZIR TAMANHO DAS FONTE PARA MOBILE --- */
+@media (max-width: 600px) {
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  li,
+  .modal-title,
+  .modal-desc,
+  .modal-label,
+  .modal-content {
+    font-size: 0.7rem !important;
+    line-height: 1.2 !important;
+  }
+}

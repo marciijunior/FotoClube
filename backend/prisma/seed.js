@@ -18,7 +18,11 @@ async function main() {
   }
 
   // Criar usuário admin
-  const hashedPassword = await bcrypt.hash("admin123", 10);
+  const adminPassword = process.env.ADMIN_PASSWORD;
+  if (!adminPassword) {
+    throw new Error("Variável de ambiente ADMIN_PASSWORD não definida.");
+  }
+  const hashedPassword = await bcrypt.hash(adminPassword, 10);
   await prisma.user.create({
     data: {
       email: "admin@fotoclube.com",
@@ -28,7 +32,7 @@ async function main() {
     },
   });
 
-  console.log("👤 Usuário admin criado: admin@fotoclube.com / admin123");
+  console.log("👤 Usuário admin criado: admin@fotoclube.com");
 
   await prisma.event.create({
     data: {
