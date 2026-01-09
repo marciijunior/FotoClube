@@ -45,6 +45,16 @@ function UpcomingEvents() {
   const placeholderImage = "/src/assets/images/placeholder-event.png";
   const logoImage = "/logo-fotoclube-azul.png";
 
+  const normalizeImage = (img) => {
+    if (!img) return null;
+    if (img.startsWith("http://localhost") || img.startsWith("https://localhost")) {
+      const filename = img.split("/").pop();
+      return `${import.meta.env.VITE_UPLOADS_URL}/${filename}`;
+    }
+    if (img.startsWith("http")) return img;
+    return `${import.meta.env.VITE_UPLOADS_URL}/${img}`;
+  };
+
   // Função para converter data do formato "20, Dez-2025" para Date
   const parseEventDate = (dateStr) => {
     try {
@@ -230,7 +240,7 @@ function UpcomingEvents() {
                   <div
                     className="ph-bg-image active"
                     style={{
-                      backgroundImage: `url(${event.image || logoImage})`,
+                      backgroundImage: `url(${normalizeImage(event.image) || logoImage})`,
                       height: 180,
                       borderRadius: 8,
                     }}
@@ -330,7 +340,7 @@ function UpcomingEvents() {
                     key={event.id}
                     className={`ph-bg-image ${event.id === activeEventId ? "active" : ""}`}
                     style={{
-                      backgroundImage: `url(${event.image || logoImage})`,
+                      backgroundImage: `url(${normalizeImage(event.image) || logoImage})`,
                     }}
                     onError={(e) => {
                       e.target.style.backgroundImage = `url(${logoImage})`;
@@ -396,7 +406,7 @@ function UpcomingEvents() {
                   >
                     {/* Imagem à esquerda */}
                     <img
-                      src={event.image || logoImage}
+                      src={normalizeImage(event.image) || logoImage}
                       alt={event.title}
                       className="pe-card-image"
                       loading="lazy"

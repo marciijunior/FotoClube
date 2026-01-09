@@ -4,6 +4,16 @@ import "./ModalInformacoes.css";
 
 const logoImage = "/logo-fotoclube-azul.png";
 
+const normalizeImage = (img) => {
+  if (!img) return null;
+  if (img.startsWith("http://localhost") || img.startsWith("https://localhost")) {
+    const filename = img.split("/").pop();
+    return `${import.meta.env.VITE_UPLOADS_URL}/${filename}`;
+  }
+  if (img.startsWith("http")) return img;
+  return `${import.meta.env.VITE_UPLOADS_URL}/${img}`;
+};
+
 export default function ModalInformacoes({
   modalOpen,
   modalEvent,
@@ -31,7 +41,7 @@ export default function ModalInformacoes({
         </button>
         <div className="event-modal-body">
           <img
-            src={modalEvent.image || logoImage}
+            src={normalizeImage(modalEvent.image) || logoImage}
             alt={modalEvent.title}
             className="event-modal-image"
             onError={(e) => {

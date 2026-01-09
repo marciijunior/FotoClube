@@ -4,6 +4,16 @@ import "./InformacoesCalendario.css";
 
 const logoImage = "/logo-fotoclube-azul.png";
 
+const normalizeImage = (img) => {
+  if (!img) return null;
+  if (img.startsWith("http://localhost") || img.startsWith("https://localhost")) {
+    const filename = img.split("/").pop();
+    return `${import.meta.env.VITE_UPLOADS_URL}/${filename}`;
+  }
+  if (img.startsWith("http")) return img;
+  return `${import.meta.env.VITE_UPLOADS_URL}/${img}`;
+};
+
 export default function InformacoesCalendario({
   selectedEvents = [],
   selectedDay,
@@ -36,7 +46,7 @@ export default function InformacoesCalendario({
                 >
                   {/* Imagem à esquerda */}
                   <img
-                    src={event.image || logoImage}
+                    src={normalizeImage(event.image) || logoImage}
                     alt={event.title}
                     className="sidebar-event-image"
                     loading="lazy"

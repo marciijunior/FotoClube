@@ -35,6 +35,16 @@ function HeroCarousel() {
     (a, b) => a.order - b.order
   );
 
+  const normalizeImage = (img) => {
+    if (!img) return null;
+    if (img.startsWith("http://localhost") || img.startsWith("https://localhost")) {
+      const filename = img.split("/").pop();
+      return `${import.meta.env.VITE_UPLOADS_URL}/${filename}`;
+    }
+    if (img.startsWith("http")) return img;
+    return `${import.meta.env.VITE_UPLOADS_URL}/${img}`;
+  };
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleThumbnails, setVisibleThumbnails] = useState([]);
   const [favorites, setFavorites] = useState(() => {
@@ -131,7 +141,7 @@ function HeroCarousel() {
           <div
             key={slide.id}
             className={`slide ${index === currentIndex ? "active" : ""}`}
-            style={{ backgroundImage: `url(${slide.image})` }}
+            style={{ backgroundImage: `url(${normalizeImage(slide.image) || ""})` }}
           >
             <div className="slide-content">
               <p className="location">{slide.title}</p>
@@ -165,7 +175,10 @@ function HeroCarousel() {
               className={`thumbnail ${displayIndex === 0 ? "active-thumbnail" : ""}`}
               onClick={() => goToSlide(thumbData.originalIndex)}
             >
-              <img src={thumbData.image} alt={`Thumbnail ${thumbData.title}`} />
+              <img
+                src={normalizeImage(thumbData.image) || ""}
+                alt={`Thumbnail ${thumbData.title}`}
+              />
             </div>
           ))}
         </div>

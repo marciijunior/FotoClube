@@ -34,6 +34,16 @@ export default function FeedPosts({ limit = 10 }) {
 
   const posts = data?.allPosts || [];
 
+  const normalizeImage = (img) => {
+    if (!img) return null;
+    if (img.startsWith("http://localhost") || img.startsWith("https://localhost")) {
+      const filename = img.split("/").pop();
+      return `${import.meta.env.VITE_UPLOADS_URL}/${filename}`;
+    }
+    if (img.startsWith("http")) return img;
+    return `${import.meta.env.VITE_UPLOADS_URL}/${img}`;
+  };
+
   // Extrair anos disponíveis dos posts
   const availableYears = useMemo(() => {
     const years = new Set();
@@ -153,7 +163,7 @@ export default function FeedPosts({ limit = 10 }) {
             <article key={post.id} className="feed-post-card">
               {post.image && (
                 <div className="feed-post-image">
-                  <img src={post.image} alt={post.title} />
+                  <img src={normalizeImage(post.image) || ""} alt={post.title} />
                   <div
                     className="feed-post-category-badge"
                     style={{ backgroundColor: getCategoryColor(post.category) }}
