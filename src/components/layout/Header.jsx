@@ -4,9 +4,8 @@ import { useState, useEffect } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import "./Header.css";
 
-// --- MUDANÇA AQUI: Importe as imagens diretamente ---
-// Isso garante que o Vite resolva o caminho correto, não importa a página
-import logoBranco from "../../assets/logo-fotoclube.png";
+// Logos servidos pela pasta public para evitar erros de import em rotas internas
+const logoBranco = "/logo-fotoclube.png";
 const logoAzul = "/logo-fotoclube-azul.png";
 
 function Header({ isHomePage }) {
