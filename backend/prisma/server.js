@@ -463,6 +463,7 @@ app.use(
       "http://localhost:5174",
       "http://localhost:3000",
       "https://foto-clube-mqa6kg3qz-marciijuniors-projects.vercel.app",
+      "https://foto-clube.vercel.app",
     ],
     credentials: true,
   })
