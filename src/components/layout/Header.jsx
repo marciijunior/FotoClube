@@ -7,7 +7,7 @@ import "./Header.css";
 // --- MUDANÇA AQUI: Importe as imagens diretamente ---
 // Isso garante que o Vite resolva o caminho correto, não importa a página
 import logoBranco from "../../assets/logo-fotoclube.png";
-// import logoAzul from "../../assets/logo-fotoclube-azul.png";
+const logoAzul = "/logo-fotoclube-azul.png";
 
 function Header({ isHomePage }) {
   const [isVisible, setIsVisible] = useState(true);
