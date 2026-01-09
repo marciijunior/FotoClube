@@ -12,6 +12,16 @@ function ArchiveSection({ pastWinners, placeholderImage }) {
   const [selectedYear, setSelectedYear] = useState("");
   const [timerProgress, setTimerProgress] = useState(0);
 
+  const normalizeImage = (img) => {
+    if (!img) return null;
+    if (img.startsWith("http://localhost") || img.startsWith("https://localhost")) {
+      const filename = img.split("/").pop();
+      return `${import.meta.env.VITE_UPLOADS_URL}/${filename}`;
+    }
+    if (img.startsWith("http")) return img;
+    return `${import.meta.env.VITE_UPLOADS_URL}/${img}`;
+  };
+
   // Extrai meses e anos únicos dos vencedores
   const availableMonths = useMemo(() => {
     const months = new Set();
@@ -160,18 +170,7 @@ function ArchiveSection({ pastWinners, placeholderImage }) {
                   onClick={openModal}
                 >
                   <img
-                    src={(() => {
-                      if (!selectedWinner.image) return "";
-                      if (
-                        selectedWinner.image.startsWith("http://localhost") ||
-                        selectedWinner.image.startsWith("https://localhost")
-                      ) {
-                        const filename = selectedWinner.image.split("/").pop();
-                        return `${import.meta.env.VITE_UPLOADS_URL}/${filename}`;
-                      }
-                      if (selectedWinner.image.startsWith("http")) return selectedWinner.image;
-                      return `${import.meta.env.VITE_UPLOADS_URL}/${selectedWinner.image}`;
-                    })()}
+                    src={normalizeImage(selectedWinner.image) ?? placeholderImage}
                     alt={selectedWinner.title}
                     className="archive-menu-display-image"
                     onError={(e) => {
@@ -208,18 +207,7 @@ function ArchiveSection({ pastWinners, placeholderImage }) {
               <FaTimes />
             </button>
             <img
-              src={(() => {
-                if (!selectedWinner.image) return "";
-                if (
-                  selectedWinner.image.startsWith("http://localhost") ||
-                  selectedWinner.image.startsWith("https://localhost")
-                ) {
-                  const filename = selectedWinner.image.split("/").pop();
-                  return `${import.meta.env.VITE_UPLOADS_URL}/${filename}`;
-                }
-                if (selectedWinner.image.startsWith("http")) return selectedWinner.image;
-                return `${import.meta.env.VITE_UPLOADS_URL}/${selectedWinner.image}`;
-              })()}
+              src={normalizeImage(selectedWinner.image) ?? placeholderImage}
               alt={selectedWinner.title}
               className="archive-modal-image"
               onError={(e) => {

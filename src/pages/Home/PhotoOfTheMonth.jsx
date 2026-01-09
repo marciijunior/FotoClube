@@ -26,6 +26,16 @@ function PhotoOfTheMonth() {
   );
   const placeholderImage = "/src/assets/images/placeholder-winner.png";
 
+  const normalizeImage = (img) => {
+    if (!img) return null;
+    if (img.startsWith("http://localhost") || img.startsWith("https://localhost")) {
+      const filename = img.split("/").pop();
+      return `${import.meta.env.VITE_UPLOADS_URL}/${filename}`;
+    }
+    if (img.startsWith("http")) return img;
+    return `${import.meta.env.VITE_UPLOADS_URL}/${img}`;
+  };
+
   const handleToggleExpand = (id) => {
     setExpandedId((currentExpandedId) =>
       currentExpandedId === id ? null : id
@@ -89,7 +99,7 @@ function PhotoOfTheMonth() {
                     {rank.toString().padStart(2, "0")}
                   </span>
                   <img
-                    src={winner.image}
+                    src={normalizeImage(winner.image) ?? placeholderImage}
                     alt={`Pré-visualização de ${winner.title}`}
                     className="accordion-thumbnail"
                     loading="lazy"
@@ -105,7 +115,7 @@ function PhotoOfTheMonth() {
                   aria-hidden={!isExpanded}
                 >
                   <img
-                    src={winner.image}
+                    src={normalizeImage(winner.image) ?? placeholderImage}
                     alt={`Foto de ${winner.author} - ${winner.title}`}
                     className="accordion-full-image"
                     onError={(e) => {

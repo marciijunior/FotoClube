@@ -13,6 +13,16 @@ import "./PhotoDetailsModal.css";
 function PhotoDetailsModal({ winner, placeholderImage, onClose }) {
   if (!winner) return null;
 
+  const normalizeImage = (img) => {
+    if (!img) return null;
+    if (img.startsWith("http://localhost") || img.startsWith("https://localhost")) {
+      const filename = img.split("/").pop();
+      return `${import.meta.env.VITE_UPLOADS_URL}/${filename}`;
+    }
+    if (img.startsWith("http")) return img;
+    return `${import.meta.env.VITE_UPLOADS_URL}/${img}`;
+  };
+
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
       onClose();
@@ -40,18 +50,7 @@ function PhotoDetailsModal({ winner, placeholderImage, onClose }) {
             </div>
           )}
           <img
-            src={(() => {
-              if (!winner.image) return "";
-              if (
-                winner.image.startsWith("http://localhost") ||
-                winner.image.startsWith("https://localhost")
-              ) {
-                const filename = winner.image.split("/").pop();
-                return `${import.meta.env.VITE_UPLOADS_URL}/${filename}`;
-              }
-              if (winner.image.startsWith("http")) return winner.image;
-              return `${import.meta.env.VITE_UPLOADS_URL}/${winner.image}`;
-            })()}
+            src={normalizeImage(winner.image) ?? placeholderImage}
             alt={winner.title}
             className="photo-modal-image"
             onError={(e) => {

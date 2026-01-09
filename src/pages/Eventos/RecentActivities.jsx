@@ -105,7 +105,10 @@ const findExport = (exportName, fileBase) => {
 /* ... (MANTENHA AS FUNÇÕES DE MAP (mapEvents, mapAnnouncements, etc.) IGUAIS) ... */
 const normalizeImage = (img) => {
   if (!img) return null;
-  if (img.startsWith("http://localhost") || img.startsWith("https://localhost")) {
+  if (
+    img.startsWith("http://localhost") ||
+    img.startsWith("https://localhost")
+  ) {
     const filename = img.split("/").pop();
     return `${import.meta.env.VITE_UPLOADS_URL}/${filename}`;
   }
@@ -139,7 +142,7 @@ const mapAnnouncements = (arr = []) =>
     dateObj: it.createdAt
       ? new Date(it.createdAt)
       : (it.dateObj ?? (it.date ? new Date(it.date) : new Date())),
-    image: it.image ?? getRandomImage(),
+    image: normalizeImage(it.image) ?? getRandomImage(),
     excerpt: it.excerpt ?? it.summary ?? "",
     meta: {},
     original: it,
@@ -151,7 +154,7 @@ const mapPosts = (arr = []) =>
     type: "post",
     title: it.title,
     dateObj: it.createdAt ? new Date(Number(it.createdAt)) : new Date(),
-    image: it.image ?? getRandomImage(),
+    image: normalizeImage(it.image) ?? getRandomImage(),
     excerpt:
       it.content.substring(0, 120) + (it.content.length > 120 ? "..." : ""),
     meta: { author: it.author, category: it.category },
@@ -166,7 +169,7 @@ const mapGallery = (arr = []) =>
     dateObj: it.createdAt
       ? new Date(Number(it.createdAt))
       : (it.dateObj ?? (it.uploadedAt ? new Date(it.uploadedAt) : new Date())),
-    image: it.url ?? it.src ?? getRandomImage(),
+    image: normalizeImage(it.url || it.src) ?? getRandomImage(),
     excerpt: it.caption ?? "",
     meta: {},
     original: it,

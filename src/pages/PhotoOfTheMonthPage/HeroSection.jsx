@@ -7,6 +7,16 @@ import PhotoDetailsModal from "./PhotoDetailsModal";
 function HeroSection({ winner, placeholderImage }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const normalizeImage = (img) => {
+    if (!img) return null;
+    if (img.startsWith("http://localhost") || img.startsWith("https://localhost")) {
+      const filename = img.split("/").pop();
+      return `${import.meta.env.VITE_UPLOADS_URL}/${filename}`;
+    }
+    if (img.startsWith("http")) return img;
+    return `${import.meta.env.VITE_UPLOADS_URL}/${img}`;
+  };
+
   return (
     <>
       <section className="potm-hero">
@@ -30,18 +40,7 @@ function HeroSection({ winner, placeholderImage }) {
         </div>
         <div className="potm-hero-image-wrapper">
           <img
-            src={(() => {
-              if (!winner.image) return "";
-              if (
-                winner.image.startsWith("http://localhost") ||
-                winner.image.startsWith("https://localhost")
-              ) {
-                const filename = winner.image.split("/").pop();
-                return `${import.meta.env.VITE_UPLOADS_URL}/${filename}`;
-              }
-              if (winner.image.startsWith("http")) return winner.image;
-              return `${import.meta.env.VITE_UPLOADS_URL}/${winner.image}`;
-            })()}
+            src={normalizeImage(winner.image) ?? placeholderImage}
             alt={winner.title}
             className="potm-hero-image"
             onError={(e) => {

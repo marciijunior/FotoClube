@@ -7,6 +7,16 @@ function FilmstripSection({ runnersUp, placeholderImage }) {
   const [isDragging, setIsDragging] = useState(false);
   const dragState = useRef({ startX: 0, scrollLeft: 0 });
 
+  const normalizeImage = (img) => {
+    if (!img) return null;
+    if (img.startsWith("http://localhost") || img.startsWith("https://localhost")) {
+      const filename = img.split("/").pop();
+      return `${import.meta.env.VITE_UPLOADS_URL}/${filename}`;
+    }
+    if (img.startsWith("http")) return img;
+    return `${import.meta.env.VITE_UPLOADS_URL}/${img}`;
+  };
+
   const handleMouseDown = (e) => {
     if (!filmstripRef.current) return;
     e.preventDefault();
@@ -45,18 +55,7 @@ function FilmstripSection({ runnersUp, placeholderImage }) {
           {runnersUp.map((winner, index) => (
             <div key={winner.id || index} className="filmstrip-card">
               <img
-                src={(() => {
-                  if (!winner.image) return "";
-                  if (
-                    winner.image.startsWith("http://localhost") ||
-                    winner.image.startsWith("https://localhost")
-                  ) {
-                    const filename = winner.image.split("/").pop();
-                    return `${import.meta.env.VITE_UPLOADS_URL}/${filename}`;
-                  }
-                  if (winner.image.startsWith("http")) return winner.image;
-                  return `${import.meta.env.VITE_UPLOADS_URL}/${winner.image}`;
-                })()}
+                src={normalizeImage(winner.image) ?? placeholderImage}
                 alt={winner.title}
                 className="filmstrip-image"
                 onError={(e) => {
