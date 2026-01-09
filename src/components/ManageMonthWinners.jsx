@@ -252,7 +252,7 @@ export default function ManageMonthWinners({ monthWon }) {
     formData.append("image", file);
 
     try {
-      const response = await fetch("http://localhost:3002/upload", {
+      const response = await fetch(`${import.meta.env.VITE_UPLOADS_URL.replace(/\/uploads$/, '')}/upload`, {
         method: "POST",
         body: formData,
       });

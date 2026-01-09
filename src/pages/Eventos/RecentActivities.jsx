@@ -236,7 +236,6 @@ export default function RecentActivities({
   const winnersData = winnersDataQL?.allWinners || [];
   const postsData = postsDataQL?.allPosts || [];
 
-
   // Refetch automaticamente a cada 10 segundos para pegar atualizações
   useEffect(() => {
     const interval = setInterval(() => {

@@ -7,7 +7,6 @@ import { DatesProvider } from "@mantine/dates";
 import "dayjs/locale/pt-br";
 import apolloClient from "./lib/apolloClient.jsx";
 
-
 import AppLayout from "./components/layout/AppLayout.jsx";
 import HomePage from "./pages/Home/HomePage.jsx";
 import PhotoOfTheMonthPage from "./pages/PhotoOfTheMonthPage/PhotoOfTheMonthPage.jsx";

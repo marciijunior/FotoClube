@@ -221,7 +221,7 @@ export default function EditEventForm({ event, onDone }) {
         const formDataUpload = new FormData();
         formDataUpload.append("image", imageFile);
 
-        const uploadResponse = await fetch("http://localhost:3002/upload", {
+        const uploadResponse = await fetch(`${import.meta.env.VITE_UPLOADS_URL.replace(/\/uploads$/, '')}/upload`, {
           method: "POST",
           body: formDataUpload,
         });
