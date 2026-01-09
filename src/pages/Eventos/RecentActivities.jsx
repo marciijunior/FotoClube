@@ -103,14 +103,21 @@ const findExport = (exportName, fileBase) => {
 // let galleryData = findExport("galleryData", "galleryData") || [];
 
 /* ... (MANTENHA AS FUNÇÕES DE MAP (mapEvents, mapAnnouncements, etc.) IGUAIS) ... */
+const normalizeImage = (img) => {
+  if (!img) return null;
+  if (img.startsWith("http://localhost") || img.startsWith("https://localhost")) {
+    const filename = img.split("/").pop();
+    return `${import.meta.env.VITE_UPLOADS_URL}/${filename}`;
+  }
+  if (img.startsWith("http")) return img;
+  return `${import.meta.env.VITE_UPLOADS_URL}/${img}`;
+};
+
 const mapEvents = (arr = []) =>
   arr.map((it) => {
     let imageUrl = getRandomImage();
     if (it.image) {
-      // Se já tem o caminho completo, usa direto; senão, adiciona o prefixo
-      imageUrl = it.image.startsWith("http")
-        ? it.image
-        : `${import.meta.env.VITE_UPLOADS_URL}/${it.image}`;
+      imageUrl = normalizeImage(it.image) || imageUrl;
     }
     return {
       id: `event-${it.id ?? it.title}`,
@@ -169,10 +176,7 @@ const mapWinners = (arr = []) =>
   arr.map((it) => {
     let imageUrl = getRandomImage();
     if (it.image) {
-      // Se já tem o caminho completo, usa direto; senão, adiciona o prefixo
-      imageUrl = it.image.startsWith("http")
-        ? it.image
-        : `${import.meta.env.VITE_UPLOADS_URL}/${it.image}`;
+      imageUrl = normalizeImage(it.image) || imageUrl;
     }
     return {
       id: `winner-${it.id}`,

@@ -40,11 +40,18 @@ function PhotoDetailsModal({ winner, placeholderImage, onClose }) {
             </div>
           )}
           <img
-            src={
-              winner.image?.startsWith("http")
-                ? winner.image
-                : `${import.meta.env.VITE_UPLOADS_URL}/${winner.image}`
-            }
+            src={(() => {
+              if (!winner.image) return "";
+              if (
+                winner.image.startsWith("http://localhost") ||
+                winner.image.startsWith("https://localhost")
+              ) {
+                const filename = winner.image.split("/").pop();
+                return `${import.meta.env.VITE_UPLOADS_URL}/${filename}`;
+              }
+              if (winner.image.startsWith("http")) return winner.image;
+              return `${import.meta.env.VITE_UPLOADS_URL}/${winner.image}`;
+            })()}
             alt={winner.title}
             className="photo-modal-image"
             onError={(e) => {

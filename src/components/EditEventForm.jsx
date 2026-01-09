@@ -221,10 +221,13 @@ export default function EditEventForm({ event, onDone }) {
         const formDataUpload = new FormData();
         formDataUpload.append("image", imageFile);
 
-        const uploadResponse = await fetch(`${import.meta.env.VITE_UPLOADS_URL.replace(/\/uploads$/, '')}/upload`, {
-          method: "POST",
-          body: formDataUpload,
-        });
+        const uploadResponse = await fetch(
+          `${import.meta.env.VITE_UPLOADS_URL.replace(/\/uploads$/, "")}/upload`,
+          {
+            method: "POST",
+            body: formDataUpload,
+          }
+        );
 
         if (!uploadResponse.ok) {
           throw new Error("Erro ao fazer upload da imagem");

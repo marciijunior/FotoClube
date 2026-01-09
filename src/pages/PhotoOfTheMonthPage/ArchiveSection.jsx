@@ -160,11 +160,18 @@ function ArchiveSection({ pastWinners, placeholderImage }) {
                   onClick={openModal}
                 >
                   <img
-                    src={
-                      selectedWinner.image?.startsWith("http")
-                        ? selectedWinner.image
-                        : `${import.meta.env.VITE_UPLOADS_URL}/${selectedWinner.image}`
-                    }
+                    src={(() => {
+                      if (!selectedWinner.image) return "";
+                      if (
+                        selectedWinner.image.startsWith("http://localhost") ||
+                        selectedWinner.image.startsWith("https://localhost")
+                      ) {
+                        const filename = selectedWinner.image.split("/").pop();
+                        return `${import.meta.env.VITE_UPLOADS_URL}/${filename}`;
+                      }
+                      if (selectedWinner.image.startsWith("http")) return selectedWinner.image;
+                      return `${import.meta.env.VITE_UPLOADS_URL}/${selectedWinner.image}`;
+                    })()}
                     alt={selectedWinner.title}
                     className="archive-menu-display-image"
                     onError={(e) => {
@@ -201,11 +208,18 @@ function ArchiveSection({ pastWinners, placeholderImage }) {
               <FaTimes />
             </button>
             <img
-              src={
-                selectedWinner.image?.startsWith("http")
-                  ? selectedWinner.image
-                  : `${import.meta.env.VITE_UPLOADS_URL}/${selectedWinner.image}`
-              }
+              src={(() => {
+                if (!selectedWinner.image) return "";
+                if (
+                  selectedWinner.image.startsWith("http://localhost") ||
+                  selectedWinner.image.startsWith("https://localhost")
+                ) {
+                  const filename = selectedWinner.image.split("/").pop();
+                  return `${import.meta.env.VITE_UPLOADS_URL}/${filename}`;
+                }
+                if (selectedWinner.image.startsWith("http")) return selectedWinner.image;
+                return `${import.meta.env.VITE_UPLOADS_URL}/${selectedWinner.image}`;
+              })()}
               alt={selectedWinner.title}
               className="archive-modal-image"
               onError={(e) => {

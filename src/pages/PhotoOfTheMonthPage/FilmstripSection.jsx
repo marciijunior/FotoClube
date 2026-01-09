@@ -45,11 +45,18 @@ function FilmstripSection({ runnersUp, placeholderImage }) {
           {runnersUp.map((winner, index) => (
             <div key={winner.id || index} className="filmstrip-card">
               <img
-                src={
-                  winner.image?.startsWith("http")
-                    ? winner.image
-                    : `${import.meta.env.VITE_UPLOADS_URL}/${winner.image}`
-                }
+                src={(() => {
+                  if (!winner.image) return "";
+                  if (
+                    winner.image.startsWith("http://localhost") ||
+                    winner.image.startsWith("https://localhost")
+                  ) {
+                    const filename = winner.image.split("/").pop();
+                    return `${import.meta.env.VITE_UPLOADS_URL}/${filename}`;
+                  }
+                  if (winner.image.startsWith("http")) return winner.image;
+                  return `${import.meta.env.VITE_UPLOADS_URL}/${winner.image}`;
+                })()}
                 alt={winner.title}
                 className="filmstrip-image"
                 onError={(e) => {

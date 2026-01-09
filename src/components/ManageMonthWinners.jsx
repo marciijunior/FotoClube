@@ -252,10 +252,13 @@ export default function ManageMonthWinners({ monthWon }) {
     formData.append("image", file);
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_UPLOADS_URL.replace(/\/uploads$/, '')}/upload`, {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_UPLOADS_URL.replace(/\/uploads$/, "")}/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       console.log("Response status:", response.status);
 

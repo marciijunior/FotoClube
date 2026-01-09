@@ -128,10 +128,13 @@ export default function EditWinnerForm({ winner, onDone }) {
     formDataUpload.append("image", file);
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_UPLOADS_URL.replace(/\/uploads$/, '')}/upload`, {
-        method: "POST",
-        body: formDataUpload,
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_UPLOADS_URL.replace(/\/uploads$/, "")}/upload`,
+        {
+          method: "POST",
+          body: formDataUpload,
+        }
+      );
 
       if (!response.ok) throw new Error("Erro ao fazer upload");
 

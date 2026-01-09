@@ -117,10 +117,13 @@ export default function CarouselManage() {
     formDataUpload.append("image", file);
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_UPLOADS_URL.replace(/\/uploads$/, '')}/upload`, {
-        method: "POST",
-        body: formDataUpload,
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_UPLOADS_URL.replace(/\/uploads$/, "")}/upload`,
+        {
+          method: "POST",
+          body: formDataUpload,
+        }
+      );
 
       const result = await response.json();
 
