@@ -286,6 +286,9 @@ export default function EventsList() {
                     },
                   },
                 }}
+                label="Data do Evento"
+                placeholder="Selecione a data"
+                withAsterisk
                 styles={{
                   label: {
                     fontWeight: 600,
