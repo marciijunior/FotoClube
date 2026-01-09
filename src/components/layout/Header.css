@@ -271,7 +271,7 @@
   /* Logo e botão adaptam cor quando há fundo branco */
   .header.header-scrolled .logo img {
     /* Trocar para logo azul quando tiver fundo branco */
-    content: url("../../assets/logo-fotoclube-azul.png");
+    content: url("/logo-fotoclube-azul.png");
   }
 
   .header.header-scrolled .mobile-menu-toggle {

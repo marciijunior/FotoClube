@@ -43,7 +43,7 @@ function UpcomingEvents() {
   });
 
   const placeholderImage = "/src/assets/images/placeholder-event.png";
-  const logoImage = "/src/assets/logo-fotoclube-azul.png";
+  const logoImage = "/logo-fotoclube-azul.png";
 
   // Função para converter data do formato "20, Dez-2025" para Date
   const parseEventDate = (dateStr) => {

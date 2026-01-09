@@ -2,7 +2,7 @@ import React from "react";
 import { FaMapMarkerAlt, FaClock, FaArrowRight } from "react-icons/fa";
 import "./InformacoesCalendario.css";
 
-const logoImage = "/src/assets/logo-fotoclube-azul.png";
+const logoImage = "/logo-fotoclube-azul.png";
 
 export default function InformacoesCalendario({
   selectedEvents = [],

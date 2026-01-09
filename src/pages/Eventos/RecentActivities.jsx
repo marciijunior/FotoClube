@@ -236,12 +236,6 @@ export default function RecentActivities({
   const winnersData = winnersDataQL?.allWinners || [];
   const postsData = postsDataQL?.allPosts || [];
 
-  // Debug: Log dos dados recebidos
-  console.log("📊 Dados GraphQL:", {
-    events: eventsData.length,
-    winners: winnersData.length,
-    posts: postsData.length,
-  });
 
   // Refetch automaticamente a cada 10 segundos para pegar atualizações
   useEffect(() => {

@@ -21,7 +21,7 @@ import { FaBehance, FaFlickr, Fa500Px, FaVimeoV } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import "./Footer.css"; // O CSS do Modo Claro (que você já tem) está correto
 
-const logoSrc = "./src/assets/logo-fotoclube-azul.png";
+const logoSrc = "/logo-fotoclube-azul.png";
 
 function Footer() {
   return (
