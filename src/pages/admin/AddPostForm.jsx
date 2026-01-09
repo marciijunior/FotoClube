@@ -67,10 +67,13 @@ export default function AddPostForm() {
         // Envio do arquivo para backend (endpoint real: /upload, campo 'image')
         const data = new FormData();
         data.append("image", form.image);
-        const res = await fetch("http://localhost:3002/upload", {
-          method: "POST",
-          body: data,
-        });
+        const res = await fetch(
+          `${import.meta.env.VITE_UPLOADS_URL.replace(/\/uploads$/, "")}/upload`,
+          {
+            method: "POST",
+            body: data,
+          }
+        );
         const result = await res.json();
         imageUrl = result.url;
       }

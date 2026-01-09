@@ -525,7 +525,7 @@ export default function ManageMonthWinners({ monthWon }) {
                               }}
                             >
                               <Image
-                                src={`http://localhost:3002/uploads/${photo.image}`}
+                                src={`${import.meta.env.VITE_UPLOADS_URL}/${photo.image}`}
                                 height="100%"
                                 fit="cover"
                                 radius="0"
@@ -639,7 +639,7 @@ export default function ManageMonthWinners({ monthWon }) {
                           Preview da Foto:
                         </Text>
                         <Image
-                          src={`http://localhost:3002/uploads/${photos[editingIndex].image}`}
+                          src={`${import.meta.env.VITE_UPLOADS_URL}/${photos[editingIndex].image}`}
                           height={300}
                           fit="contain"
                           radius="md"

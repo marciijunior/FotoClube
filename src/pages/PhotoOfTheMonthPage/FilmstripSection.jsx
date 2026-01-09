@@ -48,7 +48,7 @@ function FilmstripSection({ runnersUp, placeholderImage }) {
                 src={
                   winner.image?.startsWith("http")
                     ? winner.image
-                    : `http://localhost:3002/uploads/${winner.image}`
+                    : `${import.meta.env.VITE_UPLOADS_URL}/${winner.image}`
                 }
                 alt={winner.title}
                 className="filmstrip-image"

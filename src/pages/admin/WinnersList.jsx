@@ -256,7 +256,7 @@ export default function WinnersList() {
                         >
                           <Group gap="md">
                             <Image
-                              src={`http://localhost:3002/uploads/${winner.image}`}
+                              src={`${import.meta.env.VITE_UPLOADS_URL}/${winner.image}`}
                               width={120}
                               height={120}
                               fit="cover"
@@ -297,7 +297,7 @@ export default function WinnersList() {
                           {finalists.map((finalist) => (
                             <Card key={finalist.id} padding="xs" withBorder>
                               <Image
-                                src={`http://localhost:3002/uploads/${finalist.image}`}
+                                src={`${import.meta.env.VITE_UPLOADS_URL}/${finalist.image}`}
                                 height={100}
                                 fit="cover"
                                 radius="md"

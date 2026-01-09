@@ -163,7 +163,7 @@ function ArchiveSection({ pastWinners, placeholderImage }) {
                     src={
                       selectedWinner.image?.startsWith("http")
                         ? selectedWinner.image
-                        : `http://localhost:3002/uploads/${selectedWinner.image}`
+                        : `${import.meta.env.VITE_UPLOADS_URL}/${selectedWinner.image}`
                     }
                     alt={selectedWinner.title}
                     className="archive-menu-display-image"
@@ -204,7 +204,7 @@ function ArchiveSection({ pastWinners, placeholderImage }) {
               src={
                 selectedWinner.image?.startsWith("http")
                   ? selectedWinner.image
-                  : `http://localhost:3002/uploads/${selectedWinner.image}`
+                  : `${import.meta.env.VITE_UPLOADS_URL}/${selectedWinner.image}`
               }
               alt={selectedWinner.title}
               className="archive-modal-image"

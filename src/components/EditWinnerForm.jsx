@@ -213,7 +213,7 @@ export default function EditWinnerForm({ winner, onDone }) {
                       Preview da Imagem:
                     </Text>
                     <Image
-                      src={`http://localhost:3002/uploads/${formData.image}`}
+                      src={`${import.meta.env.VITE_UPLOADS_URL}/${formData.image}`}
                       height={200}
                       fit="contain"
                       radius="md"

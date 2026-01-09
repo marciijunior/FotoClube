@@ -110,7 +110,7 @@ const mapEvents = (arr = []) =>
       // Se já tem o caminho completo, usa direto; senão, adiciona o prefixo
       imageUrl = it.image.startsWith("http")
         ? it.image
-        : `http://localhost:3002/uploads/${it.image}`;
+        : `${import.meta.env.VITE_UPLOADS_URL}/${it.image}`;
     }
     return {
       id: `event-${it.id ?? it.title}`,
@@ -172,7 +172,7 @@ const mapWinners = (arr = []) =>
       // Se já tem o caminho completo, usa direto; senão, adiciona o prefixo
       imageUrl = it.image.startsWith("http")
         ? it.image
-        : `http://localhost:3002/uploads/${it.image}`;
+        : `${import.meta.env.VITE_UPLOADS_URL}/${it.image}`;
     }
     return {
       id: `winner-${it.id}`,
