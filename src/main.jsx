@@ -7,8 +7,6 @@ import { DatesProvider } from "@mantine/dates";
 import "dayjs/locale/pt-br";
 import apolloClient from "./lib/apolloClient.jsx";
 
-// Debug: mostrar valor da variável de ambiente de uploads
-console.log("UPLOADS_URL:", import.meta.env.VITE_UPLOADS_URL);
 
 import AppLayout from "./components/layout/AppLayout.jsx";
 import HomePage from "./pages/Home/HomePage.jsx";
