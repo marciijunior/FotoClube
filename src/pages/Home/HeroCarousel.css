@@ -47,7 +47,7 @@
 
 .slide-content {
   position: relative;
-  z-index: 5;
+  z-index: 2;
   pointer-events: auto;
   text-align: left;
   transform: translateY(20px);
@@ -146,6 +146,13 @@
   pointer-events: none;
 }
 
+.slide-thumbnails,
+.navigation-controls,
+.thumbnail,
+.navigation-controls * {
+  pointer-events: auto;
+}
+
 .slide-thumbnails {
   display: flex;
   align-items: center;
@@ -155,7 +162,6 @@
   padding: 0 50%;
   -ms-overflow-style: none;
   scrollbar-width: none;
-  pointer-events: auto;
 }
 
 .slide-thumbnails::-webkit-scrollbar {
@@ -195,7 +201,6 @@
   width: 100%;
   color: var(--color-light);
   padding: 20px 5%;
-  pointer-events: auto;
 }
 
 .counter {
