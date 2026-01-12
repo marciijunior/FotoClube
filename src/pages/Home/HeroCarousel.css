@@ -42,11 +42,13 @@
     rgba(0, 0, 0, 0.445),
     rgba(0, 0, 0, 0.603)
   );
+  pointer-events: none;
 }
 
 .slide-content {
   position: relative;
   z-index: 2;
+  pointer-events: auto;
   text-align: left;
   transform: translateY(20px);
   opacity: 0;
