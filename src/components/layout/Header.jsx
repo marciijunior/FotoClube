@@ -4,9 +4,9 @@ import { useState, useEffect } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import "./Header.css";
 
-// Logos servidos pela pasta public para evitar erros de import em rotas internas
-const logoBranco = "/logo-fotoclube.png";
-const logoAzul = "/logo-fotoclube-azul.png";
+// Ambas as versões do logo vêm do bundle para evitar glitches
+import logoBranco from "../../assets/logo-fotoclube.png";
+import logoAzul from "../../assets/logo-fotoclube-azul.png";
 
 function Header({ isHomePage }) {
   const [isVisible, setIsVisible] = useState(true);
@@ -37,8 +37,8 @@ function Header({ isHomePage }) {
 
   const headerClass = `header ${!isHomePage ? "header-solid" : ""} ${!isVisible ? "header-hidden" : ""} ${!isAtTop ? "header-scrolled" : ""}`;
 
-  // A lógica permanece a mesma, mas agora usa as variáveis importadas
-  const logoSrc = !isHomePage ? logoAzul : logoBranco;
+  // Exibe logo branco apenas no topo da Home; demais casos usam logo azul
+  const logoSrc = isHomePage && isAtTop ? logoBranco : logoAzul;
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);

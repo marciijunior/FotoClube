@@ -270,6 +270,19 @@
 }
 
 @media (max-width: 600px) {
+  .weekday {
+    font-size: 0.75rem;
+  }
+  .days-grid {
+    gap: 3px;
+  }
+  .calendar-day {
+    height: 56px;
+    padding-top: 4px;
+  }
+  .day-number {
+    font-size: 0.9rem;
+  }
   body,
   h1,
   h2,

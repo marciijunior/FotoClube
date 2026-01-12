@@ -245,7 +245,7 @@
   display: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   /* Header mantém altura menor mas sempre visível no scroll up */
   .header {
     padding: 10px 5%;
@@ -269,10 +269,6 @@
   }
 
   /* Logo e botão adaptam cor quando há fundo branco */
-  .header.header-scrolled .logo img {
-    /* Trocar para logo azul quando tiver fundo branco */
-    content: url("/logo-fotoclube-azul.png");
-  }
 
   .header.header-scrolled .mobile-menu-toggle {
     background: rgba(0, 48, 87, 0.05);

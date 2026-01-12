@@ -73,6 +73,12 @@
   margin: 10px 0 20px 0;
 }
 
+
+/* Placeholder neutro quando não há imagem local */
+.magazine-image.placeholder {
+  aspect-ratio: 4 / 5;
+  background: linear-gradient(135deg, #f6f7fb 0%, #e7eaf1 100%);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
 .magazine-text {
   font-size: 1rem;
   line-height: 1.7;

@@ -21,7 +21,8 @@ import { FaBehance, FaFlickr, Fa500Px, FaVimeoV } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import "./Footer.css"; // O CSS do Modo Claro (que você já tem) está correto
 
-const logoSrc = "/logo-fotoclube-azul.png";
+// Usa logo do bundle para evitar corromper em build/cache
+import logoSrc from "../../assets/logo-fotoclube-azul.png";
 
 function Footer() {
   return (
@@ -95,8 +96,8 @@ function Footer() {
             <iframe
               /* ESTE É O LINK DE EMBED PÚBLICO E CORRETO */
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d119185.00811867169!2d-50.49133282110756!3d-21.20576389718413!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x949609a5b3185a73%3A0x44f9f74a00511e4e!2sAra%C3%A7atuba%2C%20SP!5e0!3m2!1spt-BR!2sbr!4v1729868822080!5m2!1spt-BR!2sbr"
-              width="600"
-              height="450"
+              width="100%"
+              height="100%"
               style={{ border: 0 }}
               allowFullScreen=""
               loading="lazy"

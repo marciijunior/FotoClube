@@ -37,7 +37,10 @@ function HeroCarousel() {
 
   const normalizeImage = (img) => {
     if (!img) return null;
-    if (img.startsWith("http://localhost") || img.startsWith("https://localhost")) {
+    if (
+      img.startsWith("http://localhost") ||
+      img.startsWith("https://localhost")
+    ) {
       const filename = img.split("/").pop();
       return `${import.meta.env.VITE_UPLOADS_URL}/${filename}`;
     }
@@ -141,7 +144,9 @@ function HeroCarousel() {
           <div
             key={slide.id}
             className={`slide ${index === currentIndex ? "active" : ""}`}
-            style={{ backgroundImage: `url(${normalizeImage(slide.image) || ""})` }}
+            style={{
+              backgroundImage: `url(${normalizeImage(slide.image) || ""})`,
+            }}
           >
             <div className="slide-content">
               <p className="location">{slide.title}</p>

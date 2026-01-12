@@ -9,7 +9,10 @@ function FilmstripSection({ runnersUp, placeholderImage }) {
 
   const normalizeImage = (img) => {
     if (!img) return null;
-    if (img.startsWith("http://localhost") || img.startsWith("https://localhost")) {
+    if (
+      img.startsWith("http://localhost") ||
+      img.startsWith("https://localhost")
+    ) {
       const filename = img.split("/").pop();
       return `${import.meta.env.VITE_UPLOADS_URL}/${filename}`;
     }

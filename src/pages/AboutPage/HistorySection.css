@@ -41,7 +41,7 @@
 .hq-card {
   background-color: #f9f9f9;
   border-radius: 8px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   transform: scale(1.05) rotate(2deg); /* Efeito de "foto" */
   transition: transform 0.3s ease;
@@ -56,6 +56,13 @@
   height: 250px;
   object-fit: cover;
   display: block;
+
+  /* Placeholder quando não houver imagem local */
+  .hq-card-image-placeholder {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #f6f7fb 0%, #e7eaf1 100%);
+  }
   border-bottom: 4px solid var(--color-accent);
 }
 

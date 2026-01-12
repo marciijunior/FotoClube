@@ -36,7 +36,10 @@ export default function FeedPosts({ limit = 10 }) {
 
   const normalizeImage = (img) => {
     if (!img) return null;
-    if (img.startsWith("http://localhost") || img.startsWith("https://localhost")) {
+    if (
+      img.startsWith("http://localhost") ||
+      img.startsWith("https://localhost")
+    ) {
       const filename = img.split("/").pop();
       return `${import.meta.env.VITE_UPLOADS_URL}/${filename}`;
     }
@@ -163,7 +166,10 @@ export default function FeedPosts({ limit = 10 }) {
             <article key={post.id} className="feed-post-card">
               {post.image && (
                 <div className="feed-post-image">
-                  <img src={normalizeImage(post.image) || ""} alt={post.title} />
+                  <img
+                    src={normalizeImage(post.image) || ""}
+                    alt={post.title}
+                  />
                   <div
                     className="feed-post-category-badge"
                     style={{ backgroundColor: getCategoryColor(post.category) }}

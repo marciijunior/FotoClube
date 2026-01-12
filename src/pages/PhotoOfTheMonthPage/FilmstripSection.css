@@ -4,7 +4,7 @@
 
 .filmstrip-track-wrapper {
   overflow-x: auto;
-  scrollbar-width: thin; 
+  scrollbar-width: thin;
   scrollbar-color: var(--color-accent) #ffffff;
   cursor: grab;
   user-select: none;
@@ -51,7 +51,7 @@
   border-radius: 4px;
   overflow: hidden;
   transition: transform 0.3s ease;
-  pointer-events: auto; 
+  pointer-events: auto;
 }
 .filmstrip-card:hover {
   transform: scale(1.03);
@@ -70,7 +70,7 @@
   left: 0;
   width: 100%;
   padding: 15px;
-  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
   display: flex;
   align-items: baseline;
   justify-content: space-between;
@@ -91,4 +91,29 @@
   font-weight: 500;
   color: var(--color-light);
   margin: 0;
+}
+
+@media (max-width: 640px) {
+  .potm-filmstrip-section {
+    padding-bottom: 56px;
+  }
+  .filmstrip-track {
+    gap: 12px;
+    padding-inline: 16px;
+  }
+  .filmstrip-card {
+    width: 240px;
+    height: 150px;
+    border-radius: 6px;
+  }
+  .filmstrip-info {
+    padding: 10px;
+  }
+  .filmstrip-rank {
+    font-size: 0.7rem;
+    padding: 3px 6px;
+  }
+  .filmstrip-author {
+    font-size: 0.8rem;
+  }
 }

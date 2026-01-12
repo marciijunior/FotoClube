@@ -14,7 +14,10 @@ function ArchiveSection({ pastWinners, placeholderImage }) {
 
   const normalizeImage = (img) => {
     if (!img) return null;
-    if (img.startsWith("http://localhost") || img.startsWith("https://localhost")) {
+    if (
+      img.startsWith("http://localhost") ||
+      img.startsWith("https://localhost")
+    ) {
       const filename = img.split("/").pop();
       return `${import.meta.env.VITE_UPLOADS_URL}/${filename}`;
     }
@@ -62,6 +65,15 @@ function ArchiveSection({ pastWinners, placeholderImage }) {
   const selectedWinner = useMemo(() => {
     return filteredWinners.find((w) => w.id === selectedWinnerId);
   }, [selectedWinnerId, filteredWinners]);
+
+  // Garante que, ao filtrar, sempre haja um vencedor selecionado visível
+  useEffect(() => {
+    if (!filteredWinners.length) return;
+    const exists = filteredWinners.some((w) => w.id === selectedWinnerId);
+    if (!exists) {
+      setSelectedWinnerId(filteredWinners[0].id);
+    }
+  }, [filteredWinners, selectedWinnerId]);
 
   // Animação do progresso do timer
   useEffect(() => {
@@ -170,7 +182,9 @@ function ArchiveSection({ pastWinners, placeholderImage }) {
                   onClick={openModal}
                 >
                   <img
-                    src={normalizeImage(selectedWinner.image) ?? placeholderImage}
+                    src={
+                      normalizeImage(selectedWinner.image) ?? placeholderImage
+                    }
                     alt={selectedWinner.title}
                     className="archive-menu-display-image"
                     onError={(e) => {

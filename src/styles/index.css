@@ -21,6 +21,13 @@
   }
 }
 
+@media (min-width: 769px) and (max-width: 1024px) {
+  :root {
+    --container-gutter: 24px;
+    --space-md: 20px;
+  }
+}
+
 *,
 *::before,
 *::after {
