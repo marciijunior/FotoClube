@@ -39,7 +39,7 @@ body {
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--color-light); 
+  background-color: var(--color-light);
   color: var(--color-dark);
   overflow-x: hidden;
 }
@@ -52,11 +52,11 @@ h5,
 h6 {
   font-family: var(--font-heading);
   letter-spacing: 1.5px;
-  color: var(--color-primary); 
+  color: var(--color-primary);
 }
 
 a {
-  color: var(--color-accent); 
+  color: var(--color-accent);
   text-decoration: none;
 }
 
@@ -66,7 +66,7 @@ a:hover {
 
 .container {
   max-width: var(--container-max-width);
-  margin-inline: auto; 
+  margin-inline: auto;
   padding-inline: var(--container-gutter);
   width: 100%;
 }
