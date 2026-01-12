@@ -29,61 +29,66 @@ import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import "./styles/index.css";
 import "@mantine/core/styles.css";
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  [
+    {
+      element: <AppLayout />,
+      children: [
+        { path: "/", element: <HomePage /> },
+        { path: "eventos", element: <PaginaEventos /> },
+        { path: "foto-do-mes", element: <PhotoOfTheMonthPage /> },
+        { path: "sobre", element: <AboutPage /> },
+        { path: "contatos", element: <ContactPage /> },
+      ],
+    },
+    {
+      path: "/admin",
+      element: <AdminLayout />,
+      children: [
+        { path: "login", element: <LoginAdmin /> },
+        {
+          path: "",
+          element: <ProtectedRoute />,
+          children: [
+            { path: "", element: <AdminHome /> },
+            { path: "carousel", element: <CarouselManage /> },
+            {
+              path: "events",
+              children: [
+                { path: "", element: <EventsList /> },
+                { path: "new", element: <EventEdit /> },
+                { path: ":id/edit", element: <EventEdit /> },
+              ],
+            },
+            {
+              path: "winners",
+              children: [
+                { path: "", element: <WinnersList /> },
+                { path: "new", element: <WinnerEdit /> },
+                { path: ":id/edit", element: <WinnerEdit /> },
+              ],
+            },
+            {
+              path: "members",
+              children: [
+                { path: "", element: <MembersList /> },
+                { path: "new", element: <MemberEdit /> },
+                { path: ":id/edit", element: <MemberEdit /> },
+              ],
+            },
+            {
+              path: "posts/*",
+              element: <PostsListPage />,
+            },
+          ],
+        },
+      ],
+    },
+  ],
   {
-    element: <AppLayout />,
-    children: [
-      { path: "/", element: <HomePage /> },
-      { path: "eventos", element: <PaginaEventos /> },
-      { path: "foto-do-mes", element: <PhotoOfTheMonthPage /> },
-      { path: "sobre", element: <AboutPage /> },
-      { path: "contatos", element: <ContactPage /> },
-    ],
-  },
-  {
-    path: "/admin",
-    element: <AdminLayout />,
-    children: [
-      { path: "login", element: <LoginAdmin /> },
-      {
-        path: "",
-        element: <ProtectedRoute />,
-        children: [
-          { path: "", element: <AdminHome /> },
-          { path: "carousel", element: <CarouselManage /> },
-          {
-            path: "events",
-            children: [
-              { path: "", element: <EventsList /> },
-              { path: "new", element: <EventEdit /> },
-              { path: ":id/edit", element: <EventEdit /> },
-            ],
-          },
-          {
-            path: "winners",
-            children: [
-              { path: "", element: <WinnersList /> },
-              { path: "new", element: <WinnerEdit /> },
-              { path: ":id/edit", element: <WinnerEdit /> },
-            ],
-          },
-          {
-            path: "members",
-            children: [
-              { path: "", element: <MembersList /> },
-              { path: "new", element: <MemberEdit /> },
-              { path: ":id/edit", element: <MemberEdit /> },
-            ],
-          },
-          {
-            path: "posts/*",
-            element: <PostsListPage />,
-          },
-        ],
-      },
-    ],
-  },
-]);
+    basename: import.meta.env.BASE_URL,
+  }
+);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
