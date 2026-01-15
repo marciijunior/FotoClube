@@ -29,10 +29,10 @@ function MembersSection() {
     <section className="members-section">
       <div className="members-container">
         <div className="members-header">
-          <h2>Nossos Associados</h2>
+          <h2>Nossos Fundadores</h2>
           <p>
-            A força do nosso clube está nas pessoas. Conheça os membros que
-            fazem a comunidade acontecer.
+            Conheça os visionários que deram vida ao FotoClube e transformaram
+            uma paixão em comunidade.
           </p>
         </div>
         <div className="members-grid">

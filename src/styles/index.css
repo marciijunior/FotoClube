@@ -1,11 +1,25 @@
 :root {
+  /* Cores principais */
   --color-primary: #003b56;
+  --color-secondary: #1f626b;
   --color-accent: #ff5c00;
   --color-light: #f5f2f0;
   --color-dark: #000000;
-  --color-white: rgb(255, 255, 255);
+  --color-white: #ffffff;
+
+  /* Cores dos botões */
+  --btn-bg: var(--color-accent);
+  --btn-text: var(--color-light);
+  --btn-shadow: rgba(255, 92, 0, 0.35);
+  --btn-shadow-hover: rgba(255, 92, 0, 0.45);
+  --btn-bar-start: var(--color-secondary);
+  --btn-bar-end: var(--color-white);
+
+  /* Tipografia */
   --font-body: "Poppins", sans-serif;
   --font-heading: "Bebas Neue", sans-serif;
+
+  /* Layout */
   --container-max-width: 1200px;
   --container-gutter: 0px;
   --space-xs: 6px;

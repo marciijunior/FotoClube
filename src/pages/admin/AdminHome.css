@@ -2,7 +2,7 @@
 
 .admin-home-wrapper {
   min-height: 100vh;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background: linear-gradient(135deg, #f5f2f0 0%, #f5f2f0 100%);
   padding: 2rem;
 }
 
@@ -24,7 +24,7 @@
   right: 0;
   width: 400px;
   height: 400px;
-  background: linear-gradient(135deg, #667eea20 0%, #764ba220 100%);
+  background: linear-gradient(135deg, #1f626b20 0%, #003b5620 100%);
   border-radius: 50%;
   transform: translate(30%, -30%);
   z-index: 0;
@@ -46,7 +46,7 @@
 .admin-title {
   font-size: 3rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1f626b 0%, #003b56 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -56,7 +56,7 @@
 
 .admin-subtitle {
   font-size: 1.2rem;
-  color: #64748b;
+  color: #1f626b;
   margin: 0;
   font-weight: 400;
 }
@@ -70,7 +70,7 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1f626b 0%, #003b56 100%);
   padding: 1.5rem 2rem;
   border-radius: 15px;
   color: white;
@@ -110,7 +110,7 @@
 .section-title {
   font-size: 1.8rem;
   font-weight: 700;
-  color: #1e293b;
+  color: #003b56;
   margin-bottom: 1.5rem;
   padding-left: 0.5rem;
 }
@@ -182,13 +182,13 @@
 .card-title {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #1e293b;
+  color: #003b56;
   margin: 0 0 0.5rem 0;
 }
 
 .card-description {
   font-size: 0.95rem;
-  color: #64748b;
+  color: #1f626b;
   margin: 0;
   line-height: 1.6;
 }
@@ -230,7 +230,7 @@
 }
 
 .tip-card {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1f626b 0%, #003b56 100%);
   border-radius: 20px;
   padding: 2rem;
   display: flex;

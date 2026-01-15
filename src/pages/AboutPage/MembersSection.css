@@ -2,19 +2,24 @@
 .members-section {
   width: 100%;
   padding: 100px 24px;
-  background: linear-gradient(180deg, #16213e 0%, #0a0a0a 100%);
+  background: var(--color-light-gray, #f5f2f0);
   position: relative;
   overflow: hidden;
 }
 
 .members-section::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.5), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 92, 0, 0.3),
+    transparent
+  );
 }
 
 .members-container {
@@ -33,17 +38,13 @@
   font-family: var(--font-heading);
   font-size: 3rem;
   font-weight: 800;
-  color: #ffffff;
+  color: var(--color-primary, #003b56);
   margin-bottom: 20px;
-  background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
 .members-header p {
   font-size: 1.15rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: #555;
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.7;
@@ -56,23 +57,28 @@
 }
 
 .member-card {
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+  background: #ffffff;
   border-radius: 20px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
 }
 
 .member-card::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   border-radius: 20px;
   padding: 1px;
-  background: linear-gradient(135deg, rgba(255, 107, 53, 0.3), rgba(0, 168, 150, 0.3));
-  -webkit-mask: 
-    linear-gradient(#fff 0 0) content-box, 
+  background: linear-gradient(
+    135deg,
+    rgba(255, 92, 0, 0.5),
+    rgba(31, 98, 107, 0.5)
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -83,9 +89,9 @@
 
 .member-card:hover {
   transform: translateY(-10px) scale(1.02);
-  box-shadow: 
-    0 25px 50px rgba(255, 107, 53, 0.15),
-    0 0 30px rgba(0, 168, 150, 0.1);
+  box-shadow:
+    0 25px 50px rgba(0, 0, 0, 0.12),
+    0 0 30px rgba(255, 92, 0, 0.08);
 }
 
 .member-card:hover::before {
@@ -101,13 +107,13 @@
 }
 
 .member-card-image::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   height: 60%;
-  background: linear-gradient(to top, rgba(10, 10, 10, 0.9), transparent);
+  background: linear-gradient(to top, rgba(255, 255, 255, 0.9), transparent);
 }
 
 .member-card-info {
@@ -120,7 +126,7 @@
   font-family: var(--font-heading);
   font-size: 1.3rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--color-primary, #003b56);
   margin: 0 0 12px 0;
 }
 
@@ -128,7 +134,7 @@
 .member-card-info span {
   font-family: var(--font-body);
   font-size: 0.85rem;
-  color: #ff6b35;
+  color: #ff5c00;
   text-decoration: none;
   font-weight: 600;
   display: inline-flex;
@@ -138,12 +144,12 @@
 }
 
 .member-card-info a:hover {
-  color: #00a896;
+  color: #1f626b;
   transform: translateX(3px);
 }
 
 .member-card-info span {
-  color: rgba(255, 255, 255, 0.5);
+  color: #777;
 }
 
 /* ===== RESPONSIVO ===== */
@@ -158,15 +164,15 @@
   .members-section {
     padding: 80px 20px;
   }
-  
+
   .members-header h2 {
     font-size: 2.2rem !important;
   }
-  
+
   .members-header p {
     font-size: 1rem !important;
   }
-  
+
   .member-card-image {
     height: 220px;
   }
@@ -176,41 +182,40 @@
   .members-section {
     padding: 60px 16px;
   }
-  
+
   .members-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
-  
+
   .members-header h2 {
     font-size: 1.7rem !important;
   }
-  
+
   .members-header p {
     font-size: 0.9rem !important;
   }
-  
+
   .member-card {
     border-radius: 12px;
   }
-  
+
   .member-card-image {
     height: 140px;
   }
-  
+
   .member-card-info {
     padding: 12px 10px;
   }
-  
+
   .member-card-info h3 {
     font-size: 0.85rem;
     margin-bottom: 6px;
   }
-  
+
   .member-card-info a,
   .member-card-info span {
     font-size: 0.7rem;
     gap: 3px;
   }
 }
-

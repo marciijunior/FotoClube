@@ -2,7 +2,7 @@
 
 .admin-page-wrapper {
   min-height: 100vh;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background: linear-gradient(135deg, #f5f2f0 0%, #f5f2f0 100%);
   padding: 2rem;
 }
 
@@ -19,7 +19,7 @@
   background: white;
   border-radius: 12px;
   text-decoration: none;
-  color: #64748b;
+  color: #1f626b;
   font-weight: 600;
   font-size: 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
@@ -27,7 +27,7 @@
 }
 
 .admin-back-button:hover {
-  background: #667eea;
+  background: #1f626b;
   color: white;
   transform: translateX(-4px);
   box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
@@ -83,14 +83,14 @@
 .admin-page-title {
   font-size: 2.5rem;
   font-weight: 800;
-  color: #1e293b;
+  color: #003b56;
   margin: 0 0 0.5rem 0;
   letter-spacing: -1px;
 }
 
 .admin-page-subtitle {
   font-size: 1rem;
-  color: #64748b;
+  color: #1f626b;
   margin: 0;
   font-weight: 400;
 }
@@ -106,7 +106,7 @@
   padding: 2.5rem;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
   min-height: 400px;
-  border: 3px solid #f1f5f9;
+  border: 3px solid #f5f2f0;
   transition: all 0.3s ease;
 }
 
@@ -121,18 +121,18 @@
   padding: 1.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   transition: all 0.3s ease;
-  border: 2px solid #f1f5f9;
+  border: 2px solid #f5f2f0;
 }
 
 .admin-content-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-  border-color: #e2e8f0;
+  border-color: #f5f2f0;
 }
 
 /* Common Button Styles */
 .admin-primary-button {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1f626b 0%, #003b56 100%);
   color: white;
   border: none;
   padding: 0.875rem 2rem;
@@ -151,8 +151,8 @@
 
 .admin-secondary-button {
   background: white;
-  color: #667eea;
-  border: 2px solid #667eea;
+  color: #1f626b;
+  border: 2px solid #1f626b;
   padding: 0.875rem 2rem;
   border-radius: 12px;
   font-weight: 600;
@@ -162,12 +162,12 @@
 }
 
 .admin-secondary-button:hover {
-  background: #667eea;
+  background: #1f626b;
   color: white;
 }
 
 .admin-danger-button {
-  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  background: linear-gradient(135deg, #ff5c00 0%, #ff5c00 100%);
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -198,7 +198,7 @@
 .admin-form-label {
   display: block;
   font-weight: 600;
-  color: #1e293b;
+  color: #003b56;
   margin-bottom: 0.5rem;
   font-size: 0.95rem;
 }
@@ -206,7 +206,7 @@
 .admin-form-input {
   width: 100%;
   padding: 0.875rem 1rem;
-  border: 2px solid #e2e8f0;
+  border: 2px solid #f5f2f0;
   border-radius: 10px;
   font-size: 1rem;
   transition: all 0.3s ease;
@@ -214,7 +214,7 @@
 
 .admin-form-input:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: #1f626b;
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
@@ -228,22 +228,22 @@
 }
 
 .admin-badge-primary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1f626b 0%, #003b56 100%);
   color: white;
 }
 
 .admin-badge-success {
-  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  background: linear-gradient(135deg, #1f626b 0%, #1f626b 100%);
   color: white;
 }
 
 .admin-badge-warning {
-  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  background: linear-gradient(135deg, #ff5c00 0%, #ff5c00 100%);
   color: white;
 }
 
 .admin-badge-info {
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  background: linear-gradient(135deg, #1f626b 0%, #1f626b 100%);
   color: white;
 }
 

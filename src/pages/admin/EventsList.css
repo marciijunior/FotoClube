@@ -16,19 +16,19 @@
 }
 
 .events-list-subtitle {
-  color: #868e96;
+  color: #1f626b;
   font-size: 1rem;
   margin-top: 0.5rem;
 }
 
 .events-add-button {
   font-weight: 600;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1f626b 0%, #003b56 100%);
   border: none;
 }
 
 .events-add-button:hover {
-  background: linear-gradient(135deg, #5568d3 0%, #6a4193 100%);
+  background: linear-gradient(135deg, #1f626b 0%, #003b56 100%);
 }
 
 .events-card {
@@ -56,12 +56,12 @@
 .events-card-title {
   font-weight: 700;
   font-size: 1.2rem;
-  color: #212529;
+  color: #000000;
   margin-top: 0.5rem;
 }
 
 .events-card-meta {
-  color: #868e96;
+  color: #1f626b;
   font-size: 0.9rem;
   margin-top: 0.5rem;
 }
@@ -71,7 +71,7 @@
 }
 
 .events-card-description {
-  color: #495057;
+  color: #003b56;
   font-size: 0.95rem;
   margin-top: 1rem;
 }
@@ -79,7 +79,7 @@
 .events-card-actions {
   margin-top: 1.5rem;
   padding-top: 1rem;
-  border-top: 1px solid #e9ecef;
+  border-top: 1px solid #f5f2f0;
 }
 
 .events-edit-button {
@@ -93,19 +93,19 @@
 
 .events-empty-icon {
   font-size: 4rem;
-  color: #adb5bd;
+  color: #1f626b;
   margin-bottom: 1.5rem;
 }
 
 .events-empty-title {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #495057;
+  color: #003b56;
   margin-bottom: 0.75rem;
 }
 
 .events-empty-text {
-  color: #868e96;
+  color: #1f626b;
   font-size: 1rem;
 }
 

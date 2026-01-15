@@ -8,14 +8,14 @@
 .event-edit-title {
   font-size: 2rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  background: linear-gradient(135deg, #ff5c00 0%, #ff5c00 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .event-edit-subtitle {
-  color: #64748b;
+  color: #1f626b;
   font-size: 1rem;
   margin-top: 0.5rem;
   font-weight: 400;
@@ -24,7 +24,7 @@
 .event-form-card {
   margin-top: 2rem;
   border-radius: 20px;
-  border: 2px solid #f1f5f9;
+  border: 2px solid #f5f2f0;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
 }
@@ -36,11 +36,11 @@
 .event-form-section-title {
   font-size: 1.2rem;
   font-weight: 700;
-  color: #1e293b;
+  color: #003b56;
   margin-bottom: 1.5rem;
   padding-bottom: 0.75rem;
-  border-bottom: 3px solid #f1f5f9;
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  border-bottom: 3px solid #f5f2f0;
+  background: linear-gradient(135deg, #ff5c00 0%, #ff5c00 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -50,11 +50,11 @@
   font-weight: 600;
   margin-bottom: 8px;
   font-size: 0.95rem;
-  color: #1e293b;
+  color: #003b56;
 }
 
 .event-form-input:focus {
-  border-color: #f5576c;
+  border-color: #ff5c00;
   border-width: 2px;
   box-shadow: 0 0 0 3px rgba(245, 87, 108, 0.1);
 }
@@ -64,13 +64,13 @@
   gap: 1rem;
   margin-top: 2.5rem;
   padding-top: 2rem;
-  border-top: 3px solid #f1f5f9;
+  border-top: 3px solid #f5f2f0;
 }
 
 .event-submit-button {
   flex: 1;
   font-weight: 600;
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  background: linear-gradient(135deg, #ff5c00 0%, #ff5c00 100%);
   border: none;
   padding: 1rem 2rem;
   border-radius: 12px;
@@ -88,14 +88,14 @@
   flex: 1;
   font-weight: 600;
   background: white;
-  color: #64748b;
-  border: 2px solid #e2e8f0;
+  color: #1f626b;
+  border: 2px solid #f5f2f0;
   padding: 1rem 2rem;
   border-radius: 12px;
   transition: all 0.3s ease;
 }
 
 .event-cancel-button:hover {
-  background: #f8fafc;
-  border-color: #cbd5e1;
+  background: #f5f2f0;
+  border-color: #f5f2f0;
 }

@@ -15,11 +15,11 @@
 
 /* Hover state for regular days */
 .mantine-DateInput-day:hover:not([data-selected]):not([data-outside]) {
-  background-color: #e7f5ff !important;
-  color: #228be6 !important;
+  background-color: #f5f2f0 !important;
+  color: #1f626b !important;
   transform: scale(1.08) !important;
   font-weight: 600 !important;
-  border: 2px solid #228be6 !important;
+  border: 2px solid #1f626b !important;
   box-shadow: 0 4px 12px rgba(34, 139, 230, 0.3) !important;
   position: relative !important;
 }
@@ -30,7 +30,7 @@
   bottom: -28px !important;
   left: 50% !important;
   transform: translateX(-50%) !important;
-  background-color: #228be6 !important;
+  background-color: #1f626b !important;
   color: white !important;
   padding: 5px 10px !important;
   border-radius: 6px !important;
@@ -44,20 +44,20 @@
 
 /* Today indicator */
 .mantine-DateInput-day[data-today] {
-  border: 2px solid #228be6 !important;
+  border: 2px solid #1f626b !important;
   font-weight: 700 !important;
-  background-color: #f0f9ff !important;
+  background-color: #f5f2f0 !important;
 }
 
 .mantine-DateInput-day[data-today]:hover:not([data-selected]) {
-  background-color: #e7f5ff !important;
-  border: 2px solid #228be6 !important;
+  background-color: #f5f2f0 !important;
+  border: 2px solid #1f626b !important;
   transform: scale(1.1) !important;
 }
 
 /* Selected day */
 .mantine-DateInput-day[data-selected] {
-  background-color: #228be6 !important;
+  background-color: #1f626b !important;
   color: white !important;
   font-weight: 700 !important;
   transform: scale(1.1) !important;
@@ -66,31 +66,31 @@
 
 /* Weekend days */
 .mantine-DateInput-day[data-weekend]:not([data-selected]) {
-  color: #fa5252 !important;
+  color: #ff5c00 !important;
 }
 
 .mantine-DateInput-day[data-weekend]:hover:not([data-selected]) {
-  background-color: #fff5f5 !important;
-  color: #fa5252 !important;
-  border: 2px solid #fa5252 !important;
+  background-color: #f5f2f0 !important;
+  color: #ff5c00 !important;
+  border: 2px solid #ff5c00 !important;
   transform: scale(1.08) !important;
   box-shadow: 0 2px 8px rgba(250, 82, 82, 0.2) !important;
 }
 
 /* Outside days (other months) */
 .mantine-DateInput-day[data-outside] {
-  color: #adb5bd !important;
+  color: #1f626b !important;
   opacity: 0.5 !important;
 }
 
 .mantine-DateInput-day[data-outside]:hover {
   opacity: 0.7 !important;
-  background-color: #f1f3f5 !important;
+  background-color: #f5f2f0 !important;
 }
 
 /* Calendar header controls hover */
 .mantine-DateInput-calendarHeaderControl {
-  background-color: #f1f3f5 !important;
+  background-color: #f5f2f0 !important;
   border: none !important;
   border-radius: 8px !important;
   width: 32px !important;
@@ -100,7 +100,7 @@
 }
 
 .mantine-DateInput-calendarHeaderControl:hover {
-  background-color: #228be6 !important;
+  background-color: #1f626b !important;
   color: white !important;
   transform: scale(1.05) !important;
 }
@@ -109,7 +109,7 @@
 .mantine-DateInput-calendarHeaderLevel {
   font-weight: 700 !important;
   font-size: 1.1rem !important;
-  color: #228be6 !important;
+  color: #1f626b !important;
   text-align: center !important;
   min-width: 150px !important;
   transition: all 0.2s ease !important;
@@ -117,7 +117,7 @@
 }
 
 .mantine-DateInput-calendarHeaderLevel:hover {
-  background-color: #f1f3f5 !important;
+  background-color: #f5f2f0 !important;
 }
 
 /* Month cells (when selecting month) */
@@ -129,14 +129,14 @@
 }
 
 .mantine-DateInput-monthCell:hover {
-  background-color: #e7f5ff !important;
-  color: #228be6 !important;
+  background-color: #f5f2f0 !important;
+  color: #1f626b !important;
   transform: scale(1.05) !important;
 }
 
 /* Weekday labels */
 .mantine-DateInput-weekday {
-  color: #868e96 !important;
+  color: #1f626b !important;
   font-weight: 700 !important;
   font-size: 0.85rem !important;
   text-transform: uppercase !important;
@@ -146,14 +146,14 @@
 /* Calendar dropdown styling */
 .mantine-DateInput-dropdown {
   padding: 1.5rem !important;
-  border: 2px solid #e9ecef !important;
-  background: linear-gradient(to bottom, #ffffff, #f8f9fa) !important;
+  border: 2px solid #f5f2f0 !important;
+  background: linear-gradient(to bottom, #ffffff, #f5f2f0) !important;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1) !important;
   border-radius: 12px !important;
 }
 
 /* Input focus state */
 .mantine-DateInput-input:focus {
-  border-color: #228be6 !important;
+  border-color: #1f626b !important;
   border-width: 2px !important;
 }

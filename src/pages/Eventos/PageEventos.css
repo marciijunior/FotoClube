@@ -1,3 +1,5 @@
+/* ===== PAGE EVENTOS - DESIGN MODERNO ===== */
+
 .page-eventos-wrapper {
   width: 100%;
   min-height: 100vh;
@@ -7,9 +9,21 @@
 
 .eventos-hero {
   position: relative;
-  padding: 80px 0px;
+  padding: 100px 0px;
   text-align: center;
   background-color: var(--color-light);
+}
+
+.eventos-hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 4px;
+  background: linear-gradient(90deg, #ff5c00, #1f626b);
+  border-radius: 2px;
 }
 
 .hero-content {
@@ -23,59 +37,73 @@
   display: inline-block;
   font-family: var(--font-body);
   font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--color-accent);
+  font-weight: 700;
+  color: #ff5c00;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 15px;
-  background: rgba(255, 92, 0, 0.1);
-  padding: 6px 12px;
-  border-radius: 20px;
+  letter-spacing: 1.5px;
+  margin-bottom: 20px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 92, 0, 0.1),
+    rgba(31, 98, 107, 0.1)
+  );
+  padding: 8px 18px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 92, 0, 0.2);
 }
 
 .hero-title {
   font-family: var(--font-heading);
-  font-size: 3.5rem;
+  font-size: 3.8rem;
+  font-weight: 800;
   color: var(--color-primary);
-  margin: 0 0 20px 0;
-  line-height: 1;
+  margin: 0 0 25px 0;
+  line-height: 1.1;
+  letter-spacing: -1px;
 }
 
 .highlight-text {
-  color: var(--color-accent);
+  background: linear-gradient(135deg, #ff5c00, #1f626b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .hero-description {
   font-family: var(--font-body);
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   color: #555;
-  margin-bottom: 32px;
-  line-height: 1.6;
+  margin-bottom: 35px;
+  line-height: 1.7;
   text-align: center;
-  max-width: 600px;
+  max-width: 620px;
   margin-left: auto;
   margin-right: auto;
 }
 
 .btn-scroll-down {
-  background: var(--color-primary);
+  background: linear-gradient(135deg, #ff5c00, #ff5c00);
   color: var(--color-white);
   border: none;
-  padding: 12px 28px;
-  border-radius: 4px;
+  padding: 14px 32px;
+  border-radius: 50px;
   font-family: var(--font-body);
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 0.95rem;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  transition:
-    background-color 0.3s,
-    transform 0.2s;
+  gap: 10px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 25px rgba(255, 92, 0, 0.35);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .btn-scroll-down:hover {
-  background-color: var(--color-accent);
+  background: linear-gradient(135deg, #ff5c00, #1f626b);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(255, 92, 0, 0.45);
 }
 
 .page-eventos-container {
@@ -85,14 +113,14 @@
 }
 
 .eventos-section {
-  margin-bottom: 60px;
+  margin-bottom: 70px;
 }
 
 .section-label {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 24px;
+  gap: 14px;
+  margin-bottom: 30px;
 }
 
 .section-label.centered {
@@ -100,17 +128,26 @@
 }
 
 .icon-label {
-  font-size: 1.5rem;
-  color: var(--color-accent);
+  font-size: 1.6rem;
+  color: #ff5c00;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 92, 0, 0.1),
+    rgba(31, 98, 107, 0.1)
+  );
+  padding: 10px;
+  border-radius: 12px;
 }
 
 .section-label h2 {
   font-family: var(--font-heading);
-  font-size: 2rem;
+  font-size: 2.2rem;
+  font-weight: 800;
   color: var(--color-primary);
   margin: 0;
   position: relative;
-  padding-bottom: 10px;
+  padding-bottom: 12px;
+  letter-spacing: -0.5px;
 }
 
 .section-label h2::after {
@@ -118,9 +155,9 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 60px;
-  height: 4px;
-  background: linear-gradient(90deg, var(--color-accent), var(--color-primary));
+  width: 70px;
+  height: 3px;
+  background: linear-gradient(90deg, #ff5c00, #1f626b);
   border-radius: 2px;
 }
 
@@ -134,10 +171,14 @@
 }
 
 .section-spacer {
-  height: 1px;
-  background-color: #ddd;
-  margin: 60px 0;
-  opacity: 0.5;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(31, 98, 107, 0.2),
+    transparent
+  );
+  margin: 70px 0;
 }
 
 /* Reduzir padding do RecentActivities dentro de glass-container */

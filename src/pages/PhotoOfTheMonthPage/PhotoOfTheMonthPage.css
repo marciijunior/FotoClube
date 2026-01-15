@@ -5,10 +5,9 @@
   background-color: var(--color-light);
   color: var(--color-dark);
   /* Espaço para o header fixo */
-  padding-top: 80px; 
+  padding-top: 80px;
   width: 100%;
   overflow-x: hidden;
-
 }
 
 /* Título de Secção Padrão (Modo Claro) */
@@ -30,9 +29,9 @@
   position: absolute;
   bottom: 0;
   left: var(--container-gutter);
-  width: 60px;
-  height: 4px;
-  background-color: var(--color-accent);
+  width: 70px;
+  height: 3px;
+  background: linear-gradient(90deg, #ff5c00, #1f626b);
   border-radius: 2px;
 }
 

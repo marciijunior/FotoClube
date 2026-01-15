@@ -7,14 +7,14 @@
 .post-card {
   transition: all 0.3s ease;
   cursor: pointer;
-  border: 1px solid #e9ecef;
-  background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+  border: 1px solid #f5f2f0;
+  background: linear-gradient(135deg, #fff 0%, #f5f2f0 100%);
 }
 
 .post-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  border-color: #dee2e6;
+  border-color: #f5f2f0;
 }
 
 .post-card img {

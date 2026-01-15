@@ -2,19 +2,24 @@
 .history-section-hq {
   width: 100%;
   padding: 100px 24px;
-  background: linear-gradient(180deg, #0a0a0a 0%, #1a1a2e 100%);
+  background: var(--color-light, #ffffff);
   position: relative;
   overflow: hidden;
 }
 
 .history-section-hq::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(0, 168, 150, 0.5), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(31, 98, 107, 0.3),
+    transparent
+  );
 }
 
 .hq-container {
@@ -32,12 +37,8 @@
   font-family: var(--font-heading);
   font-size: 3rem;
   font-weight: 800;
-  color: #ffffff;
+  color: var(--color-primary, #003b56);
   margin: 0 0 20px 0;
-  background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
   border-bottom: none;
   padding-bottom: 0;
   position: relative;
@@ -45,13 +46,13 @@
 }
 
 .history-page-main-title::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -10px;
   left: 0;
   width: 80px;
   height: 3px;
-  background: linear-gradient(90deg, #ff6b35, #00a896);
+  background: linear-gradient(90deg, #ff5c00, #1f626b);
   border-radius: 2px;
 }
 
@@ -59,7 +60,7 @@
   font-family: var(--font-body);
   font-size: 1.25rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.7);
+  color: #555;
   margin-bottom: 30px;
   margin-top: 25px;
 }
@@ -68,38 +69,40 @@
   font-family: var(--font-body);
   font-size: 1.1rem;
   line-height: 1.9;
-  color: rgba(255, 255, 255, 0.75);
+  color: #333;
   margin-bottom: 20px;
 }
 
 .hq-text-content p strong {
-  color: #ff6b35;
+  color: var(--color-accent, #ff5c00);
   font-weight: 600;
 }
 
 /* Card da Sede */
 .hq-card {
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+  background: #ffffff;
   border-radius: 24px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 
-    0 30px 60px rgba(0, 0, 0, 0.4),
-    0 0 0 1px rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
   transform: none;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
 }
 
 .hq-card::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   border-radius: 24px;
   padding: 2px;
-  background: linear-gradient(135deg, rgba(255, 107, 53, 0.4), rgba(0, 168, 150, 0.4));
-  -webkit-mask: 
-    linear-gradient(#fff 0 0) content-box, 
+  background: linear-gradient(
+    135deg,
+    rgba(255, 92, 0, 0.5),
+    rgba(31, 98, 107, 0.5)
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -110,9 +113,9 @@
 
 .hq-card:hover {
   transform: translateY(-10px);
-  box-shadow: 
-    0 40px 80px rgba(255, 107, 53, 0.15),
-    0 0 40px rgba(0, 168, 150, 0.1);
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.15),
+    0 0 30px rgba(255, 92, 0, 0.08);
 }
 
 .hq-card:hover::before {
@@ -135,7 +138,7 @@
 .hq-card-image-placeholder {
   width: 100%;
   height: 280px;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  background: linear-gradient(135deg, #f5f2f0 0%, #f5f2f0 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -147,20 +150,25 @@
 }
 
 .hq-card-info::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 30px;
   right: 30px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.3), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 92, 0, 0.3),
+    transparent
+  );
 }
 
 .hq-card-info h2 {
   font-family: var(--font-body);
   font-size: 0.8rem;
   font-weight: 700;
-  color: #ff6b35;
+  color: #ff5c00;
   text-transform: uppercase;
   letter-spacing: 2px;
   margin: 0 0 8px 0;
@@ -170,7 +178,7 @@
   font-family: var(--font-heading);
   font-size: 1.8rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--color-primary, #003b56);
   margin: 0 0 25px 0;
 }
 
@@ -180,12 +188,12 @@
   gap: 12px;
   font-family: var(--font-body);
   font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: #555;
   margin-bottom: 12px;
 }
 
 .hq-info-item svg {
-  color: #00a896;
+  color: #1f626b;
   margin-top: 3px;
   flex-shrink: 0;
   font-size: 1.1rem;
@@ -197,7 +205,7 @@
     grid-template-columns: 1fr;
     gap: 50px;
   }
-  
+
   .hq-card {
     max-width: 500px;
     margin: 0 auto;
@@ -208,23 +216,23 @@
   .history-section-hq {
     padding: 80px 20px;
   }
-  
+
   .history-page-main-title {
     font-size: 2.2rem !important;
   }
-  
+
   .hq-subtitle {
     font-size: 1.1rem !important;
   }
-  
+
   .hq-text-content p {
     font-size: 1rem !important;
   }
-  
+
   .hq-card-info h2 {
     font-size: 0.75rem !important;
   }
-  
+
   .hq-card-info h3 {
     font-size: 1.5rem !important;
   }
@@ -234,44 +242,43 @@
   .history-section-hq {
     padding: 60px 16px;
   }
-  
+
   .history-page-main-title {
     font-size: 1.7rem !important;
   }
-  
+
   .history-page-main-title::after {
     width: 50px;
     height: 2px;
   }
-  
+
   .hq-subtitle {
     font-size: 1rem !important;
   }
-  
+
   .hq-text-content p {
     font-size: 0.9rem !important;
     line-height: 1.7;
   }
-  
+
   .hq-card-image img,
   .hq-card-image-placeholder {
     height: 200px;
   }
-  
+
   .hq-card-info {
     padding: 25px 20px;
   }
-  
+
   .hq-card-info h2 {
     font-size: 0.65rem !important;
   }
-  
+
   .hq-card-info h3 {
     font-size: 1.3rem !important;
   }
-  
+
   .hq-info-item {
     font-size: 0.85rem;
   }
 }
-

@@ -7,7 +7,7 @@ import {
 } from "react-icons/fa";
 import "./PageEventos.css";
 import Calendario from "./Calendario.jsx";
-import RecentActivities from "./RecentActivities.jsx";
+import EventUpdates from "./EventUpdates.jsx";
 import FeedPosts from "./FeedPosts.jsx";
 
 export default function PageEventos() {
@@ -65,7 +65,7 @@ export default function PageEventos() {
             <h2>Atualizações Recentes</h2>
           </div>
           <div className="glass-container feed-container">
-            <RecentActivities limit={8} showTitle={false} />
+            <EventUpdates limit={8} showTitle={false} />
           </div>
         </section>
       </div>

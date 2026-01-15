@@ -1,7 +1,7 @@
 import HeroCarousel from "./HeroCarousel";
 import UpcomingEvents from "./UpcomingEvents";
 import AboutSection from "./AboutSection";
-import RecentActivities from "../Eventos/RecentActivities";
+import EventUpdates from "../Eventos/EventUpdates";
 import JoinUsSection from "./JoinUsSection";
 import "./HomePage.css";
 
@@ -11,7 +11,7 @@ function HomePage() {
       <HeroCarousel />
       <UpcomingEvents />
       <AboutSection />
-      <RecentActivities limit={8} />
+      <EventUpdates limit={8} />
       <JoinUsSection />
     </div>
   );

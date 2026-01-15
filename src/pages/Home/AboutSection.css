@@ -1,7 +1,24 @@
+/* ===== ABOUT SECTION HOME - DESIGN MODERNO ===== */
 .about-section-magazine {
-  background-color: var(--color-light);
-  padding: 80px 0;
+  background-color: var(--color-light-gray, #f5f2f0);
+  padding: 100px 0;
   width: 100%;
+  position: relative;
+}
+
+.about-section-magazine::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 92, 0, 0.3),
+    transparent
+  );
 }
 
 .magazine-container {
@@ -11,7 +28,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
-  gap: 40px;
+  gap: 60px;
 }
 
 .magazine-image-stack {
@@ -21,14 +38,15 @@
 
 .magazine-image {
   position: absolute;
-  border-radius: 8px;
+  border-radius: 16px;
   object-fit: cover;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  transition: transform 0.4s ease;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .magazine-image:hover {
-  transform: scale(1.03);
+  transform: scale(1.03) translateY(-5px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.18);
   z-index: 5;
 }
 
@@ -50,66 +68,135 @@
 
 .magazine-text-box {
   background-color: #ffffff;
-  padding: 40px;
-  border-radius: 8px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 50px;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
   z-index: 10;
   margin-left: -80px;
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.4s ease;
+}
+
+.magazine-text-box::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 2px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 92, 0, 0.4),
+    rgba(31, 98, 107, 0.4)
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.magazine-text-box:hover {
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.12);
+}
+
+.magazine-text-box:hover::before {
+  opacity: 1;
 }
 
 .magazine-eyebrow {
   font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 0.9rem;
-  color: var(--color-accent);
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--color-accent, #ff5c00);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
+  position: relative;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.magazine-eyebrow::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, #ff5c00, #1f626b);
 }
 
 .magazine-title {
   font-family: var(--font-heading);
   font-size: 2.8rem;
+  font-weight: 800;
   color: var(--color-primary);
-  margin: 10px 0 20px 0;
+  margin: 20px 0 25px 0;
+  line-height: 1.15;
 }
 
 /* Placeholder neutro quando não há imagem local */
 .magazine-image.placeholder {
   aspect-ratio: 4 / 5;
-  background: linear-gradient(135deg, #f6f7fb 0%, #e7eaf1 100%);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+  background: linear-gradient(135deg, #f5f2f0 0%, #f5f2f0 100%);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
 }
 
 .magazine-text {
-  font-size: 1rem;
-  line-height: 1.7;
-  color: #333;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #555;
   margin-bottom: 20px;
 }
 
 .magazine-link {
   font-family: var(--font-body);
   font-weight: 600;
-  font-size: 0.9rem;
-  color: var(--color-primary);
+  font-size: 0.95rem;
+  color: var(--btn-text);
+  background: var(--btn-bg);
   text-decoration: none;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  transition:
-    color 0.3s ease,
-    transform 0.3s ease;
+  gap: 10px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 14px 28px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+}
+
+.magazine-link::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--btn-bar-start), var(--btn-bar-end));
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 0;
 }
 
 .magazine-link:hover {
-  color: var(--color-accent);
-  transform: translateX(5px);
+  background: var(--btn-bg);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px var(--btn-shadow-hover);
 }
 
+.magazine-link:hover::before {
+  width: 100%;
+}
+
+/* ===== RESPONSIVO ===== */
 @media (max-width: 900px) {
   .magazine-container {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 30px;
   }
 
   .magazine-image-stack {
@@ -119,48 +206,47 @@
 
   .magazine-text-box {
     margin-left: 0;
+    padding: 40px;
   }
 }
-/* ===============================================
-   RESPONSIVIDADE ADICIONAL - MOBILE (até 768px)
-   =============================================== */
+
 @media (max-width: 768px) {
-  .magazine-section {
-    padding: 50px 5%;
+  .about-section-magazine {
+    padding: 70px 0;
   }
 
-  .magazine-text-box h2 {
-    font-size: 2rem;
+  .magazine-title {
+    font-size: 2.2rem !important;
   }
 
-  .magazine-text-box p {
+  .magazine-text {
     font-size: 0.95rem;
-    line-height: 1.6;
+    line-height: 1.7;
   }
 
   .magazine-image-stack {
     height: 300px;
   }
 
-  .magazine-cta-button {
-    padding: 12px 28px;
-    font-size: 0.95rem;
+  .magazine-text-box {
+    padding: 30px;
   }
 }
 
-/* ===============================================
-   RESPONSIVIDADE - MOBILE PEQUENO (até 480px)
-   =============================================== */
 @media (max-width: 480px) {
-  .magazine-section {
-    padding: 40px 5%;
+  .about-section-magazine {
+    padding: 50px 0;
   }
 
-  .magazine-text-box h2 {
-    font-size: 1.6rem;
+  .magazine-eyebrow {
+    font-size: 0.75rem;
   }
 
-  .magazine-text-box p {
+  .magazine-title {
+    font-size: 1.7rem !important;
+  }
+
+  .magazine-text {
     font-size: 0.9rem;
   }
 
@@ -168,10 +254,12 @@
     height: 250px;
   }
 
-  .magazine-cta-button {
-    padding: 10px 24px;
+  .magazine-text-box {
+    padding: 25px 20px;
+    border-radius: 16px;
+  }
+
+  .magazine-link {
     font-size: 0.9rem;
-    width: 100%;
-    justify-content: center;
   }
 }

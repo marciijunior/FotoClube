@@ -3,12 +3,18 @@ import { gql } from "@apollo/client";
 import { useQuery } from "@apollo/client/react";
 import {
   FaNewspaper,
-  FaClock,
-  FaUser,
-  FaFolder,
   FaFilter,
+  FaRegHeart,
+  FaRegComment,
+  FaRegPaperPlane,
+  FaRegBookmark,
+  FaEllipsisH,
 } from "react-icons/fa";
 import "./FeedPosts.css";
+import logoFotoClube from "../../assets/logo_vertical_azul.png";
+
+const INSTAGRAM_URL =
+  "https://www.instagram.com/fotoclubearacatuba?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==";
 
 const GET_ALL_POSTS = gql`
   query GetAllPosts {
@@ -27,6 +33,10 @@ const GET_ALL_POSTS = gql`
 export default function FeedPosts({ limit = 10 }) {
   const [selectedYear, setSelectedYear] = useState("todos");
   const [selectedMonth, setSelectedMonth] = useState("todos");
+
+  const openInstagram = () => {
+    window.open(INSTAGRAM_URL, "_blank");
+  };
 
   const { data, loading } = useQuery(GET_ALL_POSTS, {
     fetchPolicy: "network-only",
@@ -86,12 +96,22 @@ export default function FeedPosts({ limit = 10 }) {
 
   const formatDate = (dateStr) => {
     if (!dateStr) return "";
-    const date = new Date(dateStr);
-    return date.toLocaleDateString("pt-BR", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    });
+    const date = new Date(Number(dateStr));
+    const now = new Date();
+    const diffTime = Math.abs(now - date);
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+    if (diffDays === 0) return "Hoje";
+    if (diffDays === 1) return "Ontem";
+    if (diffDays < 7) return `${diffDays} dias atrás`;
+
+    return date
+      .toLocaleDateString("pt-BR", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      })
+      .toUpperCase();
   };
 
   const getCategoryColor = (category) => {
@@ -164,8 +184,31 @@ export default function FeedPosts({ limit = 10 }) {
         <div className="feed-posts-list">
           {displayPosts.map((post) => (
             <article key={post.id} className="feed-post-card">
+              {/* Header do post */}
+              <div className="feed-post-header">
+                <div className="feed-post-author-info">
+                  <div className="feed-author-avatar">
+                    <img
+                      src={logoFotoClube}
+                      alt="FotoClube"
+                      className="feed-author-avatar-img"
+                    />
+                  </div>
+                  <div className="feed-author-details">
+                    <span className="feed-author-name">
+                      {post.author || "FotoClube"}
+                    </span>
+                    <span className="feed-post-location">{post.category}</span>
+                  </div>
+                </div>
+                <button className="feed-post-options">
+                  <FaEllipsisH />
+                </button>
+              </div>
+
+              {/* Imagem */}
               {post.image && (
-                <div className="feed-post-image">
+                <div className="feed-post-image" onDoubleClick={openInstagram}>
                   <img
                     src={normalizeImage(post.image) || ""}
                     alt={post.title}
@@ -179,25 +222,62 @@ export default function FeedPosts({ limit = 10 }) {
                 </div>
               )}
 
-              <div className="feed-post-content">
-                <h3 className="feed-post-title">{post.title}</h3>
-
-                <div className="feed-post-meta">
-                  <span className="feed-meta-item">
-                    <FaUser /> {post.author}
-                  </span>
-                  <span className="feed-meta-item">
-                    <FaClock /> {formatDate(post.createdAt)}
-                  </span>
-                  {!post.image && (
-                    <span className="feed-meta-item">
-                      <FaFolder /> {post.category}
-                    </span>
-                  )}
+              {/* Ações */}
+              <div className="feed-post-actions">
+                <div className="feed-actions-left">
+                  <button
+                    className="feed-action-btn"
+                    onClick={openInstagram}
+                    title="Curtir no Instagram"
+                  >
+                    <FaRegHeart />
+                  </button>
+                  <button
+                    className="feed-action-btn"
+                    onClick={openInstagram}
+                    title="Comentar no Instagram"
+                  >
+                    <FaRegComment />
+                  </button>
+                  <button
+                    className="feed-action-btn"
+                    onClick={openInstagram}
+                    title="Compartilhar no Instagram"
+                  >
+                    <FaRegPaperPlane />
+                  </button>
                 </div>
-
-                <p className="feed-post-excerpt">{post.content}</p>
+                <button
+                  className="feed-bookmark-btn"
+                  onClick={openInstagram}
+                  title="Salvar no Instagram"
+                >
+                  <FaRegBookmark />
+                </button>
               </div>
+
+              {/* Likes */}
+              <div
+                className="feed-likes-count"
+                onClick={openInstagram}
+                style={{ cursor: "pointer" }}
+              >
+                Seja o primeiro a curtir
+              </div>
+
+              {/* Conteúdo */}
+              <div className="feed-post-content">
+                <p className="feed-post-title">
+                  <strong>{post.author || "FotoClube"}</strong>
+                  {post.title}
+                </p>
+                {post.content && (
+                  <p className="feed-post-excerpt">{post.content}</p>
+                )}
+              </div>
+
+              {/* Data */}
+              <div className="feed-post-date">{formatDate(post.createdAt)}</div>
             </article>
           ))}
         </div>

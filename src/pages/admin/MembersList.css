@@ -16,19 +16,19 @@
 }
 
 .members-list-subtitle {
-  color: #868e96;
+  color: #1f626b;
   font-size: 1rem;
   margin-top: 0.5rem;
 }
 
 .members-add-button {
   font-weight: 600;
-  background: linear-gradient(135deg, #51cf66 0%, #37b24d 100%);
+  background: linear-gradient(135deg, #1f626b 0%, #1f626b 100%);
   border: none;
 }
 
 .members-add-button:hover {
-  background: linear-gradient(135deg, #40c057 0%, #2f9e44 100%);
+  background: linear-gradient(135deg, #1f626b 0%, #1f626b 100%);
 }
 
 .members-card {
@@ -45,17 +45,17 @@
 .members-card-avatar {
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid #e9ecef;
+  border: 3px solid #f5f2f0;
 }
 
 .members-card-name {
   font-weight: 700;
   font-size: 1.2rem;
-  color: #212529;
+  color: #000000;
 }
 
 .members-card-role {
-  color: #868e96;
+  color: #1f626b;
   font-size: 0.9rem;
 }
 
@@ -65,7 +65,7 @@
 }
 
 .members-card-meta {
-  color: #868e96;
+  color: #1f626b;
   font-size: 0.85rem;
   margin-top: 0.5rem;
 }
@@ -75,7 +75,7 @@
 }
 
 .members-card-bio {
-  color: #495057;
+  color: #003b56;
   font-size: 0.9rem;
   margin-top: 1rem;
   line-height: 1.6;
@@ -84,7 +84,7 @@
 .members-card-actions {
   margin-top: 1.5rem;
   padding-top: 1rem;
-  border-top: 1px solid #e9ecef;
+  border-top: 1px solid #f5f2f0;
 }
 
 .members-edit-button {
@@ -98,19 +98,19 @@
 
 .members-empty-icon {
   font-size: 4rem;
-  color: #adb5bd;
+  color: #1f626b;
   margin-bottom: 1.5rem;
 }
 
 .members-empty-title {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #495057;
+  color: #003b56;
   margin-bottom: 0.75rem;
 }
 
 .members-empty-text {
-  color: #868e96;
+  color: #1f626b;
   font-size: 1rem;
 }
 

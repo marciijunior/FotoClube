@@ -113,9 +113,9 @@
 }
 
 .read-more-button {
-  background-color: var(--color-accent);
+  background: var(--btn-bg);
   border: none;
-  color: var(--color-light);
+  color: var(--btn-text);
   margin-left: 1rem;
   cursor: pointer;
   font-family: var(--font-body);
@@ -125,16 +125,39 @@
   align-items: center;
   justify-content: center;
   transition:
-    background-color 0.3s,
-    color 0.3s;
+    background 0.3s,
+    transform 0.3s,
+    box-shadow 0.3s;
   padding: 12px 24px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 6px 20px var(--btn-shadow);
 }
 
-.bookmark-button:hover,
-.read-more-button:hover {
+.read-more-button::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--btn-bar-start), var(--btn-bar-end));
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 0;
+}
+
+.read-more-button:hover::before {
+  width: 100%;
+}
+
+.bookmark-button:hover {
   background-color: var(--color-light);
   color: var(--color-primary);
   border-color: var(--color-light);
+}
+
+.read-more-button:hover {
+  background: var(--btn-bg);
 }
 
 .controls-overlay {

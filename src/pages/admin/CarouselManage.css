@@ -8,14 +8,14 @@
 .carousel-manage-title {
   font-size: 2rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1f626b 0%, #003b56 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .carousel-manage-subtitle {
-  color: #64748b;
+  color: #1f626b;
   font-size: 1rem;
   margin-top: 0.5rem;
   font-weight: 400;
@@ -24,13 +24,13 @@
 .carousel-form-card {
   margin-bottom: 2rem;
   border-radius: 16px;
-  border: 2px solid #f1f5f9;
+  border: 2px solid #f5f2f0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   transition: all 0.3s ease;
 }
 
 .carousel-form-card:hover {
-  border-color: #e2e8f0;
+  border-color: #f5f2f0;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
@@ -38,13 +38,13 @@
   font-size: 1.4rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
-  color: #1e293b;
+  color: #003b56;
 }
 
 .carousel-upload-preview {
   margin: 1rem 0;
   padding: 1rem;
-  background: #f8f9fa;
+  background: #f5f2f0;
   border-radius: 12px;
 }
 
@@ -52,12 +52,12 @@
   font-size: 0.95rem;
   font-weight: 600;
   margin-bottom: 0.75rem;
-  color: #1e293b;
+  color: #003b56;
 }
 
 .carousel-submit-button {
   font-weight: 600;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1f626b 0%, #003b56 100%);
   color: white;
   border: none;
   padding: 0.875rem 2rem;
@@ -75,20 +75,20 @@
   font-size: 1.4rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  color: #1e293b;
+  color: #003b56;
 }
 
 .carousel-slide-card {
   transition: all 0.3s ease;
   border-radius: 16px;
-  border: 2px solid #f1f5f9;
+  border: 2px solid #f5f2f0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .carousel-slide-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-  border-color: #667eea;
+  border-color: #1f626b;
 }
 
 .carousel-slide-image {
@@ -99,29 +99,29 @@
 .carousel-slide-title {
   font-weight: 700;
   font-size: 1.1rem;
-  color: #1e293b;
+  color: #003b56;
 }
 
 .carousel-slide-subtitle {
-  color: #64748b;
+  color: #1f626b;
   font-size: 0.95rem;
 }
 
 .carousel-slide-meta {
-  color: #94a3b8;
+  color: #1f626b;
   font-size: 0.85rem;
 }
 
 .carousel-slide-badge {
   font-weight: 600;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1f626b 0%, #003b56 100%);
   color: white;
   padding: 0.3rem 0.8rem;
   border-radius: 20px;
 }
 
 .carousel-delete-button {
-  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  background: linear-gradient(135deg, #ff5c00 0%, #ff5c00 100%);
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -133,13 +133,13 @@
 .carousel-delete-button:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
-  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  background: linear-gradient(135deg, #ff5c00 0%, #ff5c00 100%);
 }
 
 .carousel-empty-state {
   text-align: center;
   padding: 3rem 2rem;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background: linear-gradient(135deg, #f5f2f0 0%, #f5f2f0 100%);
   border-radius: 16px;
 }
 
@@ -152,10 +152,10 @@
 .carousel-empty-title {
   font-size: 1.3rem;
   font-weight: 700;
-  color: #495057;
+  color: #003b56;
 }
 
 .carousel-empty-text {
-  color: #64748b;
+  color: #1f626b;
   margin-top: 0.5rem;
 }

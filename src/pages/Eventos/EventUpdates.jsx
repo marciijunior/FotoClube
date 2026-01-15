@@ -1,10 +1,10 @@
-/* src/features/home/RecentActivities.jsx */
+/* src/pages/Eventos/EventUpdates.jsx */
 import React, { useMemo, useState, useEffect } from "react";
 // 1. IMPORTAR useNavigate
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@apollo/client/react";
 import { gql } from "@apollo/client";
-import "./RecentActivities.css";
+import "./EventUpdates.css";
 import {
   FaMapMarkerAlt,
   FaClock,
@@ -205,11 +205,7 @@ function useIsMobile(breakpoint = 600) {
   return isMobile;
 }
 
-export default function RecentActivities({
-  limit = 8,
-  onOpen,
-  showTitle = true,
-}) {
+export default function EventUpdates({ limit = 8, onOpen, showTitle = true }) {
   const isMobile = useIsMobile(600);
 
   const { data: eventsDataQL, refetch: refetchEvents } = useQuery(

@@ -79,7 +79,7 @@
 
   /* Scrollbar estilizada */
   scrollbar-width: thin;
-  scrollbar-color: var(--color-accent) #f0f0f0;
+  scrollbar-color: var(--color-accent) #f5f2f0;
 }
 
 .event-modal-content::-webkit-scrollbar {
@@ -87,7 +87,7 @@
 }
 
 .event-modal-content::-webkit-scrollbar-track {
-  background: #f0f0f0;
+  background: #f5f2f0;
   border-radius: 4px;
 }
 
