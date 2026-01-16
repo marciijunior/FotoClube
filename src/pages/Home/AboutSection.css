@@ -176,7 +176,7 @@
   bottom: 0;
   left: 0;
   width: 0;
-  height: 3px;
+  height: 2px;
   background: linear-gradient(90deg, var(--btn-bar-start), var(--btn-bar-end));
   transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 0;
@@ -184,8 +184,6 @@
 
 .magazine-link:hover {
   background: var(--btn-bg);
-  transform: translateY(-3px);
-  box-shadow: 0 12px 35px var(--btn-shadow-hover);
 }
 
 .magazine-link:hover::before {
