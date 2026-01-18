@@ -8,23 +8,23 @@ import "dayjs/locale/pt-br";
 import apolloClient from "./lib/apolloClient.jsx";
 
 import AppLayout from "./components/layout/AppLayout.jsx";
-import HomePage from "./pages/Home/HomePage.jsx";
-import PhotoOfTheMonthPage from "./pages/PhotoOfTheMonthPage/PhotoOfTheMonthPage.jsx";
-import AboutPage from "./pages/AboutPage/AboutPage.jsx";
+import PaginaInicial from "./pages/Inicio/PaginaInicial.jsx";
+import PaginaFotoDoMes from "./pages/FotoDoMes/PaginaFotoDoMes.jsx";
+import PaginaSobre from "./pages/Sobre/PaginaSobre.jsx";
 import PaginaEventos from "./pages/Eventos/PageEventos.jsx";
-import ContactPage from "./pages/ContactPage/ContactPage.jsx";
-import AdminLayout from "./components/AdminLayout.jsx";
-import EventsList from "./pages/admin/EventsList.jsx";
-import EventEdit from "./pages/admin/EventEdit.jsx";
-import PostsListPage from "./pages/admin/PostsListPage.jsx";
-import LoginAdmin from "./pages/admin/Login.jsx";
-import AdminHome from "./pages/admin/AdminHome.jsx";
-import CarouselManage from "./pages/admin/CarouselManage.jsx";
-import WinnersList from "./pages/admin/WinnersList.jsx";
-import WinnerEdit from "./pages/admin/WinnerEdit.jsx";
-import MembersList from "./pages/admin/MembersList.jsx";
-import MemberEdit from "./pages/admin/MemberEdit.jsx";
-import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import PaginaContato from "./pages/Contato/PaginaContato.jsx";
+import AdminLayout from "./pages/Admin/components/AdminLayout.jsx";
+import ListaEventos from "./pages/Admin/ListaEventos.jsx";
+import EditarEvento from "./pages/Admin/EditarEvento.jsx";
+import PaginaListaPostagens from "./pages/Admin/PaginaListaPostagens.jsx";
+import Entrar from "./pages/Admin/Entrar.jsx";
+import AdminInicio from "./pages/Admin/AdminInicio.jsx";
+import GerenciarCarrossel from "./pages/Admin/GerenciarCarrossel.jsx";
+import ListaVencedores from "./pages/Admin/ListaVencedores.jsx";
+import EditarVencedor from "./pages/Admin/EditarVencedor.jsx";
+import ListaMembros from "./pages/Admin/ListaMembros.jsx";
+import EditarMembro from "./pages/Admin/EditarMembro.jsx";
+import ProtectedRoute from "./components/shared/ProtectedRoute.jsx";
 
 import "./styles/index.css";
 import "@mantine/core/styles.css";
@@ -33,51 +33,51 @@ const router = createBrowserRouter([
   {
     element: <AppLayout />,
     children: [
-      { path: "/", element: <HomePage /> },
+      { path: "/", element: <PaginaInicial /> },
       { path: "eventos", element: <PaginaEventos /> },
-      { path: "foto-do-mes", element: <PhotoOfTheMonthPage /> },
-      { path: "sobre", element: <AboutPage /> },
-      { path: "contatos", element: <ContactPage /> },
+      { path: "foto-do-mes", element: <PaginaFotoDoMes /> },
+      { path: "sobre", element: <PaginaSobre /> },
+      { path: "contatos", element: <PaginaContato /> },
     ],
   },
   {
     path: "/admin",
     element: <AdminLayout />,
     children: [
-      { path: "login", element: <LoginAdmin /> },
+      { path: "login", element: <Entrar /> },
       {
         path: "",
         element: <ProtectedRoute />,
         children: [
-          { path: "", element: <AdminHome /> },
-          { path: "carousel", element: <CarouselManage /> },
+          { path: "", element: <AdminInicio /> },
+          { path: "carousel", element: <GerenciarCarrossel /> },
           {
             path: "events",
             children: [
-              { path: "", element: <EventsList /> },
-              { path: "new", element: <EventEdit /> },
-              { path: ":id/edit", element: <EventEdit /> },
+              { path: "", element: <ListaEventos /> },
+              { path: "new", element: <EditarEvento /> },
+              { path: ":id/edit", element: <EditarEvento /> },
             ],
           },
           {
             path: "winners",
             children: [
-              { path: "", element: <WinnersList /> },
-              { path: "new", element: <WinnerEdit /> },
-              { path: ":id/edit", element: <WinnerEdit /> },
+              { path: "", element: <ListaVencedores /> },
+              { path: "new", element: <EditarVencedor /> },
+              { path: ":id/edit", element: <EditarVencedor /> },
             ],
           },
           {
             path: "members",
             children: [
-              { path: "", element: <MembersList /> },
-              { path: "new", element: <MemberEdit /> },
-              { path: ":id/edit", element: <MemberEdit /> },
+              { path: "", element: <ListaMembros /> },
+              { path: "new", element: <EditarMembro /> },
+              { path: ":id/edit", element: <EditarMembro /> },
             ],
           },
           {
             path: "posts/*",
-            element: <PostsListPage />,
+            element: <PaginaListaPostagens />,
           },
         ],
       },

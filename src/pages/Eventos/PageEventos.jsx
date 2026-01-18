@@ -7,8 +7,8 @@ import {
 } from "react-icons/fa";
 import "./PageEventos.css";
 import Calendario from "./Calendario.jsx";
-import EventUpdates from "./EventUpdates.jsx";
-import FeedPosts from "./FeedPosts.jsx";
+import AtualizacoesEventos from "./AtualizacoesEventos.jsx";
+import FeedPostagens from "./FeedPostagens.jsx";
 
 export default function PageEventos() {
   const scrollToAgenda = () => {
@@ -54,7 +54,7 @@ export default function PageEventos() {
             <h2>Feed do FotoClube</h2>
           </div>
           <div className="glass-container feed-container">
-            <FeedPosts limit={6} />
+            <FeedPostagens limit={6} />
           </div>
         </section>
 
@@ -65,7 +65,7 @@ export default function PageEventos() {
             <h2>Atualizações Recentes</h2>
           </div>
           <div className="glass-container feed-container">
-            <EventUpdates limit={8} showTitle={false} />
+            <AtualizacoesEventos limit={8} showTitle={false} />
           </div>
         </section>
       </div>
