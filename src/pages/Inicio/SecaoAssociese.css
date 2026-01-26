@@ -311,11 +311,11 @@
   .stat-icon {
     width: 65px;
     height: 65px;
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 
   .stat-title {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
 
   .stat-description {
@@ -323,19 +323,19 @@
   }
 
   .join-us-stats-title {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     margin-bottom: 20px;
     padding-bottom: 12px;
   }
 
   .join-us-stats-intro {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     margin-bottom: 35px;
   }
 
   .stats-cta-button {
     padding: 14px 30px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
 }
 
@@ -346,11 +346,11 @@
   }
 
   .join-us-title {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
   }
 
   .join-us-description {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
   }
 
   .join-us-floating-card {
@@ -358,7 +358,7 @@
   }
 
   .join-us-stats-title {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
   }
 
   .join-unique-stat-item {
@@ -368,16 +368,16 @@
   .stat-icon {
     width: 55px;
     height: 55px;
-    font-size: 1.7rem;
+    font-size: 1.5rem;
     margin-bottom: 15px;
   }
 
   .stat-title {
-    font-size: 1.15rem;
+    font-size: 1.2rem;
   }
 
   .stat-description {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     line-height: 1.6;
   }
 

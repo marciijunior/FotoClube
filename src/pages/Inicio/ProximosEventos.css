@@ -1071,50 +1071,50 @@
   }
 
   .ph-item-date span:first-child {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
   }
 
   .ph-item-date span:last-child {
-    font-size: 0.6rem;
-  }
-
-  .ph-item-category {
-    font-size: 0.6rem;
-  }
-
-  .ph-item-title {
-    font-size: 0.85rem;
-  }
-
-  .ph-all-events-link {
     font-size: 0.75rem;
   }
 
+  .ph-item-category {
+    font-size: 0.75rem;
+  }
+
+  .ph-item-title {
+    font-size: 0.9rem;
+  }
+
+  .ph-all-events-link {
+    font-size: 0.85rem;
+  }
+
   .ph-details-title {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
   }
 
   .ph-details-location,
   .ph-details-time {
-    font-size: 0.7rem;
+    font-size: 0.75rem;
   }
 
   .ph-details-description {
-    font-size: 0.7rem;
+    font-size: 0.85rem;
   }
 
   .ph-details-cta {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     padding: 8px 15px;
   }
 
   .ph-calendar-link {
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     padding: 8px 12px;
   }
 
   .pe-title {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
 
   .pe-card {
@@ -1126,11 +1126,11 @@
   }
 
   .pe-card-meta {
-    font-size: 0.65rem;
+    font-size: 0.75rem;
   }
 
   .pe-card-button {
-    font-size: 0.65rem;
+    font-size: 0.75rem;
     padding: 5px 8px;
   }
 }
