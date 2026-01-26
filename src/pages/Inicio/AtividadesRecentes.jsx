@@ -1,28 +1,34 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { recentActivitiesData } from '../../data/recentActivitiesData';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { recentActivitiesData } from "../../data/recentActivitiesData";
 import { FaArrowRight, FaBullhorn, FaImage, FaNewspaper } from "react-icons/fa";
-import './AtividadesRecentes.css';
+import "./AtividadesRecentes.css";
 
-function RecentActivities({ limit = 8 }) { // MUDANÇA: Limite agora é 8 (4x2)
+function RecentActivities({ limit = 8 }) {
+  // MUDANÇA: Limite agora é 8 (4x2)
   const navigate = useNavigate();
-  
+
   const activities = recentActivitiesData.slice(0, limit);
   const placeholderUrl = "https://picsum.photos/300/180?grayscale&blur=1";
 
   const handleOpen = (activity) => {
-    if (activity.category === 'NOVO EVENTO' || activity.link.includes('/eventos/')) {
+    if (
+      activity.category === "NOVO EVENTO" ||
+      activity.link.includes("/eventos/")
+    ) {
       const d = new Date(activity.timestamp);
-      const eventId = activity.id; 
-      navigate(`/eventos?ano=${d.getFullYear()}&mes=${d.getMonth()}&dia=${d.getDate()}&eventId=${eventId}`);
+      const eventId = activity.id;
+      navigate(
+        `/eventos?ano=${d.getFullYear()}&mes=${d.getMonth()}&dia=${d.getDate()}&eventId=${eventId}`
+      );
     } else {
       window.location.href = activity.link;
     }
   };
 
   const getIcon = (cat) => {
-    if (cat.includes('EVENTO')) return <FaBullhorn />;
-    if (cat.includes('GALERIA')) return <FaImage />;
+    if (cat.includes("EVENTO")) return <FaBullhorn />;
+    if (cat.includes("GALERIA")) return <FaImage />;
     return <FaNewspaper />;
   };
 
@@ -32,8 +38,8 @@ function RecentActivities({ limit = 8 }) { // MUDANÇA: Limite agora é 8 (4x2)
         <h2 className="activities-title">Novidades Recentes</h2>
         <div className="recent-grid">
           {activities.map((activity) => (
-            <article 
-              key={activity.id} 
+            <article
+              key={activity.id}
               className="recent-card"
               onClick={() => handleOpen(activity)}
             >
@@ -42,7 +48,10 @@ function RecentActivities({ limit = 8 }) { // MUDANÇA: Limite agora é 8 (4x2)
                   src={activity.image || placeholderUrl}
                   alt={activity.title}
                   className="recent-thumb"
-                  onError={(e) => { e.target.onerror = null; e.target.src=placeholderUrl; }}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = placeholderUrl;
+                  }}
                 />
               </div>
 
@@ -58,7 +67,7 @@ function RecentActivities({ limit = 8 }) { // MUDANÇA: Limite agora é 8 (4x2)
 
               <div className="recent-actions">
                 <button className="recent-btn" tabIndex="-1">
-                  Ver Mais <FaArrowRight style={{ fontSize: '0.8em' }} />
+                  Saiba Mais <FaArrowRight style={{ fontSize: "0.8em" }} />
                 </button>
               </div>
             </article>

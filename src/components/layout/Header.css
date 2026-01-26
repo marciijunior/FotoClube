@@ -178,7 +178,6 @@
 }
 .nav-link-highlight:hover {
   background: var(--btn-bg);
-  box-shadow: 0 8px 25px var(--btn-shadow-hover);
   text-decoration: none !important;
 }
 .nav-link-highlight::after {

@@ -7,5 +7,16 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 5174,
+    proxy: {
+      "/graphql": {
+        target: "http://localhost:3002",
+        changeOrigin: true,
+        rewrite: (path) => "/",
+      },
+      "/uploads": {
+        target: "http://localhost:3002",
+        changeOrigin: true,
+      },
+    },
   },
 });

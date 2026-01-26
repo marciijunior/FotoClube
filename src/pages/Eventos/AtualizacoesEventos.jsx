@@ -205,7 +205,11 @@ function useIsMobile(breakpoint = 600) {
   return isMobile;
 }
 
-export default function AtualizacoesEventos({ limit = 8, onOpen, showTitle = true }) {
+export default function AtualizacoesEventos({
+  limit = 8,
+  onOpen,
+  showTitle = true,
+}) {
   const isMobile = useIsMobile(600);
 
   const { data: eventsDataQL, refetch: refetchEvents } = useQuery(
@@ -418,7 +422,7 @@ export default function AtualizacoesEventos({ limit = 8, onOpen, showTitle = tru
                   aria-label={`Abrir ${it.title}`}
                   tabIndex="-1"
                 >
-                  Ver <FaArrowRight style={{ fontSize: "0.8em" }} />
+                  Saiba Mais <FaArrowRight style={{ fontSize: "0.8em" }} />
                 </button>
               </div>
             </article>

@@ -244,6 +244,7 @@
 
 .stats-cta-button:hover {
   background: var(--btn-bg);
+  text-decoration: none;
 }
 
 .stats-cta-button:hover::before {

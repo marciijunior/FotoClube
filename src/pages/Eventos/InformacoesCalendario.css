@@ -84,7 +84,7 @@
   padding: 14px 14px 55px 14px;
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.06);
-  border-radius: 16px;
+  border-radius: 8px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -95,7 +95,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  border-radius: 16px;
+  border-radius: 8px;
   padding: 2px;
   background: linear-gradient(135deg, #ff5c00, #1f626b);
   -webkit-mask:
@@ -109,7 +109,6 @@
 }
 
 .sidebar-event-card:hover {
-  transform: translateY(-4px);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
 }
 
@@ -125,10 +124,6 @@
   border-radius: 12px;
   background-color: #f5f2f0;
   transition: transform 0.4s ease;
-}
-
-.sidebar-event-card:hover .sidebar-event-image {
-  transform: scale(1.03);
 }
 
 .sidebar-event-body {
@@ -188,8 +183,8 @@
   background: #f5f2f0;
   color: var(--color-primary);
   font-family: var(--font-body);
-  font-weight: 700;
-  font-size: 0.8rem;
+  font-weight: 600 !important;
+  font-size: 0.8rem !important;
   letter-spacing: 0.5px;
   text-transform: uppercase;
   cursor: pointer;
@@ -201,8 +196,8 @@
 }
 
 .sidebar-event-card:hover .sidebar-event-button {
-  background: linear-gradient(90deg, #ff5c00, #1f626b);
-  color: #fff;
+  background: linear-gradient(135deg,#ff5e005d,  #1f626b45);
+  color: var(--color-primary);
   border-top-color: transparent;
 }
 

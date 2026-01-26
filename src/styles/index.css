@@ -12,8 +12,8 @@
   --btn-text: var(--color-light);
   --btn-shadow: rgba(255, 92, 0, 0.35);
   --btn-shadow-hover: rgba(255, 92, 0, 0.45);
-  --btn-bar-start: var(--color-light);
-  --btn-bar-end: var(--color-primary);
+  --btn-bar-start: var(--color-accent);
+  --btn-bar-end: var(--color-light);
 
   /* Tipografia */
   --font-body: "Poppins", sans-serif;

@@ -184,6 +184,7 @@
 
 .magazine-link:hover {
   background: var(--btn-bg);
+  text-decoration: none;
 }
 
 .magazine-link:hover::before {

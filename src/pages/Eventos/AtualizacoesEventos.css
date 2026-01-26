@@ -74,8 +74,8 @@
   padding: 2px;
   background: linear-gradient(
     135deg,
-    rgba(255, 92, 0, 0.5),
-    rgba(31, 98, 107, 0.5)
+    var(--color-accent),
+    var(--color-primary)
   );
   -webkit-mask:
     linear-gradient(#fff 0 0) content-box,
@@ -109,10 +109,6 @@
   height: 100%;
   object-fit: cover;
   transition: transform 0.4s ease;
-}
-
-.recent-card:hover .recent-thumb {
-  transform: scale(1.05);
 }
 
 .recent-thumb--placeholder {
@@ -197,8 +193,8 @@
 }
 
 .recent-card:hover .recent-btn {
-  background: linear-gradient(135deg, #ff5c00, #1f626b);
-  color: #fff;
+  background: linear-gradient(135deg, #ff5e005d, #1f626b45);
+  color: var(--color-primary);
   border-top-color: transparent;
 }
 

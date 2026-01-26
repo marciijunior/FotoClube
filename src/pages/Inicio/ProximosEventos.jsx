@@ -376,7 +376,7 @@ function UpcomingEvents() {
                     to={generateCalendarLink(activeEvent.date)}
                     className="ph-details-cta"
                   >
-                    Saber Mais
+                    Saiba Mais
                   </Link>
                   {/* --------------------------------------- */}
 

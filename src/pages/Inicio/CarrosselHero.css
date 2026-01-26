@@ -158,6 +158,7 @@
 
 .read-more-button:hover {
   background: var(--btn-bg);
+  text-decoration: none;
 }
 
 .controls-overlay {

@@ -301,6 +301,7 @@
 
 .ph-all-events-link:hover {
   background: var(--btn-bg);
+  text-decoration: none;
 }
 
 .ph-all-events-link:hover::before {
@@ -769,10 +770,6 @@
   transition: transform 0.4s ease;
 }
 
-.pe-card:hover .pe-card-image {
-  transform: scale(1.03);
-}
-
 .pe-card-body {
   display: flex;
   flex-direction: column;
@@ -839,8 +836,8 @@
 }
 
 .pe-card:hover .pe-card-button {
-  background: linear-gradient(135deg, #ff5c00, #1f626b);
-  color: var(--color-white);
+  background: linear-gradient(135deg,#ff5e005d,  #1f626b45);
+  color: var(--color-primary);
   border-top-color: transparent;
 }
 
