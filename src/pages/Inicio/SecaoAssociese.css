@@ -261,10 +261,10 @@
     padding: 40px 30px;
   }
   .join-us-stats-title {
-    font-size: 2rem;
+    font-size: 2rem !important;
   }
   .join-us-stats-intro {
-    font-size: 1rem;
+    font-size: 1rem !important;
     margin-bottom: 40px;
   }
 }
@@ -276,11 +276,11 @@
   }
 
   .join-us-title {
-    font-size: 2.5rem;
+    font-size: 2.5rem !important;
   }
 
   .join-us-description {
-    font-size: 1rem;
+    font-size: 1rem !important;
   }
 
   .join-us-floating-card {
@@ -297,45 +297,72 @@
   .join-us-floating-card {
     padding: 35px 20px;
     border-radius: 16px;
+    overflow: hidden;
   }
 
   .join-unique-stats-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    margin-bottom: 30px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 10px;
+  }
+
+  .join-unique-stats-grid::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .join-unique-stats-grid::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 2px;
+  }
+
+  .join-unique-stats-grid::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, #ff5c00, #1f626b);
+    border-radius: 2px;
   }
 
   .join-unique-stat-item {
-    padding: 25px 20px;
+    min-width: 100px;
+    max-width: 120px;
+    flex: 1;
+    flex-shrink: 0;
+    padding: 15px 12px;
+    scroll-snap-align: start;
   }
 
   .stat-icon {
-    width: 65px;
-    height: 65px;
-    font-size: 1.8rem;
+    width: 45px;
+    height: 45px;
+    font-size: 1.3rem !important;
+    margin-bottom: 10px;
   }
 
   .stat-title {
-    font-size: 1.2rem;
+    font-size: 0.85rem !important;
   }
 
   .stat-description {
-    font-size: 0.9rem;
+    display: none;
   }
 
   .join-us-stats-title {
-    font-size: 1.5rem;
+    font-size: 1.5rem !important;
     margin-bottom: 20px;
     padding-bottom: 12px;
   }
 
   .join-us-stats-intro {
-    font-size: 0.9rem;
+    font-size: 0.9rem !important;
     margin-bottom: 35px;
   }
 
   .stats-cta-button {
     padding: 14px 30px;
-    font-size: 0.85rem;
+    font-size: 0.85rem !important;
   }
 }
 
@@ -346,11 +373,11 @@
   }
 
   .join-us-title {
-    font-size: 1.5rem;
+    font-size: 1.5rem !important;
   }
 
   .join-us-description {
-    font-size: 0.9rem;
+    font-size: 0.9rem !important;
   }
 
   .join-us-floating-card {
@@ -358,32 +385,38 @@
   }
 
   .join-us-stats-title {
-    font-size: 1.5rem;
+    font-size: 1.5rem !important;
+  }
+
+  .join-unique-stats-grid {
+    gap: 8px;
   }
 
   .join-unique-stat-item {
-    padding: 20px 15px;
+    min-width: 90px;
+    max-width: 110px;
+    flex: 1;
+    padding: 12px 10px;
   }
 
   .stat-icon {
-    width: 55px;
-    height: 55px;
-    font-size: 1.5rem;
-    margin-bottom: 15px;
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem !important;
+    margin-bottom: 8px;
   }
 
   .stat-title {
-    font-size: 1.2rem;
+    font-size: 0.75rem !important;
   }
 
   .stat-description {
-    font-size: 0.9rem;
-    line-height: 1.6;
+    display: none;
   }
 
   .stats-cta-button {
     padding: 12px 25px;
-    font-size: 0.85rem;
+    font-size: 0.85rem !important;
     width: 100%;
   }
 }

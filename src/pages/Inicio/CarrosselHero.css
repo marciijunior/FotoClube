@@ -261,15 +261,15 @@
   }
 
   .title {
-    font-size: 4rem;
+    font-size: 4rem !important;
   }
 
   .location {
-    font-size: 0.9rem;
+    font-size: 0.9rem !important;
   }
 
   .author {
-    font-size: 1rem;
+    font-size: 1rem !important;
   }
 
   .thumbnail {
@@ -277,13 +277,13 @@
   }
 
   .counter {
-    font-size: 3rem;
+    font-size: 3rem !important;
   }
 
   .arrow {
     width: 45px;
     height: 45px;
-    font-size: 1.1rem;
+    font-size: 1.1rem !important;
   }
 }
 
@@ -306,17 +306,17 @@
   }
 
   .title {
-    font-size: 2rem;
+    font-size: 2rem !important;
     line-height: 1.1;
   }
 
   .location {
-    font-size: 0.75rem;
+    font-size: 0.75rem !important;
     letter-spacing: 1.3px;
   }
 
   .author {
-    font-size: 0.85rem;
+    font-size: 0.85rem !important;
     margin-top: 10px;
   }
 
@@ -327,12 +327,12 @@
 
   .bookmark-button {
     padding: 9px;
-    font-size: 0.95rem;
+    font-size: 0.95rem !important;
   }
 
   .read-more-button {
     padding: 9px 18px;
-    font-size: 0.85rem;
+    font-size: 0.85rem !important;
     margin-left: 0;
   }
 
@@ -350,13 +350,13 @@
   }
 
   .counter {
-    font-size: 2rem;
+    font-size: 2rem !important;
   }
 
   .arrow {
     width: 40px;
     height: 40px;
-    font-size: 1rem;
+    font-size: 1rem !important;
   }
 }
 
@@ -369,15 +369,15 @@
   }
 
   .title {
-    font-size: 1.5rem;
+    font-size: 1.5rem !important;
   }
 
   .location {
-    font-size: 0.75rem;
+    font-size: 0.75rem !important;
   }
 
   .author {
-    font-size: 0.85rem;
+    font-size: 0.85rem !important;
   }
 
   .actions {
@@ -388,12 +388,12 @@
 
   .bookmark-button {
     padding: 8px;
-    font-size: 0.85rem;
+    font-size: 0.85rem !important;
   }
 
   .read-more-button {
     padding: 8px 16px;
-    font-size: 0.85rem;
+    font-size: 0.85rem !important;
   }
 
   .thumbnail {
@@ -401,12 +401,12 @@
   }
 
   .counter {
-    font-size: 1.5rem;
+    font-size: 1.5rem !important;
   }
 
   .arrow {
     width: 35px;
     height: 35px;
-    font-size: 0.85rem;
+    font-size: 0.85rem !important;
   }
 }

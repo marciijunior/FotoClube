@@ -213,7 +213,7 @@
 
 @media (max-width: 768px) {
   .recent-activities h3 {
-    font-size: 2.2rem;
+    font-size: 2.2rem !important;
   }
 }
 
@@ -234,11 +234,21 @@
   }
 
   .recent-title {
-    font-size: 0.95rem;
+    font-size: 0.95rem !important;
+  }
+
+  .recent-meta {
+    font-size: 0.7rem !important;
+    gap: 3px;
   }
 
   .recent-meta-item {
-    font-size: 0.75rem;
+    font-size: 0.65rem !important;
+    gap: 4px;
+  }
+
+  .recent-meta-item svg {
+    font-size: 0.7em !important;
   }
 
   .recent-actions {
@@ -246,13 +256,13 @@
   }
 
   .recent-btn {
-    font-size: 0.7rem;
+    font-size: 0.7rem !important;
   }
 }
 
 @media (max-width: 480px) {
   .recent-activities h3 {
-    font-size: 1.8rem;
+    font-size: 1.8rem !important;
   }
 
   .recent-inner {
@@ -273,7 +283,21 @@
   }
 
   .recent-title {
-    font-size: 0.9rem;
+    font-size: 0.9rem !important;
     margin-bottom: 4px;
+  }
+
+  .recent-meta {
+    font-size: 0.65rem !important;
+    gap: 2px;
+  }
+
+  .recent-meta-item {
+    font-size: 0.6rem !important;
+    gap: 3px;
+  }
+
+  .recent-meta-item svg {
+    font-size: 0.65em !important;
   }
 }

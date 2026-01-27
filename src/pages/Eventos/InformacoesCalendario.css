@@ -196,7 +196,7 @@
 }
 
 .sidebar-event-card:hover .sidebar-event-button {
-  background: linear-gradient(135deg,#ff5e005d,  #1f626b45);
+  background: linear-gradient(135deg, #ff5e005d, #1f626b45);
   color: var(--color-primary);
   border-top-color: transparent;
 }
@@ -219,7 +219,7 @@
   }
 
   .sidebar-title {
-    font-size: 1.1rem;
+    font-size: 1.1rem !important;
     margin-bottom: 18px;
   }
 
@@ -236,11 +236,11 @@
   }
 
   .sidebar-event-body h4 {
-    font-size: 0.95rem;
+    font-size: 0.95rem !important;
   }
 
   .sidebar-event-meta {
-    font-size: 0.8rem;
+    font-size: 0.8rem !important;
   }
 
   .sidebar-event-actions {
@@ -248,6 +248,6 @@
   }
 
   .sidebar-event-button {
-    font-size: 0.75rem;
+    font-size: 0.75rem !important;
   }
 }

@@ -836,7 +836,7 @@
 }
 
 .pe-card:hover .pe-card-button {
-  background: linear-gradient(135deg,#ff5e005d,  #1f626b45);
+  background: linear-gradient(135deg, #ff5e005d, #1f626b45);
   color: var(--color-primary);
   border-top-color: transparent;
 }
@@ -880,7 +880,7 @@
   }
 
   .section-title {
-    font-size: 1.8rem;
+    font-size: 1.8rem !important;
     margin-bottom: 20px;
   }
 
@@ -903,53 +903,53 @@
   }
 
   .ph-item-date span:first-child {
-    font-size: 1.3rem;
+    font-size: 1.3rem !important;
   }
 
   .ph-item-date span:last-child {
-    font-size: 0.65rem;
+    font-size: 0.65rem !important;
   }
 
   .ph-item-category {
-    font-size: 0.65rem;
+    font-size: 0.65rem !important;
   }
 
   .ph-item-title {
-    font-size: 1rem;
+    font-size: 1rem !important;
   }
 
   .ph-all-events-link {
-    font-size: 0.85rem;
+    font-size: 0.85rem !important;
     padding-top: 15px;
   }
 
   .ph-details-title {
-    font-size: 1.4rem;
+    font-size: 1.4rem !important;
   }
 
   .ph-details-location,
   .ph-details-time {
-    font-size: 0.8rem;
+    font-size: 0.8rem !important;
   }
 
   .ph-details-description {
-    font-size: 0.8rem;
+    font-size: 0.8rem !important;
     line-height: 1.6;
   }
 
   .ph-details-cta {
-    font-size: 0.9rem;
+    font-size: 0.9rem !important;
     padding: 10px 18px;
   }
 
   .ph-calendar-link {
-    font-size: 0.75rem;
+    font-size: 0.75rem !important;
     padding: 10px 15px;
   }
 
   /* Eventos anteriores */
   .pe-title {
-    font-size: 1.6rem;
+    font-size: 1.6rem !important;
   }
 
   .pe-list {
@@ -975,12 +975,12 @@
   }
 
   .ph-details-cta {
-    font-size: 0.85rem;
+    font-size: 0.85rem !important;
     padding: 8px 15px;
   }
 
   .ph-calendar-link {
-    font-size: 0.7rem;
+    font-size: 0.7rem !important;
     padding: 8px 12px;
     gap: 5px;
   }
@@ -991,7 +991,7 @@
   }
 
   .pe-title {
-    font-size: 1.4rem;
+    font-size: 1.4rem !important;
     margin-bottom: 15px;
   }
 
@@ -1018,15 +1018,15 @@
   }
 
   .pe-card-title {
-    font-size: 0.9rem;
+    font-size: 0.9rem !important;
   }
 
   .pe-card-meta {
-    font-size: 0.7rem;
+    font-size: 0.7rem !important;
   }
 
   .pe-card-button {
-    font-size: 0.7rem;
+    font-size: 0.7rem !important;
     padding: 6px 10px;
   }
 }
@@ -1049,7 +1049,7 @@
   }
 
   .section-title {
-    font-size: 1.5rem;
+    font-size: 1.4rem !important;
     margin-bottom: 15px;
   }
 
@@ -1071,50 +1071,50 @@
   }
 
   .ph-item-date span:first-child {
-    font-size: 1.2rem;
+    font-size: 1.2rem !important;
   }
 
   .ph-item-date span:last-child {
-    font-size: 0.75rem;
+    font-size: 0.75rem !important;
   }
 
   .ph-item-category {
-    font-size: 0.75rem;
+    font-size: 0.75rem !important;
   }
 
   .ph-item-title {
-    font-size: 0.9rem;
+    font-size: 0.9rem !important;
   }
 
   .ph-all-events-link {
-    font-size: 0.85rem;
+    font-size: 0.85rem !important;
   }
 
   .ph-details-title {
-    font-size: 1.2rem;
+    font-size: 1.2rem !important;
   }
 
   .ph-details-location,
   .ph-details-time {
-    font-size: 0.75rem;
+    font-size: 0.75rem !important;
   }
 
   .ph-details-description {
-    font-size: 0.85rem;
+    font-size: 0.85rem !important;
   }
 
   .ph-details-cta {
-    font-size: 0.85rem;
+    font-size: 0.85rem !important;
     padding: 8px 15px;
   }
 
   .ph-calendar-link {
-    font-size: 0.75rem;
+    font-size: 0.75rem !important;
     padding: 8px 12px;
   }
 
   .pe-title {
-    font-size: 1.2rem;
+    font-size: 1.2rem !important;
   }
 
   .pe-card {
@@ -1126,11 +1126,11 @@
   }
 
   .pe-card-meta {
-    font-size: 0.75rem;
+    font-size: 0.75rem !important;
   }
 
   .pe-card-button {
-    font-size: 0.75rem;
+    font-size: 0.75rem !important;
     padding: 5px 8px;
   }
 }

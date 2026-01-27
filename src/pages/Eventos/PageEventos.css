@@ -192,31 +192,32 @@
 
 @media (max-width: 768px) {
   .hero-title {
-    font-size: 2.5rem;
+    font-size: 2.5rem !important;
   }
   .btn-scroll-down {
     width: 100%;
     justify-content: center;
   }
+  .section-label h2 {
+    font-size: 1.8rem !important;
+  }
 }
 
 @media (max-width: 600px) {
-  body,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  p,
-  li,
-  .page-title,
-  .page-desc,
-  .event-card,
-  .event-title,
-  .event-desc {
-    font-size: 0.7rem !important;
-    line-height: 1.2 !important;
+  .hero-title {
+    font-size: 2rem !important;
+  }
+  .hero-description {
+    font-size: 1rem !important;
+  }
+  .hero-tag {
+    font-size: 0.75rem !important;
+  }
+  .btn-scroll-down {
+    font-size: 0.85rem !important;
+  }
+  .section-label h2 {
+    font-size: 1.5rem !important;
   }
 
   .eventos-hero {

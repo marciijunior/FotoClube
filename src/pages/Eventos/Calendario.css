@@ -302,7 +302,7 @@
   }
 
   .weekday {
-    font-size: 0.7rem;
+    font-size: 0.7rem !important;
   }
   .days-grid {
     gap: 4px;
@@ -313,11 +313,11 @@
     border-radius: 8px;
   }
   .day-number {
-    font-size: 0.85rem;
+    font-size: 0.85rem !important;
   }
 
   .month-title {
-    font-size: 1.4rem;
+    font-size: 1.4rem !important;
   }
 
   .nav-btn {
@@ -327,12 +327,12 @@
 
   .btn-today {
     padding: 6px 12px;
-    font-size: 0.75rem;
+    font-size: 0.75rem !important;
   }
 
   .filter-chip {
     padding: 4px 10px;
-    font-size: 0.7rem;
+    font-size: 0.7rem !important;
   }
 
   .section-label.centered {

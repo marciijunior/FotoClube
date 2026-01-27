@@ -215,11 +215,11 @@
   }
 
   .magazine-title {
-    font-size: 2.2rem !important;
+    font-size: 2rem !important;
   }
 
   .magazine-text {
-    font-size: 0.95rem;
+    font-size: 0.95rem !important;
     line-height: 1.7;
   }
 
@@ -238,7 +238,7 @@
   }
 
   .magazine-eyebrow {
-    font-size: 0.75rem;
+    font-size: 0.75rem !important;
   }
 
   .magazine-title {
@@ -246,7 +246,7 @@
   }
 
   .magazine-text {
-    font-size: 0.9rem;
+    font-size: 0.9rem !important;
   }
 
   .magazine-image-stack {
@@ -259,6 +259,6 @@
   }
 
   .magazine-link {
-    font-size: 0.85rem;
+    font-size: 0.85rem !important;
   }
 }
