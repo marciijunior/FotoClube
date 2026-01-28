@@ -133,7 +133,7 @@
   }
   .hero-photo-title {
     text-align: center;
-    font-size: 3.5rem;
+    font-size: 3.5rem !important;
   }
 }
 
@@ -167,32 +167,32 @@
   .hero-eyebrow {
     background: rgba(255, 92, 0, 0.12);
     color: var(--color-accent);
-    font-size: 0.82rem;
+    font-size: 0.82rem !important;
     letter-spacing: 0.8px;
     padding: 6px 12px;
     border-radius: 999px;
   }
   .hero-photo-title {
-    font-size: 2.2rem;
+    font-size: 2.2rem !important;
     line-height: 1.2;
     color: var(--color-primary);
     text-align: left;
     margin: 0;
   }
   .hero-author {
-    font-size: 1rem;
+    font-size: 1rem !important;
     margin: 4px 0 8px 0;
     color: #003b56;
   }
   .hero-description {
-    font-size: 0.95rem;
+    font-size: 0.95rem !important;
     line-height: 1.5;
     max-width: none;
     color: #003b56;
     text-align: left !important;
   }
   .hero-cta-button {
-    font-size: 0.95rem;
+    font-size: 0.95rem !important;
     padding: 11px 16px;
     border-radius: 12px;
     background: linear-gradient(

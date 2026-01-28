@@ -237,18 +237,8 @@
     font-size: 0.95rem !important;
   }
 
-  .recent-meta {
-    font-size: 0.7rem !important;
-    gap: 3px;
-  }
-
   .recent-meta-item {
-    font-size: 0.65rem !important;
-    gap: 4px;
-  }
-
-  .recent-meta-item svg {
-    font-size: 0.7em !important;
+    font-size: 0.75rem !important;
   }
 
   .recent-actions {
@@ -285,19 +275,5 @@
   .recent-title {
     font-size: 0.9rem !important;
     margin-bottom: 4px;
-  }
-
-  .recent-meta {
-    font-size: 0.65rem !important;
-    gap: 2px;
-  }
-
-  .recent-meta-item {
-    font-size: 0.6rem !important;
-    gap: 3px;
-  }
-
-  .recent-meta-item svg {
-    font-size: 0.65em !important;
   }
 }

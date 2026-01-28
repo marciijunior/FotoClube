@@ -253,15 +253,15 @@
   }
 
   .photo-modal-title {
-    font-size: 1.75rem;
+    font-size: 1.75rem !important;
   }
 
   .photo-modal-author {
-    font-size: 1rem;
+    font-size: 1rem !important;
   }
 
   .photo-modal-month {
-    font-size: 0.9rem;
+    font-size: 0.9rem !important;
   }
 
   .photo-modal-close {
@@ -269,14 +269,14 @@
     right: 12px;
     width: 40px;
     height: 40px;
-    font-size: 18px;
+    font-size: 18px !important;
   }
 
   .photo-modal-winner-badge {
     top: 15px;
     left: 15px;
     padding: 8px 16px;
-    font-size: 0.75rem;
+    font-size: 0.75rem !important;
     gap: 6px;
   }
 
@@ -285,7 +285,7 @@
   }
 
   .photo-modal-detail-text {
-    font-size: 0.95rem;
+    font-size: 0.95rem !important;
   }
 }
 

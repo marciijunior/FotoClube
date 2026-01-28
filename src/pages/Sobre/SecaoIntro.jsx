@@ -8,7 +8,6 @@ function IntroSection() {
     <section className="intro-section">
       <div className="intro-container">
         <div className="intro-column">
-          <span className="intro-eyebrow">Nosso Propósito</span>
           <h2>Quem Somos</h2>
           <p>
             Somos uma associação sem fins lucrativos dedicada a conectar
@@ -22,7 +21,6 @@ function IntroSection() {
           </p>
         </div>
         <div className="intro-column">
-          <span className="intro-eyebrow">Nossa Origem</span>
           <h2>Como Surgimos</h2>
           <p>
             O Fotoclube nasceu da visão de{" "}

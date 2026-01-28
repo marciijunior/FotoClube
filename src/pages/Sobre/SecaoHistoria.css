@@ -214,37 +214,61 @@
 
 @media (max-width: 768px) {
   .history-section-hq {
-    padding: 80px 20px;
+    padding: 60px 16px;
+  }
+
+  .hq-container {
+    gap: 35px;
   }
 
   .history-page-main-title {
     font-size: 2.2rem !important;
+    margin-bottom: 15px;
   }
 
   .hq-subtitle {
     font-size: 1.1rem !important;
+    margin-bottom: 20px;
+    margin-top: 20px;
   }
 
   .hq-text-content p {
     font-size: 1rem !important;
+    margin-bottom: 15px;
+  }
+
+  .hq-card-info {
+    padding: 25px 20px;
   }
 
   .hq-card-info h2 {
     font-size: 0.75rem !important;
+    margin-bottom: 6px;
   }
 
   .hq-card-info h3 {
     font-size: 1.5rem !important;
+    margin-bottom: 18px;
+  }
+
+  .hq-info-item {
+    gap: 10px;
+    margin-bottom: 10px;
   }
 }
 
 @media (max-width: 480px) {
   .history-section-hq {
-    padding: 60px 16px;
+    padding: 40px 12px;
+  }
+
+  .hq-container {
+    gap: 25px;
   }
 
   .history-page-main-title {
     font-size: 1.7rem !important;
+    margin-bottom: 12px;
   }
 
   .history-page-main-title::after {
@@ -254,31 +278,51 @@
 
   .hq-subtitle {
     font-size: 1rem !important;
+    margin-bottom: 15px;
+    margin-top: 15px;
   }
 
   .hq-text-content p {
     font-size: 0.9rem !important;
     line-height: 1.7;
+    margin-bottom: 12px;
+  }
+
+  .hq-card {
+    border-radius: 16px;
   }
 
   .hq-card-image img,
   .hq-card-image-placeholder {
-    height: 200px;
+    height: 180px;
   }
 
   .hq-card-info {
-    padding: 25px 20px;
+    padding: 18px 15px;
+  }
+
+  .hq-card-info::before {
+    left: 15px;
+    right: 15px;
   }
 
   .hq-card-info h2 {
     font-size: 0.65rem !important;
+    margin-bottom: 5px;
   }
 
   .hq-card-info h3 {
     font-size: 1.3rem !important;
+    margin-bottom: 15px;
   }
 
   .hq-info-item {
-    font-size: 0.85rem;
+    font-size: 0.85rem !important;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .hq-info-item svg {
+    font-size: 0.95rem !important;
   }
 }
