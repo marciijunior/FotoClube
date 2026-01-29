@@ -43,5 +43,18 @@
   }
   .section-title-light {
     text-align: center;
+    font-size: 2.2rem !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .section-title-light {
+    font-size: 1.8rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-title-light {
+    font-size: 1.5rem !important;
   }
 }
