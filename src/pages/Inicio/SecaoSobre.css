@@ -136,11 +136,23 @@
   color: var(--color-primary);
   margin: 20px 0 25px 0;
   line-height: 1.15;
+  position: relative;
+  padding-bottom: 20px;
+}
+
+.magazine-title::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, #ff5c00, #1f626b);
 }
 
 /* Placeholder neutro quando não há imagem local */
 .magazine-image.placeholder {
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 4 / 5; 
   background: linear-gradient(135deg, #f5f2f0 0%, #f5f2f0 100%);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
 }

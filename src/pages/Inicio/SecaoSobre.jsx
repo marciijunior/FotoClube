@@ -4,10 +4,12 @@ import { FaArrowRight } from "react-icons/fa";
 
 import "./SecaoSobre.css";
 
+import grupo1 from "../../assets/Grupo1.jpg";
+import grupo2 from "../../assets/Grupo2.jpg";
+
 function AboutSection() {
-  // Imagens locais removidas; usar URLs do backend ou placeholders neutros
-  const imgOverlap1 = null;
-  const imgOverlap2 = null;
+  const imgOverlap1 = grupo1;
+  const imgOverlap2 = grupo2;
 
   return (
     <section className="about-section-magazine">
@@ -40,7 +42,6 @@ function AboutSection() {
         </div>
 
         <div className="magazine-text-box">
-          <span className="magazine-eyebrow">SOBRE NÓS</span>
           <h2 className="magazine-title">Nossa História, Nossas Lentes</h2>
           <p className="magazine-text">
             Fundado em 2015, o FotoClube nasceu da paixão compartilhada de um

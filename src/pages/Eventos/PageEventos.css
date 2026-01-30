@@ -9,21 +9,10 @@
 
 .eventos-hero {
   position: relative;
-  padding: 100px 0px;
+  padding-top: 40px;
+  padding-bottom: 80px;
   text-align: center;
   background-color: var(--color-light);
-}
-
-.eventos-hero::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 150px;
-  height: 4px;
-  background: linear-gradient(90deg, #ff5c00, #1f626b);
-  border-radius: 2px;
 }
 
 .hero-content {
