@@ -245,6 +245,7 @@
 @media (max-width: 480px) {
   .history-section-hq {
     padding: 0px 16px;
+    padding-bottom: 80px;
     text-align: center;
   }
 
