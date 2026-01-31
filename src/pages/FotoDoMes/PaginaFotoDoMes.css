@@ -13,9 +13,10 @@
 /* Título de Secção Padrão (Modo Claro) */
 .section-title-light {
   font-family: var(--font-heading);
-  font-size: 2.8rem;
+  font-size: 2.2rem;
   color: var(--color-primary); /* Azul Escuro */
   margin-bottom: 30px;
+  margin-top: 0;
   position: relative;
   padding-bottom: 10px;
   letter-spacing: 1px;

@@ -6,7 +6,7 @@
 
 .contact-hero {
   text-align: center;
-  padding: 80px 20px;
+  padding-top: 40px;
   max-width: 800px;
   margin: 0 auto;
 }
@@ -14,12 +14,13 @@
 .contact-hero h1 {
   font-family: var(--font-heading);
   font-size: 3.5rem;
+  font-weight: 800;
   color: var(--color-primary);
-  margin: 0 0 0px 0;
+  margin: 0 0 30px 0;
   letter-spacing: 1px;
   position: relative;
   display: inline-block;
-  padding-bottom: 10px;
+  padding-bottom: 0px;
 }
 
 .contact-hero h1::after {
@@ -28,17 +29,18 @@
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 80px;
-  height: 4px;
-  background-color: var(--color-accent);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #ff5c00, #1f626b);
   border-radius: 2px;
 }
 
 .contact-hero p {
   font-family: var(--font-body);
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   color: #555;
-  line-height: 1.6;
+  margin: 0;
+  margin-bottom: 30px;
 }
 
 .contact-container {

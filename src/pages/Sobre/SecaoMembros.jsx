@@ -2,6 +2,11 @@ import React from "react";
 import "./SecaoMembros.css";
 import { FaLink } from "react-icons/fa";
 
+import dricoCoelho from "../../assets/DricoCoelho.jpeg";
+import gersonFortes from "../../assets/GersonFortes.jpeg";
+import luizHirose from "../../assets/LuizHirose.jpeg";
+import devairMuchiutti from "../../assets/DevairMuchiutti.jpeg";
+
 function MemberCard({ name, image, portfolioUrl }) {
   const backgroundStyle = image
     ? { backgroundImage: `url(${image})` }
@@ -38,12 +43,20 @@ function MembersSection() {
         <div className="members-grid">
           <MemberCard
             name="Adriano 'Drico' Coelho"
-            image={null}
+            image={dricoCoelho}
             portfolioUrl="#"
           />
-          <MemberCard name="Gerson Fortes" image={null} portfolioUrl="#" />
-          <MemberCard name="Luiz Hirose" image={null} portfolioUrl="#" />
-          <MemberCard name="Devair Muchiutti" image={null} portfolioUrl="#" />
+          <MemberCard
+            name="Gerson Fortes"
+            image={gersonFortes}
+            portfolioUrl="#"
+          />
+          <MemberCard name="Luiz Hirose" image={luizHirose} portfolioUrl="#" />
+          <MemberCard
+            name="Devair Muchiutti"
+            image={devairMuchiutti}
+            portfolioUrl="#"
+          />
         </div>
       </div>
     </section>

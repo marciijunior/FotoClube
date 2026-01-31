@@ -1,25 +1,10 @@
 /* ===== HISTORY SECTION - DESIGN MODERNO ===== */
 .history-section-hq {
   width: 100%;
-  padding: 100px 24px;
+  padding-bottom: 80px;
   background: var(--color-light, #ffffff);
   position: relative;
   overflow: hidden;
-}
-
-.history-section-hq::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(31, 98, 107, 0.3),
-    transparent
-  );
 }
 
 .hq-container {

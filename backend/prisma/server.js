@@ -34,7 +34,7 @@ const upload = multer({
   fileFilter: (req, file, cb) => {
     const allowedTypes = /jpeg|jpg|png|gif|webp/;
     const extname = allowedTypes.test(
-      path.extname(file.originalname).toLowerCase()
+      path.extname(file.originalname).toLowerCase(),
     );
     const mimetype = allowedTypes.test(file.mimetype);
 
@@ -280,7 +280,7 @@ const resolvers = {
       const token = jwt.sign(
         { userId: user.id, email: user.email, role: user.role },
         JWT_SECRET,
-        { expiresIn: "7d" }
+        { expiresIn: "7d" },
       );
 
       return {
@@ -334,7 +334,7 @@ const resolvers = {
       const token = jwt.sign(
         { userId: user.id, email: user.email, role: user.role },
         JWT_SECRET,
-        { expiresIn: "7d" }
+        { expiresIn: "7d" },
       );
 
       return {
@@ -467,7 +467,7 @@ app.use(
       "https://foto-clube.vercel.app",
     ],
     credentials: true,
-  })
+  }),
 );
 
 app.use(express.json());

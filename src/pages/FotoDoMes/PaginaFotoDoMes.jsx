@@ -74,7 +74,7 @@ function PaginaFotoDoMes() {
 
   // Ordenar por posição
   const sortedWinners = [...displayWinners].sort(
-    (a, b) => a.position - b.position
+    (a, b) => a.position - b.position,
   );
 
   // Vencedor principal (SEMPRE position 1)
@@ -151,10 +151,14 @@ function PaginaFotoDoMes() {
         placeholderImage={placeholderImage}
       />
 
+      <div className="section-spacer"></div>
+
       <SecaoArquivo
         pastWinners={pastWinners}
         placeholderImage={placeholderImage}
       />
+
+      <div className="section-spacer"></div>
 
       <SecaoRegras />
     </div>

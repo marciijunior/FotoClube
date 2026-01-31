@@ -152,7 +152,7 @@
 
 /* Placeholder neutro quando não há imagem local */
 .magazine-image.placeholder {
-  aspect-ratio: 4 / 5; 
+  aspect-ratio: 4 / 5;
   background: linear-gradient(135deg, #f5f2f0 0%, #f5f2f0 100%);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
 }

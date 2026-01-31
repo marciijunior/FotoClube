@@ -103,5 +103,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         </ApolloProvider>
       </DatesProvider>
     </MantineProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

@@ -1,9 +1,9 @@
 import React from "react";
 import "./SecaoIntro.css";
+import fotoIntegrantes from "../../assets/FotoClubeIntegrantes.jpg";
 
 function IntroSection() {
-  // Imagem local removida; usar URL do backend quando disponível
-  const originImage = null;
+  const originImage = fotoIntegrantes;
   return (
     <section className="intro-section">
       <div className="intro-container">

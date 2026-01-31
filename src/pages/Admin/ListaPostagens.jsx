@@ -138,7 +138,7 @@ function PostsListMain() {
         (post) =>
           post.title.toLowerCase().includes(term) ||
           post.content.toLowerCase().includes(term) ||
-          (post.author && post.author.toLowerCase().includes(term))
+          (post.author && post.author.toLowerCase().includes(term)),
       );
     }
 
