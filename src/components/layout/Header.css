@@ -228,17 +228,7 @@
 }
 
 /* Ajuste do botão 'Seja Associado' no header sólido */
-.header-solid .nav-link-highlight {
-  background: linear-gradient(135deg, #ff5c00, #ff5c00);
-  color: var(--color-light);
-}
-.header-solid .nav-link-highlight:hover {
-  background: linear-gradient(135deg, #ff5c00, #ff5c00);
-  color: var(--color-light);
-}
-.header-solid .nav-link-highlight:hover::after {
-  background: linear-gradient(90deg, #1f626b, #fff);
-}
+
 /* ===============================================
    RESPONSIVIDADE MOBILE - MENU HAMBÚRGUER
    =============================================== */

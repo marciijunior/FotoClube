@@ -95,17 +95,20 @@
   margin: 40px auto 0 auto;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow:
-    0 30px 60px rgba(0, 0, 0, 0.5),
-    0 0 0 1px rgba(255, 255, 255, 0.1);
   position: relative;
+}
+
+.intro-image-banner::before{
+  content: "";
+  position: absolute;
+  left
 }
 
 .intro-image-banner::before {
   content: "";
   position: absolute;
   inset: 0;
-  border-radius: 20px;
+  border-radius: 10px;
   padding: 2px;
   background: linear-gradient(135deg, #ff5c00, #1f626b);
   -webkit-mask:
@@ -190,7 +193,7 @@
 
 @media (max-width: 480px) {
   .intro-section {
-    padding: 40px 12px 30px;
+    padding: 40px 12px 0px;
   }
 
   .intro-container {
