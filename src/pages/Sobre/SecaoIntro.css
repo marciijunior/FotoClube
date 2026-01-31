@@ -170,7 +170,8 @@
 
   .intro-column h2 {
     font-size: 2.2rem !important;
-    margin: 15px 0 20px 0;
+    margin: 0;
+    padding-bottom: 5px;
   }
 
   .intro-column p {
@@ -203,12 +204,12 @@
   }
 
   .intro-column h2 {
-    font-size: 1.7rem !important;
-    margin: 12px 0 15px 0;
+    font-size: 1.5rem !important;
+    margin: 0px 0 15px 0;
   }
 
   .intro-column p {
-    font-size: 0.9rem !important;
+    font-size: 0.7rem !important;
     line-height: 1.7;
     margin-bottom: 8px;
   }

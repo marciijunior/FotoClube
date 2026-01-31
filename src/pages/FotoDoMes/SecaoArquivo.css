@@ -288,10 +288,11 @@
     grid-template-columns: 1fr;
   }
   .potm-archive-menu-section {
-    padding: 28px 14px 48px 14px;
+    padding: 0px 16px 0px 16px;
   }
   .archive-menu-container {
     gap: 16px;
+    padding: 0;
   }
   .archive-menu-list {
     gap: 10px;

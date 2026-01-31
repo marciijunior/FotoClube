@@ -54,7 +54,7 @@
   font-family: var(--font-body);
   font-size: 1.1rem;
   line-height: 1.9;
-  color: #333;
+  color: #555;
   margin-bottom: 20px;
 }
 
@@ -244,7 +244,13 @@
 
 @media (max-width: 480px) {
   .history-section-hq {
-    padding: 40px 12px;
+    padding: 0px 16px;
+    text-align: center;
+  }
+
+  .history-page-main-title::after {
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   .hq-container {
@@ -268,7 +274,7 @@
   }
 
   .hq-text-content p {
-    font-size: 0.9rem !important;
+    font-size: 0.7rem !important;
     line-height: 1.7;
     margin-bottom: 12px;
   }

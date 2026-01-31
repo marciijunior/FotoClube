@@ -95,7 +95,7 @@
 
 @media (max-width: 640px) {
   .potm-filmstrip-section {
-    padding-bottom: 56px;
+    padding-bottom: 0px;
   }
   .filmstrip-track {
     gap: 12px;
