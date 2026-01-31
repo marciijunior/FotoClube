@@ -21,6 +21,7 @@
     "dayjs": "^1.11.19",
     "graphql": "^16.12.0",
     "graphql-request": "^7.3.5",
+    "gsap": "^3.14.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-hook-form": "^7.68.0",

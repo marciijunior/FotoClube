@@ -36,15 +36,16 @@
 
 /* Animação de sombra pulsante */
 @keyframes pulse-shadow {
-  0%, 100% {
+  0%,
+  100% {
     filter: drop-shadow(0 0 20px rgba(255, 92, 0, 0.5))
-            drop-shadow(0 0 40px rgba(255, 92, 0, 0.3))
-            drop-shadow(0 0 60px rgba(255, 92, 0, 0.1));
+      drop-shadow(0 0 40px rgba(255, 92, 0, 0.3))
+      drop-shadow(0 0 60px rgba(255, 92, 0, 0.1));
   }
   50% {
     filter: drop-shadow(0 0 30px rgba(255, 92, 0, 0.8))
-            drop-shadow(0 0 60px rgba(255, 92, 0, 0.5))
-            drop-shadow(0 0 90px rgba(255, 92, 0, 0.3));
+      drop-shadow(0 0 60px rgba(255, 92, 0, 0.5))
+      drop-shadow(0 0 90px rgba(255, 92, 0, 0.3));
   }
 }
 
