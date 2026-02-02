@@ -23,6 +23,10 @@ import "./Footer.css"; // O CSS do Modo Claro (que você já tem) está correto
 
 // Usa logo do bundle para evitar corromper em build/cache
 import logoSrc from "../../assets/logo-fotoclube-azul.png";
+import logoMarcioJunior from "../../assets/logoMarcioJunior.png";
+import logoMarcioJunior3 from "../../assets/logoMarcioJunior3.png";
+import logoEstudio4K from "../../assets/logoEstudio4K.png";
+import brasaoPrefeitura from "../../assets/BrasaoPrefeitura.png";
 
 function Footer() {
   return (
@@ -39,10 +43,11 @@ function Footer() {
           <h3 className="footer-title">Contato</h3>
           <ul className="footer-contact-list">
             <li>
-              <FaMapMarkerAlt /> <span>Rua Fictícia, 123 - Araçatuba, SP</span>
+              <FaMapMarkerAlt />{" "}
+              <span> R. José Bonifácio, 114 - Centro, Araçatuba - SP</span>
             </li>
             <li>
-              <FaPhone /> <span>(18) 99999-9999</span>
+              <FaPhone /> <span>18 98807-9910</span>
             </li>
             <li>
               <FaEnvelope /> <span>contato@fotoclubearacatuba.com.br</span>
@@ -57,34 +62,57 @@ function Footer() {
             Agradecemos aos parceiros que apoiam nossa paixão pela fotografia.
           </p>
           <div className="footer-partners-grid">
-            <img
-              // src removido: logo.clearbit.com/canon.com
-              alt="Canon Logo"
-              onError={(e) => {
-                e.target.style.display = "none";
-              }}
-            />
-            <img
-              // src removido: logo.clearbit.com/nikon.com
-              alt="Nikon Logo"
-              onError={(e) => {
-                e.target.style.display = "none";
-              }}
-            />
-            <img
-              // src removido: logo.clearbit.com/adobe.com
-              alt="Adobe Logo"
-              onError={(e) => {
-                e.target.style.display = "none";
-              }}
-            />
-            <img
-              // src removido: logo.clearbit.com/fujifilm.com
-              alt="Fujifilm Logo"
-              onError={(e) => {
-                e.target.style.display = "none";
-              }}
-            />
+            <a
+              href="https://aracatuba.sp.gov.br/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src={brasaoPrefeitura}
+                alt="Logo Prefeitura de Araçatuba"
+                style={{
+                  height: 70,
+                  marginRight: 12,
+                  border: "2px solid #0800382d",
+                  borderRadius: 6,
+                  background: "#fff",
+                }}
+              />
+            </a>
+            <a
+              href="https://marciojunior.dev"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src={logoMarcioJunior3}
+                alt="Logo Marcio Junior Web Desenvolvedor"
+                style={{
+                  height: 70,
+                  marginRight: 12,
+                  border: "2px solid #ff5e002f",
+                  borderRadius: 6,
+                  background: "#fff",
+                }}
+              />
+            </a>
+            <a
+              href="https://www.instagram.com/estudio4kfotografia/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src={logoEstudio4K}
+                alt="Logo Estúdio 4K Fotografia"
+                style={{
+                  height: 70,
+                  marginRight: 12,
+                  border: "2px solid #ff5e002f",
+                  borderRadius: 6,
+                  background: "#fff",
+                }}
+              />
+            </a>
           </div>
         </div>
 
@@ -128,20 +156,8 @@ function Footer() {
           <a href="#" aria-label="LinkedIn">
             <FaLinkedinIn />
           </a>
-          <a href="#" aria-label="Behance">
-            <FaBehance />
-          </a>
-          <a href="#" aria-label="Flickr">
-            <FaFlickr />
-          </a>
-          <a href="#" aria-label="500px">
-            <Fa500Px />
-          </a>{" "}
           <a href="#" aria-label="Pinterest">
             <FaPinterestP />
-          </a>
-          <a href="#" aria-label="Vimeo">
-            <FaVimeoV />
           </a>
           <a href="#" aria-label="WhatsApp">
             <FaWhatsapp />
