@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useMutation } from '@apollo/client/react';
+import { SEND_CONTACT_MESSAGE } from '../../graphql/mutations';
 import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import './PaginaContato.css';
 
@@ -9,15 +11,38 @@ function PaginaContato() {
     subject: '',
     message: ''
   });
+  const [status, setStatus] = useState({ type: '', message: '' });
+
+  const [sendMessage, { loading }] = useMutation(SEND_CONTACT_MESSAGE);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert(`Obrigado, ${formData.name}! Sua mensagem foi enviada (Simulação).`);
-    setFormData({ name: '', email: '', subject: '', message: '' });
+    setStatus({ type: '', message: '' });
+
+    try {
+      const { data } = await sendMessage({
+        variables: {
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject || null,
+          message: formData.message
+        }
+      });
+
+      if (data.sendContactMessage.ok) {
+        setStatus({ type: 'success', message: data.sendContactMessage.message });
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        setStatus({ type: 'error', message: data.sendContactMessage.message });
+      }
+    } catch (error) {
+      console.error('Erro ao enviar mensagem:', error);
+      setStatus({ type: 'error', message: 'Erro ao enviar mensagem. Tente novamente.' });
+    }
   };
 
   return (
@@ -51,8 +76,7 @@ function PaginaContato() {
             </div>
             <div className="contact-details">
               <h3>E-mail</h3>
-              <a href="mailto:contato@fotoclube.com.br">contato@fotoclube.com.br</a>
-              <p>diretoria@fotoclube.com.br</p>
+              <a href="mailto:fotoclubearacatuba@gmail.com">fotoclubearacatuba@gmail.com</a>
             </div>
           </div>
 
@@ -149,7 +173,15 @@ function PaginaContato() {
               ></textarea>
             </div>
 
-            <button type="submit" className="submit-button">Enviar Mensagem</button>
+            {status.message && (
+              <div className={`form-status ${status.type}`}>
+                {status.message}
+              </div>
+            )}
+
+            <button type="submit" className="submit-button" disabled={loading}>
+              {loading ? 'Enviando...' : 'Enviar Mensagem'}
+            </button>
           </form>
         </div>
 

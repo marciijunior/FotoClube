@@ -11,6 +11,7 @@ import { fileURLToPath } from "url";
 import cors from "cors";
 import sharp from "sharp";
 import fs from "fs";
+import nodemailer from "nodemailer";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -134,7 +135,18 @@ const typeDefs = gql`
     me: User
   }
 
+  type ContactResponse {
+    ok: Boolean!
+    message: String
+  }
+
   type Mutation {
+    sendContactMessage(
+      name: String!
+      email: String!
+      subject: String
+      message: String!
+    ): ContactResponse!
     login(email: String!, password: String!): AuthPayload!
     register(email: String!, password: String!, name: String!): AuthPayload!
     createUser(
@@ -238,6 +250,15 @@ const typeDefs = gql`
 `;
 
 // Resolvers
+// Configuração do transporter de e-mail
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER || 'fotoclubearacatuba@gmail.com',
+    pass: process.env.EMAIL_PASS || 'sua-senha-de-app-aqui'
+  }
+});
+
 const resolvers = {
   Query: {
     allSlides: async () =>
@@ -264,6 +285,35 @@ const resolvers = {
     },
   },
   Mutation: {
+    sendContactMessage: async (_, { name, email, subject, message }) => {
+      try {
+        const mailOptions = {
+          from: `"${name}" <${email}>`,
+          to: 'fotoclubearacatuba@gmail.com',
+          replyTo: email,
+          subject: subject || `Mensagem de Contato - ${name}`,
+          html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+              <h2 style="color: #003b56;">Nova mensagem de contato</h2>
+              <p><strong>Nome:</strong> ${name}</p>
+              <p><strong>E-mail:</strong> ${email}</p>
+              <p><strong>Assunto:</strong> ${subject || 'Não informado'}</p>
+              <hr style="border: 1px solid #eee;" />
+              <h3 style="color: #ff5c00;">Mensagem:</h3>
+              <p style="white-space: pre-wrap;">${message}</p>
+              <hr style="border: 1px solid #eee;" />
+              <p style="color: #888; font-size: 12px;">Esta mensagem foi enviada através do formulário de contato do site FotoClube de Araçatuba.</p>
+            </div>
+          `
+        };
+
+        await transporter.sendMail(mailOptions);
+        return { ok: true, message: 'Mensagem enviada com sucesso!' };
+      } catch (error) {
+        console.error('Erro ao enviar e-mail:', error);
+        return { ok: false, message: 'Erro ao enviar mensagem. Tente novamente.' };
+      }
+    },
     login: async (_, { email, password }) => {
       const user = await prisma.user.findUnique({ where: { email } });
 

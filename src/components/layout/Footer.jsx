@@ -169,7 +169,14 @@ function Footer() {
       <div className="footer-copyright">
         <p>
           © {new Date().getFullYear()} FotoClube de Araçatuba. Todos os
-          direitos reservados.
+          direitos reservados. Desenvolvido por
+          <a
+            href="https://marciojunior.dev"
+            target="blank"
+            rel="noopener noreferrer"
+          > Marcio Junior
+          </a>
+          .
         </p>
       </div>
     </footer>

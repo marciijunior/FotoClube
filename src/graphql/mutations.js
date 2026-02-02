@@ -78,3 +78,22 @@ export const SET_CURRENT_CONTEST = gql`
     setCurrentContest(monthWon: $monthWon)
   }
 `;
+
+export const SEND_CONTACT_MESSAGE = gql`
+  mutation SendContactMessage(
+    $name: String!
+    $email: String!
+    $subject: String
+    $message: String!
+  ) {
+    sendContactMessage(
+      name: $name
+      email: $email
+      subject: $subject
+      message: $message
+    ) {
+      ok
+      message
+    }
+  }
+`;
