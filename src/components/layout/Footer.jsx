@@ -25,7 +25,7 @@ import "./Footer.css"; // O CSS do Modo Claro (que você já tem) está correto
 import logoSrc from "../../assets/logo-fotoclube-azul.png";
 import logoMarcioJunior from "../../assets/logoMarcioJunior.png";
 import logoMarcioJunior3 from "../../assets/logoMarcioJunior3.png";
-import logoEstudio4K from "../../assets/logoEstudio4K.png";
+import logoEstudio4k from "../../assets/logoEstudio4k.png";
 import brasaoPrefeitura from "../../assets/BrasaoPrefeitura.png";
 
 function Footer() {
@@ -102,7 +102,7 @@ function Footer() {
               rel="noopener noreferrer"
             >
               <img
-                src={logoEstudio4K}
+                src={logoEstudio4k}
                 alt="Logo Estúdio 4K Fotografia"
                 style={{
                   height: 70,
