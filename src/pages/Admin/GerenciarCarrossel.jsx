@@ -83,8 +83,7 @@ export default function CarouselManage() {
     CREATE_SLIDE,
     {
       refetchQueries: ["GetSlides"],
-      onCompleted: (data) => {
-        console.log("Slide criado com sucesso:", data);
+      onCompleted: () => {
         setFormData({
           image: "",
           title: "",
@@ -97,7 +96,6 @@ export default function CarouselManage() {
         alert("Slide adicionado com sucesso!");
       },
       onError: (error) => {
-        console.error("Erro ao criar slide:", error);
         alert(`Erro ao criar slide: ${error.message}`);
       },
     }
@@ -131,7 +129,6 @@ export default function CarouselManage() {
         setFormData({ ...formData, image: result.url });
       }
     } catch (error) {
-      console.error("Erro ao fazer upload:", error);
       alert("Erro ao fazer upload da imagem");
     } finally {
       setUploading(false);
@@ -146,8 +143,6 @@ export default function CarouselManage() {
       return;
     }
 
-    console.log("Enviando slide:", formData);
-
     try {
       await createSlide({
         variables: {
@@ -156,7 +151,7 @@ export default function CarouselManage() {
         },
       });
     } catch (err) {
-      console.error("Erro no handleSubmit:", err);
+      // Erro tratado pelo onError
     }
   };
 

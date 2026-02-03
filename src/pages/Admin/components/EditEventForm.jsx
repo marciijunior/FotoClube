@@ -180,9 +180,7 @@ export default function EditEventForm({ event, onDone }) {
   });
 
   const handleSubmit = async (e) => {
-    console.log("🚀 handleSubmit CHAMADO!", e);
     e.preventDefault();
-    console.log("✋ preventDefault executado");
 
     // Formatar data para string no formato brasileiro (usando UTC para evitar problemas de timezone)
     const formatDate = (date) => {
@@ -244,20 +242,14 @@ export default function EditEventForm({ event, onDone }) {
         image: imageUrl,
       };
 
-      console.log("📝 Enviando evento:", dataToSubmit);
-
       if (isEditing) {
-        console.log("✏️ Editando evento ID:", event.id);
-        const result = await updateEvent({
+        await updateEvent({
           variables: { id: event.id, ...dataToSubmit },
         });
-        console.log("✅ Evento atualizado:", result);
       } else {
-        console.log("➕ Criando novo evento");
-        const result = await createEvent({
+        await createEvent({
           variables: dataToSubmit,
         });
-        console.log("✅ Evento criado:", result);
       }
     } catch (error) {
       console.error("❌ Erro ao salvar evento:", error);
@@ -590,10 +582,6 @@ export default function EditEventForm({ event, onDone }) {
                     size="lg"
                     leftSection={<span>{isEditing ? "💾" : "➕"}</span>}
                     style={{ fontWeight: 600 }}
-                    onClick={(e) => {
-                      console.log("🖱️ BOTÃO CLICADO!", { loading, isEditing });
-                      console.log("📝 Dados do formulário:", formData);
-                    }}
                   >
                     {isEditing ? "Salvar Alterações" : "Criar Evento"}
                   </Button>

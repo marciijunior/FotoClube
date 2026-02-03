@@ -11,16 +11,21 @@ import AtualizacoesEventos from "./AtualizacoesEventos.jsx";
 import FeedPostagens from "./FeedPostagens.jsx";
 
 export default function PageEventos() {
-  const [showPopup, setShowPopup] = useState(true);
+  // Verifica se o popup já foi visto no localStorage
+  const [showPopup, setShowPopup] = useState(() => {
+    const alreadySeen = localStorage.getItem("agendaPopupSeen");
+    return !alreadySeen;
+  });
 
   const closePopup = () => {
     setShowPopup(false);
+    localStorage.setItem("agendaPopupSeen", "true");
   };
 
   // Fechar popup com ESC
   useEffect(() => {
     const handleEsc = (e) => {
-      if (e.key === "Escape") setShowPopup(false);
+      if (e.key === "Escape") closePopup();
     };
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);

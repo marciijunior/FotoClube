@@ -91,17 +91,6 @@ export default function Calendario() {
   // Usar dados do GraphQL ou array vazio se ainda estiver carregando
   const eventsData = data?.allEvents || [];
 
-  // Debug: Log dos dados recebidos
-  useEffect(() => {
-    if (data) {
-      console.log(
-        "📊 Calendário - Dados recebidos do GraphQL:",
-        data.allEvents
-      );
-      console.log("📊 Total de eventos:", data.allEvents?.length || 0);
-    }
-  }, [data]);
-
   // Efeito: Ler URL (Detecta data e ID do evento)
   useEffect(() => {
     const dia = searchParams.get("dia");
@@ -143,19 +132,9 @@ export default function Calendario() {
 
   // Processamento dos Dados
   const eventsByDay = useMemo(() => {
-    console.log(
-      "🔄 Recalculando eventsByDay. Total de eventos:",
-      eventsData.length
-    );
     const map = {};
     eventsData.forEach((event) => {
       try {
-        console.log(
-          "📅 Processando evento:",
-          event.title,
-          "- Data:",
-          event.date
-        );
         const [dayStr, rest] = event.date.split(", ");
         const [monthStr, yearStr] = rest.split("-");
         const monthsMap = {
@@ -177,13 +156,6 @@ export default function Calendario() {
         const evtMonth = monthsMap[monthStr];
         const evtYear = parseInt(yearStr);
 
-        console.log(
-          `   → Dia: ${evtDay}, Mês: ${evtMonth} (${monthStr}), Ano: ${evtYear}`
-        );
-        console.log(
-          `   → Comparando: Mês atual=${currentMonth}, Ano atual=${currentYear}`
-        );
-
         const { category, color } = getEventMeta(event);
 
         const matchesFilter =
@@ -194,7 +166,6 @@ export default function Calendario() {
           evtYear === currentYear &&
           matchesFilter
         ) {
-          console.log(`   ✅ Evento adicionado ao calendário no dia ${evtDay}`);
           if (!map[evtDay]) map[evtDay] = [];
           map[evtDay].push({
             ...event,
@@ -202,15 +173,11 @@ export default function Calendario() {
             category,
             color,
           });
-        } else {
-          console.log(`   ❌ Evento NÃO adicionado (mês/ano/filtro diferente)`);
         }
       } catch (e) {
-        console.error("Erro ao processar data:", e, event);
+        // Erro silencioso ao processar evento
       }
     });
-    console.log("📅 EventsByDay calculado:", map);
-    console.log("📊 Total de dias com eventos:", Object.keys(map).length);
     return map;
   }, [currentMonth, currentYear, activeFilter, eventsData]);
 
