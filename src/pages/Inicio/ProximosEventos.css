@@ -8,18 +8,6 @@
   position: relative;
 }
 
-.upcoming-events-section::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 150px;
-  height: 4px;
-  background: linear-gradient(90deg, #ff5c00, #1f626b);
-  border-radius: 2px;
-}
-
 .upcoming-events-container {
   margin: 0 auto;
   padding-inline: var(--container-gutter);
