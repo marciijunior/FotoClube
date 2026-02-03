@@ -252,11 +252,11 @@ const typeDefs = gql`
 // Resolvers
 // Configuração do transporter de e-mail
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  service: "gmail",
   auth: {
-    user: process.env.EMAIL_USER || 'fotoclubearacatuba@gmail.com',
-    pass: process.env.EMAIL_PASS || 'sua-senha-de-app-aqui'
-  }
+    user: process.env.EMAIL_USER || "fotoclubearacatuba@gmail.com",
+    pass: process.env.EMAIL_PASS || "sua-senha-de-app-aqui",
+  },
 });
 
 const resolvers = {
@@ -289,7 +289,7 @@ const resolvers = {
       try {
         const mailOptions = {
           from: `"${name}" <${email}>`,
-          to: 'fotoclubearacatuba@gmail.com',
+          to: "fotoclubearacatuba@gmail.com",
           replyTo: email,
           subject: subject || `Mensagem de Contato - ${name}`,
           html: `
@@ -297,21 +297,24 @@ const resolvers = {
               <h2 style="color: #003b56;">Nova mensagem de contato</h2>
               <p><strong>Nome:</strong> ${name}</p>
               <p><strong>E-mail:</strong> ${email}</p>
-              <p><strong>Assunto:</strong> ${subject || 'Não informado'}</p>
+              <p><strong>Assunto:</strong> ${subject || "Não informado"}</p>
               <hr style="border: 1px solid #eee;" />
               <h3 style="color: #ff5c00;">Mensagem:</h3>
               <p style="white-space: pre-wrap;">${message}</p>
               <hr style="border: 1px solid #eee;" />
               <p style="color: #888; font-size: 12px;">Esta mensagem foi enviada através do formulário de contato do site FotoClube de Araçatuba.</p>
             </div>
-          `
+          `,
         };
 
         await transporter.sendMail(mailOptions);
-        return { ok: true, message: 'Mensagem enviada com sucesso!' };
+        return { ok: true, message: "Mensagem enviada com sucesso!" };
       } catch (error) {
-        console.error('Erro ao enviar e-mail:', error);
-        return { ok: false, message: 'Erro ao enviar mensagem. Tente novamente.' };
+        console.error("Erro ao enviar e-mail:", error);
+        return {
+          ok: false,
+          message: "Erro ao enviar mensagem. Tente novamente.",
+        };
       }
     },
     login: async (_, { email, password }) => {

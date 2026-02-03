@@ -1,7 +1,7 @@
 // src/components/layout/Header.jsx
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
+import { FaBars, FaTimes, FaChevronDown } from "react-icons/fa";
 import "./Header.css";
 
 // Ambas as versões do logo vêm do bundle para evitar glitches
@@ -13,6 +13,7 @@ function Header({ isHomePage }) {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isAtTop, setIsAtTop] = useState(true);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,6 +47,12 @@ function Header({ isHomePage }) {
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
+    setIsDropdownOpen(false);
+  };
+
+  const toggleDropdown = (e) => {
+    e.preventDefault();
+    setIsDropdownOpen(!isDropdownOpen);
   };
 
   return (
@@ -63,8 +70,11 @@ function Header({ isHomePage }) {
           Eventos
         </Link>
 
-        <div className="dropdown">
-          <span className="nav-link dropdown-toggle">Concursos</span>
+        <div className={`dropdown ${isDropdownOpen ? "dropdown-open" : ""}`}>
+          <span className="nav-link dropdown-toggle" onClick={toggleDropdown}>
+            Concursos
+            <FaChevronDown className="dropdown-arrow" />
+          </span>
           <div className="dropdown-menu">
             <Link
               to="/foto-do-mes"

@@ -60,7 +60,8 @@
 }
 
 /* --- ANIMAÇÃO LINHA HORIZONTAL (SÓ LINKS NORMAIS) --- */
-.nav-link::after {
+.nav-link::after,
+.dropdown-toggle::after {
   content: "";
   position: absolute;
   bottom: 0;
@@ -70,12 +71,9 @@
   background-color: var(--color-accent);
   transition: width 0.3s ease;
 }
-.nav-link:hover::after {
+.nav-link:hover::after,
+.dropdown:hover .dropdown-toggle::after {
   width: 100%;
-}
-/* Remove ::after do toggle para não conflitar com animação L */
-.dropdown-toggle::after {
-  content: none;
 }
 
 /* --- SEUS ESTILOS DE DROPDOWN (INTOCADOS) --- */
@@ -346,90 +344,143 @@
     right: 0;
   }
 
-  /* Links no menu mobile sempre com cor primária */
-  .nav-link,
-  .dropdown-toggle {
-    color: rgba(255, 255, 255, 0.9);
+  /* ========================================
+     MENU MOBILE - ESTILOS LIMPOS
+     ======================================== */
+
+  /* Links principais do menu */
+  .nav-link {
+    color: #ffffff !important;
     font-size: 1.05rem;
     font-weight: 500;
     width: 100%;
     padding: 14px 18px;
     border-radius: 8px;
-    transition: all 0.25s ease;
+    transition: background 0.25s ease;
     letter-spacing: 0.3px;
-    position: relative;
-    overflow: hidden;
   }
 
-  .nav-link::before,
-  .dropdown-toggle::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 3px;
-    background: var(--color-accent);
-    transform: scaleY(0);
-    transition: transform 0.25s ease;
+  .nav-link::before {
+    display: none !important;
   }
 
-  .nav-link:hover,
-  .dropdown:hover .dropdown-toggle {
-    color: white;
+  .nav-link:hover {
     background: rgba(255, 255, 255, 0.1);
-    padding-left: 24px;
   }
 
-  .nav-link:hover::before,
-  .dropdown:hover .dropdown-toggle::before {
-    transform: scaleY(1);
-  }
-
-  /* Ajustar dropdown no mobile */
+  /* Dropdown container */
   .dropdown {
     width: 100%;
   }
 
   .dropdown::after,
   .dropdown::before {
-    display: none;
+    display: none !important;
   }
 
-  .dropdown-menu {
-    position: static;
+  /* Botão Concursos */
+  .dropdown-toggle {
+    color: #ffffff !important;
+    font-size: 1.05rem;
+    font-weight: 500;
     width: 100%;
-    box-shadow: none;
-    background: rgba(0, 0, 0, 0.2);
-    margin-top: 8px;
-    margin-left: 12px;
-    padding: 8px 0;
+    padding: 14px 18px;
     border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: background 0.25s ease;
+  }
+
+  .dropdown-toggle::before {
+    display: none !important;
+  }
+
+  .dropdown-toggle:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Seta animada */
+  .dropdown-arrow {
+    font-size: 0.65rem;
+    opacity: 0.7;
+    transition: transform 0.3s ease;
+  }
+
+  .dropdown-open .dropdown-arrow {
+    transform: rotate(180deg);
     opacity: 1;
-    transform: none;
-    pointer-events: auto;
-    display: none;
-    border-left: 2px solid var(--color-accent);
   }
 
+  /* Container subitens - invisível por padrão */
+  .dropdown-menu {
+    position: static !important;
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    transform: none !important;
+    transition:
+      max-height 0.3s ease,
+      opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  /* Desabilitar hover */
   .dropdown:hover .dropdown-menu {
-    display: block;
+    max-height: 0 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
   }
 
+  /* Aberto por clique */
+  .dropdown.dropdown-open .dropdown-menu {
+    max-height: 200px !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    padding: 4px 0 4px 20px;
+    pointer-events: auto !important;
+  }
+
+  .dropdown.dropdown-open:hover .dropdown-menu {
+    max-height: 200px !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+  /* Foto do Mês - estilo simples */
   .dropdown-item {
-    padding: 12px 20px;
-    color: rgba(255, 255, 255, 0.85);
+    display: block;
+    padding: 10px 16px;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.85) !important;
     font-size: 0.95rem;
     font-weight: 400;
+    background: transparent;
+    border: none;
     border-radius: 6px;
-    margin: 2px 8px;
-    transition: all 0.2s ease;
+    transition:
+      color 0.2s ease,
+      background 0.2s ease;
+  }
+
+  .dropdown-item::before {
+    display: none !important;
   }
 
   .dropdown-item:hover {
-    color: white;
+    color: #ffffff !important;
     background: rgba(255, 255, 255, 0.1);
-    padding-left: 26px;
   }
 
   /* Botão highlight no mobile */
@@ -437,7 +488,6 @@
     width: calc(100% - 8px);
     text-align: center;
     margin: 20px 4px 0;
-    background: linear-gradient(135deg, var(--color-accent) 0%, #ff5c00 100%);
     color: white;
     padding: 16px 24px;
     font-weight: 600;
