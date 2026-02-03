@@ -60,8 +60,7 @@
 }
 
 /* --- ANIMAÇÃO LINHA HORIZONTAL (SÓ LINKS NORMAIS) --- */
-.nav-link::after,
-.dropdown-toggle::after {
+.nav-link::after {
   content: "";
   position: absolute;
   bottom: 0;
@@ -71,9 +70,13 @@
   background-color: var(--color-accent);
   transition: width 0.3s ease;
 }
-.nav-link:hover::after,
-.dropdown:hover .dropdown-toggle::after {
+.nav-link:hover::after {
   width: 100%;
+}
+
+/* Remove ::after do dropdown-toggle (já tem animação em L com ::before) */
+.dropdown-toggle::after {
+  content: none;
 }
 
 /* --- SEUS ESTILOS DE DROPDOWN (INTOCADOS) --- */
@@ -84,6 +87,12 @@
 .dropdown-toggle {
   cursor: default;
 }
+
+/* Esconder seta do dropdown no desktop */
+.dropdown-arrow {
+  display: none;
+}
+
 .dropdown::after {
   content: "";
   position: absolute;
@@ -401,8 +410,9 @@
     background: rgba(255, 255, 255, 0.1);
   }
 
-  /* Seta animada */
+  /* Seta animada - visível apenas no mobile */
   .dropdown-arrow {
+    display: inline-block;
     font-size: 0.65rem;
     opacity: 0.7;
     transition: transform 0.3s ease;
