@@ -11,7 +11,6 @@ export default defineConfig({
       "/graphql": {
         target: "http://localhost:3002",
         changeOrigin: true,
-        rewrite: (path) => "/",
       },
       "/uploads": {
         target: "http://localhost:3002",
