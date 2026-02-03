@@ -100,7 +100,7 @@
   right: -87px;
   width: 2px;
   height: 0;
-  background-color: var(--color-accent);
+  background: linear-gradient(180deg, #ffaf81, #ffffff);
   transition: height 0.2s ease;
   z-index: 101;
 }
@@ -115,7 +115,7 @@
   left: 0;
   width: 0;
   height: 2px;
-  background-color: var(--color-accent);
+  background: linear-gradient(90deg, #ff5c00, #ffaf81);
   transition: width 0.3s ease 0.15s;
   z-index: 102;
 }

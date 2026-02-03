@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   FaCalendarAlt,
   FaBullhorn,
   FaNewspaper,
-  FaArrowDown,
+  FaTimes,
 } from "react-icons/fa";
 import "./PageEventos.css";
 import Calendario from "./Calendario.jsx";
@@ -11,31 +11,46 @@ import AtualizacoesEventos from "./AtualizacoesEventos.jsx";
 import FeedPostagens from "./FeedPostagens.jsx";
 
 export default function PageEventos() {
-  const scrollToAgenda = () => {
-    const element = document.getElementById("agenda-focus");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+  const [showPopup, setShowPopup] = useState(true);
+
+  const closePopup = () => {
+    setShowPopup(false);
   };
+
+  // Fechar popup com ESC
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === "Escape") setShowPopup(false);
+    };
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, []);
 
   return (
     <main className="page-eventos-wrapper">
-      <section className="eventos-hero">
-        <div className="hero-content">
-          <span className="hero-tag">FotoClube Atividades</span>
-          <h1 className="hero-title">
-            Explore a nossa <span className="highlight-text">Agenda</span>
-          </h1>
-          <p className="hero-description">
-            Participe nos nossos workshops, concursos e saídas fotográficas.
-            Fique a par de tudo o que acontece na nossa comunidade.
-          </p>
-          <button onClick={scrollToAgenda} className="btn-scroll-down">
-            Ver Eventos <FaArrowDown />
-          </button>
+      {/* Pop-up Explore a Nossa Agenda */}
+      {showPopup && (
+        <div className="agenda-popup-overlay" onClick={closePopup}>
+          <div className="agenda-popup" onClick={(e) => e.stopPropagation()}>
+            <button className="popup-close-btn" onClick={closePopup}>
+              <FaTimes />
+            </button>
+            <div className="popup-content">
+              <span className="hero-tag">FotoClube Atividades</span>
+              <h1 className="hero-title">
+                Explore a nossa <span className="highlight-text">Agenda</span>
+              </h1>
+              <p className="hero-description">
+                Participe nos nossos workshops, concursos e saídas fotográficas.
+                Fique a par de tudo o que acontece na nossa comunidade.
+              </p>
+              <button onClick={closePopup} className="btn-scroll-down">
+                Ver Eventos
+              </button>
+            </div>
+          </div>
         </div>
-        <div className="hero-bg-glow"></div>
-      </section>
+      )}
 
       <div className="page-eventos-container">
         <section id="agenda-focus" className="eventos-section">
