@@ -205,6 +205,12 @@
   }
 }
 
+@media (max-width: 1024px) {
+  .recent-activities {
+    padding-inline: 24px;
+  }
+}
+
 @media (max-width: 900px) {
   .recent-grid {
     grid-template-columns: repeat(2, 1fr);

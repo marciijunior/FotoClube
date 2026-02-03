@@ -136,6 +136,12 @@
 }
 
 /* ===== RESPONSIVO ===== */
+@media (max-width: 1024px) {
+  .intro-section {
+    padding-inline: 24px;
+  }
+}
+
 @media (min-width: 900px) {
   .intro-container {
     display: grid;

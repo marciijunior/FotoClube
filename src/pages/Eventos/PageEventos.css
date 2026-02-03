@@ -179,7 +179,16 @@
   padding: 0;
 }
 
+@media (max-width: 1024px) {
+  .page-eventos-wrapper {
+    padding-inline: 24px;
+  }
+}
+
 @media (max-width: 768px) {
+  .page-eventos-wrapper {
+    padding-inline: 16px;
+  }
   .hero-title {
     font-size: 2.5rem !important;
   }

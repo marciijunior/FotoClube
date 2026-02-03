@@ -281,6 +281,12 @@
   border: 1.5px solid rgba(255, 255, 255, 0.9);
 }
 
+@media (max-width: 1024px) {
+  .eventos-container-calendario {
+    padding-inline: 24px;
+  }
+}
+
 @media (max-width: 900px) {
   .eventos-container-calendario {
     grid-template-columns: 1fr;

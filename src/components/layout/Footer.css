@@ -40,6 +40,12 @@
   width: 100%;
 }
 
+@media (max-width: 1024px) {
+  .footer-container {
+    padding-inline: 24px;
+  }
+}
+
 @media (min-width: 640px) {
   .footer-column {
     align-items: flex-start;

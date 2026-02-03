@@ -154,6 +154,10 @@
 
 /* ===== RESPONSIVO ===== */
 @media (max-width: 1024px) {
+  .members-section {
+    padding-inline: 24px;
+  }
+
   .members-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 25px;

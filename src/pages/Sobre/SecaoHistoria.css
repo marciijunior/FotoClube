@@ -185,6 +185,12 @@
 }
 
 /* ===== RESPONSIVO ===== */
+@media (max-width: 1024px) {
+  .history-section-hq {
+    padding-inline: 24px;
+  }
+}
+
 @media (max-width: 900px) {
   .hq-container {
     grid-template-columns: 1fr;

@@ -226,7 +226,7 @@ export default function EditEventForm({ event, onDone }) {
           {
             method: "POST",
             body: formDataUpload,
-          }
+          },
         );
 
         if (!uploadResponse.ok) {

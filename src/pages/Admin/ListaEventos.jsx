@@ -147,7 +147,7 @@ export default function EventsList() {
           return new Date(
             parseInt(yearStr),
             monthsMap[monthStr],
-            parseInt(dayStr)
+            parseInt(dayStr),
           );
         } catch {
           return new Date(0);

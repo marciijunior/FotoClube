@@ -204,6 +204,12 @@
 }
 
 /* ===== RESPONSIVO ===== */
+@media (max-width: 1024px) {
+  .about-section-magazine {
+    padding-inline: 24px;
+  }
+}
+
 @media (max-width: 900px) {
   .magazine-container {
     grid-template-columns: 1fr;

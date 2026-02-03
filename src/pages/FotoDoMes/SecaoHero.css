@@ -123,6 +123,12 @@
   }
 }
 
+@media (max-width: 1024px) {
+  .potm-hero {
+    padding-inline: 24px;
+  }
+}
+
 @media (max-width: 900px) {
   .potm-hero {
     grid-template-columns: 1fr;

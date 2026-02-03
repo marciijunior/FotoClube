@@ -37,6 +37,12 @@
 }
 
 /* Responsividade */
+@media (max-width: 1024px) {
+  .potm-container {
+    padding-inline: 24px;
+  }
+}
+
 @media (max-width: 900px) {
   .section-title-light::after {
     left: 50%;

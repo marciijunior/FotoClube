@@ -253,6 +253,12 @@
   margin: 5px 0;
 }
 
+@media (max-width: 1024px) {
+  .potm-archive-menu-section {
+    padding-inline: 24px;
+  }
+}
+
 @media (max-width: 900px) {
   .archive-menu-container {
     grid-template-columns: 1fr;
