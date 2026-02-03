@@ -241,13 +241,6 @@ export default function EventsList() {
                 valueFormat="DD/MM/YYYY"
                 locale="pt-br"
                 clearable
-                styles={{
-                  label: {
-                    fontWeight: 600,
-                    marginBottom: 8,
-                    fontSize: "0.95rem",
-                  },
-                }}
                 getDayProps={(date) => {
                   const weekdays = [
                     "Domingo",
@@ -286,9 +279,6 @@ export default function EventsList() {
                     },
                   },
                 }}
-                label="Data do Evento"
-                placeholder="Selecione a data"
-                withAsterisk
                 styles={{
                   label: {
                     fontWeight: 600,

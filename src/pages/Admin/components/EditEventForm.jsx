@@ -315,20 +315,6 @@ export default function EditEventForm({ event, onDone }) {
                   required
                   size="md"
                   leftSection={<span style={{ fontSize: "1.2rem" }}>📅</span>}
-                  styles={{
-                    label: {
-                      fontWeight: 600,
-                      marginBottom: 8,
-                      fontSize: "0.95rem",
-                    },
-                    input: {
-                      fontWeight: 500,
-                      "&:focus": {
-                        borderColor: "#228be6",
-                        borderWidth: "2px",
-                      },
-                    },
-                  }}
                   valueFormat="DD/MM/YYYY"
                   locale="pt-br"
                   clearable
