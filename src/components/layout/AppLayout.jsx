@@ -4,6 +4,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import SplashScreen from "../shared/SplashScreen";
+import ScrollToTop from "../shared/ScrollToTop";
 import "./AppLayout.css";
 
 const AppLayout = () => {
@@ -17,6 +18,7 @@ const AppLayout = () => {
 
   return (
     <>
+      <ScrollToTop />
       {showSplash && <SplashScreen onFinish={handleSplashFinish} />}
       <Header isHomePage={isHomePage} />
 

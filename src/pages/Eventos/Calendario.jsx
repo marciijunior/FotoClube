@@ -66,7 +66,7 @@ const getEventMeta = (event) => {
 
 const imageModules = import.meta.glob(
   "../../assets/images/*.{jpg,jpeg,png,webp}",
-  { eager: true, as: "url" }
+  { eager: true, as: "url" },
 );
 const imageUrls = Object.values(imageModules);
 const getRandomImage = () =>
@@ -111,7 +111,7 @@ export default function Calendario() {
         // Precisamos encontrar o evento nos dados originais
         // Nota: Converta para string para garantir comparação segura
         const foundEvent = eventsData.find(
-          (e) => String(e.id) === String(eventId)
+          (e) => String(e.id) === String(eventId),
         );
 
         if (foundEvent) {
@@ -226,7 +226,7 @@ export default function Calendario() {
   const calendarCells = [];
   for (let i = 0; i < firstDayOfMonth; i++)
     calendarCells.push(
-      <div key={`empty-${i}`} className="calendar-day empty"></div>
+      <div key={`empty-${i}`} className="calendar-day empty"></div>,
     );
 
   for (let d = 1; d <= daysInMonth; d++) {
@@ -259,7 +259,7 @@ export default function Calendario() {
             ></span>
           )}
         </div>
-      </div>
+      </div>,
     );
   }
 

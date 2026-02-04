@@ -98,7 +98,7 @@ export default function CarouselManage() {
       onError: (error) => {
         alert(`Erro ao criar slide: ${error.message}`);
       },
-    }
+    },
   );
   const [deleteSlide] = useMutation(DELETE_SLIDE, {
     refetchQueries: ["GetSlides"],
@@ -120,7 +120,7 @@ export default function CarouselManage() {
         {
           method: "POST",
           body: formDataUpload,
-        }
+        },
       );
 
       const result = await response.json();
