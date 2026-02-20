@@ -8,7 +8,6 @@
 .potm-rules-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding-inline: var(--container-gutter);
   text-align: center;
 }
 
@@ -142,4 +141,9 @@
     font-size: 2rem;
     flex-shrink: 0;
   }
+}
+@media (max-width: 600px) {
+  .rules-cta-button {
+  font-size: 0.9rem;
+}
 }

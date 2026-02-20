@@ -39,7 +39,7 @@
 /* Responsividade */
 @media (max-width: 1024px) {
   .potm-container {
-    padding-inline: 24px;
+    padding-inline: 16px;
   }
 }
 

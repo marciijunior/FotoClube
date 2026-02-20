@@ -65,6 +65,9 @@
 }
 
 @media (max-width: 639px) {
+  .footer-container {
+    padding: 80px 16px;
+  }
   .footer-main {
     display: grid;
     grid-template-columns: 1fr;

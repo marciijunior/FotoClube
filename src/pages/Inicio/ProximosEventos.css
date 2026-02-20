@@ -49,8 +49,10 @@
   pointer-events: none;
 }
 
-.polaroid-container:hover::before {
-  opacity: 1;
+@media (hover: hover) {
+  .polaroid-container:hover::before {
+    opacity: 1;
+  }
 }
 
 .section-title {
@@ -174,14 +176,16 @@
   pointer-events: none;
 }
 
-.ph-list-item:hover {
-  transform: translateX(8px);
-  background-color: #fff;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-}
+@media (hover: hover) {
+  .ph-list-item:hover {
+    transform: translateX(8px);
+    background-color: #fff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  }
 
-.ph-list-item:hover::before {
-  opacity: 1;
+  .ph-list-item:hover::before {
+    opacity: 1;
+  }
 }
 
 .ph-list-item.active {
@@ -741,12 +745,14 @@
   pointer-events: none;
 }
 
-.pe-card:hover {
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
-}
+@media (hover: hover) {
+  .pe-card:hover {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+  }
 
-.pe-card:hover::before {
-  opacity: 1;
+  .pe-card:hover::before {
+    opacity: 1;
+  }
 }
 
 .pe-card-image {
@@ -824,10 +830,12 @@
   overflow: hidden;
 }
 
-.pe-card:hover .pe-card-button {
-  background: linear-gradient(135deg, #ff5e005d, #1f626b45);
-  color: var(--color-primary);
-  border-top-color: transparent;
+@media (hover: hover) {
+  .pe-card:hover .pe-card-button {
+    background: linear-gradient(135deg, #ff5e005d, #1f626b45);
+    color: var(--color-primary);
+    border-top-color: transparent;
+  }
 }
 
 /* ===============================================
@@ -1121,5 +1129,31 @@
   .pe-card-button {
     font-size: 0.75rem !important;
     padding: 5px 8px;
+  }
+}
+
+/* ===== HOVER PARA TOUCH/MOBILE (sem máscara CSS) ===== */
+@media (pointer: coarse) {
+  .polaroid-container:hover {
+    box-shadow:
+      0 20px 60px rgba(0, 0, 0, 0.1),
+      0 0 0 2px rgba(255, 92, 0, 0.35);
+  }
+
+  .ph-list-item:hover {
+    box-shadow: 0 0 0 2px rgba(255, 92, 0, 0.45);
+    background-color: #fff;
+  }
+
+  .pe-card:hover {
+    box-shadow:
+      0 15px 40px rgba(0, 0, 0, 0.1),
+      0 0 0 2px rgba(255, 92, 0, 0.35);
+  }
+
+  .pe-card:hover .pe-card-button {
+    background: linear-gradient(135deg, #ff5e005d, #1f626b45);
+    color: var(--color-primary);
+    border-top-color: transparent;
   }
 }

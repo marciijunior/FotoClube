@@ -294,7 +294,7 @@
     grid-template-columns: 1fr;
   }
   .potm-archive-menu-section {
-    padding: 0px 16px 0px 16px;
+    padding: 0px 0px;
   }
   .archive-menu-container {
     gap: 16px;

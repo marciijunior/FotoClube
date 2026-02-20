@@ -8,7 +8,7 @@
 .recent-inner {
   max-width: var(--container-max-width);
   margin: 0 auto;
-  padding: 0 var(--container-gutter);
+  padding: 0 0;
 }
 
 .recent-activities h3 {
@@ -259,10 +259,6 @@
 @media (max-width: 480px) {
   .recent-activities h3 {
     font-size: 1.8rem !important;
-  }
-
-  .recent-inner {
-    padding: 0 15px;
   }
 
   .recent-grid {

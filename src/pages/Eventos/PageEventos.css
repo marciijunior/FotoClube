@@ -98,7 +98,7 @@
 .page-eventos-container {
   max-width: var(--container-max-width);
   margin: 0 auto;
-  padding: 0 var(--container-gutter);
+  padding: 0 0;
 }
 
 .eventos-section {
@@ -134,7 +134,7 @@
   font-weight: 800;
   color: var(--color-primary);
   margin: 0;
-  padding-top: 40px;
+  padding-top: 0px;
   position: relative;
   padding-bottom: 12px;
   letter-spacing: -0.5px;
@@ -207,7 +207,7 @@
     font-size: 2rem !important;
   }
   .hero-description {
-    font-size: 1rem !important;
+    font-size: 0.7rem !important;
   }
   .hero-tag {
     font-size: 0.75rem !important;

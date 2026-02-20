@@ -201,12 +201,6 @@
   border-top-color: transparent;
 }
 
-@media (max-width: 1024px) {
-  .calendar-sidebar {
-    padding-inline: 24px;
-  }
-}
-
 @media (max-width: 900px) {
   .calendar-sidebar {
     position: static;
