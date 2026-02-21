@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
 
@@ -7,38 +7,78 @@ import "./SecaoSobre.css";
 import grupo1 from "../../assets/Grupo1.jpg";
 import grupo2 from "../../assets/Grupo2.jpg";
 
-function AboutSection() {
-  const imgOverlap1 = grupo1;
-  const imgOverlap2 = grupo2;
+function DraggableImage({ src, alt, className }) {
+  const elRef = useRef(null);
+  const dragRef = useRef(null);
 
+  const onPointerDown = (e) => {
+    e.preventDefault();
+    const el = elRef.current;
+    el.setPointerCapture(e.pointerId);
+    el.style.transition = "none";
+    el.style.cursor = "grabbing";
+    el.style.zIndex = "20";
+    dragRef.current = { startX: e.clientX, startY: e.clientY };
+  };
+
+  const onPointerMove = (e) => {
+    if (!dragRef.current) return;
+    const dx = e.clientX - dragRef.current.startX;
+    const dy = e.clientY - dragRef.current.startY;
+    elRef.current.style.transform = `translate(${dx}px, ${dy}px)`;
+  };
+
+  const onPointerUp = () => {
+    if (!dragRef.current) return;
+    dragRef.current = null;
+    const el = elRef.current;
+    el.style.transition =
+      "transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s";
+    el.style.transform = "translate(0px, 0px)";
+    el.style.cursor = "grab";
+    const cleanup = (ev) => {
+      if (ev.propertyName !== "transform") return;
+      el.style.transform = "";
+      el.style.transition = "";
+      el.style.zIndex = "";
+      el.removeEventListener("transitionend", cleanup);
+    };
+    el.addEventListener("transitionend", cleanup);
+  };
+
+  const sharedProps = {
+    ref: elRef,
+    className: `magazine-image ${className}`,
+    draggable: false,
+    style: { cursor: "grab", touchAction: "none", userSelect: "none" },
+    onPointerDown,
+    onPointerMove,
+    onPointerUp,
+    onPointerCancel: onPointerUp,
+  };
+
+  return src ? (
+    <img {...sharedProps} src={src} alt={alt} />
+  ) : (
+    <div {...sharedProps} aria-label={alt} />
+  );
+}
+
+function AboutSection() {
   return (
     <section className="about-section-magazine">
       <div className="magazine-container">
         <div className="magazine-image-stack">
-          {imgOverlap1 ? (
-            <img
-              src={imgOverlap1}
-              alt="Foto do clube 1"
-              className="magazine-image image-back"
-            />
-          ) : (
-            <div
-              className="magazine-image placeholder image-back"
-              aria-label="Foto do clube 1"
-            />
-          )}
-          {imgOverlap2 ? (
-            <img
-              src={imgOverlap2}
-              alt="Foto do clube 2"
-              className="magazine-image image-front"
-            />
-          ) : (
-            <div
-              className="magazine-image placeholder image-front"
-              aria-label="Foto do clube 2"
-            />
-          )}
+          <DraggableImage
+            src={grupo1}
+            alt="Foto do clube 1"
+            className="image-back"
+          />
+          <DraggableImage
+            src={grupo2}
+            alt="Foto do clube 2"
+            className="image-front"
+          />
         </div>
 
         <div className="magazine-text-box">

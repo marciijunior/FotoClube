@@ -261,6 +261,10 @@
     font-size: 1.8rem !important;
   }
 
+  .recent-activities {
+    padding: 40px 16px;
+  }
+
   .recent-grid {
     gap: 12px;
   }

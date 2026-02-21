@@ -213,17 +213,31 @@
 @media (max-width: 900px) {
   .magazine-container {
     grid-template-columns: 1fr;
-    gap: 30px;
+    gap: 0;
   }
 
   .magazine-image-stack {
     order: -1;
-    height: 350px;
+    height: 310px;
+    position: relative;
+    z-index: 15;
+    margin-bottom: -45px;
+  }
+
+  .image-back {
+    width: 78%;
+    height: 270px;
+  }
+
+  .image-front {
+    width: 62%;
+    height: 215px;
   }
 
   .magazine-text-box {
     margin-left: 0;
     padding: 40px;
+    padding-top: 60px;
   }
 }
 
@@ -242,17 +256,30 @@
   }
 
   .magazine-image-stack {
-    height: 300px;
+    height: 260px;
+    z-index: 15;
+    margin-bottom: -40px;
+  }
+
+  .image-back {
+    width: 75%;
+    height: 220px;
+  }
+
+  .image-front {
+    width: 58%;
+    height: 175px;
   }
 
   .magazine-text-box {
     padding: 30px;
+    padding-top: 55px;
   }
 }
 
 @media (max-width: 480px) {
   .about-section-magazine {
-    padding: 50px 0;
+    padding: 40px 0;
   }
 
   .magazine-eyebrow {
@@ -268,11 +295,24 @@
   }
 
   .magazine-image-stack {
-    height: 250px;
+    height: 215px;
+    z-index: 15;
+    margin-bottom: -35px;
+  }
+
+  .image-back {
+    width: 70%;
+    height: 180px;
+  }
+
+  .image-front {
+    width: 52%;
+    height: 145px;
   }
 
   .magazine-text-box {
     padding: 25px 20px;
+    padding-top: 48px;
     border-radius: 16px;
   }
 
