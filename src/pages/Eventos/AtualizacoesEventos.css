@@ -244,7 +244,8 @@
   }
 
   .recent-meta-item {
-    font-size: 0.75rem !important;
+    font-size: 0.6rem !important;
+    font-weight: 400;
   }
 
   .recent-actions {
@@ -258,7 +259,7 @@
 
 @media (max-width: 480px) {
   .recent-activities h3 {
-    font-size: 1.8rem !important;
+    font-size: 1.5rem !important;
   }
 
   .recent-activities {

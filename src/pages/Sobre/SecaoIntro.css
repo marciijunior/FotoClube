@@ -101,7 +101,6 @@
 .intro-image-banner::before{
   content: "";
   position: absolute;
-  left
 }
 
 .intro-image-banner::before {
