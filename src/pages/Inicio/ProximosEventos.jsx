@@ -119,7 +119,7 @@ function UpcomingEvents() {
   }, [data]);
 
   const [activeEventId, setActiveEventId] = useState(
-    displayEvents.length > 0 ? displayEvents[0].id : null
+    displayEvents.length > 0 ? displayEvents[0].id : null,
   );
   const [timerProgress, setTimerProgress] = useState(0);
   const isMobile = useIsMobile(1000);
@@ -152,7 +152,7 @@ function UpcomingEvents() {
 
     const interval = setInterval(() => {
       const currentIndex = displayEvents.findIndex(
-        (e) => e.id === activeEventId
+        (e) => e.id === activeEventId,
       );
       let nextIndex;
 
@@ -232,7 +232,15 @@ function UpcomingEvents() {
       <section className="upcoming-events-section">
         <div className="upcoming-events-container">
           <div className="polaroid-container">
-            <h2 className="section-title">Próximos Eventos</h2>
+            <h2
+              className="section-title"
+              style={{
+                "--timer-width":
+                  displayEvents.length > 1 ? `${timerProgress}%` : "100%",
+              }}
+            >
+              Próximos Eventos
+            </h2>
             <div className="ph-mobile-block">
               <div className="ph-mobile-date-image">
                 <div className="ph-item-date">
@@ -249,6 +257,9 @@ function UpcomingEvents() {
                     }}
                   ></div>
                 </div>
+                <Link to="/eventos" className="ph-all-events-link">
+                  Ver todos os eventos <FaArrowRight />
+                </Link>
               </div>
               <div className="ph-mobile-details">
                 <h3 className="ph-details-title">{event.title}</h3>

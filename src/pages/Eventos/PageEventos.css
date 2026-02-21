@@ -5,6 +5,7 @@
   min-height: 100vh;
   background-color: var(--color-light);
   padding-bottom: 80px;
+  padding-top: 40px;
 }
 
 .eventos-hero {
@@ -199,6 +200,12 @@
   }
   .section-label h2 {
     font-size: 1.8rem !important;
+  }
+  .page-eventos-wrapper {
+    padding-bottom: 40px;
+  }
+  .section-spacer {
+    margin: 40px 0;
   }
 }
 
