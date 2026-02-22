@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import {
   FaChevronLeft,
   FaChevronRight,
@@ -8,6 +8,7 @@ import {
 import { Link } from "react-router-dom";
 import { gql } from "@apollo/client";
 import { useQuery } from "@apollo/client/react";
+import { normalizeImage } from "../../lib/imageUtils";
 import "./CarrosselHero.css";
 
 const NUM_VISIBLE_THUMBNAILS = 5;
@@ -27,26 +28,15 @@ const GET_SLIDES = gql`
 
 function HeroCarousel() {
   const { data, loading, error } = useQuery(GET_SLIDES, {
-    fetchPolicy: "network-only", // Sempre buscar dados atualizados do servidor
+    fetchPolicy: "network-only",
   });
 
-  // Criar cópia do array antes de ordenar (Apollo retorna array read-only)
-  const slidesData = [...(data?.allSlides || [])].sort(
-    (a, b) => a.order - b.order
+  const slidesData = useMemo(
+    () => [...(data?.allSlides || [])].sort((a, b) => a.order - b.order),
+    [data],
   );
 
-  const normalizeImage = (img) => {
-    if (!img) return null;
-    if (
-      img.startsWith("http://localhost") ||
-      img.startsWith("https://localhost")
-    ) {
-      const filename = img.split("/").pop();
-      return `${import.meta.env.VITE_UPLOADS_URL}/${filename}`;
-    }
-    if (img.startsWith("http")) return img;
-    return `${import.meta.env.VITE_UPLOADS_URL}/${img}`;
-  };
+  const normalizeImg = (img) => normalizeImage(img);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleThumbnails, setVisibleThumbnails] = useState([]);
@@ -115,7 +105,7 @@ function HeroCarousel() {
   }, [currentIndex, slidesData.length]);
 
   // Se não houver slides, mostrar apenas fundo preto
-  if (loading) {
+  if (loading || error) {
     return (
       <div
         className="carousel-container"
@@ -145,7 +135,7 @@ function HeroCarousel() {
             key={slide.id}
             className={`slide ${index === currentIndex ? "active" : ""}`}
             style={{
-              backgroundImage: `url(${normalizeImage(slide.image) || ""})`,
+              backgroundImage: `url(${normalizeImg(slide.image) || ""})`,
             }}
           >
             <div className="slide-content">
@@ -181,7 +171,7 @@ function HeroCarousel() {
               onClick={() => goToSlide(thumbData.originalIndex)}
             >
               <img
-                src={normalizeImage(thumbData.image) || ""}
+                src={normalizeImg(thumbData.image) || ""}
                 alt={`Thumbnail ${thumbData.title}`}
               />
             </div>
@@ -192,10 +182,18 @@ function HeroCarousel() {
             {(currentIndex + 1).toString().padStart(2, "0")}
           </div>
           <div className="navigation">
-            <button onClick={goToPrevious} className="arrow">
+            <button
+              onClick={goToPrevious}
+              className="arrow"
+              aria-label="Slide anterior"
+            >
               <FaChevronLeft />
             </button>
-            <button onClick={goToNext} className="arrow">
+            <button
+              onClick={goToNext}
+              className="arrow"
+              aria-label="Próximo slide"
+            >
               <FaChevronRight />
             </button>
           </div>

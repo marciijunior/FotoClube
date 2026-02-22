@@ -1,11 +1,11 @@
 // src/pages/PhotoOfTheMonthPage/ArchiveSection.jsx
 import React, { useState, useMemo, useEffect } from "react";
-import { FaTimes } from "react-icons/fa";
+import { FaTimes, FaFilter } from "react-icons/fa";
 import "./SecaoArquivo.css";
 
 function ArchiveSection({ pastWinners, placeholderImage }) {
   const [selectedWinnerId, setSelectedWinnerId] = useState(
-    pastWinners[0]?.id || null
+    pastWinners[0]?.id || null,
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMonth, setSelectedMonth] = useState("");
@@ -96,7 +96,7 @@ function ArchiveSection({ pastWinners, placeholderImage }) {
 
     const interval = setInterval(() => {
       const currentIndex = filteredWinners.findIndex(
-        (w) => w.id === selectedWinnerId
+        (w) => w.id === selectedWinnerId,
       );
       let nextIndex;
 
@@ -122,6 +122,9 @@ function ArchiveSection({ pastWinners, placeholderImage }) {
         <div className="archive-menu-container">
           <div className="archive-menu-list">
             <div className="archive-filters">
+              <div className="archive-filter-icon">
+                <FaFilter />
+              </div>
               <select
                 value={selectedMonth}
                 onChange={(e) => setSelectedMonth(e.target.value)}

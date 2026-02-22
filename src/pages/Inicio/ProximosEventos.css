@@ -676,7 +676,6 @@
 .pe-section {
   margin-top: 20px;
   padding-top: 30px;
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .pe-title {
@@ -931,7 +930,7 @@
 
   .ph-all-events-link {
     font-size: 0.85rem !important;
-    padding-top: 15px;
+    padding: 8px 15px;
   }
 
   .ph-details-title {
@@ -1098,7 +1097,7 @@
   }
 
   .ph-all-events-link {
-    font-size: 0.85rem !important;
+    font-size: 0.6rem !important;
   }
 
   .ph-details-title {

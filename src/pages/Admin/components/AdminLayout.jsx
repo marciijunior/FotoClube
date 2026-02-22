@@ -1,15 +1,17 @@
-import React from "react";
 import { AppShell, Text, Group, Button, NavLink, Stack } from "@mantine/core";
 import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
+import { useApolloClient } from "@apollo/client/react";
 
 export default function AdminLayout() {
   const navigate = useNavigate();
   const location = useLocation();
+  const client = useApolloClient();
 
   const isActive = (path) => location.pathname === path;
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    client.resetStore();
     navigate("/admin/login");
   };
 
@@ -140,6 +142,19 @@ export default function AdminLayout() {
             label="Membros"
             leftSection={<span style={{ fontSize: "1.2rem" }}>👥</span>}
             active={location.pathname.startsWith("/admin/members")}
+            variant="filled"
+            style={{
+              borderRadius: "8px",
+              fontWeight: 600,
+            }}
+          />
+
+          <NavLink
+            component={Link}
+            to="/admin/posts"
+            label="Postagens"
+            leftSection={<span style={{ fontSize: "1.2rem" }}>📝</span>}
+            active={location.pathname.startsWith("/admin/posts")}
             variant="filled"
             style={{
               borderRadius: "8px",

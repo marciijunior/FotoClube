@@ -1,5 +1,4 @@
-// src/components/layout/AppLayout.jsx
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
@@ -12,9 +11,9 @@ const AppLayout = () => {
   const isHomePage = location.pathname === "/";
   const [showSplash, setShowSplash] = useState(isHomePage);
 
-  const handleSplashFinish = () => {
+  const handleSplashFinish = useCallback(() => {
     setShowSplash(false);
-  };
+  }, []);
 
   return (
     <>

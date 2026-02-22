@@ -1,6 +1,6 @@
 // src/components/layout/Header.jsx
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FaBars, FaTimes, FaChevronDown } from "react-icons/fa";
 import "./Header.css";
 
@@ -10,7 +10,7 @@ import logoAzul from "../../assets/logo-fotoclube-azul.png";
 
 function Header({ isHomePage }) {
   const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
+  const lastScrollY = useRef(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isAtTop, setIsAtTop] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -23,18 +23,18 @@ function Header({ isHomePage }) {
       setIsAtTop(currentScrollY < 50);
 
       // Mostrar header ao rolar para cima, esconder ao rolar para baixo
-      if (currentScrollY < lastScrollY || currentScrollY < 100) {
+      if (currentScrollY < lastScrollY.current || currentScrollY < 100) {
         setIsVisible(true);
-      } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+      } else if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
         setIsVisible(false);
       }
 
-      setLastScrollY(currentScrollY);
+      lastScrollY.current = currentScrollY;
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
+  }, []);
 
   const headerClass = `header ${!isHomePage ? "header-solid" : ""} ${!isVisible ? "header-hidden" : ""} ${!isAtTop ? "header-scrolled" : ""}`;
 
@@ -61,7 +61,12 @@ function Header({ isHomePage }) {
         <img src={logoSrc} alt="FotoClube Logo" />
       </Link>
 
-      <button className="mobile-menu-toggle" onClick={toggleMobileMenu}>
+      <button
+        className="mobile-menu-toggle"
+        onClick={toggleMobileMenu}
+        aria-label={isMobileMenuOpen ? "Fechar menu" : "Abrir menu"}
+        aria-expanded={isMobileMenuOpen}
+      >
         {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
       </button>
 
@@ -71,7 +76,15 @@ function Header({ isHomePage }) {
         </Link>
 
         <div className={`dropdown ${isDropdownOpen ? "dropdown-open" : ""}`}>
-          <span className="nav-link dropdown-toggle" onClick={toggleDropdown}>
+          <span
+            className="nav-link dropdown-toggle"
+            onClick={toggleDropdown}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") toggleDropdown(e);
+            }}
+          >
             Concursos
             <FaChevronDown className="dropdown-arrow" />
           </span>

@@ -25,14 +25,16 @@ export default function EventEdit() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Se a rota termina com /new ou não tem id, é criação
   const isNew = location.pathname.endsWith("/new") || !id;
+
+  const { data, loading } = useQuery(GET_EVENT, {
+    variables: { id },
+    skip: isNew,
+  });
 
   if (isNew) {
     return <EditEventForm onDone={() => navigate("/admin/events")} />;
   }
-
-  const { data, loading } = useQuery(GET_EVENT, { variables: { id } });
 
   if (loading)
     return (

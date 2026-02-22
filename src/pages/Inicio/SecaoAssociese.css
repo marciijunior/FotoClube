@@ -295,6 +295,10 @@
     overflow: hidden;
   }
 
+  .join-us-floating-card::before {
+    border-radius: 16px;
+  }
+
   .join-unique-stats-grid {
     display: flex;
     flex-direction: row;

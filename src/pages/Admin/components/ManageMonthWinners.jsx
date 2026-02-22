@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { gql } from "@apollo/client";
 import { useMutation, useQuery } from "@apollo/client/react";
 import {
@@ -10,18 +10,15 @@ import {
   Group,
   Stack,
   Text,
-  SimpleGrid,
   Image,
   Badge,
   Select,
-  Radio,
   Loader,
-  NumberInput,
   FileInput,
   Modal,
-  ActionIcon,
 } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
+import { uploadImage } from "../../../lib/imageUtils";
 
 const ALL_WINNERS = gql`
   query AllWinners {
@@ -122,21 +119,21 @@ export default function ManageMonthWinners({ monthWon }) {
         judgesNotes: "",
         position: i + 1,
         file: null,
-      }))
+      })),
   );
   const [selectedWinner, setSelectedWinner] = useState(0);
   const [modalOpened, setModalOpened] = useState(false);
   const [editingIndex, setEditingIndex] = useState(null);
 
   // Atualizar monthName quando mudar mês ou ano
-  React.useEffect(() => {
+  useEffect(() => {
     if (selectedMonth && selectedYear) {
       setMonthName(`${selectedMonth} ${selectedYear}`);
     }
   }, [selectedMonth, selectedYear]);
 
   // Extrair mês e ano do monthWon inicial
-  React.useEffect(() => {
+  useEffect(() => {
     if (monthWon) {
       const parts = monthWon.split(" ");
       if (parts.length === 2) {
@@ -158,7 +155,7 @@ export default function ManageMonthWinners({ monthWon }) {
   };
 
   // Atualizar array de fotos quando mudar o número
-  React.useEffect(() => {
+  useEffect(() => {
     setPhotos((prev) => {
       const newPhotos = Array(numPhotos)
         .fill(null)
@@ -191,7 +188,7 @@ export default function ManageMonthWinners({ monthWon }) {
   const loading = creating || updating || deleting;
 
   // Carregar fotos existentes do mês
-  React.useEffect(() => {
+  useEffect(() => {
     if (data?.allWinners && monthName) {
       const monthPhotos = data.allWinners
         .filter((w) => w.monthWon === monthName)
@@ -242,36 +239,11 @@ export default function ManageMonthWinners({ monthWon }) {
   };
 
   const handleImageUpload = async (index, file) => {
-    if (!file) {
-      console.log("Nenhum arquivo selecionado");
-      return;
-    }
-
-    console.log("Iniciando upload do arquivo:", file.name);
-    const formData = new FormData();
-    formData.append("image", file);
+    if (!file) return;
 
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_UPLOADS_URL.replace(/\/uploads$/, "")}/upload`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+      const data = await uploadImage(file);
 
-      console.log("Response status:", response.status);
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error("Erro no servidor:", errorText);
-        throw new Error("Erro ao fazer upload");
-      }
-
-      const data = await response.json();
-      console.log("Upload bem-sucedido:", data);
-
-      // Atualizar o estado de uma vez
       const newPhotos = [...photos];
       newPhotos[index] = {
         ...newPhotos[index],
@@ -279,16 +251,7 @@ export default function ManageMonthWinners({ monthWon }) {
         file: file,
       };
       setPhotos(newPhotos);
-
-      console.log(
-        "Estado atualizado - index:",
-        index,
-        "filename:",
-        data.filename
-      );
-      console.log("Novo array de photos:", newPhotos[index]);
     } catch (error) {
-      console.error("Erro ao fazer upload:", error);
       alert("Erro ao enviar imagem: " + error.message);
     }
   };
@@ -309,56 +272,54 @@ export default function ManageMonthWinners({ monthWon }) {
     }
 
     try {
-      // Criar/atualizar cada foto
-      for (let i = 0; i < photos.length; i++) {
-        const photo = photos[i];
+      // Criar/atualizar cada foto em paralelo
+      const operations = photos
+        .map((photo, i) => {
+          if (photo.title && photo.author && photo.image) {
+            const isWinner = i === selectedWinner;
 
-        // Se tem conteúdo
-        if (photo.title && photo.author && photo.image) {
-          const isWinner = i === selectedWinner;
-
-          if (photo.id) {
-            // Atualizar existente
-            await updateWinner({
-              variables: {
-                id: photo.id,
-                title: photo.title,
-                author: photo.author,
-                image: photo.image,
-                monthWon: monthName,
-                judgesNotes: photo.judgesNotes || "",
-                isWinner,
-                position: i + 1,
-              },
-            });
-          } else {
-            // Criar nova
-            await createWinner({
-              variables: {
-                title: photo.title,
-                author: photo.author,
-                image: photo.image,
-                monthWon: monthName,
-                judgesNotes: photo.judgesNotes || "",
-                isWinner,
-                position: i + 1,
-              },
+            if (photo.id) {
+              return updateWinner({
+                variables: {
+                  id: photo.id,
+                  title: photo.title,
+                  author: photo.author,
+                  image: photo.image,
+                  monthWon: monthName,
+                  judgesNotes: photo.judgesNotes || "",
+                  isWinner,
+                  position: i + 1,
+                },
+              });
+            } else {
+              return createWinner({
+                variables: {
+                  title: photo.title,
+                  author: photo.author,
+                  image: photo.image,
+                  monthWon: monthName,
+                  judgesNotes: photo.judgesNotes || "",
+                  isWinner,
+                  position: i + 1,
+                },
+                refetchQueries: ["AllWinners"],
+              });
+            }
+          } else if (photo.id) {
+            return deleteWinner({
+              variables: { id: photo.id },
               refetchQueries: ["AllWinners"],
             });
           }
-        } else if (photo.id) {
-          // Se tinha ID mas foi esvaziado, deletar
-          await deleteWinner({
-            variables: { id: photo.id },
-            refetchQueries: ["AllWinners"],
-          });
-        }
-      }
+          return null;
+        })
+        .filter(Boolean);
+
+      await Promise.all(operations);
 
       alert("Fotos salvas com sucesso!");
       navigate("/admin/winners");
     } catch (error) {
-      console.error("Erro ao salvar:", error);
       alert("Erro ao salvar fotos: " + error.message);
     }
   };
@@ -684,7 +645,7 @@ export default function ManageMonthWinners({ monthWon }) {
                         handlePhotoChange(
                           editingIndex,
                           "author",
-                          e.target.value
+                          e.target.value,
                         )
                       }
                       size="md"
@@ -698,7 +659,7 @@ export default function ManageMonthWinners({ monthWon }) {
                         handlePhotoChange(
                           editingIndex,
                           "judgesNotes",
-                          e.target.value
+                          e.target.value,
                         )
                       }
                       rows={4}

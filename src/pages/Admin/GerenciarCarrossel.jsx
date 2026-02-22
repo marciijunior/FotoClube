@@ -1,25 +1,22 @@
-import React from "react";
 import { gql } from "@apollo/client";
 import { useQuery, useMutation } from "@apollo/client/react";
 import {
-  Table,
   Button,
   Group,
   Loader,
   TextInput,
   Stack,
-  Paper,
   Title,
   Badge,
   Card,
   Text,
   Image,
-  ActionIcon,
   FileInput,
 } from "@mantine/core";
 import { useState } from "react";
 import { FaImages } from "react-icons/fa";
 import AdminPageLayout from "./LayoutPaginaAdmin";
+import { uploadImage } from "../../lib/imageUtils";
 
 const GET_SLIDES = gql`
   query GetSlides {
@@ -92,7 +89,6 @@ export default function CarouselManage() {
           order: 1,
         });
         setImageFile(null);
-        refetch();
         alert("Slide adicionado com sucesso!");
       },
       onError: (error) => {
@@ -102,7 +98,6 @@ export default function CarouselManage() {
   );
   const [deleteSlide] = useMutation(DELETE_SLIDE, {
     refetchQueries: ["GetSlides"],
-    onCompleted: () => refetch(),
   });
 
   const handleImageUpload = async (file) => {
@@ -111,19 +106,8 @@ export default function CarouselManage() {
     setImageFile(file);
     setUploading(true);
 
-    const formDataUpload = new FormData();
-    formDataUpload.append("image", file);
-
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_UPLOADS_URL.replace(/\/uploads$/, "")}/upload`,
-        {
-          method: "POST",
-          body: formDataUpload,
-        },
-      );
-
-      const result = await response.json();
+      const result = await uploadImage(file);
 
       if (result.url) {
         setFormData({ ...formData, image: result.url });

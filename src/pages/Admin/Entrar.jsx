@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { gql } from "@apollo/client";
 import { useMutation } from "@apollo/client/react";
@@ -24,18 +24,22 @@ const LOGIN = gql`
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loginError, setLoginError] = useState(null);
   const navigate = useNavigate();
   const [login, { loading, error }] = useMutation(LOGIN, {
     onCompleted(data) {
       if (data.login.ok && data.login.token) {
         localStorage.setItem("token", data.login.token);
         navigate("/admin");
+      } else {
+        setLoginError(data.login.message || "Credenciais inválidas.");
       }
     },
   });
 
   const submit = (e) => {
     e.preventDefault();
+    setLoginError(null);
     login({ variables: { email, password } });
   };
 
@@ -64,7 +68,11 @@ export default function Login() {
         <Button type="submit" fullWidth mt="md" loading={loading}>
           Entrar
         </Button>
-        {error && <div style={{ color: "red" }}>{error.message}</div>}
+        {(error || loginError) && (
+          <div style={{ color: "red", marginTop: 8 }}>
+            {error?.message || loginError}
+          </div>
+        )}
       </form>
     </Paper>
   );

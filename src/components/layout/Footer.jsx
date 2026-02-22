@@ -1,7 +1,5 @@
 // src/components/layout/Footer.jsx
 
-import React from "react";
-// 1. Ícones da biblioteca 'fa' (Font Awesome 5)
 import {
   FaMapMarkerAlt,
   FaPhone,
@@ -15,11 +13,8 @@ import {
   FaWhatsapp,
 } from "react-icons/fa";
 
-// 2. Ícones da biblioteca 'fa6' (Font Awesome 6)
-import { FaBehance, FaFlickr, Fa500Px, FaVimeoV } from "react-icons/fa6";
-
 import { Link } from "react-router-dom";
-import "./Footer.css"; // O CSS do Modo Claro (que você já tem) está correto
+import "./Footer.css";
 
 // Usa logo do bundle para evitar corromper em build/cache
 import logoSrc from "../../assets/logo-fotoclube-azul.png";
@@ -172,9 +167,11 @@ function Footer() {
           direitos reservados. Desenvolvido por
           <a
             href="https://marciojunior.dev"
-            target="blank"
+            target="_blank"
             rel="noopener noreferrer"
-          > Marcio Junior
+          >
+            {" "}
+            Marcio Junior
           </a>
           .
         </p>

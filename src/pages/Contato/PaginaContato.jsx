@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useMutation } from "@apollo/client/react";
 import { SEND_CONTACT_MESSAGE } from "../../graphql/mutations";
 import {
@@ -48,8 +48,7 @@ function PaginaContato() {
       } else {
         setStatus({ type: "error", message: data.sendContactMessage.message });
       }
-    } catch (error) {
-      console.error("Erro ao enviar mensagem:", error);
+    } catch {
       setStatus({
         type: "error",
         message: "Erro ao enviar mensagem. Tente novamente.",

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { gql } from "@apollo/client";
 import { useMutation } from "@apollo/client/react";
 import {
@@ -109,14 +109,18 @@ export default function EditMemberForm({ member, onDone }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (isEditing) {
-      await updateMember({
-        variables: { id: member.id, ...formData },
-      });
-    } else {
-      await createMember({
-        variables: formData,
-      });
+    try {
+      if (isEditing) {
+        await updateMember({
+          variables: { id: member.id, ...formData },
+        });
+      } else {
+        await createMember({
+          variables: formData,
+        });
+      }
+    } catch (error) {
+      alert("Erro ao salvar membro: " + error.message);
     }
   };
 

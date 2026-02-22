@@ -23,45 +23,45 @@
 
 .archive-filters {
   display: flex;
-  flex-direction: row;
-  gap: 8px;
+  align-items: center;
+  gap: 0.5rem;
   margin-bottom: 8px;
+  padding: 0.5rem 0.6rem;
+  background: #f5f2f0;
+  border-radius: 8px;
+  border: 1px solid #f5f2f0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.archive-filter-icon {
+  color: #000000;
+  font-size: 0.85rem;
+  flex-shrink: 0;
 }
 
 .archive-filter-select {
-  padding: 6px 8px;
-  border: 1px solid #f5f2f0;
-  border-radius: 4px;
-  background-color: #fff;
-  color: #666;
-  font-size: 0.8rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
   flex: 1;
-  accent-color: var(--color-primary);
+  min-width: 0;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid #f5f2f0;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-family: var(--font-body);
+  font-weight: 400;
+  color: #000000;
+  background: white;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
 }
 
 .archive-filter-select:hover {
-  border-left-color: #ff5c00;
-  color: var(--color-primary);
+  border-color: #1f626b;
 }
 
 .archive-filter-select:focus {
   outline: none;
-  border-left-color: #ff5c00;
-  color: var(--color-primary);
-}
-
-.archive-filter-select option {
-  background-color: #fff;
-  color: #333;
-  padding: 8px;
-}
-
-.archive-filter-select option:checked {
-  background-color: var(--color-primary);
-  color: #fff;
+  border-color: #000000;
 }
 
 .archive-timer-container {
@@ -311,8 +311,8 @@
     border-left-width: 4px;
   }
   .archive-filters {
-    flex-direction: column;
-    gap: 4px;
+    flex-direction: row;
+    gap: 0.5rem;
   }
   .archive-filter-select {
     width: 100%;

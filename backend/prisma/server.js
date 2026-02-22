@@ -12,12 +12,25 @@ import cors from "cors";
 import sharp from "sharp";
 import fs from "fs";
 import nodemailer from "nodemailer";
+import crypto from "crypto";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const JWT_SECRET =
-  process.env.JWT_SECRET || "seu-secret-super-secreto-aqui-change-me";
+if (!process.env.JWT_SECRET) {
+  console.error(
+    "ERRO FATAL: JWT_SECRET não definido nas variáveis de ambiente.",
+  );
+  process.exit(1);
+}
+const JWT_SECRET = process.env.JWT_SECRET;
+
+// Middleware para verificar autenticação em rotas protegidas
+function requireAuth(context) {
+  if (!context.userId) {
+    throw new Error("Não autenticado. Faça login para continuar.");
+  }
+}
 
 // Configuração do Multer para upload de imagens
 const storage = multer.diskStorage({
@@ -25,7 +38,8 @@ const storage = multer.diskStorage({
     cb(null, path.join(__dirname, "../uploads"));
   },
   filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    const uniqueSuffix =
+      Date.now() + "-" + crypto.randomBytes(8).toString("hex");
     cb(null, uniqueSuffix + path.extname(file.originalname));
   },
 });
@@ -254,8 +268,8 @@ const typeDefs = gql`
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: process.env.EMAIL_USER || "fotoclubearacatuba@gmail.com",
-    pass: process.env.EMAIL_PASS || "sua-senha-de-app-aqui",
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
   },
 });
 
@@ -287,20 +301,32 @@ const resolvers = {
   Mutation: {
     sendContactMessage: async (_, { name, email, subject, message }) => {
       try {
+        // Sanitizar input para prevenir XSS no email HTML
+        const esc = (str) =>
+          (str || "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;");
+        const safeName = esc(name);
+        const safeEmail = esc(email);
+        const safeSubject = esc(subject);
+        const safeMessage = esc(message);
+
         const mailOptions = {
-          from: `"${name}" <${email}>`,
-          to: "fotoclubearacatuba@gmail.com",
+          from: `"FotoClube Contato" <${process.env.EMAIL_USER}>`,
+          to: process.env.EMAIL_USER,
           replyTo: email,
-          subject: subject || `Mensagem de Contato - ${name}`,
+          subject: safeSubject || `Mensagem de Contato - ${safeName}`,
           html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
               <h2 style="color: #003b56;">Nova mensagem de contato</h2>
-              <p><strong>Nome:</strong> ${name}</p>
-              <p><strong>E-mail:</strong> ${email}</p>
-              <p><strong>Assunto:</strong> ${subject || "Não informado"}</p>
+              <p><strong>Nome:</strong> ${safeName}</p>
+              <p><strong>E-mail:</strong> ${safeEmail}</p>
+              <p><strong>Assunto:</strong> ${safeSubject || "Não informado"}</p>
               <hr style="border: 1px solid #eee;" />
               <h3 style="color: #ff5c00;">Mensagem:</h3>
-              <p style="white-space: pre-wrap;">${message}</p>
+              <p style="white-space: pre-wrap;">${safeMessage}</p>
               <hr style="border: 1px solid #eee;" />
               <p style="color: #888; font-size: 12px;">Esta mensagem foi enviada através do formulário de contato do site FotoClube de Araçatuba.</p>
             </div>
@@ -401,37 +427,38 @@ const resolvers = {
         },
       };
     },
-    createSlide: async (_, args) => {
-      console.log("createSlide chamado com:", args);
-      try {
-        const slide = await prisma.slide.create({ data: args });
-        console.log("Slide criado com sucesso:", slide);
-        return slide;
-      } catch (error) {
-        console.error("Erro ao criar slide:", error);
-        throw error;
-      }
+    createSlide: async (_, args, context) => {
+      requireAuth(context);
+      return await prisma.slide.create({ data: args });
     },
-    updateSlide: async (_, { id, ...data }) => {
+    updateSlide: async (_, { id, ...data }, context) => {
+      requireAuth(context);
       return await prisma.slide.update({
         where: { id: parseInt(id) },
         data,
       });
     },
-    deleteSlide: async (_, { id }) => {
+    deleteSlide: async (_, { id }, context) => {
+      requireAuth(context);
       return await prisma.slide.delete({ where: { id: parseInt(id) } });
     },
-    createMember: async (_, args) => await prisma.member.create({ data: args }),
-    updateMember: async (_, { id, ...data }) => {
+    createMember: async (_, args, context) => {
+      requireAuth(context);
+      return await prisma.member.create({ data: args });
+    },
+    updateMember: async (_, { id, ...data }, context) => {
+      requireAuth(context);
       return await prisma.member.update({
         where: { id: parseInt(id) },
         data,
       });
     },
-    deleteMember: async (_, { id }) => {
+    deleteMember: async (_, { id }, context) => {
+      requireAuth(context);
       return await prisma.member.delete({ where: { id: parseInt(id) } });
     },
-    createEvent: async (_, args) => {
+    createEvent: async (_, args, context) => {
+      requireAuth(context);
       const { title, date, time, description, location, image, category } =
         args;
       const eventData = {
@@ -445,45 +472,49 @@ const resolvers = {
       if (image) eventData.image = image;
       return await prisma.event.create({ data: eventData });
     },
-    updateEvent: async (_, { id, ...data }) => {
+    updateEvent: async (_, { id, ...data }, context) => {
+      requireAuth(context);
       return await prisma.event.update({
         where: { id: parseInt(id) },
         data,
       });
     },
-    deleteEvent: async (_, { id }) => {
+    deleteEvent: async (_, { id }, context) => {
+      requireAuth(context);
       return await prisma.event.delete({ where: { id: parseInt(id) } });
     },
-    createWinner: async (_, args) => await prisma.winner.create({ data: args }),
-    updateWinner: async (_, { id, ...data }) => {
+    createWinner: async (_, args, context) => {
+      requireAuth(context);
+      return await prisma.winner.create({ data: args });
+    },
+    updateWinner: async (_, { id, ...data }, context) => {
+      requireAuth(context);
       return await prisma.winner.update({
         where: { id: parseInt(id) },
         data,
       });
     },
-    deleteWinner: async (_, { id }) => {
+    deleteWinner: async (_, { id }, context) => {
+      requireAuth(context);
       return await prisma.winner.delete({ where: { id: parseInt(id) } });
     },
-    setCurrentContest: async (_, { monthWon }) => {
+    setCurrentContest: async (_, { monthWon }, context) => {
+      requireAuth(context);
       try {
-        // Primeiro, define todos como não atuais
         await prisma.winner.updateMany({
           data: { isCurrent: false },
         });
-
-        // Depois, marca o mês especificado como atual
         await prisma.winner.updateMany({
           where: { monthWon },
           data: { isCurrent: true },
         });
-
         return true;
-      } catch (error) {
-        console.error("Erro ao definir concurso atual:", error);
+      } catch {
         return false;
       }
     },
-    createPost: async (_, args) => {
+    createPost: async (_, args, context) => {
+      requireAuth(context);
       const postData = {
         title: args.title,
         content: args.content,
@@ -493,13 +524,15 @@ const resolvers = {
       };
       return await prisma.post.create({ data: postData });
     },
-    updatePost: async (_, { id, ...data }) => {
+    updatePost: async (_, { id, ...data }, context) => {
+      requireAuth(context);
       return await prisma.post.update({
         where: { id: parseInt(id) },
         data,
       });
     },
-    deletePost: async (_, { id }) => {
+    deletePost: async (_, { id }, context) => {
+      requireAuth(context);
       return await prisma.post.delete({ where: { id: parseInt(id) } });
     },
   },
@@ -528,54 +561,71 @@ app.use(express.json());
 // Servir arquivos estáticos da pasta uploads
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
-// Rota de upload de imagem com conversão para WebP
-app.post("/upload", upload.single("image"), async (req, res) => {
-  try {
-    if (!req.file) {
-      return res.status(400).json({ error: "Nenhum arquivo enviado" });
-    }
-
-    const originalPath = req.file.path;
-
-    // Verificar se o arquivo existe
-    if (!fs.existsSync(originalPath)) {
-      return res
-        .status(400)
-        .json({ error: "Arquivo não foi salvo corretamente" });
-    }
-
-    // Gerar um nome único com timestamp para evitar conflitos
-    const timestamp = Date.now();
-    const random = Math.floor(Math.random() * 1000000);
-    const webpFilename = `${timestamp}-${random}.webp`;
-    const webpPath = path.join(__dirname, "../uploads", webpFilename);
-
-    // Converter para WebP com otimização
-    await sharp(originalPath)
-      .webp({ quality: 85 }) // Qualidade 85% mantém ótima qualidade visual
-      .resize(1920, 1080, {
-        // Resize máximo mantendo aspect ratio
-        fit: "inside",
-        withoutEnlargement: true,
-      })
-      .toFile(webpPath);
-
-    // Deletar arquivo original apenas se for diferente do novo
-    if (originalPath !== webpPath) {
+// Rota de upload de imagem com conversão para WebP (protegida por auth)
+app.post(
+  "/upload",
+  (req, res, next) => {
+    const token = req.headers.authorization?.replace("Bearer ", "");
+    if (token) {
       try {
-        fs.unlinkSync(originalPath);
-      } catch (e) {
-        console.warn("Não foi possível deletar arquivo original:", e.message);
+        jwt.verify(token, JWT_SECRET);
+        return next();
+      } catch {
+        // token inválido
       }
     }
+    return res.status(401).json({ error: "Não autenticado" });
+  },
+  upload.single("image"),
+  async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ error: "Nenhum arquivo enviado" });
+      }
 
-    const imageUrl = `http://localhost:3002/uploads/${webpFilename}`;
-    res.json({ url: imageUrl, filename: webpFilename });
-  } catch (error) {
-    console.error("Erro no upload:", error);
-    res.status(500).json({ error: error.message });
-  }
-});
+      const originalPath = req.file.path;
+
+      // Verificar se o arquivo existe
+      if (!fs.existsSync(originalPath)) {
+        return res
+          .status(400)
+          .json({ error: "Arquivo não foi salvo corretamente" });
+      }
+
+      // Gerar um nome único com timestamp para evitar conflitos
+      const timestamp = Date.now();
+      const random = crypto.randomBytes(6).toString("hex");
+      const webpFilename = `${timestamp}-${random}.webp`;
+      const webpPath = path.join(__dirname, "../uploads", webpFilename);
+
+      // Converter para WebP com otimização
+      await sharp(originalPath)
+        .webp({ quality: 85 }) // Qualidade 85% mantém ótima qualidade visual
+        .resize(1920, 1080, {
+          // Resize máximo mantendo aspect ratio
+          fit: "inside",
+          withoutEnlargement: true,
+        })
+        .toFile(webpPath);
+
+      // Deletar arquivo original apenas se for diferente do novo
+      if (originalPath !== webpPath) {
+        try {
+          fs.unlinkSync(originalPath);
+        } catch (e) {
+          console.warn("Não foi possível deletar arquivo original:", e.message);
+        }
+      }
+
+      const baseUrl =
+        process.env.BASE_URL || `${req.protocol}://${req.get("host")}`;
+      const imageUrl = `${baseUrl}/uploads/${webpFilename}`;
+      res.json({ url: imageUrl, filename: webpFilename });
+    } catch (error) {
+      res.status(500).json({ error: "Erro ao processar upload" });
+    }
+  },
+);
 
 // Iniciar o Servidor Apollo
 const server = new ApolloServer({
@@ -589,7 +639,7 @@ const server = new ApolloServer({
         const decoded = jwt.verify(token, JWT_SECRET);
         return { userId: decoded.userId, role: decoded.role };
       } catch (err) {
-        console.log("Token inválido:", err.message);
+        // Token inválido — continua sem autenticação
       }
     }
 

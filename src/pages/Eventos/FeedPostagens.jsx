@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { gql } from "@apollo/client";
 import { useQuery } from "@apollo/client/react";
 import {
@@ -12,6 +12,7 @@ import {
 } from "react-icons/fa";
 import "./FeedPostagens.css";
 import logoFotoClube from "../../assets/logo_vertical_azul.png";
+import { normalizeImage } from "../../lib/imageUtils";
 
 const INSTAGRAM_URL =
   "https://www.instagram.com/fotoclubearacatuba?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==";
@@ -38,24 +39,9 @@ export default function FeedPosts({ limit = 10 }) {
     window.open(INSTAGRAM_URL, "_blank");
   };
 
-  const { data, loading } = useQuery(GET_ALL_POSTS, {
-    fetchPolicy: "network-only",
-  });
+  const { data, loading } = useQuery(GET_ALL_POSTS);
 
   const posts = data?.allPosts || [];
-
-  const normalizeImage = (img) => {
-    if (!img) return null;
-    if (
-      img.startsWith("http://localhost") ||
-      img.startsWith("https://localhost")
-    ) {
-      const filename = img.split("/").pop();
-      return `${import.meta.env.VITE_UPLOADS_URL}/${filename}`;
-    }
-    if (img.startsWith("http")) return img;
-    return `${import.meta.env.VITE_UPLOADS_URL}/${img}`;
-  };
 
   // Extrair anos disponíveis dos posts
   const availableYears = useMemo(() => {

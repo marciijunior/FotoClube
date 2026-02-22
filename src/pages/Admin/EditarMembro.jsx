@@ -26,11 +26,14 @@ export default function MemberEdit() {
 
   const isNew = location.pathname.endsWith("/new") || !id;
 
+  const { data, loading } = useQuery(GET_MEMBER, {
+    variables: { id },
+    skip: isNew,
+  });
+
   if (isNew) {
     return <EditMemberForm onDone={() => navigate("/admin/members")} />;
   }
-
-  const { data, loading } = useQuery(GET_MEMBER, { variables: { id } });
 
   if (loading)
     return (

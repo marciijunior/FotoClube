@@ -234,6 +234,10 @@
     border-radius: 12px;
   }
 
+  .recent-card::before {
+    border-radius: 12px;
+  }
+
   .recent-thumb-wrap {
     height: 100px;
     border-radius: 10px;

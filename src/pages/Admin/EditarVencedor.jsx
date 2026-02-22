@@ -25,11 +25,14 @@ export default function WinnerEdit() {
 
   const isNew = location.pathname.endsWith("/new") || !id;
 
+  const { data, loading } = useQuery(GET_WINNER, {
+    variables: { id },
+    skip: isNew,
+  });
+
   if (isNew) {
     return <EditWinnerForm onDone={() => navigate("/admin/winners")} />;
   }
-
-  const { data, loading } = useQuery(GET_WINNER, { variables: { id } });
 
   if (loading)
     return (

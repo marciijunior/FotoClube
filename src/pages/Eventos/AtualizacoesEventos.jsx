@@ -1,6 +1,5 @@
 /* src/pages/Eventos/EventUpdates.jsx */
-import React, { useMemo, useState, useEffect } from "react";
-// 1. IMPORTAR useNavigate
+import { useMemo, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@apollo/client/react";
 import { gql } from "@apollo/client";
@@ -13,6 +12,7 @@ import {
   FaNewspaper,
   FaArrowRight,
 } from "react-icons/fa";
+import { normalizeImage } from "../../lib/imageUtils";
 
 const GET_ALL_EVENTS = gql`
   query GetAllEvents {
@@ -61,60 +61,9 @@ const GET_ALL_POSTS = gql`
   }
 `;
 
-/* ... (MANTENHA TODO O CÓDIGO DE IMPORTS DE IMAGENS E DADOS IGUAL) ... */
-const imageModules = import.meta.glob(
-  "../../assets/images/*.{jpg,jpeg,png,webp}",
-  { eager: true, as: "url" }
-);
-const imageUrls = Object.values(imageModules || {});
-const getRandomImage = () =>
-  imageUrls && imageUrls.length
-    ? imageUrls[Math.floor(Math.random() * imageUrls.length)]
-    : "/src/assets/images/event-placeholder-1.jpg";
-
-const dataModules = import.meta.glob("../../data/*.{js,ts,json}", {
-  eager: true,
-  as: "default",
-});
-
-const findExport = (exportName, fileBase) => {
-  for (const path in dataModules) {
-    if (!Object.prototype.hasOwnProperty.call(dataModules, path)) continue;
-    const mod = dataModules[path] ?? {};
-    if (mod && mod[exportName]) return mod[exportName];
-    if (mod && mod.default && mod.default[exportName])
-      return mod.default[exportName];
-    if (
-      path.endsWith(`/${fileBase}.js`) ||
-      path.endsWith(`/${fileBase}.ts`) ||
-      path.endsWith(`/${fileBase}.json`)
-    ) {
-      const candidate = mod.default ?? mod;
-      if (candidate && candidate[exportName]) return candidate[exportName];
-    }
-  }
-  return [];
-};
-
 // REMOVIDO: Dados estáticos não devem ser usados - apenas dados do GraphQL
-// let eventsData = findExport("eventsData", "eventsData") || [];
-// let announcementsData = findExport("announcementsData", "announcementsData") || [];
-// let postsData = findExport("postsData", "postsData") || [];
-// let galleryData = findExport("galleryData", "galleryData") || [];
 
-/* ... (MANTENHA AS FUNÇÕES DE MAP (mapEvents, mapAnnouncements, etc.) IGUAIS) ... */
-const normalizeImage = (img) => {
-  if (!img) return null;
-  if (
-    img.startsWith("http://localhost") ||
-    img.startsWith("https://localhost")
-  ) {
-    const filename = img.split("/").pop();
-    return `${import.meta.env.VITE_UPLOADS_URL}/${filename}`;
-  }
-  if (img.startsWith("http")) return img;
-  return `${import.meta.env.VITE_UPLOADS_URL}/${img}`;
-};
+const getRandomImage = () => "/logo-fotoclube-azul.png";
 
 const mapEvents = (arr = []) =>
   arr.map((it) => {
@@ -134,20 +83,6 @@ const mapEvents = (arr = []) =>
     };
   });
 
-const mapAnnouncements = (arr = []) =>
-  arr.map((it) => ({
-    id: `announcement-${it.id ?? it.title}`,
-    type: "announcement",
-    title: it.title,
-    dateObj: it.createdAt
-      ? new Date(it.createdAt)
-      : (it.dateObj ?? (it.date ? new Date(it.date) : new Date())),
-    image: normalizeImage(it.image) ?? getRandomImage(),
-    excerpt: it.excerpt ?? it.summary ?? "",
-    meta: {},
-    original: it,
-  }));
-
 const mapPosts = (arr = []) =>
   arr.map((it) => ({
     id: `post-${it.id}`,
@@ -158,20 +93,6 @@ const mapPosts = (arr = []) =>
     excerpt:
       it.content.substring(0, 120) + (it.content.length > 120 ? "..." : ""),
     meta: { author: it.author, category: it.category },
-    original: it,
-  }));
-
-const mapGallery = (arr = []) =>
-  arr.map((it) => ({
-    id: `gallery-${it.id ?? Math.random()}`,
-    type: "gallery",
-    title: it.title ?? it.filename ?? "Nova imagem",
-    dateObj: it.createdAt
-      ? new Date(Number(it.createdAt))
-      : (it.dateObj ?? (it.uploadedAt ? new Date(it.uploadedAt) : new Date())),
-    image: normalizeImage(it.url || it.src) ?? getRandomImage(),
-    excerpt: it.caption ?? "",
-    meta: {},
     original: it,
   }));
 
@@ -195,7 +116,7 @@ const mapWinners = (arr = []) =>
     };
   });
 
-function useIsMobile(breakpoint = 600) {
+function useIsMobileLocal(breakpoint = 600) {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= breakpoint);
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= breakpoint);
@@ -210,14 +131,14 @@ export default function AtualizacoesEventos({
   onOpen,
   showTitle = true,
 }) {
-  const isMobile = useIsMobile(600);
+  const isMobile = useIsMobileLocal(600);
 
   const { data: eventsDataQL, refetch: refetchEvents } = useQuery(
     GET_ALL_EVENTS,
     {
       fetchPolicy: "cache-and-network",
       nextFetchPolicy: "cache-and-network",
-    }
+    },
   );
 
   const { data: winnersDataQL, refetch: refetchWinners } = useQuery(
@@ -225,7 +146,7 @@ export default function AtualizacoesEventos({
     {
       fetchPolicy: "network-only", // Forçar buscar do servidor sem cache
       nextFetchPolicy: "network-only",
-    }
+    },
   );
 
   const { data: postsDataQL, refetch: refetchPosts } = useQuery(GET_ALL_POSTS, {
@@ -233,60 +154,31 @@ export default function AtualizacoesEventos({
     nextFetchPolicy: "cache-and-network",
   });
 
-  const [injected, setInjected] = useState([]);
-
   // 2. INICIALIZAR O HOOK
   const navigate = useNavigate();
 
   // Usar dados do GraphQL
-  const eventsData = eventsDataQL?.allEvents || [];
-  const winnersData = winnersDataQL?.allWinners || [];
-  const postsData = postsDataQL?.allPosts || [];
 
-  // Refetch automaticamente a cada 10 segundos para pegar atualizações
+  // Refetch automaticamente a cada 60 segundos para pegar atualizações
   useEffect(() => {
     const interval = setInterval(() => {
       refetchEvents();
       refetchWinners();
       refetchPosts();
-    }, 10000);
+    }, 60000);
 
     return () => clearInterval(interval);
   }, [refetchEvents, refetchWinners, refetchPosts]);
 
-  useEffect(() => {
-    // ... (MANTENHA A LÓGICA DE SIMULAÇÃO IGUAL) ...
-    window.simulateUpdate = (opts = {}) => {
-      const now = new Date();
-      const mock = {
-        id: `debug-${Date.now()}`,
-        type: opts.type || "announcement",
-        title: opts.title || "Atualização de teste",
-        dateObj: opts.dateObj ? new Date(opts.dateObj) : now,
-        image: opts.image ?? getRandomImage(),
-        excerpt: opts.excerpt ?? "Descrição de teste gerada para simulação.",
-        meta: opts.meta ?? {},
-        original: opts.original ?? {},
-      };
-      setInjected((prev) => [mock, ...prev]);
-      return mock;
-    };
-
-    // Removido: verificação de dados estáticos não é mais necessária
-    // const hasSources = (eventsData && eventsData.length) || ...
-    // Dados virão sempre do GraphQL
-
-    return () => {
-      if (window.simulateUpdate) delete window.simulateUpdate;
-    };
-  }, []);
-
   const unified = useMemo(() => {
+    const eventsData = eventsDataQL?.allEvents || [];
+    const winnersData = winnersDataQL?.allWinners || [];
+    const postsData = postsDataQL?.allPosts || [];
+
     const list = [
       ...mapEvents(eventsData),
       ...mapWinners(winnersData),
       ...mapPosts(postsData),
-      ...injected,
     ];
 
     const byId = new Map();
@@ -299,11 +191,11 @@ export default function AtualizacoesEventos({
       }
     }
     const final = Array.from(byId.values()).sort(
-      (a, b) => b.dateObj - a.dateObj
+      (a, b) => b.dateObj - a.dateObj,
     );
 
     return final.slice(0, isMobile ? 4 : limit);
-  }, [limit, injected, eventsData, winnersData, postsData, isMobile]);
+  }, [limit, eventsDataQL, winnersDataQL, postsDataQL, isMobile]);
 
   if (!unified || unified.length === 0) {
     return (
@@ -333,7 +225,7 @@ export default function AtualizacoesEventos({
 
       // Navega para o calendário com a data E o eventId
       navigate(
-        `/eventos?ano=${d.getFullYear()}&mes=${d.getMonth()}&dia=${d.getDate()}&eventId=${originalId}`
+        `/eventos?ano=${d.getFullYear()}&mes=${d.getMonth()}&dia=${d.getDate()}&eventId=${originalId}`,
       );
     } else if (item.type === "contest") {
       // Redireciona para a página de foto do mês

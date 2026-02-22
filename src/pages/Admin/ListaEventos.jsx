@@ -20,6 +20,7 @@ import "dayjs/locale/pt-br";
 import { Link } from "react-router-dom";
 import { FaCalendarAlt, FaPlus } from "react-icons/fa";
 import AdminPageLayout from "./LayoutPaginaAdmin";
+import { parseEventDate, MONTH_MAP } from "../../lib/dateUtils";
 
 const ALL_EVENTS = gql`
   query AllEvents {
@@ -74,51 +75,20 @@ export default function EventsList() {
       const filterMonth = filterDate.getUTCMonth();
       const filterYear = filterDate.getUTCFullYear();
 
-      console.log("Filtro de data ativado:", {
-        filterDay,
-        filterMonth,
-        filterYear,
-        filterDate: filterDate.toISOString(),
-      });
-
       events = events.filter((ev) => {
         try {
           const [dayStr, rest] = ev.date.split(", ");
           const [monthStr, yearStr] = rest.split("-");
-          const monthsMap = {
-            Jan: 0,
-            Fev: 1,
-            Mar: 2,
-            Abr: 3,
-            Mai: 4,
-            Jun: 5,
-            Jul: 6,
-            Ago: 7,
-            Set: 8,
-            Out: 9,
-            Nov: 10,
-            Dez: 11,
-          };
           const evDay = parseInt(dayStr);
-          const evMonth = monthsMap[monthStr];
+          const evMonth = MONTH_MAP[monthStr];
           const evYear = parseInt(yearStr);
 
-          const match =
+          return (
             evDay === filterDay &&
             evMonth === filterMonth &&
-            evYear === filterYear;
-
-          console.log("Comparando evento:", {
-            eventDate: ev.date,
-            evDay,
-            evMonth,
-            evYear,
-            match,
-          });
-
-          return match;
-        } catch (error) {
-          console.log("Erro ao processar data do evento:", ev.date, error);
+            evYear === filterYear
+          );
+        } catch {
           return false;
         }
       });
@@ -126,36 +96,8 @@ export default function EventsList() {
 
     // Ordenar por data
     events.sort((a, b) => {
-      const parseDate = (dateStr) => {
-        try {
-          const [dayStr, rest] = dateStr.split(", ");
-          const [monthStr, yearStr] = rest.split("-");
-          const monthsMap = {
-            Jan: 0,
-            Fev: 1,
-            Mar: 2,
-            Abr: 3,
-            Mai: 4,
-            Jun: 5,
-            Jul: 6,
-            Ago: 7,
-            Set: 8,
-            Out: 9,
-            Nov: 10,
-            Dez: 11,
-          };
-          return new Date(
-            parseInt(yearStr),
-            monthsMap[monthStr],
-            parseInt(dayStr),
-          );
-        } catch {
-          return new Date(0);
-        }
-      };
-
-      const dateA = parseDate(a.date);
-      const dateB = parseDate(b.date);
+      const dateA = parseEventDate(a.date);
+      const dateB = parseEventDate(b.date);
 
       return sortOrder === "desc" ? dateB - dateA : dateA - dateB;
     });
@@ -403,7 +345,6 @@ export default function EventsList() {
                       typeof selectedDate === "string"
                         ? new Date(selectedDate)
                         : selectedDate;
-                    console.log("Aplicando filtro:", dateObj);
                     setFilterDate(dateObj);
                   }
                 }}

@@ -1,11 +1,9 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import { recentActivitiesData } from "../../data/recentActivitiesData";
 import { FaArrowRight, FaBullhorn, FaImage, FaNewspaper } from "react-icons/fa";
 import "./AtividadesRecentes.css";
 
 function RecentActivities({ limit = 8 }) {
-  // MUDANÇA: Limite agora é 8 (4x2)
   const navigate = useNavigate();
 
   const activities = recentActivitiesData.slice(0, limit);
@@ -19,10 +17,10 @@ function RecentActivities({ limit = 8 }) {
       const d = new Date(activity.timestamp);
       const eventId = activity.id;
       navigate(
-        `/eventos?ano=${d.getFullYear()}&mes=${d.getMonth()}&dia=${d.getDate()}&eventId=${eventId}`
+        `/eventos?ano=${d.getFullYear()}&mes=${d.getMonth()}&dia=${d.getDate()}&eventId=${eventId}`,
       );
     } else {
-      window.location.href = activity.link;
+      navigate(activity.link);
     }
   };
 
@@ -42,6 +40,14 @@ function RecentActivities({ limit = 8 }) {
               key={activity.id}
               className="recent-card"
               onClick={() => handleOpen(activity)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  handleOpen(activity);
+                }
+              }}
+              role="button"
+              tabIndex={0}
             >
               <div className="recent-thumb-wrap">
                 <img

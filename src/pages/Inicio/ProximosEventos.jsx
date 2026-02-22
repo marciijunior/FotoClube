@@ -1,15 +1,17 @@
 // src/features/home/UpcomingEvents.jsx
-import React, { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { gql } from "@apollo/client";
 import { useQuery } from "@apollo/client/react";
 import {
   FaMapMarkerAlt,
   FaCalendarAlt,
   FaArrowRight,
-  FaUserFriends,
   FaClock,
 } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { normalizeImage } from "../../lib/imageUtils";
+import { parseEventDate, generateCalendarLink } from "../../lib/dateUtils";
+import { useIsMobile } from "../../hooks/useIsMobile";
 import "./ProximosEventos.css";
 
 const ALL_EVENTS = gql`
@@ -27,61 +29,13 @@ const ALL_EVENTS = gql`
   }
 `;
 
-function useIsMobile(breakpoint = 1000) {
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= breakpoint);
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= breakpoint);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [breakpoint]);
-  return isMobile;
-}
-
 function UpcomingEvents() {
   const { data, loading } = useQuery(ALL_EVENTS, {
     fetchPolicy: "network-only",
   });
+  const navigate = useNavigate();
 
-  const placeholderImage = "/src/assets/images/placeholder-event.png";
   const logoImage = "/logo-fotoclube-azul.png";
-
-  const normalizeImage = (img) => {
-    if (!img) return null;
-    if (
-      img.startsWith("http://localhost") ||
-      img.startsWith("https://localhost")
-    ) {
-      const filename = img.split("/").pop();
-      return `${import.meta.env.VITE_UPLOADS_URL}/${filename}`;
-    }
-    if (img.startsWith("http")) return img;
-    return `${import.meta.env.VITE_UPLOADS_URL}/${img}`;
-  };
-
-  // Função para converter data do formato "20, Dez-2025" para Date
-  const parseEventDate = (dateStr) => {
-    try {
-      const [dayStr, rest] = dateStr.split(", ");
-      const [monthStr, yearStr] = rest.split("-");
-      const monthMap = {
-        Jan: 0,
-        Fev: 1,
-        Mar: 2,
-        Abr: 3,
-        Mai: 4,
-        Jun: 5,
-        Jul: 6,
-        Ago: 7,
-        Set: 8,
-        Out: 9,
-        Nov: 10,
-        Dez: 11,
-      };
-      return new Date(parseInt(yearStr), monthMap[monthStr], parseInt(dayStr));
-    } catch {
-      return new Date(0);
-    }
-  };
 
   // Filtrar e separar eventos futuros e passados
   const { displayEvents, pastEvents } = useMemo(() => {
@@ -170,40 +124,6 @@ function UpcomingEvents() {
   const activeEvent = useMemo(() => {
     return displayEvents.find((e) => e.id === activeEventId) || null;
   }, [activeEventId, displayEvents]);
-
-  // --- NOVA FUNÇÃO: Gera o link para o calendário ---
-  const generateCalendarLink = (dateString) => {
-    try {
-      if (!dateString) return "/eventos";
-      // Formato esperado no eventsData: "15, Dez-2025"
-      const [dayStr, rest] = dateString.split(", ");
-      const [monthStr, yearStr] = rest.split("-");
-
-      const monthMap = {
-        Jan: 0,
-        Fev: 1,
-        Mar: 2,
-        Abr: 3,
-        Mai: 4,
-        Jun: 5,
-        Jul: 6,
-        Ago: 7,
-        Set: 8,
-        Out: 9,
-        Nov: 10,
-        Dez: 11,
-      };
-
-      const day = parseInt(dayStr);
-      const year = parseInt(yearStr);
-      const month = monthMap[monthStr];
-
-      // Retorna: /eventos?ano=2025&mes=11&dia=15
-      return `/eventos?ano=${year}&mes=${month}&dia=${day}`;
-    } catch (e) {
-      return "/eventos";
-    }
-  };
 
   if (loading) {
     return (
@@ -356,9 +276,6 @@ function UpcomingEvents() {
                     style={{
                       backgroundImage: `url(${normalizeImage(event.image) || logoImage})`,
                     }}
-                    onError={(e) => {
-                      e.target.style.backgroundImage = `url(${logoImage})`;
-                    }}
                   ></div>
                 ))}
               </div>
@@ -412,9 +329,13 @@ function UpcomingEvents() {
                   <div
                     key={event.id}
                     className="pe-card"
-                    onClick={() =>
-                      (window.location.href = generateCalendarLink(event.date))
-                    }
+                    onClick={() => navigate(generateCalendarLink(event.date))}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        navigate(generateCalendarLink(event.date));
+                      }
+                    }}
                     role="button"
                     tabIndex={0}
                   >

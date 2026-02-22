@@ -58,7 +58,7 @@ export default function WinnersList() {
   const handleDeleteMonth = async (month) => {
     if (
       !confirm(
-        `Tem certeza que deseja deletar todos os vencedores de ${month}?`
+        `Tem certeza que deseja deletar todos os vencedores de ${month}?`,
       )
     ) {
       return;
@@ -76,7 +76,6 @@ export default function WinnersList() {
       alert("Concurso deletado com sucesso!");
       refetch();
     } catch (error) {
-      console.error("Erro ao deletar:", error);
       alert("Erro ao deletar concurso: " + error.message);
     }
   };

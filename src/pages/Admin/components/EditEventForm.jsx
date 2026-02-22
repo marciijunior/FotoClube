@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { gql } from "@apollo/client";
 import { useMutation } from "@apollo/client/react";
 import {
@@ -17,6 +17,8 @@ import {
 import { DateInput, TimeInput } from "@mantine/dates";
 import dayjs from "dayjs";
 import "dayjs/locale/pt-br";
+import { uploadImage } from "../../../lib/imageUtils";
+import { MONTH_MAP } from "../../../lib/dateUtils";
 import "./EditEventForm.css";
 
 const CREATE_EVENT = gql`
@@ -98,28 +100,11 @@ export default function EditEventForm({ event, onDone }) {
   const parseDate = (dateStr) => {
     if (!dateStr) return null;
     try {
-      // Formato esperado: "20, Dez-2025"
       const [dayStr, rest] = dateStr.split(", ");
       const [monthStr, yearStr] = rest.split("-");
-      const monthMap = {
-        Jan: 0,
-        Fev: 1,
-        Mar: 2,
-        Abr: 3,
-        Mai: 4,
-        Jun: 5,
-        Jul: 6,
-        Ago: 7,
-        Set: 8,
-        Out: 9,
-        Nov: 10,
-        Dez: 11,
-      };
       const day = parseInt(dayStr);
       const year = parseInt(yearStr);
-      const month = monthMap[monthStr];
-
-      // Criar data em UTC para evitar problemas de timezone
+      const month = MONTH_MAP[monthStr];
       return new Date(Date.UTC(year, month, day));
     } catch {
       return null;
@@ -155,28 +140,19 @@ export default function EditEventForm({ event, onDone }) {
   const [createEvent, { loading: creating }] = useMutation(CREATE_EVENT, {
     refetchQueries: ["AllEvents", "GetAllEvents"],
     awaitRefetchQueries: true,
-    onCompleted: () => {
-      // Forçar recarregamento completo do cache
-      window.location.reload();
-    },
+    onCompleted: () => onDone?.(),
   });
 
   const [updateEvent, { loading: updating }] = useMutation(UPDATE_EVENT, {
     refetchQueries: ["AllEvents", "GetAllEvents"],
     awaitRefetchQueries: true,
-    onCompleted: () => {
-      // Forçar recarregamento completo do cache
-      window.location.reload();
-    },
+    onCompleted: () => onDone?.(),
   });
 
   const [deleteEvent, { loading: deleting }] = useMutation(DELETE_EVENT, {
     refetchQueries: ["AllEvents", "GetAllEvents"],
     awaitRefetchQueries: true,
-    onCompleted: () => {
-      // Forçar recarregamento completo do cache
-      window.location.reload();
-    },
+    onCompleted: () => onDone?.(),
   });
 
   const handleSubmit = async (e) => {
@@ -212,27 +188,12 @@ export default function EditEventForm({ event, onDone }) {
     };
 
     try {
-      let imageUrl = formData.image; // Manter imagem existente se estiver editando
+      let imageUrl = formData.image;
 
       // Se houver novo arquivo de imagem, fazer upload
       if (imageFile) {
-        const formDataUpload = new FormData();
-        formDataUpload.append("image", imageFile);
-
-        const uploadResponse = await fetch(
-          `${import.meta.env.VITE_UPLOADS_URL.replace(/\/uploads$/, "")}/upload`,
-          {
-            method: "POST",
-            body: formDataUpload,
-          },
-        );
-
-        if (!uploadResponse.ok) {
-          throw new Error("Erro ao fazer upload da imagem");
-        }
-
-        const uploadData = await uploadResponse.json();
-        imageUrl = uploadData.url; // URL da imagem retornada pelo backend
+        const uploadData = await uploadImage(imageFile);
+        imageUrl = uploadData.url;
       }
 
       const dataToSubmit = {
@@ -252,7 +213,6 @@ export default function EditEventForm({ event, onDone }) {
         });
       }
     } catch (error) {
-      console.error("❌ Erro ao salvar evento:", error);
       alert("Erro ao salvar evento: " + error.message);
     }
   };

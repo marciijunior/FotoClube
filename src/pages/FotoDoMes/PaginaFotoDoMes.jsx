@@ -1,5 +1,4 @@
 // src/pages/FotoDoMes/PaginaFotoDoMes.jsx
-import React from "react";
 import { gql } from "@apollo/client";
 import { useQuery } from "@apollo/client/react";
 import { Loader } from "@mantine/core";
@@ -8,6 +7,7 @@ import SecaoHero from "./SecaoHero";
 import SecaoFilmstrip from "./SecaoFilmstrip";
 import SecaoArquivo from "./SecaoArquivo";
 import SecaoRegras from "./SecaoRegras";
+import { MONTH_MAP } from "../../lib/dateUtils";
 
 const GET_WINNERS = gql`
   query GetWinners {
@@ -27,7 +27,7 @@ const GET_WINNERS = gql`
 
 function PaginaFotoDoMes() {
   const { data, loading, error } = useQuery(GET_WINNERS);
-  const placeholderImage = "/src/assets/images/placeholder-winner.png";
+  const placeholderImage = "";
 
   if (loading) {
     return (
@@ -108,24 +108,9 @@ function PaginaFotoDoMes() {
 
   // Função para converter "Mês Ano" em data para ordenação
   const parseMonthYear = (monthYearStr) => {
-    const months = {
-      Janeiro: 0,
-      Fevereiro: 1,
-      Março: 2,
-      Abril: 3,
-      Maio: 4,
-      Junho: 5,
-      Julho: 6,
-      Agosto: 7,
-      Setembro: 8,
-      Outubro: 9,
-      Novembro: 10,
-      Dezembro: 11,
-    };
-
     const parts = monthYearStr.split(" ");
     if (parts.length === 2) {
-      const month = months[parts[0]] ?? 0;
+      const month = MONTH_MAP[parts[0]] ?? 0;
       const year = parseInt(parts[1]) || 2024;
       return new Date(year, month, 1);
     }

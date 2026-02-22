@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { gql } from "@apollo/client";
 import { useMutation } from "@apollo/client/react";
 import {
@@ -11,6 +11,7 @@ import {
   Stack,
 } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
+import { uploadImage } from "../../lib/imageUtils";
 
 const CREATE_POST = gql`
   mutation CreatePost(
@@ -64,17 +65,7 @@ export default function AddPostForm() {
     try {
       let imageUrl = "";
       if (form.image) {
-        // Envio do arquivo para backend (endpoint real: /upload, campo 'image')
-        const data = new FormData();
-        data.append("image", form.image);
-        const res = await fetch(
-          `${import.meta.env.VITE_UPLOADS_URL.replace(/\/uploads$/, "")}/upload`,
-          {
-            method: "POST",
-            body: data,
-          }
-        );
-        const result = await res.json();
+        const result = await uploadImage(form.image);
         imageUrl = result.url;
       }
 

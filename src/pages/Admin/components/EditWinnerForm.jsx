@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { gql } from "@apollo/client";
 import { useMutation } from "@apollo/client/react";
 import {
@@ -16,6 +16,7 @@ import {
   Image,
   Badge,
 } from "@mantine/core";
+import { uploadImage } from "../../../lib/imageUtils";
 
 const CREATE_WINNER = gql`
   mutation CreateWinner(
@@ -124,24 +125,10 @@ export default function EditWinnerForm({ winner, onDone }) {
 
     setUploadedFile(file);
 
-    const formDataUpload = new FormData();
-    formDataUpload.append("image", file);
-
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_UPLOADS_URL.replace(/\/uploads$/, "")}/upload`,
-        {
-          method: "POST",
-          body: formDataUpload,
-        }
-      );
-
-      if (!response.ok) throw new Error("Erro ao fazer upload");
-
-      const data = await response.json();
+      const data = await uploadImage(file);
       setFormData({ ...formData, image: data.filename });
     } catch (error) {
-      console.error("Erro ao fazer upload:", error);
       alert("Erro ao enviar imagem: " + error.message);
     }
   };
@@ -149,14 +136,18 @@ export default function EditWinnerForm({ winner, onDone }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (isEditing) {
-      await updateWinner({
-        variables: { id: winner.id, ...formData },
-      });
-    } else {
-      await createWinner({
-        variables: formData,
-      });
+    try {
+      if (isEditing) {
+        await updateWinner({
+          variables: { id: winner.id, ...formData },
+        });
+      } else {
+        await createWinner({
+          variables: formData,
+        });
+      }
+    } catch (error) {
+      alert("Erro ao salvar vencedor: " + error.message);
     }
   };
 

@@ -316,6 +316,10 @@
     border-radius: 16px;
   }
 
+  .magazine-text-box::before {
+    border-radius: 16px;
+  }
+
   .magazine-link {
     font-size: 0.85rem !important;
   }
